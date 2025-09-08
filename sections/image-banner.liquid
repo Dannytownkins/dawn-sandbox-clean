@@ -49,13 +49,22 @@
   if section.index == 1
     assign fetch_priority = 'high'
   endif
+  assign use_theme_asset_hero = false
+  if section.settings.use_theme_asset_hero and section.settings.theme_asset_key != blank
+    assign use_theme_asset_hero = true
+  endif
 -%}
 
 <div
   id="Banner-{{ section.id }}"
   class="banner banner--content-align-{{ section.settings.desktop_content_alignment }} banner--content-align-mobile-{{ section.settings.mobile_content_alignment }} banner--{{ section.settings.image_height }}{% if section.settings.stack_images_on_mobile and section.settings.image != blank and section.settings.image_2 != blank %} banner--stacked{% endif %}{% if section.settings.image_height == 'adapt' and section.settings.image != blank %} banner--adapt{% endif %}{% if section.settings.show_text_below %} banner--mobile-bottom{%- endif -%}{% if section.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
 >
-  {%- if section.settings.image != blank -%}
+  {%- if use_theme_asset_hero -%}
+    <div
+      class="banner__media media{% if section.settings.image == blank and section.settings.image_2 == blank %} placeholder{% endif %}{% if section.settings.image_2 != blank %} banner__media-half{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+      style="background-image:url({{ section.settings.theme_asset_key | asset_url }}); background-size: cover; background-position: center; min-height: 300px;"
+    ></div>
+  {%- elsif section.settings.image != blank -%}
     <div class="banner__media media{% if section.settings.image == blank and section.settings.image_2 == blank %} placeholder{% endif %}{% if section.settings.image_2 != blank %} banner__media-half{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
       {%- liquid
         assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio
@@ -87,7 +96,7 @@
       {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
     </div>
   {%- endif -%}
-  {%- if section.settings.image_2 != blank -%}
+  {%- if section.settings.image_2 != blank and use_theme_asset_hero == false -%}
     <div class="banner__media media{% if section.settings.image != blank %} banner__media-half{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
       {%- liquid
         assign image_height_2 = section.settings.image_2.width | divided_by: section.settings.image_2.aspect_ratio
@@ -184,6 +193,22 @@
       "type": "image_picker",
       "id": "image_2",
       "label": "t:sections.image-banner.settings.image_2.label"
+    },
+    {
+      "type": "header",
+      "content": "Asset override"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_theme_asset_hero",
+      "label": "Use theme asset as hero image",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "theme_asset_key",
+      "label": "Asset filename in assets/ (e.g. shrug-life-hero.jpg)",
+      "default": "shrug-life-hero.jpg"
     },
     {
       "type": "range",
