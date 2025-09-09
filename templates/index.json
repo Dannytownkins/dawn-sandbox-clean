@@ -15,15 +15,8 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Image banner",
+            "heading": "Shrug Life",
             "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "Give customers details about the banner image(s) or content on the template.",
-            "text_style": "body"
           }
         },
         "button": {
@@ -36,12 +29,19 @@
             "button_link_2": "",
             "button_style_secondary_2": false
           }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "Threads that will help get you through the day... or something",
+            "text_style": "body"
+          }
         }
       },
       "block_order": [
         "heading",
-        "text",
-        "button"
+        "button",
+        "text"
       ],
       "settings": {
         "image": "shopify://shop_images/shrug-life-hero-4.jpg",
@@ -225,8 +225,8 @@
     }
   },
   "order": [
-    "image_banner",
     "rich_text",
+    "image_banner",
     "featured_collection",
     "collage",
     "video",
