@@ -15,15 +15,8 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Image banner",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "Give customers details about the banner image(s) or content on the template.",
-            "text_style": "body"
+            "heading": "¯\\_(ツ)_/¯ Shrug Life",
+            "heading_size": "h0"
           }
         },
         "button": {
@@ -36,15 +29,23 @@
             "button_link_2": "",
             "button_style_secondary_2": false
           }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "Threads that will help get you through the day... or something",
+            "text_style": "body"
+          }
         }
       },
       "block_order": [
         "heading",
-        "text",
-        "button"
+        "button",
+        "text"
       ],
+      "custom_css": [],
       "settings": {
-        "image": "shopify://shop_images/shrug-life-hero-4.jpg",
+        "image": "shopify://shop_images/shrug-life-hero-5_no_emoji.jpg",
         "use_theme_asset_hero": false,
         "theme_asset_key": "shrug-life-hero.jpg",
         "image_overlay_opacity": 10,
@@ -53,40 +54,10 @@
         "desktop_content_position": "bottom-right",
         "desktop_content_alignment": "center",
         "show_text_box": false,
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-4",
         "stack_images_on_mobile": false,
         "mobile_content_alignment": "center",
         "show_text_below": false
-      }
-    },
-    "rich_text": {
-      "type": "rich-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Talk about your brand",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Share information about your brand with your customers. Do cool stuff, make announcements, or welcome customers to your store.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text"
-      ],
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "scheme-1",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 0
       }
     },
     "featured_collection": {
@@ -226,7 +197,6 @@
   },
   "order": [
     "image_banner",
-    "rich_text",
     "featured_collection",
     "collage",
     "video",
