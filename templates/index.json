@@ -16,7 +16,7 @@
           "type": "heading",
           "settings": {
             "heading": "Image banner",
-            "heading_size": "h0"
+            "heading_size": "h1"
           }
         },
         "text": {
@@ -50,7 +50,7 @@
         "image_overlay_opacity": 10,
         "image_height": "large",
         "image_behavior": "none",
-        "desktop_content_position": "bottom-center",
+        "desktop_content_position": "bottom-right",
         "desktop_content_alignment": "center",
         "show_text_box": false,
         "color_scheme": "scheme-3",
