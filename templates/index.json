@@ -9,17 +9,17 @@
  */
 {
   "sections": {
-    "image_banner": {
+    "image_banner_dJ3BgK": {
       "type": "image-banner",
       "blocks": {
-        "heading": {
+        "heading_8p3BUJ": {
           "type": "heading",
           "settings": {
             "heading": "¯\\_(ツ)_/¯ Shrug Life",
             "heading_size": "h0"
           }
         },
-        "button": {
+        "buttons_mTQJp6": {
           "type": "buttons",
           "settings": {
             "button_label_1": "Shop all",
@@ -30,7 +30,7 @@
             "button_style_secondary_2": false
           }
         },
-        "text": {
+        "text_DVbxyy": {
           "type": "text",
           "settings": {
             "text": "Threads that will help get you through the day... or something",
@@ -39,11 +39,10 @@
         }
       },
       "block_order": [
-        "heading",
-        "button",
-        "text"
+        "heading_8p3BUJ",
+        "buttons_mTQJp6",
+        "text_DVbxyy"
       ],
-      "custom_css": [],
       "settings": {
         "image": "shopify://shop_images/shrug-life-hero-6_no_emoji.jpg",
         "use_theme_asset_hero": false,
@@ -57,7 +56,11 @@
         "color_scheme": "scheme-4",
         "stack_images_on_mobile": false,
         "mobile_content_alignment": "center",
-        "show_text_below": false
+        "show_text_below": false,
+        "enable_shop_all_button": false,
+        "shop_all_label": "Shop All",
+        "shop_all_link": "",
+        "shop_all_secondary_style": false
       }
     },
     "featured_collection": {
@@ -196,7 +199,7 @@
     }
   },
   "order": [
-    "image_banner",
+    "image_banner_dJ3BgK",
     "featured_collection",
     "collage",
     "video",
