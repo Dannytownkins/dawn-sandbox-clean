@@ -49,22 +49,13 @@
   if section.index == 1
     assign fetch_priority = 'high'
   endif
-  assign use_theme_asset_hero = false
-  if section.settings.use_theme_asset_hero and section.settings.theme_asset_key != blank
-    assign use_theme_asset_hero = true
-  endif
 -%}
 
 <div
   id="Banner-{{ section.id }}"
   class="banner banner--content-align-{{ section.settings.desktop_content_alignment }} banner--content-align-mobile-{{ section.settings.mobile_content_alignment }} banner--{{ section.settings.image_height }}{% if section.settings.stack_images_on_mobile and section.settings.image != blank and section.settings.image_2 != blank %} banner--stacked{% endif %}{% if section.settings.image_height == 'adapt' and section.settings.image != blank %} banner--adapt{% endif %}{% if section.settings.show_text_below %} banner--mobile-bottom{%- endif -%}{% if section.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
 >
-  {%- if use_theme_asset_hero -%}
-    <div
-      class="banner__media media{% if section.settings.image == blank and section.settings.image_2 == blank %} placeholder{% endif %}{% if section.settings.image_2 != blank %} banner__media-half{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
-      style="background-image:url({{ section.settings.theme_asset_key | asset_url }}); background-size: cover; background-position: center; min-height: 300px;"
-    ></div>
-  {%- elsif section.settings.image != blank -%}
+  {%- if section.settings.image != blank -%}
     <div class="banner__media media{% if section.settings.image == blank and section.settings.image_2 == blank %} placeholder{% endif %}{% if section.settings.image_2 != blank %} banner__media-half{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
       {%- liquid
         assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio
@@ -96,7 +87,7 @@
       {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
     </div>
   {%- endif -%}
-  {%- if section.settings.image_2 != blank and use_theme_asset_hero == false -%}
+  {%- if section.settings.image_2 != blank -%}
     <div class="banner__media media{% if section.settings.image != blank %} banner__media-half{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
       {%- liquid
         assign image_height_2 = section.settings.image_2.width | divided_by: section.settings.image_2.aspect_ratio
@@ -132,16 +123,11 @@
             <h2
               class="banner__heading inline-richtext {{ block.settings.heading_size }}"
               {{ block.shopify_attributes }}
-              style="{% if block.settings.float_heading %}position: fixed; z-index: {{ block.settings.heading_z | default: 50 }}; {% if block.settings.heading_corner contains 'top' %}top: {{ block.settings.heading_offset_y | default: 24 }}px;{% else %}bottom: {{ block.settings.heading_offset_y | default: 24 }}px;{% endif %}{% if block.settings.heading_corner contains 'left' %}left: {{ block.settings.heading_offset_x | default: 24 }}px;{% else %}right: {{ block.settings.heading_offset_x | default: 24 }}px;{% endif %}{% endif %}"
             >
               {{ block.settings.heading }}
             </h2>
           {%- when 'text' -%}
-            <div
-              class="banner__text rte {{ block.settings.text_style }}"
-              {{ block.shopify_attributes }}
-              style="{% if block.settings.float_text %}position: fixed; z-index: {{ block.settings.text_z | default: 50 }}; {% if block.settings.text_corner contains 'top' %}top: {{ block.settings.text_offset_y | default: 24 }}px;{% else %}bottom: {{ block.settings.text_offset_y | default: 24 }}px;{% endif %}{% if block.settings.text_corner contains 'left' %}left: {{ block.settings.text_offset_x | default: 24 }}px;{% else %}right: {{ block.settings.text_offset_x | default: 24 }}px;{% endif %}{% endif %}"
-            >
+            <div class="banner__text rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
               <p>{{ block.settings.text }}</p>
             </div>
           {%- when 'buttons' -%}
@@ -174,37 +160,8 @@
                 </a>
               {%- endif -%}
             </div>
-          {%- when 'shop_all_button' -%}
-            <div class="banner__buttons" {{ block.shopify_attributes }}>
-              <a
-                {% if block.settings.link == blank %}
-                  href="/collections/all"
-                {% else %}
-                  href="{{ block.settings.link }}"
-                {% endif %}
-                class="button{% if block.settings.secondary_style %} button--secondary{% else %} button--primary{% endif %}"
-              >
-                {{ block.settings.label | default: 'Shop All' | escape }}
-              </a>
-            </div>
         {%- endcase -%}
       {%- endfor -%}
-      {%- liquid
-        assign show_shop_all = section.settings.enable_shop_all_button
-        if show_shop_all == blank
-          assign show_shop_all = true
-        endif
-      -%}
-      {%- if show_shop_all -%}
-        <div class="banner__buttons">
-          <a
-            href="{{ section.settings.shop_all_link | default: '/collections/all' }}"
-            class="button{% if section.settings.shop_all_secondary_style %} button--secondary{% else %} button--primary{% endif %}"
-          >
-            {{ section.settings.shop_all_label | default: 'Shop All' | escape }}
-          </a>
-        </div>
-      {%- endif -%}
     </div>
   </div>
 </div>
@@ -227,22 +184,6 @@
       "type": "image_picker",
       "id": "image_2",
       "label": "t:sections.image-banner.settings.image_2.label"
-    },
-    {
-      "type": "header",
-      "content": "Asset override"
-    },
-    {
-      "type": "checkbox",
-      "id": "use_theme_asset_hero",
-      "label": "Use theme asset as hero image",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "theme_asset_key",
-      "label": "Asset filename in assets/ (e.g. shrug-life-hero.jpg)",
-      "default": "shrug-life-hero.jpg"
     },
     {
       "type": "range",
@@ -417,12 +358,7 @@
       "id": "show_text_below",
       "default": true,
       "label": "t:sections.image-banner.settings.show_text_below.label"
-    },
-    { "type": "header", "content": "Shop All button (section-level)" },
-    { "type": "checkbox", "id": "enable_shop_all_button", "label": "Show Shop All button", "default": false },
-    { "type": "text", "id": "shop_all_label", "label": "Button label", "default": "Shop All" },
-    { "type": "url", "id": "shop_all_link", "label": "Link (defaults to /collections/all)" },
-    { "type": "checkbox", "id": "shop_all_secondary_style", "label": "Use secondary style", "default": false }
+    }
   ],
   "blocks": [
     {
@@ -463,42 +399,7 @@
           ],
           "default": "h1",
           "label": "t:sections.all.heading_size.label"
-        },
-        { "type": "header", "content": "Floating controls" },
-        { "type": "checkbox", "id": "float_heading", "label": "Float heading (position fixed)", "default": false },
-        {
-          "type": "select",
-          "id": "heading_corner",
-          "label": "Corner",
-          "options": [
-            { "value": "bottom-right", "label": "Bottom right" },
-            { "value": "bottom-left", "label": "Bottom left" },
-            { "value": "top-right", "label": "Top right" },
-            { "value": "top-left", "label": "Top left" }
-          ],
-          "default": "top-left"
-        },
-        {
-          "type": "range",
-          "id": "heading_offset_x",
-          "min": 0,
-          "max": 200,
-          "step": 2,
-          "unit": "px",
-          "label": "Horizontal offset",
-          "default": 24
-        },
-        {
-          "type": "range",
-          "id": "heading_offset_y",
-          "min": 0,
-          "max": 200,
-          "step": 2,
-          "unit": "px",
-          "label": "Vertical offset",
-          "default": 24
-        },
-        { "type": "range", "id": "heading_z", "min": 0, "max": 99, "step": 1, "label": "Z-index", "default": 50 }
+        }
       ]
     },
     {
@@ -531,42 +432,7 @@
           ],
           "default": "body",
           "label": "t:sections.image-banner.blocks.text.settings.text_style.label"
-        },
-        { "type": "header", "content": "Floating controls" },
-        { "type": "checkbox", "id": "float_text", "label": "Float text (position fixed)", "default": false },
-        {
-          "type": "select",
-          "id": "text_corner",
-          "label": "Corner",
-          "options": [
-            { "value": "bottom-right", "label": "Bottom right" },
-            { "value": "bottom-left", "label": "Bottom left" },
-            { "value": "top-right", "label": "Top right" },
-            { "value": "top-left", "label": "Top left" }
-          ],
-          "default": "top-left"
-        },
-        {
-          "type": "range",
-          "id": "text_offset_x",
-          "min": 0,
-          "max": 200,
-          "step": 2,
-          "unit": "px",
-          "label": "Horizontal offset",
-          "default": 24
-        },
-        {
-          "type": "range",
-          "id": "text_offset_y",
-          "min": 0,
-          "max": 200,
-          "step": 2,
-          "unit": "px",
-          "label": "Vertical offset",
-          "default": 24
-        },
-        { "type": "range", "id": "text_z", "min": 0, "max": 99, "step": 1, "label": "Z-index", "default": 50 }
+        }
       ]
     },
     {
@@ -619,16 +485,6 @@
           "label": "t:sections.image-banner.blocks.buttons.settings.button_style_secondary_2.label"
         }
       ]
-    },
-    {
-      "type": "shop_all_button",
-      "name": "Shop all button",
-      "limit": 1,
-      "settings": [
-        { "type": "text", "id": "label", "label": "Button label", "default": "Shop All" },
-        { "type": "url", "id": "link", "label": "Link (defaults to /collections/all)" },
-        { "type": "checkbox", "id": "secondary_style", "label": "Use secondary style", "default": false }
-      ]
     }
   ],
   "presets": [
@@ -643,9 +499,6 @@
         },
         {
           "type": "buttons"
-        },
-        {
-          "type": "shop_all_button"
         }
       ]
     }
