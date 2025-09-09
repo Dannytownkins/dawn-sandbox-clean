@@ -16,7 +16,12 @@
           "type": "heading",
           "settings": {
             "heading": "¯\\_(ツ)_/¯ Shrug Life",
-            "heading_size": "h0"
+            "heading_size": "h0",
+            "float_heading": false,
+            "heading_corner": "top-left",
+            "heading_offset_x": 24,
+            "heading_offset_y": 24,
+            "heading_z": 50
           }
         },
         "buttons_mTQJp6": {
@@ -34,7 +39,12 @@
           "type": "text",
           "settings": {
             "text": "Threads that will help get you through the day... or something",
-            "text_style": "body"
+            "text_style": "body",
+            "float_text": true,
+            "text_corner": "top-left",
+            "text_offset_x": 24,
+            "text_offset_y": 88,
+            "text_z": 0
           }
         }
       },
