@@ -132,11 +132,16 @@
             <h2
               class="banner__heading inline-richtext {{ block.settings.heading_size }}"
               {{ block.shopify_attributes }}
+              style="{% if block.settings.float_heading %}position: fixed; z-index: {{ block.settings.heading_z | default: 50 }}; {% if block.settings.heading_corner contains 'top' %}top: {{ block.settings.heading_offset_y | default: 24 }}px;{% else %}bottom: {{ block.settings.heading_offset_y | default: 24 }}px;{% endif %}{% if block.settings.heading_corner contains 'left' %}left: {{ block.settings.heading_offset_x | default: 24 }}px;{% else %}right: {{ block.settings.heading_offset_x | default: 24 }}px;{% endif %}{% endif %}"
             >
               {{ block.settings.heading }}
             </h2>
           {%- when 'text' -%}
-            <div class="banner__text rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
+            <div
+              class="banner__text rte {{ block.settings.text_style }}"
+              {{ block.shopify_attributes }}
+              style="{% if block.settings.float_text %}position: fixed; z-index: {{ block.settings.text_z | default: 50 }}; {% if block.settings.text_corner contains 'top' %}top: {{ block.settings.text_offset_y | default: 24 }}px;{% else %}bottom: {{ block.settings.text_offset_y | default: 24 }}px;{% endif %}{% if block.settings.text_corner contains 'left' %}left: {{ block.settings.text_offset_x | default: 24 }}px;{% else %}right: {{ block.settings.text_offset_x | default: 24 }}px;{% endif %}{% endif %}"
+            >
               <p>{{ block.settings.text }}</p>
             </div>
           {%- when 'buttons' -%}
@@ -458,7 +463,42 @@
           ],
           "default": "h1",
           "label": "t:sections.all.heading_size.label"
-        }
+        },
+        { "type": "header", "content": "Floating controls" },
+        { "type": "checkbox", "id": "float_heading", "label": "Float heading (position fixed)", "default": false },
+        {
+          "type": "select",
+          "id": "heading_corner",
+          "label": "Corner",
+          "options": [
+            { "value": "bottom-right", "label": "Bottom right" },
+            { "value": "bottom-left", "label": "Bottom left" },
+            { "value": "top-right", "label": "Top right" },
+            { "value": "top-left", "label": "Top left" }
+          ],
+          "default": "top-left"
+        },
+        {
+          "type": "range",
+          "id": "heading_offset_x",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "Horizontal offset",
+          "default": 24
+        },
+        {
+          "type": "range",
+          "id": "heading_offset_y",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "Vertical offset",
+          "default": 24
+        },
+        { "type": "range", "id": "heading_z", "min": 1, "max": 999, "step": 1, "label": "Z-index", "default": 50 }
       ]
     },
     {
@@ -491,7 +531,42 @@
           ],
           "default": "body",
           "label": "t:sections.image-banner.blocks.text.settings.text_style.label"
-        }
+        },
+        { "type": "header", "content": "Floating controls" },
+        { "type": "checkbox", "id": "float_text", "label": "Float text (position fixed)", "default": false },
+        {
+          "type": "select",
+          "id": "text_corner",
+          "label": "Corner",
+          "options": [
+            { "value": "bottom-right", "label": "Bottom right" },
+            { "value": "bottom-left", "label": "Bottom left" },
+            { "value": "top-right", "label": "Top right" },
+            { "value": "top-left", "label": "Top left" }
+          ],
+          "default": "top-left"
+        },
+        {
+          "type": "range",
+          "id": "text_offset_x",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "Horizontal offset",
+          "default": 24
+        },
+        {
+          "type": "range",
+          "id": "text_offset_y",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "Vertical offset",
+          "default": 24
+        },
+        { "type": "range", "id": "text_z", "min": 1, "max": 999, "step": 1, "label": "Z-index", "default": 50 }
       ]
     },
     {

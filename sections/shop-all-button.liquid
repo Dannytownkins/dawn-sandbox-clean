@@ -1,4 +1,8 @@
-<div id="shop-all-{{ section.id }}">
+<div
+  id="shop-all-{{ section.id }}"
+  class="{% if section.settings.mode == 'floating' %}sa-floating sa-corner-{{ section.settings.corner }}{% if section.settings.hide_on_mobile %} sa-hide-mobile{% endif %}{% endif %}"
+  style="{% if section.settings.mode == 'floating' %}{% if section.settings.corner contains 'top' %}top: {{ section.settings.offset_y | default: 24 }}px;{% else %}bottom: {{ section.settings.offset_y | default: 24 }}px;{% endif %}{% if section.settings.corner contains 'left' %}left: {{ section.settings.offset_x | default: 24 }}px;{% else %}right: {{ section.settings.offset_x | default: 24 }}px;{% endif %} z-index: {{ section.settings.z_index | default: 50 }};{% endif %}"
+>
   <div class="sa-wrap align-{{ section.settings.alignment }}">
     <a
       href="{{ section.settings.link | default: '/collections/all' }}"
@@ -10,10 +14,9 @@
 </div>
 
 <style>
-  #shop-all-{{ section.id }} {
-    margin-top: {{ section.settings.margin_top }}px;
-    margin-bottom: {{ section.settings.margin_bottom }}px;
-  }
+  #shop-all-{{ section.id }} { margin-top: {{ section.settings.margin_top }}px; margin-bottom: {{ section.settings.margin_bottom }}px; }
+  #shop-all-{{ section.id }}.sa-floating { position: fixed; margin: 0; }
+  @media screen and (max-width: 749px) { #shop-all-{{ section.id }}.sa-hide-mobile { display: none; } }
   #shop-all-{{ section.id }} .sa-wrap {
     display: flex;
   }
@@ -42,6 +45,50 @@
   "settings": [
     { "type": "text", "id": "label", "label": "Button label", "default": "Shop All" },
     { "type": "url", "id": "link", "label": "Link (defaults to /collections/all)" },
+    {
+      "type": "select",
+      "id": "mode",
+      "label": "Mode",
+      "options": [
+        { "value": "inline", "label": "Inline (default)" },
+        { "value": "floating", "label": "Floating overlay" }
+      ],
+      "default": "inline"
+    },
+    {
+      "type": "select",
+      "id": "corner",
+      "label": "Floating corner",
+      "options": [
+        { "value": "bottom-right", "label": "Bottom right" },
+        { "value": "bottom-left", "label": "Bottom left" },
+        { "value": "top-right", "label": "Top right" },
+        { "value": "top-left", "label": "Top left" }
+      ],
+      "default": "bottom-right"
+    },
+    {
+      "type": "range",
+      "id": "offset_x",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Horizontal offset",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "offset_y",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical offset",
+      "default": 24
+    },
+    { "type": "range", "id": "z_index", "min": 1, "max": 999, "step": 1, "label": "Z-index", "default": 50 },
+    { "type": "checkbox", "id": "hide_on_mobile", "label": "Hide on mobile", "default": false },
     {
       "type": "select",
       "id": "style",
