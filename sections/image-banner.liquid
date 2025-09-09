@@ -184,6 +184,16 @@
             </div>
         {%- endcase -%}
       {%- endfor -%}
+      {%- if section.settings.enable_shop_all_button -%}
+        <div class="banner__buttons">
+          <a
+            href="{{ section.settings.shop_all_link | default: '/collections/all' }}"
+            class="button{% if section.settings.shop_all_secondary_style %} button--secondary{% else %} button--primary{% endif %}"
+          >
+            {{ section.settings.shop_all_label | default: 'Shop All' | escape }}
+          </a>
+        </div>
+      {%- endif -%}
     </div>
   </div>
 </div>
@@ -396,7 +406,12 @@
       "id": "show_text_below",
       "default": true,
       "label": "t:sections.image-banner.settings.show_text_below.label"
-    }
+    },
+    { "type": "header", "content": "Shop All button (section-level)" },
+    { "type": "checkbox", "id": "enable_shop_all_button", "label": "Show Shop All button", "default": false },
+    { "type": "text", "id": "shop_all_label", "label": "Button label", "default": "Shop All" },
+    { "type": "url", "id": "shop_all_link", "label": "Link (defaults to /collections/all)" },
+    { "type": "checkbox", "id": "shop_all_secondary_style", "label": "Use secondary style", "default": false }
   ],
   "blocks": [
     {
