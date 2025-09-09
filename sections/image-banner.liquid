@@ -184,7 +184,13 @@
             </div>
         {%- endcase -%}
       {%- endfor -%}
-      {%- if section.settings.enable_shop_all_button -%}
+      {%- liquid
+        assign show_shop_all = section.settings.enable_shop_all_button
+        if show_shop_all == blank
+          assign show_shop_all = true
+        endif
+      -%}
+      {%- if show_shop_all -%}
         <div class="banner__buttons">
           <a
             href="{{ section.settings.shop_all_link | default: '/collections/all' }}"
@@ -562,6 +568,9 @@
         },
         {
           "type": "buttons"
+        },
+        {
+          "type": "shop_all_button"
         }
       ]
     }
