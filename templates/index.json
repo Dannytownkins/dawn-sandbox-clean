@@ -61,6 +61,54 @@
         "padding_bottom": 36
       }
     },
+    "image_banner_custom": {
+      "type": "image-banner",
+      "settings": {
+        "image": null,
+        "image_overlay_opacity": 0,
+        "image_height": "large",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": false,
+        "color_scheme": "scheme-1",
+        "stack_images_on_mobile": false,
+        "mobile_content_alignment": "center",
+        "show_text_below": false
+      },
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Apple-Minimal Banner",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "Refined essentials for everyday.",
+            "text_style": "body"
+          }
+        },
+        "buttons": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop all",
+            "button_link_1": "shopify://collections/all",
+            "button_style_secondary_1": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "buttons"
+      ]
+    },
     "feature_showcase": {
       "type": "feature_showcase",
       "blocks": {
@@ -88,7 +136,7 @@
       },
       "block_order": [
         "feature_1",
-        "feature_2", 
+        "feature_2",
         "feature_3"
       ],
       "settings": {
@@ -170,7 +218,8 @@
   },
   "order": [
     "hero_minimal",
-    "feature_showcase", 
+    "image_banner_custom",
+    "feature_showcase",
     "product_showcase_alt",
     "testimonials_rotator",
     "cta_stripe"
