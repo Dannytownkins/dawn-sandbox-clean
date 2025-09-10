@@ -2,14 +2,59 @@
   "sections": {
     "hero_minimal": {
       "type": "hero_minimal",
+      "blocks": {
+        "button_1": {
+          "type": "button",
+          "settings": {
+            "button_text": "Shop all",
+            "button_url": "shopify://collections/all",
+            "button_style": "button--primary"
+          }
+        },
+        "button_2": {
+          "type": "button",
+          "settings": {
+            "button_text": "Shop all",
+            "button_url": "shopify://collections/all",
+            "button_style": "button--secondary"
+          }
+        },
+        "button_3": {
+          "type": "button",
+          "settings": {
+            "button_text": "Shop all",
+            "button_url": "shopify://collections/all",
+            "button_style": "button--primary"
+          }
+        },
+        "button_4": {
+          "type": "button",
+          "settings": {
+            "button_text": "Shop all",
+            "button_url": "shopify://collections/all",
+            "button_style": "button--secondary"
+          }
+        },
+        "button_5": {
+          "type": "button",
+          "settings": {
+            "button_text": "Shop all",
+            "button_url": "shopify://collections/all",
+            "button_style": "button--primary"
+          }
+        }
+      },
+      "block_order": [
+        "button_1",
+        "button_2",
+        "button_3",
+        "button_4",
+        "button_5"
+      ],
       "settings": {
         "eyebrow": "Introducing",
         "heading": "Effortless essentials.",
         "subheading": "<p>Minimal design, maximal quality. Built for everyday use.</p>",
-        "primary_cta_text": "Shop now",
-        "primary_cta_url": "shopify://collections/all",
-        "secondary_cta_text": "Learn more",
-        "secondary_cta_url": "",
         "enable_gradient": true,
         "color_scheme": "scheme-1",
         "padding_top": 36,

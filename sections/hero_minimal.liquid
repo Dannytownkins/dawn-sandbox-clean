@@ -31,19 +31,13 @@
       <div class="hero-minimal__subheading rte">{{ section.settings.subheading }}</div>
     {% endif %}
 
-    {% if section.settings.primary_cta_text != blank or section.settings.secondary_cta_text != blank %}
+    {% if section.blocks.size > 0 %}
       <div class="hero-minimal__actions">
-        {% if section.settings.primary_cta_text != blank and section.settings.primary_cta_url != blank %}
-          <a href="{{ section.settings.primary_cta_url }}" class="button button--primary">
-            {{ section.settings.primary_cta_text }}
+        {% for block in section.blocks %}
+          <a href="{{ block.settings.button_url | default: '#' }}" class="button {{ block.settings.button_style }}">
+            {{ block.settings.button_text | default: 'Shop all' }}
           </a>
-        {% endif %}
-
-        {% if section.settings.secondary_cta_text != blank and section.settings.secondary_cta_url != blank %}
-          <a href="{{ section.settings.secondary_cta_url }}" class="button button--secondary">
-            {{ section.settings.secondary_cta_text }}
-          </a>
-        {% endif %}
+        {% endfor %}
       </div>
     {% endif %}
   </div>
@@ -72,28 +66,6 @@
       "id": "subheading",
       "label": "Subheading",
       "default": "<p>Minimal design, maximal quality. Built for everyday use.</p>"
-    },
-    {
-      "type": "text",
-      "id": "primary_cta_text",
-      "label": "Primary button text",
-      "default": "Shop now"
-    },
-    {
-      "type": "url",
-      "id": "primary_cta_url",
-      "label": "Primary button link"
-    },
-    {
-      "type": "text",
-      "id": "secondary_cta_text",
-      "label": "Secondary button text",
-      "default": "Learn more"
-    },
-    {
-      "type": "url",
-      "id": "secondary_cta_url",
-      "label": "Secondary button link"
     },
     {
       "type": "image_picker",
@@ -133,9 +105,62 @@
       "default": 36
     }
   ],
+  "blocks": [
+    {
+      "type": "button",
+      "name": "Button",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "Shop all"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "options": [
+            {
+              "value": "button--primary",
+              "label": "Primary"
+            },
+            {
+              "value": "button--secondary",
+              "label": "Secondary"
+            }
+          ],
+          "default": "button--primary"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Hero - Minimal"
+      "name": "Hero - Minimal",
+      "blocks": [
+        {
+          "type": "button"
+        },
+        {
+          "type": "button"
+        },
+        {
+          "type": "button"
+        },
+        {
+          "type": "button"
+        },
+        {
+          "type": "button"
+        }
+      ]
     }
   ]
 }
