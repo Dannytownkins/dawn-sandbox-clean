@@ -1,11 +1,3 @@
-{% comment %}
-  Image Banner — Freeform Group (new, standalone)
-  • Full control of banner height (desktop/mobile), image focal point, optional overlay
-  • A movable content GROUP (heading/text/buttons as blocks) with separate desktop/mobile positions
-  • Choose units: % (responsive) or px (absolute). Adjustable width per device.
-  • Upgrade-safe: does NOT modify Dawn's stock image-banner; it’s a brand new section.
-{% endcomment %}
-
 <section class="ibg" style="position:relative;">
   <div class="ibg-wrapper" style="position:relative; overflow:hidden;">
     {% assign height_dvh = section.settings.height_desktop | default: 60 %}
