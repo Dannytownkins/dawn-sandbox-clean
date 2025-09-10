@@ -1,0 +1,530 @@
+{% comment %}
+  Image Banner — Freeform Group (new, standalone)
+  • Full control of banner height (desktop/mobile), image focal point, optional overlay
+  • A movable content GROUP (heading/text/buttons as blocks) with separate desktop/mobile positions
+  • Choose units: % (responsive) or px (absolute). Adjustable width per device.
+  • Upgrade-safe: does NOT modify Dawn's stock image-banner; it’s a brand new section.
+{% endcomment %}
+
+<section class="ibg" style="position:relative;">
+  <div class="ibg-wrapper" style="position:relative; overflow:hidden;">
+    {% assign height_dvh = section.settings.height_desktop | default: 60 %}
+    {% assign height_mvh = section.settings.height_mobile | default: 50 %}
+    {% assign overlay_opacity = section.settings.overlay_opacity | times: 0.01 %}
+
+    {%- if section.settings.banner_image != blank -%}
+      <img
+        class="ibg-media"
+        src="{{ section.settings.banner_image | image_url: width: 2400 }}"
+        alt="{{ section.settings.banner_alt | escape }}"
+        loading="lazy"
+        width="{{ section.settings.banner_image.width }}"
+        height="{{ section.settings.banner_image.height }}"
+        style="
+          width:100%;
+          height:{{ height_dvh }}vh;
+          object-fit:cover;
+          object-position:{{ section.settings.focal_point }};
+        "
+      >
+    {%- else -%}
+      <div
+        class="ibg-placeholder"
+        style="display:grid;place-items:center;height:{{ height_dvh }}vh;background:#f5f5f7;color:#6b7280;"
+      >
+        <div style="font:600 16px system-ui">Choose a banner image in the section settings.</div>
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Optional image overlay {%- endcomment -%}
+    {% if section.settings.overlay_enabled %}
+      <div
+        class="ibg-overlay"
+        style="
+          position:absolute; inset:0; pointer-events:none;
+          {% if section.settings.overlay_style == 'gradient' %}
+            background: radial-gradient(120% 120% at 50% 20%, rgba(0,0,0,{{ overlay_opacity }}) 0%, rgba(0,0,0,0) 60%),
+                        linear-gradient(to bottom, rgba(0,0,0,{{ overlay_opacity }}) 0%, rgba(0,0,0,0) 40%);
+          {% else %}
+            background: rgba(0,0,0,{{ overlay_opacity }});
+          {% endif %}
+        "
+      ></div>
+    {% endif %}
+
+    {%- comment -%}
+      Free-position CONTENT GROUP (contains blocks: heading/text/button)
+      • Position switches for mobile via an inline script (so the editor feels instant)
+    {%- endcomment -%}
+    {% assign unit = section.settings.pos_unit | default: 'percent' %}
+
+    {% assign xd = section.settings.grp_x_percent_desktop | default: 50 %}
+    {% assign yd = section.settings.grp_y_percent_desktop | default: 50 %}
+    {% assign xm = section.settings.grp_x_percent_mobile | default: xd %}
+    {% assign ym = section.settings.grp_y_percent_mobile | default: yd %}
+    {% assign xdp = section.settings.grp_x_px_desktop | default: 0 %}
+    {% assign ydp = section.settings.grp_y_px_desktop | default: 0 %}
+    {% assign xmp = section.settings.grp_x_px_mobile | default: 0 %}
+    {% assign ymp = section.settings.grp_y_px_mobile | default: 0 %}
+
+    {% assign w_unit = section.settings.grp_width_unit | default: 'percent' %}
+    {% assign wd = section.settings.grp_width_percent_desktop | default: 40 %}
+    {% assign wm = section.settings.grp_width_percent_mobile | default: 86 %}
+    {% assign wdp = section.settings.grp_width_px_desktop | default: 560 %}
+    {% assign wmp = section.settings.grp_width_px_mobile | default: 320 %}
+
+    <div
+      class="ibg-group"
+      style="
+        position:absolute;
+        {% if unit == 'percent' %}
+          left: {{ xd }}%;
+          top:  {{ yd }}%;
+        {% else %}
+          left: {{ xdp }}px;
+          top:  {{ ydp }}px;
+        {% endif %}
+        transform: translate(-{{ section.settings.grp_anchor_x }}%, -{{ section.settings.grp_anchor_y }}%);
+        z-index: 3;
+        {% if w_unit == 'percent' %}
+          width: {{ wd }}%;
+        {% else %}
+          width: {{ wdp }}px;
+        {% endif %}
+        text-align: {{ section.settings.text_align }};
+        color: {{ section.settings.text_color }};
+        {% if section.settings.panel_enabled %}
+          background-color: {{ section.settings.panel_bg }};
+          border-radius: {{ section.settings.panel_radius }}px;
+          padding: {{ section.settings.panel_padding }}px;
+          box-shadow: {% if section.settings.panel_shadow %} 0 10px 30px rgba(0,0,0,.18) {% else %} none {% endif %};
+          backdrop-filter: {% if section.settings.panel_blur %} saturate(1.2) blur(8px) {% else %} none {% endif %};
+        {% endif %}
+      "
+      data-xd="{{ xd }}"
+      data-yd="{{ yd }}"
+      data-xm="{{ xm }}"
+      data-ym="{{ ym }}"
+      data-xdp="{{ xdp }}"
+      data-ydp="{{ ydp }}"
+      data-xmp="{{ xmp }}"
+      data-ymp="{{ ymp }}"
+      data-unit="{{ unit }}"
+      data-wd="{{ wd }}"
+      data-wm="{{ wm }}"
+      data-wdp="{{ wdp }}"
+      data-wmp="{{ wmp }}"
+      data-wunit="{{ w_unit }}"
+    >
+      {% comment %} Render blocks inside the group {% endcomment %}
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'heading' %}
+            {% assign lvl = block.settings.level | default: 'h1' %}
+            <{{ lvl }}
+              class="ibg-heading"
+              style="margin:0 0 {{ section.settings.stack_gap }}rem 0; font-weight:800; line-height:1.05; font-size: {{ block.settings.size | default: 3.0 }}rem;"
+            >
+              {{ block.settings.text | escape }}
+            </{{ lvl }}>
+          {% when 'subheading' %}
+            <p
+              class="ibg-subheading"
+              style="margin:0 0 {{ section.settings.stack_gap }}rem 0; font-weight:600; opacity:.9; line-height:1.2; font-size: {{ block.settings.size | default: 1.25 }}rem;"
+            >
+              {{ block.settings.text | escape }}
+            </p>
+          {% when 'richtext' %}
+            <div
+              class="ibg-richtext rte"
+              style="margin:0 0 {{ section.settings.stack_gap }}rem 0; line-height:1.55; opacity:.95;"
+            >
+              {{ block.settings.text }}
+            </div>
+          {% when 'button' %}
+            {% assign variant = block.settings.variant | default: 'primary' %}
+            <a
+              {% if block.settings.url != blank %}
+                href="{{ block.settings.url }}"
+              {% else %}
+                role="button"
+              {% endif %}
+              {% if block.settings.new_tab %}
+                target="_blank" rel="noopener"
+              {% endif %}
+              class="ibg-btn ibg-btn--{{ variant }}"
+              style="display:inline-block; margin-right:.75rem; margin-bottom:.75rem; text-decoration:none; outline:none;"
+            >
+              {{ block.settings.label | default: 'Shop All' }}
+            </a>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <style>
+    .ibg-btn{
+      padding:.9rem 1.25rem; border-radius:9999px; font-weight:600; line-height:1;
+      transition:transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease;
+    }
+    .ibg-btn:focus-visible{ outline:3px solid #2563eb; outline-offset:3px; }
+
+    /* Variants */
+    .ibg-btn--primary{
+      background: {{ section.settings.btn_primary_bg }}; color: {{ section.settings.btn_primary_text }};
+      box-shadow: 0 6px 18px rgba(0,0,0,.15);
+    }
+    .ibg-btn--primary:hover{ transform:scale(1.03); box-shadow:0 10px 28px rgba(0,0,0,.2); }
+
+    .ibg-btn--secondary{
+      background: transparent; color: {{ section.settings.btn_secondary_text }};
+      border: 2px solid {{ section.settings.btn_secondary_border }};
+    }
+    .ibg-btn--secondary:hover{ transform:scale(1.03); }
+
+    @media (max-width: 749px){
+      .ibg-media{ height: {{ height_mvh }}vh !important; }
+    }
+  </style>
+
+  <script>
+    (function () {
+      // Swap group position/width for mobile vs desktop
+      const group = document.currentScript.previousElementSibling.previousElementSibling; // style -> .ibg-group
+      const mq = window.matchMedia('(max-width: 749px)');
+
+      function apply() {
+        if (!group) return;
+        const unit = group.dataset.unit || 'percent';
+        const wunit = group.dataset.wunit || 'percent';
+        const isM = mq.matches;
+
+        if (unit === 'percent') {
+          group.style.left = (isM ? group.dataset.xm : group.dataset.xd) + '%';
+          group.style.top = (isM ? group.dataset.ym : group.dataset.yd) + '%';
+        } else {
+          group.style.left = (isM ? group.dataset.xmp : group.dataset.xdp) + 'px';
+          group.style.top = (isM ? group.dataset.ymp : group.dataset.ydp) + 'px';
+        }
+
+        if (wunit === 'percent') {
+          group.style.width = (isM ? group.dataset.wm : group.dataset.wd) + '%';
+        } else {
+          group.style.width = (isM ? group.dataset.wmp : group.dataset.wdp) + 'px';
+        }
+      }
+      apply();
+      try {
+        window.addEventListener('resize', apply, { passive: true });
+      } catch (e) {}
+    })();
+  </script>
+
+  {% schema %}
+{
+  "name": "Freeform Banner",
+
+  "settings": [
+    { "type": "image_picker", "id": "banner_image", "label": "Banner image" },
+    { "type": "text", "id": "banner_alt", "label": "Image alt text", "default": "Banner" },
+
+    {
+      "type": "range",
+      "id": "height_desktop",
+      "label": "Banner height (desktop, vh)",
+      "min": 30,
+      "max": 100,
+      "step": 2,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "height_mobile",
+      "label": "Banner height (mobile, vh)",
+      "min": 30,
+      "max": 100,
+      "step": 2,
+      "default": 50
+    },
+
+    {
+      "type": "select",
+      "id": "focal_point",
+      "label": "Image focal point",
+      "default": "center center",
+      "options": [
+        { "value": "center center", "label": "Center" },
+        { "value": "top center", "label": "Top" },
+        { "value": "bottom center", "label": "Bottom" },
+        { "value": "left center", "label": "Left" },
+        { "value": "right center", "label": "Right" },
+        { "value": "top left", "label": "Top Left" },
+        { "value": "top right", "label": "Top Right" },
+        { "value": "bottom left", "label": "Bottom Left" },
+        { "value": "bottom right", "label": "Bottom Right" }
+      ]
+    },
+
+    { "type": "checkbox", "id": "overlay_enabled", "label": "Enable overlay", "default": false },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay strength (0–100)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 30
+    },
+    {
+      "type": "select",
+      "id": "overlay_style",
+      "label": "Overlay style",
+      "default": "solid",
+      "options": [
+        { "value": "solid", "label": "Solid" },
+        { "value": "gradient", "label": "Gradient" }
+      ]
+    },
+
+    { "type": "header", "content": "Content group: global styling" },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#111111" },
+    {
+      "type": "range",
+      "id": "stack_gap",
+      "label": "Stack spacing (rem)",
+      "min": 0.25,
+      "max": 3.0,
+      "step": 0.1,
+      "default": 0.8
+    },
+
+    { "type": "checkbox", "id": "panel_enabled", "label": "Background panel behind content", "default": false },
+    { "type": "color", "id": "panel_bg", "label": "Panel background color", "default": "rgba(255,255,255,.75)" },
+    {
+      "type": "range",
+      "id": "panel_radius",
+      "label": "Panel corner radius (px)",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "panel_padding",
+      "label": "Panel padding (px)",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "default": 16
+    },
+    { "type": "checkbox", "id": "panel_shadow", "label": "Panel shadow", "default": true },
+    { "type": "checkbox", "id": "panel_blur", "label": "Backdrop blur (glass)", "default": false },
+
+    { "type": "header", "content": "Buttons: color theme" },
+    { "type": "color", "id": "btn_primary_bg", "label": "Primary button background", "default": "#111111" },
+    { "type": "color", "id": "btn_primary_text", "label": "Primary button text", "default": "#ffffff" },
+    { "type": "color", "id": "btn_secondary_text", "label": "Secondary button text", "default": "#111111" },
+    { "type": "color", "id": "btn_secondary_border", "label": "Secondary button border", "default": "#111111" },
+
+    { "type": "header", "content": "Content group: position & size" },
+    {
+      "type": "select",
+      "id": "pos_unit",
+      "label": "Position unit",
+      "default": "percent",
+      "options": [
+        { "value": "percent", "label": "Percent (responsive)" },
+        { "value": "px", "label": "Pixels (absolute)" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "grp_anchor_x",
+      "label": "Anchor X (% from left)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "grp_anchor_y",
+      "label": "Anchor Y (% from top)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50
+    },
+
+    {
+      "type": "range",
+      "id": "grp_x_percent_desktop",
+      "label": "Group X (desktop, %)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "grp_y_percent_desktop",
+      "label": "Group Y (desktop, %)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 40
+    },
+    { "type": "number", "id": "grp_x_px_desktop", "label": "Group X (desktop, px)", "default": 80 },
+    { "type": "number", "id": "grp_y_px_desktop", "label": "Group Y (desktop, px)", "default": 160 },
+
+    {
+      "type": "range",
+      "id": "grp_x_percent_mobile",
+      "label": "Group X (mobile, %)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "grp_y_percent_mobile",
+      "label": "Group Y (mobile, %)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 60
+    },
+    { "type": "number", "id": "grp_x_px_mobile", "label": "Group X (mobile, px)", "default": 16 },
+    { "type": "number", "id": "grp_y_px_mobile", "label": "Group Y (mobile, px)", "default": 220 },
+
+    {
+      "type": "select",
+      "id": "grp_width_unit",
+      "label": "Group width unit",
+      "default": "percent",
+      "options": [
+        { "value": "percent", "label": "Percent" },
+        { "value": "px", "label": "Pixels" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "grp_width_percent_desktop",
+      "label": "Group width (desktop, %)",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "grp_width_percent_mobile",
+      "label": "Group width (mobile, %)",
+      "min": 40,
+      "max": 100,
+      "step": 1,
+      "default": 86
+    },
+    { "type": "number", "id": "grp_width_px_desktop", "label": "Group width (desktop, px)", "default": 560 },
+    { "type": "number", "id": "grp_width_px_mobile", "label": "Group width (mobile, px)", "default": 320 }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "text", "label": "Heading text", "default": "Meet your next favorite thing" },
+        {
+          "type": "select",
+          "id": "level",
+          "label": "Heading level",
+          "default": "h1",
+          "options": [
+            { "value": "h1", "label": "H1" },
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "size",
+          "label": "Heading size (rem)",
+          "min": 1.5,
+          "max": 5.0,
+          "step": 0.1,
+          "default": 3.0
+        }
+      ]
+    },
+    {
+      "type": "subheading",
+      "name": "Subheading",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "text", "label": "Subheading text", "default": "Thoughtful design, no compromises." },
+        {
+          "type": "range",
+          "id": "size",
+          "label": "Subheading size (rem)",
+          "min": 1.0,
+          "max": 2.0,
+          "step": 0.1,
+          "default": 1.2
+        }
+      ]
+    },
+    {
+      "type": "richtext",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Body",
+          "default": "<p>A short, clear sentence about the product or collection.</p>"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Shop All" },
+        { "type": "url", "id": "url", "label": "Link" },
+        { "type": "checkbox", "id": "new_tab", "label": "Open in new tab", "default": false },
+        {
+          "type": "select",
+          "id": "variant",
+          "label": "Style",
+          "default": "primary",
+          "options": [
+            { "value": "primary", "label": "Primary" },
+            { "value": "secondary", "label": "Secondary" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Freeform Banner",
+      "blocks": [{ "type": "heading" }, { "type": "subheading" }, { "type": "button" }]
+    }
+  ]
+}
+  {% endschema %}
+</section>
