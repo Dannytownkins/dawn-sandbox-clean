@@ -1,0 +1,143 @@
+/* DESIGN VARIATION: APPLE — scoped under .apple-variation */
+:root {
+  --dv-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --dv-radius-2xl: 14px;
+  --dv-focus-ring: 3px;
+}
+
+/* Typography + smoothing */
+body.apple-variation, .apple-variation body {
+  font-family: var(--dv-font-sans), var(--font-body-family);
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global layout rhythm */
+.apple-variation .page-width {
+  max-width: 1200px;
+  padding-inline: clamp(16px, 4vw, 32px);
+}
+
+/* Header */
+.apple-variation .header {
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+  padding-block: clamp(14px, 2.6vw, 22px);
+}
+.apple-variation .header__inline-menu a,
+.apple-variation .header__submenu summary,
+.apple-variation .header__icon {
+  opacity: .9;
+}
+
+/* Footer */
+.apple-variation .footer {
+  border-top: 1px solid rgba(var(--color-foreground), 0.08);
+  padding-block: clamp(24px, 5vw, 48px);
+}
+
+/* Hero */
+.apple-variation .hero-minimal {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(1200px 600px at 50% -20%, rgba(0,0,0,0.06), transparent 60%),
+              linear-gradient(180deg, rgba(0,0,0,0.03), transparent 35%);
+}
+.apple-variation .hero-minimal__inner {
+  min-height: clamp(420px, 58vw, 680px);
+  display: grid;
+  align-content: center;
+  gap: 1.6rem;
+  padding-block: clamp(32px, 10vw, 96px);
+}
+.apple-variation .hero-minimal__eyebrow {
+  font-weight: 600;
+  opacity: .75;
+  margin: 0;
+}
+.apple-variation .hero-minimal__heading {
+  font-size: clamp(3.2rem, 6vw, 6.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.apple-variation .hero-minimal__subheading {
+  font-size: clamp(1.6rem, 2.2vw, 2rem);
+  color: rgba(var(--color-foreground), .75);
+  max-width: 72ch;
+}
+.apple-variation .hero-minimal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: .8rem;
+}
+
+/* Buttons */
+.apple-variation .button,
+.apple-variation button,
+.apple-variation .shopify-challenge__button,
+.apple-variation a.button,
+.apple-variation .button--primary,
+.apple-variation .button--secondary {
+  border-radius: var(--dv-radius-2xl);
+  padding: 1.1rem 1.6rem;
+  font-weight: 600;
+}
+.apple-variation .button--secondary {
+  background: rgba(var(--color-foreground), 0.06);
+  border: 1px solid rgba(var(--color-foreground), 0.12);
+}
+.apple-variation .button--secondary:hover {
+  background: rgba(var(--color-foreground), 0.10);
+}
+
+/* Focus rings */
+.apple-variation :where(a, button, [role="button"], .button, input, select, textarea):focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--dv-focus-ring) rgba(var(--color-foreground), .35);
+  border-radius: calc(var(--dv-radius-2xl) + 2px);
+}
+
+/* Cards */
+.apple-variation .card,
+.apple-variation .product-card-wrapper,
+.apple-variation .collection-card-wrapper,
+.apple-variation .article-card {
+  border-radius: var(--dv-radius-2xl);
+  overflow: clip;
+  border: 1px solid rgba(var(--color-foreground), 0.08);
+  background: rgba(var(--color-background), 1);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.apple-variation .card:hover,
+.apple-variation .product-card-wrapper:hover,
+.apple-variation .collection-card-wrapper:hover,
+.apple-variation .article-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  border-color: rgba(var(--color-foreground), 0.12);
+}
+@media (prefers-reduced-motion: reduce) {
+  .apple-variation .card:hover,
+  .apple-variation .product-card-wrapper:hover,
+  .apple-variation .collection-card-wrapper:hover,
+  .apple-variation .article-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* Links */
+.apple-variation a {
+  text-underline-offset: 3px;
+}
+
+/* Product grid spacing */
+.apple-variation .grid__item {
+  padding: clamp(8px, 1.6vw, 14px);
+}
+.apple-variation .grid {
+  row-gap: clamp(16px, 2.4vw, 28px);
+}
+
