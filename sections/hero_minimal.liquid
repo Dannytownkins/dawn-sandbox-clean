@@ -1,0 +1,149 @@
+{% liquid
+  assign color_scheme = section.settings.color_scheme
+  assign has_background_image = section.settings.background_image != blank
+  assign enable_gradient = section.settings.enable_gradient
+%}
+
+<section
+  id="section-{{ section.id }}"
+  class="hero-minimal color-{{ color_scheme }}"
+  style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  {% if has_background_image %}
+    <div class="hero-minimal__background">
+      {%- assign image_height = section.settings.desktop_image_height | default: 600 -%}
+      {{
+        section.settings.background_image
+        | image_url: width: 1920
+        | image_tag:
+          loading: 'lazy',
+          sizes: '100vw',
+          widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+          alt: section.settings.background_image.alt
+        | escape
+      }}
+    </div>
+  {% endif %}
+
+  <div class="page-width hero-minimal__content">
+    {% if section.settings.eyebrow != blank %}
+      <p class="hero-minimal__eyebrow">{{ section.settings.eyebrow }}</p>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h1 class="hero-minimal__heading">{{ section.settings.heading }}</h1>
+    {% endif %}
+
+    {% if section.settings.subheading != blank %}
+      <div class="hero-minimal__subheading rte">{{ section.settings.subheading }}</div>
+    {% endif %}
+
+    {% if section.settings.primary_cta_text != blank or section.settings.secondary_cta_text != blank %}
+      <div class="hero-minimal__actions">
+        {% if section.settings.primary_cta_text != blank and section.settings.primary_cta_url != blank %}
+          <a href="{{ section.settings.primary_cta_url }}" class="button button--primary">
+            {{ section.settings.primary_cta_text }}
+          </a>
+        {% endif %}
+
+        {% if section.settings.secondary_cta_text != blank and section.settings.secondary_cta_url != blank %}
+          <a href="{{ section.settings.secondary_cta_url }}" class="button button--secondary">
+            {{ section.settings.secondary_cta_text }}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero - Minimal",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Introducing"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Effortless essentials."
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>Minimal design, maximal quality. Built for everyday use.</p>"
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_text",
+      "label": "Primary button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_url",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_text",
+      "label": "Secondary button text",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_url",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image (optional)"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_gradient",
+      "label": "Enable gradient overlay",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero - Minimal"
+    }
+  ]
+}
+{% endschema %}

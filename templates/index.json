@@ -1,234 +1,133 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "hero_minimal": {
-      "type": "hero-minimal",
+      "type": "hero_minimal",
       "settings": {
         "eyebrow": "Introducing",
         "heading": "Effortless essentials.",
         "subheading": "<p>Minimal design, maximal quality. Built for everyday use.</p>",
-        "primary_label": "Shop all",
-        "primary_link": "shopify://collections/all",
-        "secondary_label": "Learn more",
-        "secondary_link": "",
+        "primary_cta_text": "Shop now",
+        "primary_cta_url": "shopify://collections/all",
+        "secondary_cta_text": "Learn more",
+        "secondary_cta_url": "",
+        "enable_gradient": true,
         "color_scheme": "scheme-1",
         "padding_top": 36,
         "padding_bottom": 36
       }
     },
-    "image_banner_dJ3BgK": {
-      "type": "image-banner",
+    "feature_showcase": {
+      "type": "feature_showcase",
       "blocks": {
-        "heading_8p3BUJ": {
-          "type": "heading",
+        "feature_1": {
+          "type": "feature",
           "settings": {
-            "heading": "¯\\_(ツ)_/¯ Shrug Life",
-            "heading_size": "h0",
-            "float_heading": false,
-            "heading_corner": "top-left",
-            "heading_offset_x": 24,
-            "heading_offset_y": 24,
-            "heading_z": 50
+            "title": "Premium Quality",
+            "description": "<p>Crafted with attention to detail and built to last.</p>"
           }
         },
-        "buttons_mTQJp6": {
-          "type": "buttons",
+        "feature_2": {
+          "type": "feature",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "title": "Fast Shipping",
+            "description": "<p>Free shipping on orders over $75. Express options available.</p>"
           }
         },
-        "text_DVbxyy": {
-          "type": "text",
+        "feature_3": {
+          "type": "feature",
           "settings": {
-            "text": "Threads that will help get you through the day... or something",
-            "text_style": "body",
-            "float_text": true,
-            "text_corner": "top-left",
-            "text_offset_x": 24,
-            "text_offset_y": 88,
-            "text_z": 0
+            "title": "Easy Returns",
+            "description": "<p>30-day returns, no questions asked.</p>"
           }
         }
       },
       "block_order": [
-        "heading_8p3BUJ",
-        "buttons_mTQJp6",
-        "text_DVbxyy"
+        "feature_1",
+        "feature_2", 
+        "feature_3"
       ],
       "settings": {
-        "image": "shopify://shop_images/shrug-life-hero-6_no_emoji.jpg",
-        "use_theme_asset_hero": false,
-        "theme_asset_key": "shrug-life-hero.jpg",
-        "image_overlay_opacity": 0,
-        "image_height": "large",
-        "image_behavior": "none",
-        "desktop_content_position": "middle-right",
-        "desktop_content_alignment": "center",
-        "show_text_box": false,
-        "color_scheme": "scheme-4",
-        "stack_images_on_mobile": false,
-        "mobile_content_alignment": "center",
-        "show_text_below": false,
-        "enable_shop_all_button": false,
-        "shop_all_label": "Shop All",
-        "shop_all_link": "",
-        "shop_all_secondary_style": false
+        "heading": "Why choose us",
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "product_showcase_alt": {
+      "type": "product_showcase_alt",
       "settings": {
+        "heading": "Featured products",
         "collection": "all",
-        "products_to_show": 8,
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": false,
-        "view_all_style": "solid",
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
+        "products_to_show": 4,
+        "layout": "grid",
         "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 28,
+        "show_quick_add": true,
+        "show_view_all": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
         "padding_bottom": 36
       }
     },
-    "collage": {
-      "type": "collage",
+    "testimonials_rotator": {
+      "type": "testimonials_rotator",
       "blocks": {
-        "collection-0": {
-          "type": "collection",
+        "testimonial_1": {
+          "type": "testimonial",
           "settings": {
-            "collection": ""
+            "quote": "This product exceeded my expectations. The quality is outstanding and the customer service was exceptional.",
+            "author_name": "Sarah Johnson",
+            "author_role": "Verified Customer"
           }
         },
-        "product": {
-          "type": "product",
+        "testimonial_2": {
+          "type": "testimonial",
           "settings": {
-            "product": "",
-            "second_image": false
+            "quote": "Fast shipping, great quality, and excellent value. I'll definitely be ordering again.",
+            "author_name": "Mike Chen",
+            "author_role": "Repeat Customer"
           }
         },
-        "collection-1": {
-          "type": "collection",
+        "testimonial_3": {
+          "type": "testimonial",
           "settings": {
-            "collection": ""
+            "quote": "The attention to detail is incredible. You can really feel the difference in quality.",
+            "author_name": "Emma Davis",
+            "author_role": "Design Professional"
           }
         }
       },
       "block_order": [
-        "collection-0",
-        "product",
-        "collection-1"
+        "testimonial_1",
+        "testimonial_2",
+        "testimonial_3"
       ],
       "settings": {
-        "heading": "Multimedia collage",
-        "heading_size": "h2",
-        "desktop_layout": "left",
-        "mobile_layout": "collage",
-        "card_styles": "product-card-wrapper",
+        "heading": "What our customers say",
+        "autoplay": true,
+        "autoplay_speed": 5,
         "color_scheme": "scheme-1",
         "padding_top": 36,
         "padding_bottom": 36
       }
     },
-    "video": {
-      "type": "video",
+    "cta_stripe": {
+      "type": "cta_stripe",
       "settings": {
-        "heading": "",
-        "heading_size": "h1",
-        "enable_video_looping": false,
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "description": "",
-        "full_width": false,
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "multicolumn": {
-      "type": "multicolumn",
-      "blocks": {
-        "column1": {
-          "type": "column",
-          "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column2": {
-          "type": "column",
-          "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column3": {
-          "type": "column",
-          "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-            "link_label": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "column1",
-        "column2",
-        "column3"
-      ],
-      "settings": {
-        "title": "",
-        "heading_size": "h1",
-        "image_width": "third",
-        "image_ratio": "adapt",
-        "button_label": "",
-        "button_link": "",
-        "columns_desktop": 3,
-        "column_alignment": "center",
-        "background_style": "none",
-        "color_scheme": "scheme-1",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "heading": "Ready to get started?",
+        "subtext": "<p>Join thousands of satisfied customers who trust our products.</p>",
+        "button_text": "Shop now",
+        "button_url": "shopify://collections/all",
+        "color_scheme": "scheme-4",
+        "padding_top": 48,
+        "padding_bottom": 48
       }
     }
   },
   "order": [
     "hero_minimal",
-    "image_banner_dJ3BgK",
-    "featured_collection",
-    "collage",
-    "video",
-    "multicolumn"
+    "feature_showcase", 
+    "product_showcase_alt",
+    "testimonials_rotator",
+    "cta_stripe"
   ]
 }

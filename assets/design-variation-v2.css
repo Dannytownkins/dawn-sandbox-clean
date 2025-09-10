@@ -1,0 +1,532 @@
+/* DESIGN VARIATION: APPLE-INSPIRED MINIMAL */
+
+:root {
+  --apple-font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --apple-radius-sm: 8px;
+  --apple-radius-md: 12px;
+  --apple-radius-lg: 16px;
+  --apple-radius-xl: 20px;
+  --apple-spacing-xs: clamp(8px, 1.5vw, 12px);
+  --apple-spacing-sm: clamp(16px, 3vw, 24px);
+  --apple-spacing-md: clamp(24px, 4.5vw, 36px);
+  --apple-spacing-lg: clamp(36px, 6vw, 56px);
+  --apple-spacing-xl: clamp(48px, 8vw, 80px);
+  --apple-focus-ring: 0 0 0 3px rgba(var(--color-foreground), 0.35);
+  --apple-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --apple-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --apple-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* Global Typography */
+body.apple-variation,
+.apple-variation body {
+  font-family: var(--apple-font-stack);
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.apple-variation .page-width {
+  max-width: 1200px;
+  padding-inline: var(--apple-spacing-sm);
+}
+
+/* Buttons */
+.apple-variation .button {
+  font-family: var(--apple-font-stack);
+  font-weight: 600;
+  border-radius: var(--apple-radius-lg);
+  padding: 14px 28px;
+  border: none;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.apple-variation .button:focus-visible {
+  outline: none;
+  box-shadow: var(--apple-focus-ring);
+}
+
+.apple-variation .button--primary {
+  background: rgb(var(--color-button));
+  color: rgb(var(--color-button-text));
+}
+
+.apple-variation .button--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--apple-shadow-md);
+}
+
+.apple-variation .button--secondary {
+  background: rgba(var(--color-foreground), 0.06);
+  color: rgb(var(--color-foreground));
+  border: 1px solid rgba(var(--color-foreground), 0.12);
+}
+
+.apple-variation .button--secondary:hover {
+  background: rgba(var(--color-foreground), 0.1);
+  border-color: rgba(var(--color-foreground), 0.2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apple-variation .button:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* Hero Minimal */
+.apple-variation .hero-minimal {
+  position: relative;
+  overflow: hidden;
+  min-height: clamp(480px, 70vh, 720px);
+  display: flex;
+  align-items: center;
+  background: radial-gradient(1200px 600px at 50% -20%, rgba(0,0,0,0.04), transparent 60%),
+              linear-gradient(180deg, rgba(0,0,0,0.02), transparent 40%);
+}
+
+.apple-variation .hero-minimal__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.apple-variation .hero-minimal__background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.apple-variation .hero-minimal__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.apple-variation .hero-minimal__eyebrow {
+  font-size: 1.1rem;
+  font-weight: 600;
+  opacity: 0.7;
+  margin: 0 0 var(--apple-spacing-sm) 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.apple-variation .hero-minimal__heading {
+  font-size: clamp(2.8rem, 7vw, 6rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--apple-spacing-md) 0;
+}
+
+.apple-variation .hero-minimal__subheading {
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  line-height: 1.4;
+  opacity: 0.8;
+  margin: 0 0 var(--apple-spacing-lg) 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.apple-variation .hero-minimal__actions {
+  display: flex;
+  gap: var(--apple-spacing-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Feature Showcase */
+.apple-variation .feature-showcase {
+  padding-block: var(--apple-spacing-xl);
+}
+
+.apple-variation .feature-showcase__header {
+  text-align: center;
+  margin-bottom: var(--apple-spacing-lg);
+}
+
+.apple-variation .feature-showcase__heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  margin: 0 0 var(--apple-spacing-sm) 0;
+}
+
+.apple-variation .feature-showcase__description {
+  font-size: 1.2rem;
+  opacity: 0.8;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.apple-variation .feature-showcase__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--apple-spacing-lg);
+  margin-top: var(--apple-spacing-xl);
+}
+
+.apple-variation .feature-showcase__item {
+  text-align: center;
+  padding: var(--apple-spacing-lg);
+  border-radius: var(--apple-radius-xl);
+  background: rgba(var(--color-background), 0.5);
+  border: 1px solid rgba(var(--color-foreground), 0.08);
+  transition: all 0.3s ease;
+}
+
+.apple-variation .feature-showcase__item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--apple-shadow-lg);
+}
+
+.apple-variation .feature-showcase__icon {
+  margin-bottom: var(--apple-spacing-md);
+}
+
+.apple-variation .feature-showcase__icon img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.apple-variation .feature-showcase__item-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 var(--apple-spacing-sm) 0;
+}
+
+.apple-variation .feature-showcase__item-description {
+  opacity: 0.8;
+  margin-bottom: var(--apple-spacing-md);
+}
+
+.apple-variation .feature-showcase__link {
+  color: rgb(var(--color-button));
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Product Showcase Alt */
+.apple-variation .product-showcase-alt {
+  padding-block: var(--apple-spacing-xl);
+}
+
+.apple-variation .product-showcase-alt__header {
+  text-align: center;
+  margin-bottom: var(--apple-spacing-lg);
+}
+
+.apple-variation .product-showcase-alt__heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  margin: 0 0 var(--apple-spacing-sm) 0;
+}
+
+.apple-variation .product-showcase-alt__grid {
+  display: grid;
+  gap: var(--apple-spacing-lg);
+}
+
+.apple-variation .product-showcase-alt__grid--grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.apple-variation .product-showcase-alt__grid--split {
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.apple-variation .product-card-minimal {
+  background: rgb(var(--color-background));
+  border-radius: var(--apple-radius-xl);
+  overflow: hidden;
+  border: 1px solid rgba(var(--color-foreground), 0.08);
+  transition: all 0.3s ease;
+}
+
+.apple-variation .product-card-minimal:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--apple-shadow-md);
+  border-color: rgba(var(--color-foreground), 0.15);
+}
+
+.apple-variation .product-card-minimal__media {
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.apple-variation .product-card-minimal__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.apple-variation .product-card-minimal:hover .product-card-minimal__media img {
+  transform: scale(1.05);
+}
+
+.apple-variation .product-card-minimal__info {
+  padding: var(--apple-spacing-md);
+}
+
+.apple-variation .product-card-minimal__title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 var(--apple-spacing-xs) 0;
+}
+
+.apple-variation .product-card-minimal__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.apple-variation .product-card-minimal__vendor {
+  font-size: 0.9rem;
+  opacity: 0.6;
+  margin-bottom: var(--apple-spacing-xs);
+}
+
+.apple-variation .product-card-minimal__price {
+  font-weight: 600;
+  margin-bottom: var(--apple-spacing-md);
+}
+
+.apple-variation .product-showcase-alt__footer {
+  text-align: center;
+  margin-top: var(--apple-spacing-lg);
+}
+
+/* Testimonials Rotator */
+.apple-variation .testimonials-rotator {
+  padding-block: var(--apple-spacing-xl);
+}
+
+.apple-variation .testimonials-rotator__header {
+  text-align: center;
+  margin-bottom: var(--apple-spacing-lg);
+}
+
+.apple-variation .testimonials-rotator__heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  margin: 0;
+}
+
+.apple-variation .testimonials-rotator__wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.apple-variation .testimonials-rotator__slider {
+  position: relative;
+  min-height: 200px;
+}
+
+.apple-variation .testimonials-rotator__slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+  text-align: center;
+}
+
+.apple-variation .testimonials-rotator__slide--active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.apple-variation .testimonials-rotator__quote {
+  font-size: clamp(1.3rem, 2.5vw, 2rem);
+  font-style: italic;
+  line-height: 1.4;
+  margin: 0 0 var(--apple-spacing-lg) 0;
+  font-weight: 400;
+}
+
+.apple-variation .testimonials-rotator__author {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--apple-spacing-md);
+}
+
+.apple-variation .testimonials-rotator__author-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.apple-variation .testimonials-rotator__author-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.apple-variation .testimonials-rotator__author-info {
+  text-align: left;
+}
+
+.apple-variation .testimonials-rotator__author-name {
+  font-weight: 600;
+  font-style: normal;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.apple-variation .testimonials-rotator__author-role {
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+.apple-variation .testimonials-rotator__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--apple-spacing-md);
+  margin-top: var(--apple-spacing-lg);
+}
+
+.apple-variation .testimonials-rotator__control {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--color-foreground), 0.2);
+  background: rgba(var(--color-background), 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.apple-variation .testimonials-rotator__control:hover {
+  border-color: rgba(var(--color-foreground), 0.4);
+  background: rgb(var(--color-background));
+}
+
+.apple-variation .testimonials-rotator__control--prev svg {
+  transform: rotate(180deg);
+}
+
+.apple-variation .testimonials-rotator__dots {
+  display: flex;
+  gap: 8px;
+}
+
+.apple-variation .testimonials-rotator__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(var(--color-foreground), 0.3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.apple-variation .testimonials-rotator__dot--active {
+  background: rgb(var(--color-foreground));
+}
+
+.apple-variation .testimonials-rotator__pause {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: none;
+  border: none;
+  font-size: 0.8rem;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+/* CTA Stripe */
+.apple-variation .cta-stripe {
+  padding-block: var(--apple-spacing-xl);
+  text-align: center;
+}
+
+.apple-variation .cta-stripe__content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.apple-variation .cta-stripe__heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  margin: 0 0 var(--apple-spacing-md) 0;
+}
+
+.apple-variation .cta-stripe__subtext {
+  font-size: 1.2rem;
+  opacity: 0.8;
+  margin-bottom: var(--apple-spacing-lg);
+}
+
+.apple-variation .cta-stripe__button {
+  font-size: 1.1rem;
+  padding: 16px 32px;
+}
+
+/* Responsive Design */
+@media (max-width: 749px) {
+  .apple-variation .feature-showcase__grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .apple-variation .product-showcase-alt__grid--split {
+    grid-template-columns: 1fr;
+  }
+  
+  .apple-variation .testimonials-rotator__author {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .apple-variation .testimonials-rotator__author-info {
+    text-align: center;
+  }
+  
+  .apple-variation .hero-minimal__actions {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .apple-variation * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .apple-variation .testimonials-rotator__slide {
+    transition: opacity 0.3s ease;
+    transform: none;
+  }
+  
+  .apple-variation .feature-showcase__item:hover,
+  .apple-variation .product-card-minimal:hover {
+    transform: none;
+  }
+}
