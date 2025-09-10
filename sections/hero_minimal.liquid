@@ -1,7 +1,10 @@
 {% liquid
   assign color_scheme = section.settings.color_scheme
-  assign has_background_image = section.settings.background_image != blank
-  assign enable_gradient = section.settings.enable_gradient
+  if section.settings.background_image != blank
+    assign has_background_image = true
+  else
+    assign has_background_image = false
+  endif
 %}
 
 <section
@@ -11,17 +14,7 @@
 >
   {% if has_background_image %}
     <div class="hero-minimal__background">
-      {%- assign image_height = section.settings.desktop_image_height | default: 600 -%}
-      {{
-        section.settings.background_image
-        | image_url: width: 1920
-        | image_tag:
-          loading: 'lazy',
-          sizes: '100vw',
-          widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
-          alt: section.settings.background_image.alt
-        | escape
-      }}
+      {{ section.settings.background_image | image_url: width: 1920 | image_tag }}
     </div>
   {% endif %}
 
