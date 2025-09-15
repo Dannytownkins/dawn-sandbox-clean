@@ -12,15 +12,9 @@
     "image_banner_dJ3BgK": {
       "type": "image-banner",
       "blocks": {
-        "heading_8p3BUJ": {
-          "type": "heading",
-          "settings": {
-            "heading": "¯\\_(ツ)_/¯ Shrug Life",
-            "heading_size": "h0"
-          }
-        },
         "buttons_mTQJp6": {
           "type": "buttons",
+          "disabled": true,
           "settings": {
             "button_label_1": "Shop all",
             "button_link_1": "shopify://collections/all",
@@ -32,28 +26,37 @@
         },
         "text_DVbxyy": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "text": "Threads that will help get you through the day... or something",
             "text_style": "body"
           }
+        },
+        "heading_8p3BUJ": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading": "¯\\_(ツ)_/¯ Shrug Life",
+            "heading_size": "hxxl"
+          }
         }
       },
       "block_order": [
-        "heading_8p3BUJ",
         "buttons_mTQJp6",
-        "text_DVbxyy"
+        "text_DVbxyy",
+        "heading_8p3BUJ"
       ],
       "settings": {
-        "image": "shopify://shop_images/hero_landing_6.jpg",
+        "image": "shopify://shop_images/hero_landing_8.jpg",
         "image_overlay_opacity": 0,
         "image_height": "large",
         "image_behavior": "none",
         "desktop_content_position": "middle-right",
-        "desktop_content_alignment": "center",
+        "desktop_content_alignment": "right",
         "show_text_box": false,
-        "color_scheme": "scheme-4",
+        "color_scheme": "scheme-2",
         "stack_images_on_mobile": false,
-        "mobile_content_alignment": "center",
+        "mobile_content_alignment": "right",
         "show_text_below": false
       }
     },
