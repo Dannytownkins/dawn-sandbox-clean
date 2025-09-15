@@ -154,7 +154,7 @@
       ],
       "settings": {
         "height": "small",
-        "desktop_image_width": "medium",
+        "desktop_image_width": "large",
         "layout": "text_first",
         "image_behavior": "none",
         "content_layout": "no-overlap",
