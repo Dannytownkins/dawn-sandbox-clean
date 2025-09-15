@@ -47,16 +47,17 @@
         "heading_8p3BUJ"
       ],
       "settings": {
-        "image": "shopify://shop_images/hero_landing_8.jpg",
+        "image": "shopify://shop_images/hero_landing__solo.jpg",
+        "image_2": "shopify://shop_images/hero_light1.jpg",
         "image_overlay_opacity": 0,
-        "image_height": "large",
+        "image_height": "small",
         "image_behavior": "none",
         "desktop_content_position": "middle-right",
-        "desktop_content_alignment": "right",
+        "desktop_content_alignment": "center",
         "show_text_box": false,
-        "color_scheme": "scheme-2",
+        "color_scheme": "scheme-4",
         "stack_images_on_mobile": false,
-        "mobile_content_alignment": "right",
+        "mobile_content_alignment": "center",
         "show_text_below": false
       }
     },
