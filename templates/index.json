@@ -12,18 +12,6 @@
     "image_banner_dJ3BgK": {
       "type": "image-banner",
       "blocks": {
-        "buttons_mTQJp6": {
-          "type": "buttons",
-          "disabled": true,
-          "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
-        },
         "text_DVbxyy": {
           "type": "text",
           "disabled": true,
@@ -39,26 +27,37 @@
             "heading": "¯\\_(ツ)_/¯ Shrug Life",
             "heading_size": "hxxl"
           }
+        },
+        "buttons_mTQJp6": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop all",
+            "button_link_1": "shopify://collections/all",
+            "button_style_secondary_1": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": true
+          }
         }
       },
       "block_order": [
-        "buttons_mTQJp6",
         "text_DVbxyy",
-        "heading_8p3BUJ"
+        "heading_8p3BUJ",
+        "buttons_mTQJp6"
       ],
       "settings": {
         "image": "shopify://shop_images/hero_landing__solo.jpg",
         "image_2": "shopify://shop_images/hero_light1.jpg",
         "image_overlay_opacity": 0,
-        "image_height": "small",
+        "image_height": "medium",
         "image_behavior": "none",
-        "desktop_content_position": "middle-right",
+        "desktop_content_position": "bottom-center",
         "desktop_content_alignment": "center",
         "show_text_box": false,
-        "color_scheme": "scheme-4",
+        "color_scheme": "scheme-2",
         "stack_images_on_mobile": false,
         "mobile_content_alignment": "center",
-        "show_text_below": false
+        "show_text_below": true
       }
     },
     "featured_collection": {
