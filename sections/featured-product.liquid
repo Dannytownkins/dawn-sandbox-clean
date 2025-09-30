@@ -3,7 +3,11 @@
   if product == null
     assign placeholder = true
   endif
-  assign product_available = product.selected_or_first_available_variant.available
+  # TODO: remove this guard once all sections ensure product is present
+  assign product_available = false
+  if product and product.selected_or_first_available_variant
+    assign product_available = product.selected_or_first_available_variant.available
+  endif
 -%}
 
 <product-info
@@ -405,7 +409,8 @@
                     block: block,
                     product: product,
                     product_form_id: product_form_id,
-                    section_id: section.id
+                    section_id: section.id,
+                    preview_force_available: settings.dev_force_in_stock
                   -%}
                 {%- when 'custom_liquid' -%}
                   {{ block.settings.custom_liquid }}
@@ -485,7 +490,7 @@
   {%- endif -%}
 
   <script type="application/ld+json">
-    {{ product | structured_data }}
+    {{ product | structured_data }}{%- if product_available -%}{%- endif -%}
   </script>
 
   {% if product.media.size > 0 %}

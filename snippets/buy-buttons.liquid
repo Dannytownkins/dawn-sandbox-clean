@@ -47,12 +47,14 @@
           type="hidden"
           name="id"
           value="{{ product.selected_or_first_available_variant.id }}"
-          {% if product.selected_or_first_available_variant.available == false
-            or quantity_rule_soldout
-            or product.selected_or_first_available_variant == null
-          %}
-            disabled
-          {% endif %}
+          {% unless preview_force_available %}
+            {% if product.selected_or_first_available_variant == null
+              or quantity_rule_soldout
+              or product.selected_or_first_available_variant.available == false
+            %}
+              disabled
+            {% endif %}
+          {% endunless %}
           class="product-variant-id"
         >
 
@@ -75,16 +77,20 @@
             type="submit"
             name="add"
             class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
-            {% if product.selected_or_first_available_variant.available == false
-              or quantity_rule_soldout
-              or product.selected_or_first_available_variant == null
-            %}
-              disabled
-            {% endif %}
+            {% unless preview_force_available %}
+              {% if product.selected_or_first_available_variant == null
+                or quantity_rule_soldout
+                or product.selected_or_first_available_variant.available == false
+              %}
+                disabled
+              {% endif %}
+            {% endunless %}
           >
             <span>
               {%- if product.selected_or_first_available_variant == null -%}
                 {{ 'products.product.unavailable' | t }}
+              {%- elsif preview_force_available -%}
+                {{ 'products.product.add_to_cart' | t }}
               {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
                 {{ 'products.product.sold_out' | t }}
               {%- else -%}
@@ -123,7 +129,9 @@
 
     <pickup-availability
       class="product__pickup-availabilities quick-add-hidden"
-      {% if product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %}
+      {% if preview_force_available %}
+        {% if pick_up_availabilities.size > 0 %}available{% endif %}
+      {% elsif product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %}
         available
       {% endif %}
       data-root-url="{{ routes.root_url }}"

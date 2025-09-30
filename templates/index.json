@@ -141,6 +141,20 @@
         "padding_bottom": 36
       }
     },
+    "usp_row": {
+      "type": "usp-row",
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "hero_min": {
+      "type": "hero-min",
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "multicolumn": {
       "type": "multicolumn",
       "blocks": {
@@ -196,7 +210,9 @@
     }
   },
   "order": [
+    "hero_min",
     "image_banner_dJ3BgK",
+    "usp_row",
     "featured_collection",
     "collage",
     "video",

@@ -483,7 +483,8 @@
                   product: product,
                   product_form_id: product_form_id,
                   section_id: section.id,
-                  show_pickup_availability: true
+                  show_pickup_availability: true,
+                  preview_force_available: settings.dev_force_in_stock
                 -%}
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
@@ -730,6 +731,7 @@
     </script>
   </div>
 </product-info>
+{% render 'sticky-atc' %}
 
 {% schema %}
 {
@@ -2256,7 +2258,6 @@
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
     }
-  ]{% render 'sticky-atc' %}
-
+  ]
 }
 {% endschema %}
