@@ -1475,13 +1475,13 @@
         "type": "font_picker",
         "id": "brand_font_primary",
         "label": "Primary font",
-        "default": "system"
+        "default": "assistant"
       },
       {
         "type": "font_picker",
         "id": "brand_font_secondary",
         "label": "Secondary font",
-        "default": "system"
+        "default": "assistant"
       },
       {
         "type": "checkbox",
