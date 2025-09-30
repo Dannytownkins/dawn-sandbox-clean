@@ -372,3 +372,217 @@ textarea:focus-visible {
   width: 100%;
   margin-top: 0.5rem;
 }
+
+/* ========================================================================
+   Header & Navigation
+   ======================================================================== */
+
+/* Layout */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #0b0b0c;
+  color: #fff;
+  border-bottom: 1px solid #1c1c1e;
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+.logo:hover {
+  color: #eded6b;
+}
+
+/* Desktop nav */
+.main-nav {
+  display: block;
+  flex: 1;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.nav-list {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
+
+.nav-list a {
+  color: #e7e7e7;
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.nav-list a:hover,
+.nav-list a:focus-visible {
+  background: #151518;
+  color: #fff;
+  outline: 2px solid transparent;
+}
+
+/* Header CTAs */
+.header-ctas {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  color: #e7e7e7;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icon-btn:hover,
+.icon-btn:focus-visible {
+  background: #151518;
+  color: #fff;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 20px;
+  height: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 10px;
+  background: #eded6b;
+  color: #111;
+  padding: 0 6px;
+}
+
+/* Mobile burger */
+.burger {
+  display: none;
+  all: unset;
+  cursor: pointer;
+  font-size: 22px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: #e7e7e7;
+  transition: all 0.2s ease;
+}
+
+.burger:hover,
+.burger:focus-visible {
+  background: #151518;
+  color: #fff;
+}
+
+@media (max-width: 960px) {
+  .main-nav {
+    display: none;
+  }
+  .burger {
+    display: inline-flex;
+  }
+  .header-row {
+    padding: 10px 16px;
+  }
+}
+
+/* Mobile Drawer */
+.mobile-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+}
+
+.mobile-drawer[hidden] {
+  display: none;
+}
+
+.mobile-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.mobile-panel {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: min(320px, 86vw);
+  background: #0b0b0c;
+  color: #fff;
+  padding: 20px;
+  box-shadow: 6px 0 24px rgba(0, 0, 0, 0.35);
+}
+
+.mobile-close {
+  all: unset;
+  cursor: pointer;
+  font-size: 32px;
+  line-height: 1;
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  padding: 8px;
+  color: #e7e7e7;
+  transition: color 0.2s ease;
+}
+
+.mobile-close:hover,
+.mobile-close:focus-visible {
+  color: #fff;
+}
+
+.mobile-list {
+  list-style: none;
+  margin: 48px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.mobile-list a {
+  display: block;
+  padding: 12px 12px;
+  color: #e7e7e7;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.mobile-list a:hover,
+.mobile-list a:focus-visible {
+  background: #151518;
+  color: #fff;
+}
