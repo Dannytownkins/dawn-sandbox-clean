@@ -7,6 +7,15 @@
 
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
+    <li>
+      <a
+        href="/"
+        class="header__menu-item list-menu__item link link--text focus-inset{% if request.page_type == 'index' %} header__active-menu-item{% endif %}"
+        {% if request.page_type == 'index' %}aria-current="page"{% endif %}
+      >
+        Home
+      </a>
+    </li>
     {%- for link in section.settings.menu.links -%}
       <li>
         {%- if link.links != blank -%}
