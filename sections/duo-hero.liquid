@@ -42,7 +42,7 @@
             <div class="duo-hero__text">{{ light_text }}</div>
           {%- endif -%}
           {%- if light_cta_text != blank -%}
-            <a href="{{ light_cta_link | default: '/collections/light-humor' }}" class="btn btn--pill">
+            <a href="{{ light_cta_link | default: '/collections/light-humor' }}" class="btn btn--pill" data-cta="cta-light">
               {{- light_cta_text -}}
             </a>
           {%- endif -%}
@@ -68,7 +68,7 @@
             <div class="duo-hero__text">{{ dark_text }}</div>
           {%- endif -%}
           {%- if dark_cta_text != blank -%}
-            <a href="{{ dark_cta_link | default: '/collections/dark-humor' }}" class="btn btn--sharp">
+            <a href="{{ dark_cta_link | default: '/collections/dark-humor' }}" class="btn btn--sharp" data-cta="cta-dark">
               {{- dark_cta_text -}}
             </a>
           {%- endif -%}
