@@ -1,32 +1,36 @@
+# Build/deps
 node_modules/
 dist/
 build/
 *.map
-*.psd
-*.ai
-*.mp4
-*.mov
-*.zip
-assets/hero landing_1.jpg
-assets/hero landing_2.jpg
-assets/hero landing_3.jpg
-assets/hero landing_4.jpg
-assets/hero landing_5.jpg
-assets/hero landing_6.jpg
-assets/hero landing_7.jpg
-assets/hero landing_8.jpg
-assets/hero landing_dark.png
-assets/hero landing_light.png
-assets/hero landing__solo.jpg
-assets/hero landing__solo_square.jpg
-assets/hero_light.jpg
-assets/hero_light1.jpg
-assets/hero_light_no basic.jpg
-assets/hero_light_no bg.jpg
-assets/shrug-life-hero-1..jpg
-assets/shrug-life-hero-2..jpg
-assets/shrug-life-hero-3..jpg
-assets/shrug-life-hero-3_big..jpg
-assets/shrug-life-hero-4.jpg
-assets/shrug-life-hero-5_no emoji.jpg
-assets/shrug-life-hero-6_no emoji.jpg
+
+# Editor/repo noise
+.vscode/
+.idea/
+.github/
+.gitignore
+README.md
+release-notes.md
+*.md
+
+# Design/media not for theme bundle
+**/*.psd
+**/*.ai
+**/*.sketch
+**/*.fig
+**/*.zip
+**/*.rar
+**/*.mp4
+**/*.mov
+**/*.avi
+**/*.wav
+**/*.mp3
+
+# Misc
+media/
+design/
+raw/
+skeleton/
+
+# Python scripts
+*.py
