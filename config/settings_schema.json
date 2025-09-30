@@ -1560,7 +1560,7 @@
     "type": "richtext",
     "id": "accordion_shipping_text",
     "label": "Shipping & Returns text",
-    "default": "<p>Free shipping on orders over $50. Returns accepted within 30 days.</p>"
+    "default": "<p><strong>Free Shipping:</strong> Orders $50+ ship free within the US (3-5 business days)</p><p><strong>Returns:</strong> 30-day hassle-free returns. Because regret is part of the human experience.</p>"
   },
   {
     "type": "checkbox",
@@ -1572,7 +1572,7 @@
     "type": "richtext",
     "id": "accordion_care_text",
     "label": "Care Instructions text",
-    "default": "<p>Machine wash cold. Tumble dry low. Do not bleach.</p>"
+    "default": "<p>Machine wash cold with like colors. Tumble dry low. Iron inside-out if needed.</p><p>Do not bleach (unless you're going for that distressed existential look).</p>"
   },
   {
     "type": "checkbox",
@@ -1596,7 +1596,7 @@
     "type": "richtext",
     "id": "accordion_fabric_text",
     "label": "Fabric text",
-    "default": "<p>100% premium cotton. Soft, breathable, and durable.</p>"
+    "default": "<p><strong>Materials:</strong> 100% ring-spun cotton (super soft, sustainably sourced)</p><p><strong>Weight:</strong> 180 GSM mid-weight fabric</p><p>Pre-shrunk and ethically made. Good for you, good for the planet (mostly).</p>"
   },
   {
     "type": "checkbox",

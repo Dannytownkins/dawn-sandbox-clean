@@ -494,6 +494,7 @@
                   show_pickup_availability: true,
                   preview_force_available: settings.dev_force_in_stock
                 -%}
+                {% render 'trust-badges' %}
               {%- when 'trust_icons' -%}
                 {% render 'trust-icons', block: block %}
               {%- when 'faq' -%}
