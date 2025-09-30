@@ -1453,201 +1453,206 @@
     ]
   },
   {
-    "type": "header",
-    "content": "Brand"
-  },
-  {
-    "type": "color",
-    "id": "brand_color_primary",
-    "label": "Primary brand color",
-    "default": "#eded6b"
-  },
-  {
-    "type": "color",
-    "id": "brand_color_secondary",
-    "label": "Secondary brand color",
-    "default": "#0b0b0c"
-  },
-  {
-    "type": "font_picker",
-    "id": "brand_font_primary",
-    "label": "Primary font",
-    "default": "system"
-  },
-  {
-    "type": "font_picker",
-    "id": "brand_font_secondary",
-    "label": "Secondary font",
-    "default": "system"
-  },
-  {
-    "type": "checkbox",
-    "id": "pdp_review_stars",
-    "label": "Show review stars on PDP",
-    "default": true
-  },
-  {
-    "type": "select",
-    "id": "collection_layout",
-    "label": "Collection layout",
-    "options": [
-      {"label": "Grid", "value": "grid"},
-      {"label": "List", "value": "list"}
-    ],
-    "default": "grid"
-  },
-  {
-    "type": "header",
-    "content": "Navigation"
-  },
-  {
-    "type": "text",
-    "id": "mega_menu_handle",
-    "label": "Mega menu handle",
-    "default": "mega-menu",
-    "info": "Handle of the menu to use for mega menu content"
-  },
-  {
-    "type": "text",
-    "id": "mega_menu_heading",
-    "label": "Mega menu trigger text",
-    "default": "Shop",
-    "info": "Text of the top-level link that triggers the mega menu"
-  },
-  {
-    "type": "header",
-    "content": "Cart & Checkout"
-  },
-  {
-    "type": "range",
-    "id": "fs_threshold",
-    "label": "Free shipping threshold ($)",
-    "min": 0,
-    "max": 200,
-    "step": 5,
-    "default": 50,
-    "info": "Amount required for free shipping"
-  },
-  {
-    "type": "header",
-    "content": "Astra Controls"
-  },
-  {
-    "type": "header",
-    "content": "Product Page"
-  },
-  {
-    "type": "checkbox",
-    "id": "pdp_show_size_guide",
-    "label": "Show size guide",
-    "default": true,
-    "info": "Display size guide modal on product pages"
-  },
-  {
-    "type": "checkbox",
-    "id": "pdp_show_accordions",
-    "label": "Show product accordions",
-    "default": true,
-    "info": "Display shipping, care, sizing, and fabric accordions"
-  },
-  {
-    "type": "checkbox",
-    "id": "accordion_shipping",
-    "label": "Enable Shipping & Returns accordion",
-    "default": true
-  },
-  {
-    "type": "richtext",
-    "id": "accordion_shipping_text",
-    "label": "Shipping & Returns text",
-    "default": "<p><strong>Free Shipping:</strong> Orders $50+ ship free within the US (3-5 business days)</p><p><strong>Returns:</strong> 30-day hassle-free returns. Because regret is part of the human experience.</p>"
-  },
-  {
-    "type": "checkbox",
-    "id": "accordion_care",
-    "label": "Enable Care Instructions accordion",
-    "default": true
-  },
-  {
-    "type": "richtext",
-    "id": "accordion_care_text",
-    "label": "Care Instructions text",
-    "default": "<p>Machine wash cold with like colors. Tumble dry low. Iron inside-out if needed.</p><p>Do not bleach (unless you're going for that distressed existential look).</p>"
-  },
-  {
-    "type": "checkbox",
-    "id": "accordion_sizing",
-    "label": "Enable Sizing accordion",
-    "default": true
-  },
-  {
-    "type": "richtext",
-    "id": "accordion_sizing_text",
-    "label": "Sizing text",
-    "default": "<p>True to size. If between sizes, size up.</p>"
-  },
-  {
-    "type": "checkbox",
-    "id": "accordion_fabric",
-    "label": "Enable Fabric accordion",
-    "default": true
-  },
-  {
-    "type": "richtext",
-    "id": "accordion_fabric_text",
-    "label": "Fabric text",
-    "default": "<p><strong>Materials:</strong> 100% ring-spun cotton (super soft, sustainably sourced)</p><p><strong>Weight:</strong> 180 GSM mid-weight fabric</p><p>Pre-shrunk and ethically made. Good for you, good for the planet (mostly).</p>"
-  },
-  {
-    "type": "checkbox",
-    "id": "pdp_show_reviews",
-    "label": "Show reviews",
-    "default": true,
-    "info": "Display review stars if metafield exists, otherwise show write review CTA"
-  },
-  {
-    "type": "header",
-    "content": "Analytics"
-  },
-  {
-    "type": "checkbox",
-    "id": "analytics_enable_hooks",
-    "label": "Enable analytics hooks",
-    "default": false,
-    "info": "Emit custom events for GA/Meta integration (ga_view_item, ga_add_to_cart, ga_begin_checkout)"
-  },
-  {
-    "type": "checkbox",
-    "id": "analytics_debug_mode",
-    "label": "Analytics debug mode",
-    "default": false,
-    "info": "Log analytics events to console for debugging"
-  },
-  {
-    "type": "header",
-    "content": "Social Sharing"
-  },
-  {
-    "type": "image_picker",
-    "id": "social_share_image",
-    "label": "Default social share image",
-    "info": "Used when page doesn't have a specific image (1200x630px recommended)"
-  },
-  {
-    "type": "header",
-    "content": "Developer"
-  },
-  {
-    "type": "checkbox",
-    "id": "dev_force_in_stock",
-    "label": "⚡ Dev: Force products appear in stock (preview only)",
-    "default": true,
-    "info": "Override availability checks so PDP shows Add to Cart during preview"
-  },
-  {
-    "type": "checkbox",
-    "id": "dev_show_all_sections",
-    "label": "⚡ Dev: Show all sections",
-    "default": false
+    "name": "Brand & Custom Settings",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand"
+      },
+      {
+        "type": "color",
+        "id": "brand_color_primary",
+        "label": "Primary brand color",
+        "default": "#eded6b"
+      },
+      {
+        "type": "color",
+        "id": "brand_color_secondary",
+        "label": "Secondary brand color",
+        "default": "#0b0b0c"
+      },
+      {
+        "type": "font_picker",
+        "id": "brand_font_primary",
+        "label": "Primary font",
+        "default": "system"
+      },
+      {
+        "type": "font_picker",
+        "id": "brand_font_secondary",
+        "label": "Secondary font",
+        "default": "system"
+      },
+      {
+        "type": "checkbox",
+        "id": "pdp_review_stars",
+        "label": "Show review stars on PDP",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "collection_layout",
+        "label": "Collection layout",
+        "options": [
+          {"label": "Grid", "value": "grid"},
+          {"label": "List", "value": "list"}
+        ],
+        "default": "grid"
+      },
+      {
+        "type": "header",
+        "content": "Navigation"
+      },
+      {
+        "type": "text",
+        "id": "mega_menu_handle",
+        "label": "Mega menu handle",
+        "default": "mega-menu",
+        "info": "Handle of the menu to use for mega menu content"
+      },
+      {
+        "type": "text",
+        "id": "mega_menu_heading",
+        "label": "Mega menu trigger text",
+        "default": "Shop",
+        "info": "Text of the top-level link that triggers the mega menu"
+      },
+      {
+        "type": "header",
+        "content": "Cart & Checkout"
+      },
+      {
+        "type": "range",
+        "id": "fs_threshold",
+        "label": "Free shipping threshold ($)",
+        "min": 0,
+        "max": 200,
+        "step": 5,
+        "default": 50,
+        "info": "Amount required for free shipping"
+      },
+      {
+        "type": "header",
+        "content": "Astra Controls"
+      },
+      {
+        "type": "header",
+        "content": "Product Page"
+      },
+      {
+        "type": "checkbox",
+        "id": "pdp_show_size_guide",
+        "label": "Show size guide",
+        "default": true,
+        "info": "Display size guide modal on product pages"
+      },
+      {
+        "type": "checkbox",
+        "id": "pdp_show_accordions",
+        "label": "Show product accordions",
+        "default": true,
+        "info": "Display shipping, care, sizing, and fabric accordions"
+      },
+      {
+        "type": "checkbox",
+        "id": "accordion_shipping",
+        "label": "Enable Shipping & Returns accordion",
+        "default": true
+      },
+      {
+        "type": "richtext",
+        "id": "accordion_shipping_text",
+        "label": "Shipping & Returns text",
+        "default": "<p><strong>Free Shipping:</strong> Orders $50+ ship free within the US (3-5 business days)</p><p><strong>Returns:</strong> 30-day hassle-free returns. Because regret is part of the human experience.</p>"
+      },
+      {
+        "type": "checkbox",
+        "id": "accordion_care",
+        "label": "Enable Care Instructions accordion",
+        "default": true
+      },
+      {
+        "type": "richtext",
+        "id": "accordion_care_text",
+        "label": "Care Instructions text",
+        "default": "<p>Machine wash cold with like colors. Tumble dry low. Iron inside-out if needed.</p><p>Do not bleach (unless you're going for that distressed existential look).</p>"
+      },
+      {
+        "type": "checkbox",
+        "id": "accordion_sizing",
+        "label": "Enable Sizing accordion",
+        "default": true
+      },
+      {
+        "type": "richtext",
+        "id": "accordion_sizing_text",
+        "label": "Sizing text",
+        "default": "<p>True to size. If between sizes, size up.</p>"
+      },
+      {
+        "type": "checkbox",
+        "id": "accordion_fabric",
+        "label": "Enable Fabric accordion",
+        "default": true
+      },
+      {
+        "type": "richtext",
+        "id": "accordion_fabric_text",
+        "label": "Fabric text",
+        "default": "<p><strong>Materials:</strong> 100% ring-spun cotton (super soft, sustainably sourced)</p><p><strong>Weight:</strong> 180 GSM mid-weight fabric</p><p>Pre-shrunk and ethically made. Good for you, good for the planet (mostly).</p>"
+      },
+      {
+        "type": "checkbox",
+        "id": "pdp_show_reviews",
+        "label": "Show reviews",
+        "default": true,
+        "info": "Display review stars if metafield exists, otherwise show write review CTA"
+      },
+      {
+        "type": "header",
+        "content": "Analytics"
+      },
+      {
+        "type": "checkbox",
+        "id": "analytics_enable_hooks",
+        "label": "Enable analytics hooks",
+        "default": false,
+        "info": "Emit custom events for GA/Meta integration (ga_view_item, ga_add_to_cart, ga_begin_checkout)"
+      },
+      {
+        "type": "checkbox",
+        "id": "analytics_debug_mode",
+        "label": "Analytics debug mode",
+        "default": false,
+        "info": "Log analytics events to console for debugging"
+      },
+      {
+        "type": "header",
+        "content": "Social Sharing"
+      },
+      {
+        "type": "image_picker",
+        "id": "social_share_image",
+        "label": "Default social share image",
+        "info": "Used when page doesn't have a specific image (1200x630px recommended)"
+      },
+      {
+        "type": "header",
+        "content": "Developer"
+      },
+      {
+        "type": "checkbox",
+        "id": "dev_force_in_stock",
+        "label": "⚡ Dev: Force products appear in stock (preview only)",
+        "default": true,
+        "info": "Override availability checks so PDP shows Add to Cart during preview"
+      },
+      {
+        "type": "checkbox",
+        "id": "dev_show_all_sections",
+        "label": "⚡ Dev: Show all sections",
+        "default": false
+      }
+    ]
   }
 ]
