@@ -25,12 +25,15 @@
         -%}
 
         <div class="stars-wrapper">
+          {%- liquid
+            assign next_pos = rating_whole | plus: 1
+          -%}
           {%- for i in (1..5) -%}
             {%- if i <= rating_whole -%}
               <svg class="star star--full" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
                 <path fill="currentColor" d="M8 0l2.163 5.455L16 6.073l-4.328 3.635L13.09 16 8 12.727 2.91 16l1.418-6.292L0 6.073l5.837-.618z"/>
               </svg>
-            {%- elsif i == rating_whole | plus: 1 and rating_decimal == 0.5 -%}
+            {%- elsif i == next_pos and rating_decimal == 0.5 -%}
               <svg class="star star--half" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
                 <path fill="currentColor" d="M8 0l2.163 5.455L16 6.073l-4.328 3.635L13.09 16 8 12.727V0z"/>
                 <path fill="#ddd" d="M8 0v12.727L2.91 16l1.418-6.292L0 6.073l5.837-.618z"/>
