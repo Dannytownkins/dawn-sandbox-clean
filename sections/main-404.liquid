@@ -8,16 +8,124 @@
       margin-top: 2rem;
     }
   }
+
+  .large-text {
+    font-size: 1.25rem;
+    color: #666;
+    margin: 1rem 0 2rem;
+  }
+
+  .error-search {
+    max-width: 500px;
+    margin: 2rem auto;
+  }
+
+  .error-search form {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .error-search__input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
+  .error-products {
+    margin: 3rem 0;
+  }
+
+  .error-products__heading {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .error-products__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+  }
+
+  .error-product-card {
+    text-align: center;
+  }
+
+  .error-product-card a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .error-product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+  }
+
+  .error-product-card h3 {
+    font-size: 1rem;
+    margin: 0.5rem 0 0.25rem;
+  }
+
+  .error-product-card p {
+    font-weight: 600;
+    margin: 0;
+  }
 </style>
 
 <div class="template-404 page-width page-margin center">
-  <p>
-    {{ 'templates.404.subtext' | t }}
-  </p>
-  <h1 class="title">
+  <h1 class="title h0">
     {{ 'templates.404.title' | t }}
   </h1>
-  <a href="{{ routes.all_products_collection_url }}" class="button">
+  <p class="large-text">
+    {{ 'templates.404.subtext' | t }}
+  </p>
+
+  {%- comment -%} Search bar {%- endcomment -%}
+  <div class="error-search">
+    <form action="{{ routes.search_url }}" method="get" role="search">
+      <input
+        type="search"
+        name="q"
+        placeholder="{{ 'general.search.search' | t }}"
+        aria-label="{{ 'general.search.search' | t }}"
+        class="error-search__input"
+      >
+      <button type="submit" class="button">{{ 'general.search.search' | t }}</button>
+    </form>
+  </div>
+
+  {%- comment -%} Product suggestions {%- endcomment -%}
+  {%- if collections.all.products.size > 0 -%}
+    <div class="error-products">
+      <h2 class="error-products__heading">{{ 'templates.404.popular_products' | t }}</h2>
+      <div class="error-products__grid">
+        {%- for product in collections.all.products limit: 4 -%}
+          <div class="error-product-card">
+            <a href="{{ product.url }}">
+              {%- if product.featured_media -%}
+                <img
+                  src="{{ product.featured_media | image_url: width: 300 }}"
+                  alt="{{ product.featured_media.alt | escape }}"
+                  loading="lazy"
+                  width="150"
+                  height="150"
+                >
+              {%- endif -%}
+              <h3>{{ product.title }}</h3>
+              <p>{{ product.price | money }}</p>
+            </a>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  <a href="{{ routes.all_products_collection_url }}" class="button button--secondary">
     {{ 'general.continue_shopping' | t }}
   </a>
 </div>
