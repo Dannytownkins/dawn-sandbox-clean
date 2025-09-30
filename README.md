@@ -4,10 +4,42 @@ A high-conversion Shopify theme built on Dawn, featuring Light vs Dark product c
 
 ## Setup
 
-1. **Install Shopify CLI**: `npm install -g @shopify/cli @shopify/theme`
-2. **Authenticate**: `shopify login --store=your-store-name`
-3. **Start local dev server**: `shopify theme dev`
-4. **Run Theme Check**: `shopify theme check`
+### 1. Install Shopify CLI
+```bash
+npm install -g @shopify/cli @shopify/theme
+```
+
+### 2. Authenticate
+```bash
+shopify login --store=your-store-name
+```
+
+### 3. Create Collections & Products (Automated)
+```bash
+# Set up API credentials (one-time)
+$env:SHOPIFY_STORE="yourstore.myshopify.com"
+$env:SHOPIFY_ACCESS_TOKEN="shpat_xxxxx"  # Get from Admin → Apps → Create custom app
+
+# Run setup script
+node setup_collections.js
+```
+
+This will automatically create:
+- **Light Humor** collection (handle: `light-humor`)
+- **Dark Humor** collection (handle: `dark-humor`)
+- 4 sample products with proper tags and inventory settings
+
+See [`SETUP_COLLECTIONS.md`](./SETUP_COLLECTIONS.md) for manual setup instructions.
+
+### 4. Start local dev server
+```bash
+shopify theme dev
+```
+
+### 5. Run Theme Check
+```bash
+shopify theme check
+```
 
 ## Features Added in Phase 2
 
