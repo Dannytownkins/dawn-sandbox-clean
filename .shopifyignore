@@ -32,5 +32,16 @@ design/
 raw/
 skeleton/
 
-# Python scripts
+# Python scripts & Node scripts
 *.py
+setup_collections.js
+SETUP_COLLECTIONS.md
+
+# Git files
+.git/
+.gitattributes
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
