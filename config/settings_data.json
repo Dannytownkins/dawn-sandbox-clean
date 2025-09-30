@@ -121,6 +121,7 @@
     "show_vendor": false,
     "show_cart_note": false,
     "cart_drawer_collection": "",
+    "dev_force_in_stock": true,
     "sections": {
       "main-password-header": {
         "type": "main-password-header",
