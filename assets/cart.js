@@ -139,11 +139,19 @@
       });
       const cart = await cartRes.json();
 
-      // Update cart count badge
-      const countBadge = document.querySelector('.cart-count-bubble span[aria-hidden="true"]');
-      if (countBadge && cart.item_count > 0) {
-        countBadge.textContent = cart.item_count;
-      }
+      // Update cart count badge (multiple selectors for compatibility)
+      const updateCartBadge = (count) => {
+        // Header cart badge
+        const badges = document.querySelectorAll('[data-cart-count], .cart-count-bubble span[aria-hidden="true"], .cart-badge');
+        badges.forEach(badge => {
+          badge.textContent = count;
+          if (count > 0) {
+            badge.style.display = '';
+          }
+        });
+      };
+      
+      updateCartBadge(cart.item_count);
 
       // Reload drawer content
       const drawerRes = await fetch(window.location.href);
