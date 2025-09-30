@@ -1498,6 +1498,24 @@
   },
   {
     "type": "header",
+    "content": "Navigation"
+  },
+  {
+    "type": "text",
+    "id": "mega_menu_handle",
+    "label": "Mega menu handle",
+    "default": "mega-menu",
+    "info": "Handle of the menu to use for mega menu content"
+  },
+  {
+    "type": "text",
+    "id": "mega_menu_heading",
+    "label": "Mega menu trigger text",
+    "default": "Shop",
+    "info": "Text of the top-level link that triggers the mega menu"
+  },
+  {
+    "type": "header",
     "content": "Cart & Checkout"
   },
   {
