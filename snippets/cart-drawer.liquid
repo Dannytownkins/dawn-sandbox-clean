@@ -589,6 +589,8 @@
             class="cart__checkout-button button"
             name="checkout"
             form="CartDrawer-Form"
+            data-cta="begin-checkout"
+            data-cart-total="{{ cart.total_price | money_without_currency }}"
             {% if cart == empty %}
               disabled
             {% endif %}

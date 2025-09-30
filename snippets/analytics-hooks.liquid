@@ -1,0 +1,64 @@
+{%- comment -%}
+  Analytics Hooks (Vendor-Agnostic)
+  Emits CustomEvents for integration with GA/Meta/etc
+  
+  Usage:
+    Include in theme.liquid before </body>
+    {% render 'analytics-hooks' %}
+{%- endcomment -%}
+
+<script>
+(function(){
+  if(!{{ settings.analytics_enable_hooks | json }}) return;
+
+  // View Item Event (PDP)
+  const pdp = document.querySelector('[data-product-handle]');
+  if(pdp){
+    const detail = {
+      handle: pdp.dataset.productHandle,
+      id: pdp.dataset.productId || '',
+      variant: pdp.dataset.variantId || ''
+    };
+    document.dispatchEvent(new CustomEvent('ga_view_item', {detail}));
+  }
+
+  // Add to Cart Events
+  document.addEventListener('click', e => {
+    const atcMain = e.target.closest('[data-cta="atc-main"]');
+    const atcSticky = e.target.closest('[data-cta="atc-sticky"]');
+    const atc = atcMain || atcSticky;
+    
+    if(atc){
+      const form = atc.closest('form') || atc.form;
+      const variantInput = form?.querySelector('[name="id"]');
+      const qtyInput = form?.querySelector('[name="quantity"]');
+      
+      const detail = {
+        variant_id: variantInput?.value || '',
+        quantity: qtyInput?.value || '1',
+        source: atcSticky ? 'sticky' : 'main'
+      };
+      
+      document.dispatchEvent(new CustomEvent('ga_add_to_cart', {detail}));
+    }
+
+    // Begin Checkout Event
+    const checkout = e.target.closest('[data-cta="begin-checkout"]');
+    if(checkout){
+      const detail = {
+        cart_total: checkout.dataset.cartTotal || ''
+      };
+      document.dispatchEvent(new CustomEvent('ga_begin_checkout', {detail}));
+    }
+  });
+
+  // Listen for custom events and log (for debugging)
+  if({{ settings.analytics_debug_mode | default: false | json }}){
+    ['ga_view_item', 'ga_add_to_cart', 'ga_begin_checkout'].forEach(evt => {
+      document.addEventListener(evt, e => {
+        console.log(`[Analytics Hook] ${evt}:`, e.detail);
+      });
+    });
+  }
+})();
+</script>
