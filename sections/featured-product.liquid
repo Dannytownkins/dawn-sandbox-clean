@@ -3,11 +3,6 @@
   if product == null
     assign placeholder = true
   endif
-  # TODO: remove this guard once all sections ensure product is present
-  assign product_available = false
-  if product and product.selected_or_first_available_variant
-    assign product_available = product.selected_or_first_available_variant.available
-  endif
 -%}
 
 <product-info
@@ -15,6 +10,7 @@
   data-product-id="{{ product.id }}"
   data-update-url="false"
   data-url="{{ product.url }}"
+  data-available="{{ product.selected_or_first_available_variant != nil and product.selected_or_first_available_variant.available }}"
   {% if section.settings.image_zoom == 'hover' %}
     data-zoom-on-hover
   {% endif %}
@@ -490,7 +486,7 @@
   {%- endif -%}
 
   <script type="application/ld+json">
-    {{ product | structured_data }}{%- if product_available -%}{%- endif -%}
+    {{ product | structured_data }}
   </script>
 
   {% if product.media.size > 0 %}
