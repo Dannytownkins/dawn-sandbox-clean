@@ -31,6 +31,8 @@
     {% endif %}
 
     {% render 'meta-tags' %}
+    {% render 'meta-social' %}
+    {% render 'jsonld-breadcrumb' %}
 
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
