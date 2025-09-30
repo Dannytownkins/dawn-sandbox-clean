@@ -10,15 +10,24 @@
   const openers = document.querySelectorAll('[data-open-cart]');
   const closers = drawer.querySelectorAll('[data-close-cart]');
 
+  // Store last focused element for focus return
+  let lastFocused = null;
+
   // Open drawer function
   const openDrawer = () => {
+    // Store the element that opened the drawer
+    lastFocused = document.activeElement;
+    
     drawer.hidden = false;
     drawer.setAttribute('aria-hidden', 'false');
 
-    // Focus first interactive element
-    const firstFocusable = drawer.querySelector('button, a');
-    if (firstFocusable) {
-      setTimeout(() => firstFocusable.focus(), 100);
+    // Focus trap setup
+    setupFocusTrap(drawer);
+
+    // Focus close button (better UX than first link)
+    const closeButton = drawer.querySelector('[data-close-cart]');
+    if (closeButton) {
+      setTimeout(() => closeButton.focus(), 100);
     }
   };
 
@@ -27,10 +36,52 @@
     drawer.hidden = true;
     drawer.setAttribute('aria-hidden', 'true');
 
-    // Return focus to cart icon
-    const cartIcon = document.getElementById('cart-icon-bubble');
-    if (cartIcon) {
-      cartIcon.focus();
+    // Remove focus trap
+    teardownFocusTrap();
+
+    // Return focus to opener
+    if (lastFocused) {
+      lastFocused.focus();
+      lastFocused = null;
+    }
+  };
+
+  // Focus trap implementation
+  let focusTrapHandler = null;
+  
+  const setupFocusTrap = (container) => {
+    const focusableElements = container.querySelectorAll(
+      'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+    );
+    
+    if (focusableElements.length === 0) return;
+    
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+    
+    focusTrapHandler = (e) => {
+      if (e.key !== 'Tab') return;
+      
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          lastElement.focus();
+          e.preventDefault();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          firstElement.focus();
+          e.preventDefault();
+        }
+      }
+    };
+    
+    container.addEventListener('keydown', focusTrapHandler);
+  };
+  
+  const teardownFocusTrap = () => {
+    if (focusTrapHandler) {
+      drawer.removeEventListener('keydown', focusTrapHandler);
+      focusTrapHandler = null;
     }
   };
 
