@@ -15,7 +15,11 @@
           {% endif %}
           <div class="testimonial__meta">
             {% if block.settings.avatar != blank %}
-              {{ block.settings.avatar | image_url: width: 120 | image_tag: class: 'testimonial__avatar', loading: 'lazy' }}
+              {{
+                block.settings.avatar
+                | image_url: width: 120
+                | image_tag: class: 'testimonial__avatar', loading: 'lazy'
+              }}
             {% endif %}
             <div>
               <p class="testimonial__name">{{ block.settings.name }}</p>
@@ -49,7 +53,7 @@
     text-align: center;
     color: #fff;
   }
-  
+
   /* Horizontal scroll slider */
   .t-slider {
     display: grid;
@@ -62,20 +66,20 @@
     margin: 0 -4px;
     -webkit-overflow-scrolling: touch;
   }
-  
+
   @media (min-width: 768px) {
     .t-slider {
       grid-auto-columns: 45%;
     }
   }
-  
+
   @media (min-width: 1024px) {
     .t-slider {
       grid-auto-columns: 32%;
       gap: 20px;
     }
   }
-  
+
   .t-card {
     scroll-snap-align: center;
     background: #161618;
@@ -86,20 +90,20 @@
     display: grid;
     gap: 18px;
   }
-  
+
   .testimonial__quote {
     font-size: 1.05rem;
     line-height: 1.6;
     margin: 0;
     color: #e0e0e0;
   }
-  
+
   .testimonial__meta {
     display: flex;
     gap: 14px;
     align-items: center;
   }
-  
+
   .testimonial__avatar {
     width: 52px;
     height: 52px;
@@ -107,34 +111,34 @@
     object-fit: cover;
     flex-shrink: 0;
   }
-  
+
   .testimonial__name {
     font-weight: 700;
     margin: 0 0 4px;
     color: #fff;
   }
-  
+
   .testimonial__info {
     margin: 0;
     color: #a0a0a0;
     font-size: 0.9rem;
   }
-  
+
   /* Hide scrollbar but keep functionality */
   .t-slider::-webkit-scrollbar {
     height: 6px;
   }
-  
+
   .t-slider::-webkit-scrollbar-track {
     background: #1a1a1c;
     border-radius: 3px;
   }
-  
+
   .t-slider::-webkit-scrollbar-thumb {
     background: #333;
     border-radius: 3px;
   }
-  
+
   .t-slider::-webkit-scrollbar-thumb:hover {
     background: #444;
   }
@@ -151,7 +155,12 @@
       "type": "testimonial",
       "name": "Testimonial",
       "settings": [
-        { "type": "textarea", "id": "quote", "label": "Quote", "default": "Humor split personalities never felt so stylish." },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "Humor split personalities never felt so stylish."
+        },
         { "type": "text", "id": "name", "label": "Name", "default": "Riley M." },
         { "type": "text", "id": "meta", "label": "Meta", "default": "Verified buyer" },
         { "type": "image_picker", "id": "avatar", "label": "Avatar" }
@@ -162,11 +171,7 @@
   "presets": [
     {
       "name": "Featured testimonials",
-      "blocks": [
-        { "type": "testimonial" },
-        { "type": "testimonial" },
-        { "type": "testimonial" }
-      ]
+      "blocks": [{ "type": "testimonial" }, { "type": "testimonial" }, { "type": "testimonial" }]
     }
   ]
 }

@@ -13,7 +13,7 @@
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M15 5L5 15M5 5l10 10"/>
         </svg>
-              </button>
+      </button>
     </div>
 
     <div class="cart-drawer__body">
@@ -26,16 +26,16 @@
         <div class="cart-drawer__items">
           {% for item in cart.items %}
             <div class="cart-line" data-line-index="{{ forloop.index }}">
-                          {% if item.image %}
-                            <img
+              {% if item.image %}
+                <img
                   src="{{ item.image | image_url: width: 100 }}"
-                              alt="{{ item.image.alt | escape }}"
+                  alt="{{ item.image.alt | escape }}"
                   width="60"
                   height="60"
-                              loading="lazy"
+                  loading="lazy"
                   class="cart-line__image"
-                            >
-                          {% endif %}
+                >
+              {% endif %}
               <div class="cart-line__body">
                 <a href="{{ item.url }}" class="cart-line__title">{{ item.product.title }}</a>
                 {% unless item.product.has_only_default_variant %}
@@ -44,11 +44,11 @@
                 <div class="cart-line__meta">
                   <div class="cart-line__quantity">Qty: {{ item.quantity }}</div>
                   <div class="cart-line__price">{{ item.final_line_price | money }}</div>
-                            </div>
+                </div>
               </div>
-          </div>
+            </div>
           {% endfor %}
-          </div>
+        </div>
 
         <div class="cart-drawer__footer">
           <div class="cart-subtotal">
@@ -57,7 +57,13 @@
           </div>
           <p class="cart-drawer__note">Taxes and shipping calculated at checkout</p>
           <a href="{{ routes.cart_url }}" class="btn btn--secondary btn--full-width">View Cart</a>
-          <button type="submit" name="checkout" form="cart-drawer-form" class="btn btn--primary btn--full-width" data-cta="begin-checkout">
+          <button
+            type="submit"
+            name="checkout"
+            form="cart-drawer-form"
+            class="btn btn--primary btn--full-width"
+            data-cta="begin-checkout"
+          >
             Checkout
           </button>
         </div>

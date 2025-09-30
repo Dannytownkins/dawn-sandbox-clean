@@ -11,12 +11,12 @@
   const closers = drawer.querySelectorAll('[data-close-cart]');
 
   // Open drawer
-  openers.forEach(button => {
+  openers.forEach((button) => {
     button.addEventListener('click', (e) => {
       e.preventDefault();
       drawer.hidden = false;
       drawer.setAttribute('aria-hidden', 'false');
-      
+
       // Focus first interactive element
       const firstFocusable = drawer.querySelector('button, a');
       if (firstFocusable) {
@@ -29,7 +29,7 @@
   const closeDrawer = () => {
     drawer.hidden = true;
     drawer.setAttribute('aria-hidden', 'true');
-    
+
     // Return focus to cart icon
     const cartIcon = document.getElementById('cart-icon-bubble');
     if (cartIcon) {
@@ -37,7 +37,7 @@
     }
   };
 
-  closers.forEach(button => {
+  closers.forEach((button) => {
     button.addEventListener('click', closeDrawer);
   });
 
