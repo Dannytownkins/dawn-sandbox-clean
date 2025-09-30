@@ -1,0 +1,202 @@
+/**
+ * Astra – Danliora Design Tokens & Utilities
+ * Type scale, button variants, and custom design system utilities
+ */
+
+/* ========================================================================
+   Design Tokens
+   ======================================================================== */
+
+:root {
+  /* Typography */
+  --font-sans: ui-sans-serif, system-ui, Inter, "Helvetica Neue", Arial, sans-serif;
+  
+  /* Fluid Type Scale */
+  --step--1: clamp(12px, .88rem, 13px);
+  --step-0: clamp(14px, 1rem, 16px);
+  --step-1: clamp(18px, 1.25rem, 20px);
+  --step-2: clamp(24px, 1.6rem, 28px);
+  --step-3: clamp(32px, 2.1rem, 40px);
+  
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  
+  /* Colors - Extended */
+  --color-light-bg: #fafafa;
+  --color-dark-bg: #0b0b0c;
+  --color-accent: #eded6b;
+  --color-border-light: #e0e0e0;
+  --color-border-dark: #2a2a2c;
+}
+
+/* ========================================================================
+   Typography
+   ======================================================================== */
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.6;
+}
+
+h1, .h1 {
+  font-size: var(--step-3);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+h2, .h2 {
+  font-size: var(--step-2);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+h3, .h3 {
+  font-size: var(--step-1);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.text-small {
+  font-size: var(--step--1);
+}
+
+/* ========================================================================
+   Button System
+   ======================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  padding: 0.85rem 1.1rem;
+  border-radius: 12px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+}
+
+/* Primary - Yellow accent */
+.btn--primary {
+  background: #eded6b;
+  color: #111;
+}
+
+.btn--primary:hover {
+  background: #f5f56f;
+  transform: translateY(-1px);
+}
+
+/* Ghost - Transparent with border */
+.btn--ghost {
+  background: transparent;
+  border: 1px solid #1b1b1d;
+  color: #fff;
+}
+
+.btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Dark - Inverted */
+.btn--dark {
+  background: #111;
+  color: #fff;
+}
+
+.btn--dark:hover {
+  background: #222;
+}
+
+/* Secondary - Light variant */
+.btn--secondary {
+  background: #f0f0f0;
+  color: #111;
+}
+
+.btn--secondary:hover {
+  background: #e0e0e0;
+}
+
+/* ========================================================================
+   Utility Classes
+   ======================================================================== */
+
+.page-width {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+  .page-width {
+    padding: 0 2rem;
+  }
+}
+
+.section {
+  padding: var(--space-xl) 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+
+/* ========================================================================
+   Accessibility
+   ======================================================================== */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus states */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #eded6b;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
