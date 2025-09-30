@@ -177,7 +177,6 @@
       },
       "share": "Share this product",
       "sold_out": "Sold out",
-      "add_to_cart": "Add to cart",
       "unavailable": "Unavailable",
       "urgency_message": "Only {{ count }} left in stock!",
       "vendor": "Vendor",
@@ -290,10 +289,6 @@
         "post_success": "Thanks for contacting us. We'll get back to you as soon as possible.",
         "error_heading": "Please adjust the following:"
       }
-    },
-    "404": {
-      "title": "Page not found",
-      "subtext": "404"
     }
   },
   "sections": {
