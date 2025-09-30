@@ -192,7 +192,8 @@
       "hips": "Hips",
       "size_guide_note": "Measurements are approximate. If between sizes, we recommend sizing up.",
       "reviews": "reviews",
-      "write_review": "Write a review"
+      "write_review": "Write a review",
+      "taxes_and_shipping_at_checkout": "Tax and shipping calculated at checkout"
     },
     "modal": {
       "label": "Media gallery"

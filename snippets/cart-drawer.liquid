@@ -499,6 +499,22 @@
         <!-- Start blocks -->
         <!-- Subtotals -->
 
+        {%- comment -%} Trust row {%- endcomment -%}
+        <div class="cart-trust-row">
+          <div class="cart-trust-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 1L10 5L15 6L11.5 9.5L12.5 15L8 12.5L3.5 15L4.5 9.5L1 6L6 5L8 1Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Secure checkout</span>
+          </div>
+          <div class="cart-trust-item">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 2L2 5V8C2 11.5 8 14 8 14C8 14 14 11.5 14 8V5L8 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>SSL encrypted</span>
+          </div>
+        </div>
+
         <div class="cart-drawer__footer" {{ block.shopify_attributes }}>
           <div>
             {%- if cart.cart_level_discount_applications.size > 0 -%}
@@ -518,6 +534,10 @@
             <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
             <p class="totals__total-value">{{ cart.total_price | money_with_currency }}</p>
           </div>
+
+          <small class="cart-estimate-note">
+            {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
+          </small>
 
           <small class="tax-note caption-large rte">
             {%- if cart.duties_included and cart.taxes_included -%}
@@ -580,3 +600,33 @@
     </div>
   </div>
 </cart-drawer>
+
+<style>
+  .cart-trust-row {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin: 1rem 0;
+  }
+
+  .cart-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 13px;
+    color: #666;
+  }
+
+  .cart-trust-item svg {
+    flex-shrink: 0;
+  }
+
+  .cart-estimate-note {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 13px;
+    color: #666;
+  }
+</style>
