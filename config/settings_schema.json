@@ -1639,6 +1639,13 @@
   },
   {
     "type": "checkbox",
+    "id": "dev_force_in_stock",
+    "label": "⚡ Dev: Force products appear in stock (preview only)",
+    "default": true,
+    "info": "Override availability checks so PDP shows Add to Cart during preview"
+  },
+  {
+    "type": "checkbox",
     "id": "dev_show_all_sections",
     "label": "⚡ Dev: Show all sections",
     "default": false
