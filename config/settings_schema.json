@@ -1530,6 +1530,111 @@
   },
   {
     "type": "header",
+    "content": "Astra Controls"
+  },
+  {
+    "type": "header",
+    "content": "Product Page"
+  },
+  {
+    "type": "checkbox",
+    "id": "pdp_show_size_guide",
+    "label": "Show size guide",
+    "default": true,
+    "info": "Display size guide modal on product pages"
+  },
+  {
+    "type": "checkbox",
+    "id": "pdp_show_accordions",
+    "label": "Show product accordions",
+    "default": true,
+    "info": "Display shipping, care, sizing, and fabric accordions"
+  },
+  {
+    "type": "checkbox",
+    "id": "accordion_shipping",
+    "label": "Enable Shipping & Returns accordion",
+    "default": true
+  },
+  {
+    "type": "richtext",
+    "id": "accordion_shipping_text",
+    "label": "Shipping & Returns text",
+    "default": "<p>Free shipping on orders over $50. Returns accepted within 30 days.</p>"
+  },
+  {
+    "type": "checkbox",
+    "id": "accordion_care",
+    "label": "Enable Care Instructions accordion",
+    "default": true
+  },
+  {
+    "type": "richtext",
+    "id": "accordion_care_text",
+    "label": "Care Instructions text",
+    "default": "<p>Machine wash cold. Tumble dry low. Do not bleach.</p>"
+  },
+  {
+    "type": "checkbox",
+    "id": "accordion_sizing",
+    "label": "Enable Sizing accordion",
+    "default": true
+  },
+  {
+    "type": "richtext",
+    "id": "accordion_sizing_text",
+    "label": "Sizing text",
+    "default": "<p>True to size. If between sizes, size up.</p>"
+  },
+  {
+    "type": "checkbox",
+    "id": "accordion_fabric",
+    "label": "Enable Fabric accordion",
+    "default": true
+  },
+  {
+    "type": "richtext",
+    "id": "accordion_fabric_text",
+    "label": "Fabric text",
+    "default": "<p>100% premium cotton. Soft, breathable, and durable.</p>"
+  },
+  {
+    "type": "checkbox",
+    "id": "pdp_show_reviews",
+    "label": "Show reviews",
+    "default": true,
+    "info": "Display review stars if metafield exists, otherwise show write review CTA"
+  },
+  {
+    "type": "header",
+    "content": "Analytics"
+  },
+  {
+    "type": "checkbox",
+    "id": "analytics_enable_hooks",
+    "label": "Enable analytics hooks",
+    "default": false,
+    "info": "Emit custom events for GA/Meta integration (ga_view_item, ga_add_to_cart, ga_begin_checkout)"
+  },
+  {
+    "type": "checkbox",
+    "id": "analytics_debug_mode",
+    "label": "Analytics debug mode",
+    "default": false,
+    "info": "Log analytics events to console for debugging"
+  },
+  {
+    "type": "header",
+    "content": "Social Sharing"
+  },
+  {
+    "type": "image_picker",
+    "id": "social_share_image",
+    "label": "Default social share image",
+    "info": "Used when page doesn't have a specific image (1200x630px recommended)"
+  },
+  {
+    "type": "header",
     "content": "Developer"
   },
   {
