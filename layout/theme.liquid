@@ -380,5 +380,19 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const headerWrapper = document.querySelector('.header-wrapper');
+        if (!headerWrapper) return;
+        const observer = new IntersectionObserver(([entry]) => {
+          headerWrapper.classList.toggle('header--scrolled', !entry.isIntersecting);
+        });
+        const sentinel = document.createElement('div');
+        sentinel.setAttribute('data-header-sentinel', '');
+        headerWrapper.before(sentinel);
+        observer.observe(sentinel);
+      });
+    </script>
   </body>
 </html>

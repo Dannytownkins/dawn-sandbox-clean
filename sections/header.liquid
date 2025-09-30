@@ -75,6 +75,15 @@
 {%- style -%}
   .header {
     padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
+    transition: padding 0.2s ease, background 0.2s ease;
+  }
+
+  .header--scrolled {
+    background: rgba(11, 11, 12, 0.92);
+  }
+
+  .header--scrolled .header__heading-logo-wrapper {
+    transform: scale(0.82);
   }
 
   .section-header {
@@ -632,6 +641,16 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "mega_icon",
+      "name": "Mega menu icon",
+      "limit": 6,
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "Icon" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Category" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
     }
   ]
 }
