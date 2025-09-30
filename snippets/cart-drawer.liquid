@@ -54,6 +54,7 @@
         {% render 'mini-cart-upsells' %}
 
         <div class="cart-drawer__footer">
+          {% render 'discount-code-inline' %}
           <div class="cart-subtotal">
             <span>Subtotal</span>
             <span class="cart-subtotal__amount">{{ cart.total_price | money }}</span>
