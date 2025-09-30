@@ -24,7 +24,7 @@
             {{
               light_image
               | image_url: width: 800
-              | image_tag: loading: 'lazy', widths: '400, 600, 800', class: 'duo-hero__image'
+              | image_tag: loading: 'eager', fetchpriority: 'high', widths: '400, 600, 800', width: light_image.width, height: light_image.height, class: 'duo-hero__image'
             }}
           </div>
         {%- endif -%}
