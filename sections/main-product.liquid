@@ -731,7 +731,7 @@
     </script>
   </div>
 </product-info>
-{% render 'sticky-atc' %}
+{% render 'sticky-atc', product: product, dev_force: settings.dev_force_in_stock %}
 
 {% schema %}
 {

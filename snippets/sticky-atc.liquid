@@ -8,7 +8,14 @@
 {%- assign _dev = dev_force | default: false -%}
 {%- assign _variant_id = product.selected_or_first_available_variant.id | default: product.variants.first.id -%}
 
-<div id="sticky-atc" hidden>
+{%- assign _available = product.selected_or_first_available_variant.available | default: product.available -%}
+<div
+  id="sticky-atc"
+  hidden
+  {% unless _available or _dev %}
+    style="display:none"
+  {% endunless %}
+>
   <button id="sticky-atc-btn" aria-label="Add to cart (sticky)">
     {{ 'products.product.add_to_cart' | t }}
   </button>

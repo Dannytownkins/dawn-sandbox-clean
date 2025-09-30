@@ -1459,9 +1459,8 @@
       {
         "type": "checkbox",
         "id": "dev_force_in_stock",
-        "label": "Force all products in stock (preview only)",
-        "default": false,
-        "info": "When enabled, availability checks are overridden so PDP shows Add to Cart during preview."
+        "label": "⚡ Dev: Force products appear in stock (preview only)",
+        "default": false
       }
     ]
   }
