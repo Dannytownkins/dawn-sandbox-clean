@@ -1,7 +1,5 @@
 {% comment %}
-  Renders product badges (New, Bestseller, Limited) based on product tags.
-  Usage:
-    {% render 'product-badges', product: product, block: block %}
+  Product badges: render small badges based on tags.
 {% endcomment %}
 
 {% assign tags = product.tags | map: 'downcase' %}
