@@ -1,0 +1,187 @@
+{% comment %}
+  Mini Cart Upsells
+  Recommends products from same collection or popular items
+  
+  Usage:
+  {% render 'mini-cart-upsells' %}
+{% endcomment %}
+
+{%- unless settings.cart_show_upsells -%}
+  {%- comment -%}Upsells disabled in settings{%- endcomment -%}
+{%- else -%}
+  {%- liquid
+    assign upsell_products = ''
+    assign cart_product_ids = cart.items | map: 'product_id'
+    assign max_upsells = 2
+    assign found_count = 0
+    
+    comment
+      Strategy: Find products from same collection as cart items
+    endcomment
+    
+    for cart_item in cart.items limit: 3
+      if found_count >= max_upsells
+        break
+      endif
+      
+      assign item_product = cart_item.product
+      
+      for collection in item_product.collections limit: 1
+        if found_count >= max_upsells
+          break
+        endif
+        
+        for product in collection.products limit: 6
+          if found_count >= max_upsells
+            break
+          endif
+          
+          unless cart_product_ids contains product.id
+            unless product.available == false
+              if upsell_products == ''
+                assign upsell_products = product.id
+              else
+                assign upsell_products = upsell_products | append: ',' | append: product.id
+              endif
+              assign found_count = found_count | plus: 1
+            endunless
+          endunless
+        endfor
+      endfor
+    endfor
+    
+    comment
+      Fallback: If no upsells found, get any available products
+    endcomment
+    
+    if found_count == 0
+      for product in collections.all.products limit: 4
+        if found_count >= max_upsells
+          break
+        endif
+        
+        unless cart_product_ids contains product.id
+          unless product.available == false
+            if upsell_products == ''
+              assign upsell_products = product.id
+            else
+              assign upsell_products = upsell_products | append: ',' | append: product.id
+            endif
+            assign found_count = found_count | plus: 1
+          endunless
+        endunless
+      endfor
+    endif
+    
+    assign upsell_ids = upsell_products | split: ','
+  -%}
+
+  {%- if found_count > 0 -%}
+    <div class="cart-upsells">
+      <h3 class="cart-upsells__heading">{{ 'cart.upsells.heading' | t }}</h3>
+      <div class="cart-upsells__grid">
+        {%- for product_id in upsell_ids -%}
+          {%- assign upsell = all_products[product_id] -%}
+          {%- if upsell.available -%}
+            <div class="cart-upsell-card">
+              <a href="{{ upsell.url }}" class="cart-upsell-card__link">
+                {%- if upsell.featured_media -%}
+                  <img
+                    src="{{ upsell.featured_media | image_url: width: 120 }}"
+                    alt="{{ upsell.featured_media.alt | escape }}"
+                    width="60"
+                    height="60"
+                    loading="lazy"
+                    class="cart-upsell-card__image"
+                  >
+                {%- endif -%}
+                <div class="cart-upsell-card__info">
+                  <p class="cart-upsell-card__title">{{ upsell.title }}</p>
+                  <p class="cart-upsell-card__price">{{ upsell.price | money }}</p>
+                </div>
+              </a>
+              <form method="post" action="{{ routes.cart_add_url }}" class="cart-upsell-form">
+                <input type="hidden" name="id" value="{{ upsell.selected_or_first_available_variant.id }}">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit" class="btn btn--sm btn--secondary" aria-label="Add {{ upsell.title }} to cart">
+                  {{ 'cart.upsells.add' | t }}
+                </button>
+              </form>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+{%- endunless -%}
+
+<style>
+  .cart-upsells {
+    padding: 16px 0 0;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 16px;
+  }
+  
+  .cart-upsells__heading {
+    font-size: var(--step-0);
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+  
+  .cart-upsells__grid {
+    display: grid;
+    gap: 12px;
+  }
+  
+  .cart-upsell-card {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+  
+  .cart-upsell-card__link {
+    display: flex;
+    gap: 12px;
+    flex: 1;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .cart-upsell-card__image {
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  
+  .cart-upsell-card__info {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .cart-upsell-card__title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .cart-upsell-card__price {
+    font-size: 13px;
+    color: #666;
+    margin: 0;
+  }
+  
+  .cart-upsell-form {
+    flex-shrink: 0;
+  }
+  
+  .btn--sm {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+</style>
