@@ -1,21 +1,78 @@
+{%- comment -%}
+  Sticky ATC with dev preview support:
+  - If product is out of stock and dev_force is true, we create a hidden form so the sticky button still submits.
+  - Requires render with context:
+    {% render 'sticky-atc', product: product, dev_force: settings.dev_force_in_stock %}
+{%- endcomment -%}
+
+{%- assign _dev = dev_force | default: false -%}
+{%- assign _variant_id = product.selected_or_first_available_variant.id | default: product.variants.first.id -%}
+
 <div id="sticky-atc" hidden>
-  <button id="sticky-atc-btn">{{ 'products.product.add_to_cart' | t }}</button>
+  <button id="sticky-atc-btn" aria-label="Add to cart (sticky)">
+    {{ 'products.product.add_to_cart' | t }}
+  </button>
 </div>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('form[action*="/cart/add"]');
+    // Try to find the real product form
+    let form = document.querySelector('form[action*="/cart/add"]');
+
+    const devForce = {{ _dev | json }};
+    const fallbackVariant = "{{ _variant_id }}";
+
+    // If there's no form and we're in dev preview mode, synthesize a minimal form
+    if (!form && devForce) {
+      form = document.createElement('form');
+      form.method = 'post';
+      form.action = '/cart/add';
+
+      const idInput = document.createElement('input');
+      idInput.type = 'hidden';
+      idInput.name = 'id';
+      idInput.value = fallbackVariant;
+
+      const qtyInput = document.createElement('input');
+      qtyInput.type = 'hidden';
+      qtyInput.name = 'quantity';
+      qtyInput.value = '1';
+
+      form.appendChild(idInput);
+      form.appendChild(qtyInput);
+      form.style.display = 'none';
+      document.body.appendChild(form);
+    }
+
+    // If after all that we still have no form, just bail silently
     if (!form) return;
+
     const bar = document.getElementById('sticky-atc');
     const btn = document.getElementById('sticky-atc-btn');
-    const io = new IntersectionObserver(
-      ([e]) => {
-        bar.hidden = e.isIntersecting;
-      },
-      { threshold: 0 }
-    );
-    io.observe(form);
-    btn.onclick = () => form.requestSubmit();
+
+    // If devForce is true and there's no on-page ATC to observe, just show the bar
+    const primaryATC = document.querySelector('form[action*="/cart/add"]');
+    if (devForce && !primaryATC) {
+      bar.hidden = false;
+    } else {
+      // Normal behavior: show bar when the main ATC scrolls out of view
+      const io = new IntersectionObserver(([entry]) => {
+        bar.hidden = entry.isIntersecting;
+      }, { threshold: 0 });
+      io.observe(form);
+    }
+
+    btn.addEventListener('click', () => {
+      try {
+        if (form.requestSubmit) {
+          form.requestSubmit();
+        } else {
+          form.submit();
+        }
+      } catch (e) {
+        // no-op
+      }
+    });
   });
 </script>
 
@@ -29,7 +86,7 @@
     color: #fff;
     display: flex;
     justify-content: center;
-    padding: 10px;
+    padding: 12px 14px;
     border-top: 1px solid #222;
     z-index: 80;
   }
@@ -38,8 +95,10 @@
     background: #eded6b;
     color: #111;
     font-weight: 800;
-    padding: 12px 16px;
+    padding: 14px 18px;
     border-radius: 12px;
     cursor: pointer;
+    min-width: 200px;
+    text-align: center;
   }
 </style>
