@@ -57,15 +57,27 @@
       "blocks": {
         "t1": {
           "type": "testimonial",
-          "settings": {}
+          "settings": {
+            "quote": "Humor split personalities never felt so stylish.",
+            "name": "Riley M.",
+            "meta": "Verified buyer"
+          }
         },
         "t2": {
           "type": "testimonial",
-          "settings": {}
+          "settings": {
+            "quote": "Humor split personalities never felt so stylish.",
+            "name": "Riley M.",
+            "meta": "Verified buyer"
+          }
         },
         "t3": {
           "type": "testimonial",
-          "settings": {}
+          "settings": {
+            "quote": "Humor split personalities never felt so stylish.",
+            "name": "Riley M.",
+            "meta": "Verified buyer"
+          }
         }
       },
       "block_order": [
@@ -76,11 +88,46 @@
       "settings": {
         "heading": "Fans of both sides are talking"
       }
+    },
+    "collection_list_LyRWEx": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_8Gcrbp": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "dark-humor"
+          }
+        },
+        "featured_collection_3hYEPF": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "light-humor"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_8Gcrbp",
+        "featured_collection_3hYEPF"
+      ],
+      "name": "t:sections.collection-list.presets.name",
+      "settings": {
+        "title": "Collections",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "color_scheme": "",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "duo_hero",
     "category_duo",
-    "featured_testimonials"
+    "featured_testimonials",
+    "collection_list_LyRWEx"
   ]
 }
