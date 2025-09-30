@@ -9,7 +9,7 @@
   <ul class="list-menu list-menu--inline" role="list">
     <li>
       <a
-        href="/"
+        href="{{ routes.root_url }}"
         class="header__menu-item list-menu__item link link--text focus-inset{% if request.page_type == 'index' %} header__active-menu-item{% endif %}"
         {% if request.page_type == 'index' %}
           aria-current="page"
