@@ -342,6 +342,24 @@
       "login": {
         "title": "Have an account?",
         "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in</a> to check out faster."
+      },
+      "free_shipping": {
+        "qualified": "🎉 You've qualified for free shipping!",
+        "message": "You're {{ amount }} away from free shipping"
+      },
+      "upsells": {
+        "heading": "You might also like",
+        "add": "Add"
+      },
+      "discount": {
+        "have_code": "Have a discount code?",
+        "placeholder": "Enter code",
+        "aria_label": "Discount code",
+        "apply": "Apply",
+        "saved": "✓ Code saved for checkout",
+        "success": "✓ Discount code saved!",
+        "error_empty": "Please enter a discount code",
+        "error": "Could not save discount code"
       }
     },
     "footer": {
