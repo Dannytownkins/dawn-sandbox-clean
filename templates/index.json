@@ -9,15 +9,17 @@
  */
 {
   "sections": {
-    "hero_video": {
-      "type": "hero-video",
+    "duo_hero": {
+      "type": "duo-hero",
       "settings": {
-        "heading": "Humor for every mood",
-        "subheading": "Light or dark, we have a tee for the day you’re having.",
-        "primary_label": "Shop Light Humor",
-        "primary_link": "shopify://collections/light",
-        "secondary_label": "Shop Dark Humor",
-        "secondary_link": "shopify://collections/dark"
+        "light_heading": "Light Humor",
+        "light_text": "<p>Sarcastic optimism for sunnier days. Bright tees that make you smile.</p>",
+        "light_cta_text": "Shop Light",
+        "light_cta_link": "shopify://collections/light",
+        "dark_heading": "Dark Humor",
+        "dark_text": "<p>Pitch-black jokes, midnight cotton. For those who prefer their comedy on the darker side.</p>",
+        "dark_cta_text": "Shop Dark",
+        "dark_cta_link": "shopify://collections/dark"
       }
     },
     "category_duo": {
@@ -59,7 +61,7 @@
     }
   },
   "order": [
-    "hero_video",
+    "duo_hero",
     "category_duo",
     "featured_testimonials"
   ]
