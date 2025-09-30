@@ -1,7 +1,7 @@
 {%- comment -%}
   Reviews Placeholder
   Shows rating if metafield exists, otherwise shows write review CTA
-  
+
   Usage:
     {% render 'reviews-placeholder', product: product %}
 {%- endcomment -%}
@@ -23,7 +23,7 @@
           endif
           assign rating_whole = rating | floor
         -%}
-        
+
         <div class="stars-wrapper">
           {%- for i in (1..5) -%}
             {%- if i <= rating_whole -%}
@@ -44,7 +44,10 @@
         </div>
 
         {%- if rating_count -%}
-          <span class="reviews-count">({{ rating_count }} {{ 'products.product.reviews' | t }})</span>
+          <span class="reviews-count"
+            >({{ rating_count }}
+            {{ 'products.product.reviews' | t }})</span
+          >
         {%- endif -%}
       </div>
     {%- else -%}

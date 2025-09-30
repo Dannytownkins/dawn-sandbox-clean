@@ -6,7 +6,7 @@
   assign light_cta_text = section.settings.light_cta_text
   assign light_cta_link = section.settings.light_cta_link
   assign light_image = section.settings.light_image
-  
+
   assign dark_heading = section.settings.dark_heading
   assign dark_text = section.settings.dark_text
   assign dark_cta_text = section.settings.dark_cta_text
@@ -24,7 +24,13 @@
             {{
               light_image
               | image_url: width: 800
-              | image_tag: loading: 'eager', fetchpriority: 'high', widths: '400, 600, 800', width: light_image.width, height: light_image.height, class: 'duo-hero__image'
+              | image_tag:
+                loading: 'eager',
+                fetchpriority: 'high',
+                widths: '400, 600, 800',
+                width: light_image.width,
+                height: light_image.height,
+                class: 'duo-hero__image'
             }}
           </div>
         {%- endif -%}
@@ -199,7 +205,7 @@
     .btn--sharp {
       transition: none;
     }
-    
+
     .btn--pill:hover,
     .btn--sharp:hover {
       transform: none;
