@@ -1451,17 +1451,59 @@
         "default": "scheme-1"
       }
     ]
-  }
-  ,
+  },
   {
-    "name": "Developer",
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "dev_force_in_stock",
-        "label": "⚡ Dev: Force products appear in stock (preview only)",
-        "default": false
-      }
-    ]
+    "type": "header",
+    "content": "Brand"
+  },
+  {
+    "type": "color",
+    "id": "brand_color_primary",
+    "label": "Primary brand color",
+    "default": "#eded6b"
+  },
+  {
+    "type": "color",
+    "id": "brand_color_secondary",
+    "label": "Secondary brand color",
+    "default": "#0b0b0c"
+  },
+  {
+    "type": "font_picker",
+    "id": "brand_font_primary",
+    "label": "Primary font",
+    "default": "system"
+  },
+  {
+    "type": "font_picker",
+    "id": "brand_font_secondary",
+    "label": "Secondary font",
+    "default": "system"
+  },
+  {
+    "type": "checkbox",
+    "id": "pdp_review_stars",
+    "label": "Show review stars on PDP",
+    "default": true
+  },
+  {
+    "type": "select",
+    "id": "collection_layout",
+    "label": "Collection layout",
+    "options": [
+      {"label": "Grid", "value": "grid"},
+      {"label": "List", "value": "list"}
+    ],
+    "default": "grid"
+  },
+  {
+    "type": "header",
+    "content": "Developer"
+  },
+  {
+    "type": "checkbox",
+    "id": "dev_show_all_sections",
+    "label": "⚡ Dev: Show all sections",
+    "default": false
   }
 ]
