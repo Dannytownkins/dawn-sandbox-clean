@@ -17,12 +17,16 @@
     const detail = {
       handle: pdp.dataset.productHandle,
       id: pdp.dataset.productId || '',
-      variant: pdp.dataset.variantId || ''
+      variant: pdp.dataset.variantId || '',
+      price: pdp.dataset.productPrice || '',
+      currency: {{ cart.currency.iso_code | json }}
     };
+    document.dispatchEvent(new CustomEvent('danliora_view_item', {detail}));
+    // Legacy GA event
     document.dispatchEvent(new CustomEvent('ga_view_item', {detail}));
   }
 
-  // Add to Cart Events
+  // Add to Cart Events (also listen for AJAX success)
   document.addEventListener('click', e => {
     const atcMain = e.target.closest('[data-cta="atc-main"]');
     const atcSticky = e.target.closest('[data-cta="atc-sticky"]');
@@ -36,9 +40,11 @@
       const detail = {
         variant_id: variantInput?.value || '',
         quantity: qtyInput?.value || '1',
-        source: atcSticky ? 'sticky' : 'main'
+        source: atcSticky ? 'sticky' : 'main',
+        currency: {{ cart.currency.iso_code | json }}
       };
       
+      document.dispatchEvent(new CustomEvent('danliora_add_to_cart', {detail}));
       document.dispatchEvent(new CustomEvent('ga_add_to_cart', {detail}));
     }
 
@@ -46,17 +52,20 @@
     const checkout = e.target.closest('[data-cta="begin-checkout"]');
     if(checkout){
       const detail = {
-        cart_total: checkout.dataset.cartTotal || ''
+        cart_total: {{ cart.total_price | money_without_currency | json }},
+        currency: {{ cart.currency.iso_code | json }},
+        item_count: {{ cart.item_count | json }}
       };
+      document.dispatchEvent(new CustomEvent('danliora_begin_checkout', {detail}));
       document.dispatchEvent(new CustomEvent('ga_begin_checkout', {detail}));
     }
   });
 
-  // Listen for custom events and log (for debugging)
+  // Debug mode
   if({{ settings.analytics_debug_mode | default: false | json }}){
-    ['ga_view_item', 'ga_add_to_cart', 'ga_begin_checkout'].forEach(evt => {
+    ['danliora_view_item', 'danliora_add_to_cart', 'danliora_begin_checkout'].forEach(evt => {
       document.addEventListener(evt, e => {
-        console.log(`[Analytics Hook] ${evt}:`, e.detail);
+        console.log(`[Danliora Analytics] ${evt}:`, e.detail);
       });
     });
   }
