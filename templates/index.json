@@ -46,18 +46,36 @@
           }
         }
       },
-      "block_order": ["light", "dark"],
+      "block_order": [
+        "light",
+        "dark"
+      ],
       "settings": {}
     },
     "featured_testimonials": {
       "type": "featured-testimonials",
       "blocks": {
-        "t1": {"type": "testimonial"},
-        "t2": {"type": "testimonial"},
-        "t3": {"type": "testimonial"}
+        "t1": {
+          "type": "testimonial",
+          "settings": {}
+        },
+        "t2": {
+          "type": "testimonial",
+          "settings": {}
+        },
+        "t3": {
+          "type": "testimonial",
+          "settings": {}
+        }
       },
-      "block_order": ["t1", "t2", "t3"],
-      "settings": {"heading": "Fans of both sides are talking"}
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {
+        "heading": "Fans of both sides are talking"
+      }
     }
   },
   "order": [
