@@ -1,0 +1,24 @@
+{% comment %}
+  Renders product badges (New, Bestseller, Limited) based on product tags.
+  Usage:
+    {% render 'product-badges', product: product, block: block %}
+{% endcomment %}
+
+{% assign tags = product.tags | map: 'downcase' %}
+{% assign badges = '' %}
+
+{% if tags contains 'new' %}
+  {% assign badges = badges | append: '<span class="badge badge--new">New</span>' %}
+{% endif %}
+{% if tags contains 'bestseller' %}
+  {% assign badges = badges | append: '<span class="badge badge--bestseller">Bestseller</span>' %}
+{% endif %}
+{% if tags contains 'limited' %}
+  {% assign badges = badges | append: '<span class="badge badge--limited">Limited</span>' %}
+{% endif %}
+
+{% if badges != '' %}
+  <div class="product-badges" {{ block.shopify_attributes }}>
+    {{ badges | raw }}
+  </div>
+{% endif %}

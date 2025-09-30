@@ -89,6 +89,8 @@
             {%- case block.type -%}
               {%- when '@app' -%}
                 {% render block %}
+              {%- when 'badges' -%}
+                {% render 'product-badges', product: product, block: block %}
               {%- when 'text' -%}
                 <p
                   class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
@@ -486,6 +488,10 @@
                   show_pickup_availability: true,
                   preview_force_available: settings.dev_force_in_stock
                 -%}
+              {%- when 'trust_icons' -%}
+                {% render 'trust-icons', block: block %}
+              {%- when 'faq' -%}
+                {% render 'faq-accordion', block: block %}
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
                   <div class="rating-wrapper">
@@ -684,7 +690,8 @@
       </div>
     </div>
 
-    {% render 'product-media-modal', variant_images: variant_images %}
+    {% render 'product-media-modal', product: product, variant_images: variant_images %}
+    {% render 'upsell-carousel', product: product %}
 
     {% assign popups = section.blocks | where: 'type', 'popup' %}
     {%- for block in popups -%}
@@ -741,6 +748,40 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "badges",
+      "name": "t:sections.main-product.blocks.badges.name",
+      "settings": [
+        {
+          "type": "select",
+          "id": "badge_type",
+          "options": [
+            {
+              "value": "new",
+              "label": "t:sections.main-product.blocks.badges.settings.badge_type.options__1.label"
+            },
+            {
+              "value": "sale",
+              "label": "t:sections.main-product.blocks.badges.settings.badge_type.options__2.label"
+            },
+            {
+              "value": "best_seller",
+              "label": "t:sections.main-product.blocks.badges.settings.badge_type.options__3.label"
+            },
+            {
+              "value": "top_rated",
+              "label": "t:sections.main-product.blocks.badges.settings.badge_type.options__4.label"
+            },
+            {
+              "value": "exclusive",
+              "label": "t:sections.main-product.blocks.badges.settings.badge_type.options__5.label"
+            }
+          ],
+          "default": "new",
+          "label": "t:sections.main-product.blocks.badges.settings.badge_type.label"
+        }
+      ]
     },
     {
       "type": "text",

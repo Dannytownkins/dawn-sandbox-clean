@@ -1,0 +1,27 @@
+{% comment %}
+  Upsell carousel that pulls products from the same collection as current product.
+  Usage: {% render 'upsell-carousel', product: product %}
+{% endcomment %}
+
+{% assign collection = product.collections | first %}
+{% if collection and collection.products_count > 1 %}
+  <div class="upsell-carousel">
+    <h2 class="upsell-carousel__title">You may also like</h2>
+    <div class="upsell-carousel__list" role="list">
+      {% for related in collection.products %}
+        {% if related.id == product.id %}
+          {% continue %}
+        {% endif %}
+        <article class="upsell-card" role="listitem">
+          <a href="{{ related.url }}" class="upsell-card__link">
+            {% if related.featured_image %}
+              <img src="{{ related.featured_image | img_url: '360x' }}" alt="{{ related.title | escape }}" loading="lazy" />
+            {% endif %}
+            <h3 class="upsell-card__title">{{ related.title }}</h3>
+            <span class="upsell-card__price">{{ related.price | money }}</span>
+          </a>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

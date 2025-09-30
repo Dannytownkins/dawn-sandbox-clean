@@ -1,0 +1,23 @@
+{% comment %}
+  Trust icons row: customizable via block settings.
+  Expected block settings: icon_1_label, icon_1_text, etc.
+{% endcomment %}
+
+<div class="trust-icons" {{ block.shopify_attributes }}>
+  <ul class="trust-icons__list" role="list">
+    {% for n in (1..4) %}
+      {% assign label_key = 'icon_' | append: n | append: '_label' %}
+      {% assign text_key = 'icon_' | append: n | append: '_text' %}
+      {% assign label = block.settings[label_key] %}
+      {% assign text = block.settings[text_key] %}
+      {% if label != blank or text != blank %}
+        <li class="trust-icons__item">
+          <span class="trust-icons__label">{{ label | default: 'Secure checkout' }}</span>
+          {% if text != blank %}
+            <span class="trust-icons__text">{{ text }}</span>
+          {% endif %}
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
