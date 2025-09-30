@@ -1,0 +1,63 @@
+<section class="usp-row">
+  <ul class="usp-row__list">
+    {% for b in section.blocks %}
+      <li class="usp-row__item">
+        <div class="usp-row__title">{{ b.settings.title }}</div>
+        {% if b.settings.caption != blank %}
+          <div class="usp-row__cap">{{ b.settings.caption }}</div>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+
+<style>
+  .usp-row {
+    margin: 18px 0;
+  }
+  .usp-row__list {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 0;
+    list-style: none;
+  }
+  .usp-row__item {
+    background: #121214;
+    color: #fff;
+    border: 1px solid #1b1b1d;
+    border-radius: 14px;
+    padding: 14px;
+  }
+  .usp-row__title {
+    font-weight: 700;
+  }
+  .usp-row__cap {
+    opacity: 0.85;
+    font-size: 0.95rem;
+    margin-top: 4px;
+  }
+  @media (max-width: 760px) {
+    .usp-row__list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "USP Row",
+  "blocks": [
+    {
+      "type": "usp",
+      "name": "USP",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Printed in the USA" },
+        { "type": "text", "id": "caption", "label": "Caption", "default": "Vibrant DTG on premium blanks" }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [{ "name": "USP Row", "blocks": [{ "type": "usp" }, { "type": "usp" }, { "type": "usp" }] }]
+}
+{% endschema %}

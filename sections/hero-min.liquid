@@ -1,0 +1,105 @@
+{% comment %}
+  Astra Hero (minimal, LCP-friendly)
+{% endcomment %}
+<section class="astra-hero">
+  <div class="astra-hero__inner">
+    {% if section.settings.eyebrow != blank %}
+      <p class="astra-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+    {% endif %}
+    <h1 class="astra-hero__headline">{{ section.settings.headline }}</h1>
+    {% if section.settings.subcopy != blank %}
+      <p class="astra-hero__subcopy">{{ section.settings.subcopy }}</p>
+    {% endif %}
+    <a class="astra-hero__cta" href="{{ section.settings.cta_url }}">{{ section.settings.cta_text }}</a>
+  </div>
+  {% if section.settings.hero_image != blank %}
+    <picture class="astra-hero__media">
+      {{
+        section.settings.hero_image
+        | image_url: width: 1600
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          widths: '800,1200,1600',
+          sizes: '(min-width: 768px) 75vw, 100vw',
+          alt: section.settings.headline
+      }}
+    </picture>
+  {% endif %}
+</section>
+
+<style>
+  :root {
+    --astra-bg: #0b0b0c;
+    --astra-fg: #fff;
+    --astra-accent: #eded6b;
+  }
+  .astra-hero {
+    display: grid;
+    gap: 1.25rem;
+    align-items: center;
+    background: var(--astra-bg);
+    color: var(--astra-fg);
+    padding: clamp(24px, 4vw, 64px);
+    border-radius: 20px;
+  }
+  .astra-hero__inner {
+    max-width: 840px;
+  }
+  .astra-hero__eyebrow {
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin: 0 0 0.25rem;
+  }
+  .astra-hero__headline {
+    font-size: clamp(28px, 5.2vw, 56px);
+    line-height: 1.04;
+    margin: 0.25rem 0 0.5rem;
+    font-weight: 800;
+  }
+  .astra-hero__subcopy {
+    max-width: 60ch;
+    opacity: 0.88;
+    margin: 0 0 1rem;
+    font-size: clamp(16px, 2.2vw, 18px);
+  }
+  .astra-hero__cta {
+    display: inline-block;
+    padding: 0.9rem 1.25rem;
+    border-radius: 12px;
+    background: var(--astra-accent);
+    color: #111;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .astra-hero__media {
+    justify-self: end;
+    max-width: min(46vw, 720px);
+  }
+  @media (min-width: 980px) {
+    .astra-hero {
+      grid-template-columns: 1fr 0.9fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Astra – Minimal Hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "New drop" },
+    { "type": "text", "id": "headline", "label": "Headline", "default": "Everything is fine (probably)." },
+    {
+      "type": "textarea",
+      "id": "subcopy",
+      "label": "Subcopy",
+      "default": "Dark humor, clean builds. Launching with our first two tees while we spin up the rest."
+    },
+    { "type": "text", "id": "cta_text", "label": "CTA text", "default": "Shop the drop" },
+    { "type": "url", "id": "cta_url", "label": "CTA link" },
+    { "type": "image_picker", "id": "hero_image", "label": "Optional image" }
+  ],
+  "presets": [{ "name": "Astra – Minimal Hero" }]
+}
+{% endschema %}
