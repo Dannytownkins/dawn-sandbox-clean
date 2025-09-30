@@ -142,15 +142,17 @@
       // Update cart count badge (multiple selectors for compatibility)
       const updateCartBadge = (count) => {
         // Header cart badge
-        const badges = document.querySelectorAll('[data-cart-count], .cart-count-bubble span[aria-hidden="true"], .cart-badge');
-        badges.forEach(badge => {
+        const badges = document.querySelectorAll(
+          '[data-cart-count], .cart-count-bubble span[aria-hidden="true"], .cart-badge'
+        );
+        badges.forEach((badge) => {
           badge.textContent = count;
           if (count > 0) {
             badge.style.display = '';
           }
         });
       };
-      
+
       updateCartBadge(cart.item_count);
 
       // Reload drawer content
