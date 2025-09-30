@@ -1,22 +1,49 @@
-{% comment %}
-  Product badges: render small badges based on tags.
-{% endcomment %}
+{%- comment -%}
+  Product Badges
+  Renders badges for bestseller, new, and out-of-stock products
+  
+  Usage:
+    {% render 'product-badges', product: product %}
+{%- endcomment -%}
 
-{% assign tags = product.tags | map: 'downcase' %}
-{% assign badges = '' %}
+{%- assign tags = product.tags | map: 'downcase' -%}
+{%- capture badges -%}
+  {%- if tags contains 'bestseller' -%}<span class="badge badge--hot">Bestseller</span>{%- endif -%}
+  {%- if tags contains 'new' -%}<span class="badge">New</span>{%- endif -%}
+  {%- if product.available == false -%}<span class="badge badge--oos">Sold out</span>{%- endif -%}
+{%- endcapture -%}
 
-{% if tags contains 'new' %}
-  {% assign badges = badges | append: '<span class="badge badge--new">New</span>' %}
-{% endif %}
-{% if tags contains 'bestseller' %}
-  {% assign badges = badges | append: '<span class="badge badge--bestseller">Bestseller</span>' %}
-{% endif %}
-{% if tags contains 'limited' %}
-  {% assign badges = badges | append: '<span class="badge badge--limited">Limited</span>' %}
-{% endif %}
+{%- if badges != blank -%}
+  <div class="badges">{{ badges }}</div>
+{%- endif -%}
 
-{% if badges != '' %}
-  <div class="product-badges" {{ block.shopify_attributes }}>
-    {{ badges | raw }}
-  </div>
-{% endif %}
+<style>
+  .badges {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 6px;
+    z-index: 2;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    background: #0b0b0c;
+    color: #fff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .badge--hot {
+    background: #eded6b;
+    color: #111;
+  }
+
+  .badge--oos {
+    background: #444;
+  }
+</style>
