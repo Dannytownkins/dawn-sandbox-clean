@@ -16,8 +16,8 @@
     {%- endunless -%}
 
     {%- comment -%} Preload critical CSS {%- endcomment -%}
-    <link rel="preload" as="style" href="{{ 'base.css' | asset_url }}">
-    <link rel="preload" as="style" href="{{ 'astra.css' | asset_url }}">
+    {{ 'base.css' | asset_url | preload_tag: as: 'style' }}
+    {{ 'astra.css' | asset_url | preload_tag: as: 'style' }}
 
     <title>
       {{ page_title }}
