@@ -124,6 +124,26 @@
           data-cascade
         {% endif %}
       >
+        {%- comment -%} Tag filter pills {%- endcomment -%}
+        {%- if collection.all_tags.size > 0 -%}
+          <div class="collection-tags page-width" style="margin-bottom: 1rem;">
+            <div class="collection-tags__pills">
+              {%- for tag in collection.all_tags -%}
+                {%- assign tag_active = false -%}
+                {%- if current_tags contains tag -%}
+                  {%- assign tag_active = true -%}
+                {%- endif -%}
+                <a 
+                  href="{{ collection.url }}/{{ tag | handle }}" 
+                  class="tag-pill{% if tag_active %} tag-pill--active{% endif %}"
+                >
+                  {{ tag }}
+                </a>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+
         {%- if collection.products.size == 0 -%}
           <div class="collection collection--empty page-width" id="product-grid" data-id="{{ section.id }}">
             <div class="loading-overlay gradient"></div>
@@ -408,3 +428,46 @@
   ]
 }
 {% endschema %}
+
+<style>
+  .collection-tags__pills {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .tag-pill {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #f0f0f0;
+    color: #111;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+  }
+
+  .tag-pill:hover {
+    background: #e0e0e0;
+    transform: translateY(-1px);
+  }
+
+  .tag-pill--active {
+    background: #eded6b;
+    color: #111;
+    border-color: #111;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tag-pill {
+      transition: none;
+    }
+    
+    .tag-pill:hover {
+      transform: none;
+    }
+  }
+</style>
