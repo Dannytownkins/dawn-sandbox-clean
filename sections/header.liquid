@@ -74,6 +74,17 @@
       padding-top: 0.5rem;
     }
   }
+
+  /* Ensure navigation is visible */
+  .header__inline-menu {
+    display: block;
+  }
+
+  @media screen and (max-width: 989px) {
+    .header__inline-menu {
+      display: none;
+    }
+  }
 </style>
 
 {%- style -%}
