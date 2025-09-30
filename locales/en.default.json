@@ -179,6 +179,7 @@
       "sold_out": "Sold out",
       "add_to_cart": "Add to cart",
       "unavailable": "Unavailable",
+      "urgency_message": "Only {{ count }} left in stock!",
       "vendor": "Vendor",
       "value_unavailable": "{{ option_value }} - Unavailable",
       "variant_sold_out_or_unavailable": "Variant sold out or unavailable",

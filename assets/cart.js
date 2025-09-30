@@ -17,7 +17,7 @@
   const openDrawer = () => {
     // Store the element that opened the drawer
     lastFocused = document.activeElement;
-    
+
     drawer.hidden = false;
     drawer.setAttribute('aria-hidden', 'false');
 
@@ -48,20 +48,20 @@
 
   // Focus trap implementation
   let focusTrapHandler = null;
-  
+
   const setupFocusTrap = (container) => {
     const focusableElements = container.querySelectorAll(
       'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
     );
-    
+
     if (focusableElements.length === 0) return;
-    
+
     const firstElement = focusableElements[0];
     const lastElement = focusableElements[focusableElements.length - 1];
-    
+
     focusTrapHandler = (e) => {
       if (e.key !== 'Tab') return;
-      
+
       if (e.shiftKey) {
         if (document.activeElement === firstElement) {
           lastElement.focus();
@@ -74,10 +74,10 @@
         }
       }
     };
-    
+
     container.addEventListener('keydown', focusTrapHandler);
   };
-  
+
   const teardownFocusTrap = () => {
     if (focusTrapHandler) {
       drawer.removeEventListener('keydown', focusTrapHandler);
