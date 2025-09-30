@@ -239,11 +239,14 @@
               </div>
             {%- endform -%}
           </localization-form>
-        {%- endif -%}
-      </div>
+      {%- endif -%}
+    </div>
+    <div style="position: relative;">
       {% render 'header-search', input_id: 'Search-In-Modal' %}
+      {% render 'predictive-search' %}
+    </div>
 
-      {%- if shop.customer_accounts_enabled -%}
+    {%- if shop.customer_accounts_enabled -%}
         <a
           href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
           class="header__icon header__icon--account link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
