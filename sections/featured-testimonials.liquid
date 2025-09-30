@@ -1,0 +1,124 @@
+{% comment %}
+  Featured testimonials carousel for homepage
+{% endcomment %}
+
+<section class="featured-testimonials" data-section-id="{{ section.id }}">
+  <div class="featured-testimonials__inner">
+    {% if section.settings.heading != blank %}
+      <h2 class="featured-testimonials__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    <div class="featured-testimonials__carousel" role="list">
+      {% for block in section.blocks %}
+        <article class="testimonial" role="listitem" {{ block.shopify_attributes }}>
+          {% if block.settings.quote != blank %}
+            <blockquote class="testimonial__quote">{{ block.settings.quote }}</blockquote>
+          {% endif %}
+          <div class="testimonial__meta">
+            {% if block.settings.avatar != blank %}
+              {{ block.settings.avatar | image_url: width: 120 | image_tag: class: 'testimonial__avatar', loading: 'lazy' }}
+            {% endif %}
+            <div>
+              <p class="testimonial__name">{{ block.settings.name }}</p>
+              {% if block.settings.meta != blank %}
+                <p class="testimonial__info">{{ block.settings.meta }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .featured-testimonials {
+    background: #111;
+    color: #fff;
+    padding: clamp(32px, 5vw, 80px) 0;
+  }
+  .featured-testimonials__inner {
+    display: grid;
+    gap: 32px;
+    margin: 0 auto;
+    max-width: 1100px;
+    padding: 0 clamp(16px, 4vw, 48px);
+  }
+  .featured-testimonials__heading {
+    font-size: clamp(28px, 4vw, 48px);
+    margin: 0;
+    text-align: center;
+  }
+  .featured-testimonials__carousel {
+    display: grid;
+    gap: 24px;
+  }
+  @media (min-width: 900px) {
+    .featured-testimonials__carousel {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .testimonial {
+    background: #151515;
+    border-radius: 18px;
+    padding: 24px;
+    display: grid;
+    gap: 18px;
+  }
+  .testimonial__quote {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .testimonial__meta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .testimonial__avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .testimonial__name {
+    font-weight: 700;
+    margin: 0 0 4px;
+  }
+  .testimonial__info {
+    margin: 0;
+    opacity: 0.7;
+    font-size: 0.9rem;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Featured testimonials",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Light vs Dark Humor fans are talking" }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "Humor split personalities never felt so stylish." },
+        { "type": "text", "id": "name", "label": "Name", "default": "Riley M." },
+        { "type": "text", "id": "meta", "label": "Meta", "default": "Verified buyer" },
+        { "type": "image_picker", "id": "avatar", "label": "Avatar" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Featured testimonials",
+      "blocks": [
+        { "type": "testimonial" },
+        { "type": "testimonial" },
+        { "type": "testimonial" }
+      ]
+    }
+  ]
+}
+{% endschema %}
