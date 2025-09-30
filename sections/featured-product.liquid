@@ -3,6 +3,7 @@
   if product == null
     assign placeholder = true
   endif
+  assign product_available = product.selected_or_first_available_variant.available
 -%}
 
 <product-info
