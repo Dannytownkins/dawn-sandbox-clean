@@ -1498,6 +1498,20 @@
   },
   {
     "type": "header",
+    "content": "Cart & Checkout"
+  },
+  {
+    "type": "range",
+    "id": "fs_threshold",
+    "label": "Free shipping threshold ($)",
+    "min": 0,
+    "max": 200,
+    "step": 5,
+    "default": 50,
+    "info": "Amount required for free shipping"
+  },
+  {
+    "type": "header",
     "content": "Developer"
   },
   {

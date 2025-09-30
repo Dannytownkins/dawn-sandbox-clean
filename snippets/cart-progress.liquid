@@ -1,0 +1,62 @@
+{%- comment -%}
+  Free Shipping Progress Bar
+  Shows progress toward free shipping threshold
+  
+  Usage:
+    {% render 'cart-progress' %}
+{%- endcomment -%}
+
+{%- assign threshold = settings.fs_threshold | default: 50.0 -%}
+{%- assign total = cart.total_price | divided_by: 100.0 -%}
+{%- assign pct = total | times: 100.0 | divided_by: threshold | at_most: 100 -%}
+{%- assign remaining = threshold | minus: total -%}
+
+<div class="fs-progress" role="status" aria-live="polite">
+  <div class="fs-progress__bar">
+    <span style="width: {{ pct }}%"></span>
+  </div>
+  <div class="fs-progress__msg">
+    {%- if total >= threshold -%}
+      You unlocked free shipping! 🎉
+    {%- else -%}
+      Spend {{ remaining | money_without_trailing_zeros }} more for free shipping.
+    {%- endif -%}
+  </div>
+</div>
+
+<style>
+  .fs-progress {
+    border: 1px solid #1b1b1d;
+    border-radius: 12px;
+    padding: 10px;
+    margin: 10px 0;
+    background: #121214;
+    color: #fff;
+  }
+
+  .fs-progress__bar {
+    height: 8px;
+    background: #1f1f22;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .fs-progress__bar span {
+    display: block;
+    height: 100%;
+    background: #eded6b;
+    transition: width 0.3s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fs-progress__bar span {
+      transition: none;
+    }
+  }
+
+  .fs-progress__msg {
+    font-size: 14px;
+    text-align: center;
+  }
+</style>
