@@ -1,0 +1,106 @@
+{%- comment -%}
+  Reviews Placeholder
+  Shows rating if metafield exists, otherwise shows write review CTA
+  
+  Usage:
+    {% render 'reviews-placeholder', product: product %}
+{%- endcomment -%}
+
+{%- if settings.pdp_show_reviews -%}
+  {%- assign rating = product.metafields.reviews.rating.value -%}
+  {%- assign rating_count = product.metafields.reviews.count -%}
+
+  <div class="product-reviews">
+    {%- if rating and rating > 0 -%}
+      <div class="product-reviews__stars" role="img" aria-label="{{ rating }} out of 5 stars">
+        {%- liquid
+          assign rating_decimal = 0
+          assign decimal = rating | modulo: 1
+          if decimal >= 0.3 and decimal <= 0.7
+            assign rating_decimal = 0.5
+          elsif decimal > 0.7
+            assign rating_decimal = 1
+          endif
+          assign rating_whole = rating | floor
+        -%}
+        
+        <div class="stars-wrapper">
+          {%- for i in (1..5) -%}
+            {%- if i <= rating_whole -%}
+              <svg class="star star--full" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                <path fill="currentColor" d="M8 0l2.163 5.455L16 6.073l-4.328 3.635L13.09 16 8 12.727 2.91 16l1.418-6.292L0 6.073l5.837-.618z"/>
+              </svg>
+            {%- elsif i == rating_whole | plus: 1 and rating_decimal == 0.5 -%}
+              <svg class="star star--half" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                <path fill="currentColor" d="M8 0l2.163 5.455L16 6.073l-4.328 3.635L13.09 16 8 12.727V0z"/>
+                <path fill="#ddd" d="M8 0v12.727L2.91 16l1.418-6.292L0 6.073l5.837-.618z"/>
+              </svg>
+            {%- else -%}
+              <svg class="star star--empty" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                <path fill="#ddd" d="M8 0l2.163 5.455L16 6.073l-4.328 3.635L13.09 16 8 12.727 2.91 16l1.418-6.292L0 6.073l5.837-.618z"/>
+              </svg>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if rating_count -%}
+          <span class="reviews-count">({{ rating_count }} {{ 'products.product.reviews' | t }})</span>
+        {%- endif -%}
+      </div>
+    {%- else -%}
+      <div class="product-reviews__cta">
+        <a href="{{ pages.contact.url }}" class="reviews-cta-link">
+          {{ 'products.product.write_review' | t }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <style>
+    .product-reviews {
+      margin: 1rem 0;
+    }
+
+    .product-reviews__stars {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .stars-wrapper {
+      display: flex;
+      gap: 2px;
+    }
+
+    .star {
+      color: #eded6b;
+    }
+
+    .star--empty {
+      color: #ddd;
+    }
+
+    .reviews-count {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .reviews-cta-link {
+      font-size: 14px;
+      color: #666;
+      text-decoration: underline;
+      transition: color 0.2s ease;
+    }
+
+    .reviews-cta-link:hover,
+    .reviews-cta-link:focus {
+      color: #111;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reviews-cta-link {
+        transition: none;
+      }
+    }
+  </style>
+{%- endif -%}

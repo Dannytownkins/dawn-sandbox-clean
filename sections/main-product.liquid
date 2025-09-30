@@ -117,6 +117,7 @@
                     price_class: 'price--large'
                   -%}
                   {% render 'size-guide' %}
+                  {% render 'reviews-placeholder', product: product %}
                   {% render 'accordion-details' %}
                 </div>
                 {%- if product.quantity_price_breaks_configured? -%}

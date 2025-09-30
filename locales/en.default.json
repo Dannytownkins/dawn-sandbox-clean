@@ -190,7 +190,9 @@
       "chest": "Chest",
       "waist": "Waist",
       "hips": "Hips",
-      "size_guide_note": "Measurements are approximate. If between sizes, we recommend sizing up."
+      "size_guide_note": "Measurements are approximate. If between sizes, we recommend sizing up.",
+      "reviews": "reviews",
+      "write_review": "Write a review"
     },
     "modal": {
       "label": "Media gallery"
