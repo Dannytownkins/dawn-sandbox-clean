@@ -23,6 +23,7 @@
           <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary" data-close-cart>Start Shopping</a>
         </div>
       {% else %}
+        {% render 'free-shipping-bar' %}
         <div class="cart-drawer__items">
           {% for item in cart.items %}
             <div class="cart-line" data-line-index="{{ forloop.index }}">
