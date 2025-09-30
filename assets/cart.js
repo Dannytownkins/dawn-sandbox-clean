@@ -61,7 +61,7 @@
     if (!form.action.includes('/cart/add')) return;
 
     e.preventDefault();
-    
+
     // Show loading state on submit button
     const submitBtn = form.querySelector('[type="submit"]');
     const originalText = submitBtn ? submitBtn.innerHTML : '';
@@ -71,29 +71,29 @@
     }
 
     const fd = new FormData(form);
-    
+
     try {
       // Add item to cart via AJAX
-      const res = await fetch('/cart/add.js', { 
-        method: 'POST', 
-        body: fd, 
-        headers: { 'Accept': 'application/json' }
+      const res = await fetch('/cart/add.js', {
+        method: 'POST',
+        body: fd,
+        headers: { Accept: 'application/json' },
       });
-      
+
       if (!res.ok) throw new Error('Add to cart failed');
-      
+
       // Refresh cart data
-      const cartRes = await fetch('/cart.js', { 
-        headers: { 'Accept': 'application/json' }
+      const cartRes = await fetch('/cart.js', {
+        headers: { Accept: 'application/json' },
       });
       const cart = await cartRes.json();
-      
+
       // Update cart count badge
       const countBadge = document.querySelector('.cart-count-bubble span[aria-hidden="true"]');
       if (countBadge && cart.item_count > 0) {
         countBadge.textContent = cart.item_count;
       }
-      
+
       // Reload drawer content
       const drawerRes = await fetch(window.location.href);
       const html = await drawerRes.text();
@@ -107,20 +107,19 @@
           btn.addEventListener('click', closeDrawer);
         });
       }
-      
+
       // Open the drawer
       openDrawer();
-      
+
       // Reset button
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalText;
       }
-      
     } catch (err) {
       console.error('Add to cart error:', err);
       alert('Could not add to cart. Please try again or contact support.');
-      
+
       // Reset button
       if (submitBtn) {
         submitBtn.disabled = false;
@@ -150,11 +149,11 @@
     drawer.setAttribute('aria-hidden', 'true');
   };
 
-  openers.forEach(btn => {
+  openers.forEach((btn) => {
     btn.addEventListener('click', openMenu);
   });
 
-  closers.forEach(btn => {
+  closers.forEach((btn) => {
     btn.addEventListener('click', closeMenu);
   });
 
