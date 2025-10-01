@@ -9,58 +9,6 @@
  */
 {
   "sections": {
-    "split-hero-01": { "type": "split-hero" },
-    "usp-bar-01": { "type": "usp-bar" },
-    "split_hero": {
-      "type": "split-hero",
-      "settings": {
-        "left_heading": "Light Humor",
-        "left_subhead": "Sarcastic optimism for sunnier days.",
-        "left_cta_label": "Shop Light",
-        "left_collection": "light-humor",
-        "left_overlay": 0.08,
-        "left_align": "center-right",
-        "right_heading": "Dark Humor",
-        "right_subhead": "Pitch-black jokes, midnight cotton.",
-        "right_cta_label": "Shop Dark",
-        "right_collection": "dark-humor",
-        "right_overlay": 0.08,
-        "right_align": "center-right",
-        "min_height": "60vh"
-      }
-    },
-    "category_duo": {
-      "type": "category-duo",
-      "blocks": {
-        "light": {
-          "type": "card",
-          "settings": {
-            "theme": "light",
-            "heading": "Light Humor",
-            "copy": "Sarcastic optimism for sunnier days.",
-            "link": "shopify://collections/light-humor",
-            "cta_label": "Shop Light",
-            "image": "shopify://shop_images/hero_light.jpg"
-          }
-        },
-        "dark": {
-          "type": "card",
-          "settings": {
-            "theme": "dark",
-            "heading": "Dark Humor",
-            "copy": "Pitch-black jokes, midnight cotton.",
-            "link": "shopify://collections/dark-humor",
-            "cta_label": "Shop Dark",
-            "image": "shopify://shop_images/hero_landing__solo.jpg"
-          }
-        }
-      },
-      "block_order": [
-        "light",
-        "dark"
-      ],
-      "settings": {}
-    },
     "featured_testimonials": {
       "type": "featured-testimonials",
       "blocks": {
@@ -134,10 +82,6 @@
     }
   },
   "order": [
-    "split-hero-01",
-    "usp-bar-01",
-    "split_hero",
-    
     "featured_testimonials",
     "collection_list_LyRWEx"
   ]

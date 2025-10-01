@@ -50,13 +50,13 @@
         "left_eyebrow": "Light Humor",
         "left_title": "Sarcastic optimism for sunnier days.",
         "left_subtitle": "Wear your mood without killing the vibe.",
-        "left_cta_link": "",
+        "left_cta_link": "shopify://collections/light-humor",
         "left_cta_label": "Shop Light",
         "right_image": "shopify://shop_images/hero_landing__solo.jpg",
         "right_eyebrow": "Dark Humor",
         "right_title": "Pitch-black jokes, midnight cotton.",
         "right_subtitle": "Smirk first. Apologize never.",
-        "right_cta_link": "",
+        "right_cta_link": "shopify://collections/dark-humor",
         "right_cta_label": "Shop Dark"
       }
     }
