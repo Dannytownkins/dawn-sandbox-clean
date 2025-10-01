@@ -59,11 +59,17 @@
         "right_cta_link": "shopify://collections/dark-humor",
         "right_cta_label": "Shop Dark"
       }
+    },
+    "usp_bar_mGaTKL": {
+      "type": "usp-bar",
+      "name": "Trust bar (USPs)",
+      "settings": {}
     }
   },
   "order": [
     "announcement-bar",
     "header",
-    "split_hero_DrgEcc"
+    "split_hero_DrgEcc",
+    "usp_bar_mGaTKL"
   ]
 }
