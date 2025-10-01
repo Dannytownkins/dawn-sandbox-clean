@@ -12,7 +12,6 @@
 {% endcomment %}
 
 {%- assign selected_variant = product.selected_or_first_available_variant -%}
-{%- assign single_variant = product.has_only_default_variant -%}
 <div {{ block.shopify_attributes }}>
   {%- if product != blank -%}
     {%- liquid
@@ -54,9 +53,6 @@
           type="hidden"
           name="id"
           value="{{ selected_variant.id }}"
-          {% unless single_variant %}
-            disabled
-          {% endunless %}
           data-variant-id
           class="product-variant-id"
         >

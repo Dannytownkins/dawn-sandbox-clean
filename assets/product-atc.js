@@ -26,8 +26,9 @@
       const match = variantMap.find((v) => v.key === key);
       if (idInput) {
         idInput.value = match ? match.id : '';
-        // Enable the input when we have a valid variant
-        idInput.disabled = !match;
+        // Only disable for multi-variant products when no match found
+        const isSingleVariant = optionSelects.length === 0;
+        idInput.disabled = !isSingleVariant && !match;
       }
     };
 
