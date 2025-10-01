@@ -9,27 +9,149 @@
  */
 {
   "sections": {
-    "split-hero-01": { "type": "split-hero" },
-    "usp-bar-01": { "type": "usp-bar" },
-    "home-picks": {
-      "type": "featured-products",
-      "settings": {
-        "title": "Featured products",
-        "columns_desktop": 3,
-        "columns_mobile": 2,
-        "image_ratio": "square",
-        "show_vendor": false
+    "featured_product_r7VC6W": {
+      "type": "featured-product",
+      "blocks": {
+        "text_wKrJDH": {
+          "type": "text",
+          "settings": {
+            "text": "{{ section.settings.product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title_6R89CN": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "price_tTyd3U": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker_MwgFia": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector_NLndwY": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_gLLmEq": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "share_encmYJ": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
       },
-      "blocks": [
-        { "type": "product", "settings": { "product": "" } },
-        { "type": "product", "settings": { "product": "" } }
+      "block_order": [
+        "text_wKrJDH",
+        "title_6R89CN",
+        "price_tTyd3U",
+        "variant_picker_MwgFia",
+        "quantity_selector_NLndwY",
+        "buy_buttons_gLLmEq",
+        "share_encmYJ"
       ],
-      "custom_css_class": "section-featured-products"
+      "name": "t:sections.featured-product.presets.name",
+      "settings": {
+        "product": "the-3p-fulfilled-snowboard",
+        "color_scheme": "scheme-1",
+        "secondary_background": false,
+        "media_size": "small",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "featured_product_yUHpLf": {
+      "type": "featured-product",
+      "blocks": {
+        "text_YqWM6f": {
+          "type": "text",
+          "settings": {
+            "text": "{{ section.settings.product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title_6czXPD": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "price_xBYzxa": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker_nx3yYq": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector_CxANCM": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_xXBJyn": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "share_H68q83": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "text_YqWM6f",
+        "title_6czXPD",
+        "price_xBYzxa",
+        "variant_picker_nx3yYq",
+        "quantity_selector_CxANCM",
+        "buy_buttons_xXBJyn",
+        "share_H68q83"
+      ],
+      "name": "t:sections.featured-product.presets.name",
+      "settings": {
+        "product": "short-sleeve-skelly-t",
+        "color_scheme": "",
+        "secondary_background": false,
+        "media_size": "small",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "split-hero-01",
-    "usp-bar-01",
-    "home-picks"
+    "featured_product_r7VC6W",
+    "featured_product_yUHpLf"
   ]
 }
