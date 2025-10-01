@@ -3596,6 +3596,12 @@ details-disclosure > details {
   }
 }
 
+/* readable headings on images */
+.text-on-img {
+  color:#fff !important;
+  text-shadow: 0 12px 30px rgba(0,0,0,.55), 0 0 1px rgba(0,0,0,.7);
+}
+
 /* ===== Astra tune-up — tokens ===== */
 :root{
   --brand-yellow: #F7E06A;
