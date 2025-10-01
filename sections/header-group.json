@@ -42,11 +42,6 @@
         "enable_search": true
       }
     },
-    "usp_bar_mGaTKL": {
-      "type": "usp-bar",
-      "name": "Trust bar (USPs)",
-      "settings": {}
-    },
     "hero_split_QxmGLf": {
       "type": "hero-split",
       "name": "Split hero",
@@ -65,7 +60,6 @@
   "order": [
     "announcement-bar",
     "header",
-    "usp_bar_mGaTKL",
     "hero_split_QxmGLf"
   ]
 }

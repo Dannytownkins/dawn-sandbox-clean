@@ -9,6 +9,10 @@
  */
 {
   "sections": {
+    "usp-bar-01": {
+      "type": "usp-bar",
+      "settings": {}
+    },
     "home-picks": {
       "type": "featured-products",
       "blocks": {
@@ -17,17 +21,10 @@
           "settings": {
             "product": "short-sleeve-skelly-t"
           }
-        },
-        "product_6WxkEg": {
-          "type": "product",
-          "settings": {
-            "product": "the-3p-fulfilled-snowboard"
-          }
         }
       },
       "block_order": [
-        "product_Ug9jgq",
-        "product_6WxkEg"
+        "product_Ug9jgq"
       ],
       "settings": {
         "title": "Featured products",
@@ -39,6 +36,7 @@
     }
   },
   "order": [
+    "usp-bar-01",
     "home-picks"
   ]
 }
