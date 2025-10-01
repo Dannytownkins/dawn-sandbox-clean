@@ -16,27 +16,20 @@
     "home-picks": {
       "type": "featured-products",
       "blocks": {
-        "home_picks_prod_1": {
+        "product_Ug9jgq": {
           "type": "product",
           "settings": {
-            "product": ""
-          }
-        },
-        "home_picks_prod_2": {
-          "type": "product",
-          "settings": {
-            "product": ""
+            "product": "short-sleeve-skelly-t"
           }
         }
       },
       "block_order": [
-        "home_picks_prod_1",
-        "home_picks_prod_2"
+        "product_Ug9jgq"
       ],
       "settings": {
         "title": "Featured products",
         "columns_desktop": 2,
-        "columns_mobile": "1",
+        "columns_mobile": "2",
         "image_ratio": "square",
         "show_vendor": false
       }
