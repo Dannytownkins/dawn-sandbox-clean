@@ -9,43 +9,6 @@
  */
 {
   "sections": {
-    "featured_testimonials": {
-      "type": "featured-testimonials",
-      "blocks": {
-        "t1": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "Humor split personalities never felt so stylish.",
-            "name": "Riley M.",
-            "meta": "Verified buyer"
-          }
-        },
-        "t2": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "Humor split personalities never felt so stylish.",
-            "name": "Riley M.",
-            "meta": "Verified buyer"
-          }
-        },
-        "t3": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "Humor split personalities never felt so stylish.",
-            "name": "Riley M.",
-            "meta": "Verified buyer"
-          }
-        }
-      },
-      "block_order": [
-        "t1",
-        "t2",
-        "t3"
-      ],
-      "settings": {
-        "heading": "Fans of both sides are talking"
-      }
-    },
     "collection_list_LyRWEx": {
       "type": "collection-list",
       "blocks": {
@@ -82,7 +45,6 @@
     }
   },
   "order": [
-    "featured_testimonials",
     "collection_list_LyRWEx"
   ]
 }
