@@ -3602,6 +3602,11 @@ details-disclosure > details {
   text-shadow: 0 12px 30px rgba(0,0,0,.55), 0 0 1px rgba(0,0,0,.7);
 }
 
+/* hero spacing + CTA hover polish */
+.split-hero .split-hero__btn{ box-shadow:0 6px 18px rgba(0,0,0,.25); }
+.split-hero .split-hero__btn:hover{ transform: translateY(-1px); box-shadow:0 12px 28px rgba(0,0,0,.38); }
+.split-hero .split-hero__title{ margin-top:2px }
+
 /* ===== Astra tune-up — tokens ===== */
 :root{
   --brand-yellow: #F7E06A;
