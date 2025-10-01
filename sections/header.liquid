@@ -8,12 +8,14 @@
       <ul class="nav-list">
         {%- if section.settings.menu != blank -%}
           {%- for link in section.settings.menu.links -%}
-            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            <li>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
           {%- endfor -%}
-            {%- else -%}
+        {%- else -%}
           <li><a href="{{ routes.root_url }}">Home</a></li>
           <li><a href="{{ routes.all_products_collection_url | default: '/collections/all' }}">Shop All</a></li>
-            {%- endif -%}
+        {%- endif -%}
       </ul>
     </nav>
 
@@ -40,14 +42,20 @@
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 1L3 6v13h14V6l-3-5M3 6h14M13 10a3 3 0 01-6 0"/>
         </svg>
-        {%- if cart.item_count > 0 -%}
-          <span class="cart-badge" data-cart-count>{{ cart.item_count }}</span>
-        {%- endif -%}
+        <span
+          class="cart-badge"
+          data-cart-count
+          {% if cart.item_count == 0 %}
+            style="display: none;"
+          {% endif %}
+        >
+          {{- cart.item_count -}}
+        </span>
       </button>
-      
+
       <button class="burger" data-open-menu aria-label="Open menu">☰</button>
     </div>
-          </div>
+  </div>
 
   <!-- Mobile drawer -->
   <div class="mobile-drawer" hidden aria-hidden="true">
@@ -56,7 +64,9 @@
       <ul class="mobile-list">
         {%- if section.settings.menu != blank -%}
           {%- for link in section.settings.menu.links -%}
-            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            <li>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
           {%- endfor -%}
         {%- else -%}
           <li><a href="{{ routes.root_url }}">Home</a></li>
@@ -65,8 +75,8 @@
       </ul>
     </div>
     <div class="mobile-overlay" data-close-menu></div>
-    </div>
-  </header>
+  </div>
+</header>
 
 {% schema %}
 {

@@ -7,32 +7,70 @@
     {% if section.settings.heading != blank %}
       <h2 class="featured-testimonials__heading">{{ section.settings.heading }}</h2>
     {% endif %}
-    <div class="t-slider" tabindex="0" role="list" aria-label="Customer testimonials">
-      {% for block in section.blocks %}
-        <article class="t-card" role="listitem" {{ block.shopify_attributes }}>
-          {% if block.settings.quote != blank %}
-            <blockquote class="testimonial__quote">{{ block.settings.quote }}</blockquote>
-          {% endif %}
-          <div class="testimonial__meta">
-            {% if block.settings.avatar != blank %}
-              {{
-                block.settings.avatar
-                | image_url: width: 120
-                | image_tag: class: 'testimonial__avatar', loading: 'lazy'
-              }}
+    <div class="t-slider-wrapper">
+      <div class="t-slider" data-testimonials-slider tabindex="0" role="list" aria-label="Customer testimonials">
+        {% for block in section.blocks %}
+          <article class="t-card" role="listitem" {{ block.shopify_attributes }}>
+            {% if block.settings.quote != blank %}
+              <blockquote class="testimonial__quote">{{ block.settings.quote }}</blockquote>
             {% endif %}
-            <div>
-              <p class="testimonial__name">{{ block.settings.name }}</p>
-              {% if block.settings.meta != blank %}
-                <p class="testimonial__info">{{ block.settings.meta }}</p>
+            <div class="testimonial__meta">
+              {% if block.settings.avatar != blank %}
+                {{
+                  block.settings.avatar
+                  | image_url: width: 120
+                  | image_tag: class: 'testimonial__avatar', loading: 'lazy'
+                }}
               {% endif %}
+              <div>
+                <p class="testimonial__name">{{ block.settings.name }}</p>
+                {% if block.settings.meta != blank %}
+                  <p class="testimonial__info">{{ block.settings.meta }}</p>
+                {% endif %}
+              </div>
             </div>
-          </div>
-        </article>
-      {% endfor %}
+          </article>
+        {% endfor %}
+      </div>
+      {% if section.blocks.size > 1 %}
+        <div class="t-slider-nav">
+          <button type="button" class="t-nav-btn t-nav-prev" data-testimonials-prev aria-label="Previous testimonial">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+          <button type="button" class="t-nav-btn t-nav-next" data-testimonials-next aria-label="Next testimonial">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+        </div>
+      {% endif %}
     </div>
   </div>
 </section>
+
+<script>
+  (() => {
+    const slider = document.querySelector('[data-testimonials-slider]');
+    if (!slider) return;
+
+    const prevBtn = document.querySelector('[data-testimonials-prev]');
+    const nextBtn = document.querySelector('[data-testimonials-next]');
+
+    if (!prevBtn || !nextBtn) return;
+
+    const scrollStep = () => slider.clientWidth * 0.85;
+
+    prevBtn.addEventListener('click', () => {
+      slider.scrollBy({ left: -scrollStep(), behavior: 'smooth' });
+    });
+
+    nextBtn.addEventListener('click', () => {
+      slider.scrollBy({ left: scrollStep(), behavior: 'smooth' });
+    });
+  })();
+</script>
 
 <style>
   .featured-testimonials {
@@ -54,6 +92,11 @@
     color: #fff;
   }
 
+  /* Slider wrapper for navigation */
+  .t-slider-wrapper {
+    position: relative;
+  }
+
   /* Horizontal scroll slider */
   .t-slider {
     display: grid;
@@ -65,6 +108,43 @@
     padding: 12px 4px;
     margin: 0 -4px;
     -webkit-overflow-scrolling: touch;
+  }
+
+  /* Navigation buttons */
+  .t-slider-nav {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 24px;
+  }
+
+  .t-nav-btn {
+    background: #242427;
+    border: 1px solid #333;
+    color: #f2f2f2;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .t-nav-btn:hover {
+    background: #2f2f32;
+    border-color: #444;
+    transform: scale(1.05);
+  }
+
+  .t-nav-btn:active {
+    transform: scale(0.95);
+  }
+
+  .t-nav-btn svg {
+    width: 20px;
+    height: 20px;
   }
 
   @media (min-width: 768px) {

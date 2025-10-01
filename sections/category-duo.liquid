@@ -5,7 +5,10 @@
 <section class="category-duo" data-section-id="{{ section.id }}">
   <div class="category-duo__grid">
     {% for block in section.blocks %}
-      <article class="category-card category-card--{{ block.settings.theme | default: 'light' }}" {{ block.shopify_attributes }}>
+      <article
+        class="category-card category-card--{{ block.settings.theme | default: 'light' }}"
+        {{ block.shopify_attributes }}
+      >
         <div class="category-card__media">
           {% if block.settings.image != blank %}
             {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: block.settings.heading }}
@@ -50,12 +53,19 @@
     display: grid;
     align-content: center;
     gap: 12px;
-    background: linear-gradient(130deg, rgba(0,0,0,0.75) 10%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.1) 100%);
+    background: linear-gradient(130deg, rgba(0, 0, 0, 0.28) 10%, rgba(0, 0, 0, 0.22) 60%, rgba(0, 0, 0, 0.1) 100%);
     color: #fff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   }
   .category-card--light .category-card__content {
-    background: linear-gradient(130deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.5) 60%, rgba(255,255,255,0.2) 100%);
+    background: linear-gradient(
+      130deg,
+      rgba(255, 255, 255, 0.35) 0%,
+      rgba(255, 255, 255, 0.25) 60%,
+      rgba(255, 255, 255, 0.15) 100%
+    );
     color: #111;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
   }
   .category-card__cta {
     justify-self: start;
@@ -76,7 +86,16 @@
       "type": "card",
       "name": "Category card",
       "settings": [
-        { "type": "select", "id": "theme", "label": "Theme", "options": [ {"label": "Light", "value": "light"}, {"label": "Dark", "value": "dark"} ], "default": "light" },
+        {
+          "type": "select",
+          "id": "theme",
+          "label": "Theme",
+          "options": [
+            { "label": "Light", "value": "light" },
+            { "label": "Dark", "value": "dark" }
+          ],
+          "default": "light"
+        },
         { "type": "text", "id": "heading", "label": "Heading", "default": "Light Humor" },
         { "type": "textarea", "id": "copy", "label": "Copy", "default": "Sarcastic optimism for sunny moods." },
         { "type": "url", "id": "link", "label": "Link" },

@@ -18,7 +18,7 @@
             "theme": "light",
             "heading": "Light Humor",
             "copy": "Sarcastic optimism for sunnier days.",
-            "link": "shopify://collections/light",
+            "link": "shopify://collections/light-humor",
             "cta_label": "Shop Light",
             "image": "shopify://shop_images/hero_light.jpg"
           }
@@ -29,7 +29,7 @@
             "theme": "dark",
             "heading": "Dark Humor",
             "copy": "Pitch-black jokes, midnight cotton.",
-            "link": "shopify://collections/dark",
+            "link": "shopify://collections/dark-humor",
             "cta_label": "Shop Dark",
             "image": "shopify://shop_images/hero_landing__solo.jpg"
           }
