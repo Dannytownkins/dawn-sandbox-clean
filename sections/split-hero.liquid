@@ -5,17 +5,9 @@
 
   {% liquid
     assign default_light = routes.collections_url | append: '/light-humor'
-    assign default_dark = routes.collections_url | append: '/dark-humor'
-
-    assign left_link = section.settings.left_cta_link
-    assign right_link = section.settings.right_cta_link
-
-    if left_link == blank
-      assign left_link = default_light
-    endif
-    if right_link == blank
-      assign right_link = default_dark
-    endif
+    assign default_dark  = routes.collections_url | append: '/dark-humor'
+    assign left_link  = section.settings.left_cta_link | default: default_light
+    assign right_link = section.settings.right_cta_link | default: default_dark
   %}
 
   <div
@@ -80,6 +72,22 @@
     overflow: hidden;
     isolation: isolate;
   }
+  @media (min-width: 990px) {
+    .split-hero {
+      height: 520px;
+    }
+    .split-hero__panel {
+      height: 100%;
+    }
+  }
+  @media (max-width: 989px) {
+    .split-hero {
+      height: 420px;
+    }
+    .split-hero__panel {
+      height: 100%;
+    }
+  }
   .split-hero__panel::after {
     content: '';
     position: absolute;
@@ -91,7 +99,8 @@
     position: absolute;
     inset: 0;
     background-image: var(--img);
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     background-position: var(--pos);
     filter: brightness(calc((100 - var(--dim, 30)) / 100));
   }
@@ -167,7 +176,7 @@
 
 {% schema %}
 {
-  "name": "Split hero",
+  "name": "Split hero (v2)",
   "enabled_on": { "templates": ["index"] },
   "settings": [
     { "type": "checkbox", "id": "full_width", "label": "Full width", "default": false },
