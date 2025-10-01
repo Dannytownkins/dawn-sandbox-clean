@@ -38,58 +38,13 @@
     "header": {
       "type": "header",
       "settings": {
-        "menu": "main-menu"
-      }
-    },
-    "usp_row_gemTtn": {
-      "type": "usp-row",
-      "blocks": {
-        "usp_bFMn6a": {
-          "type": "usp",
-          "settings": {
-            "title": "Printed in the USA",
-            "caption": "Vibrant DTG on premium blanks"
-          }
-        },
-        "usp_k7wDyV": {
-          "type": "usp",
-          "settings": {
-            "title": "Printed in the USA",
-            "caption": "Vibrant DTG on premium blanks"
-          }
-        },
-        "usp_ztiQrn": {
-          "type": "usp",
-          "settings": {
-            "title": "Printed in the USA",
-            "caption": "Vibrant DTG on premium blanks"
-          }
-        }
-      },
-      "block_order": [
-        "usp_bFMn6a",
-        "usp_k7wDyV",
-        "usp_ztiQrn"
-      ],
-      "name": "USP Row",
-      "settings": {}
-    },
-    "hero_min_dpdBD3": {
-      "type": "hero-min",
-      "name": "Astra – Minimal Hero",
-      "settings": {
-        "eyebrow": "New drop",
-        "headline": "Everything is fine (probably).",
-        "subcopy": "Dark humor, clean builds. Launching with our first two tees while we spin up the rest.",
-        "cta_text": "Shop the drop",
-        "cta_url": ""
+        "menu": "main-menu",
+        "enable_search": true
       }
     }
   },
   "order": [
     "announcement-bar",
-    "header",
-    "usp_row_gemTtn",
-    "hero_min_dpdBD3"
+    "header"
   ]
 }
