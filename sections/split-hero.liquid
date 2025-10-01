@@ -5,8 +5,8 @@
 
   {% liquid
     assign default_light = routes.collections_url | append: '/light-humor'
-    assign default_dark  = routes.collections_url | append: '/dark-humor'
-    assign left_link  = section.settings.left_cta_link | default: default_light
+    assign default_dark = routes.collections_url | append: '/dark-humor'
+    assign left_link = section.settings.left_cta_link | default: default_light
     assign right_link = section.settings.right_cta_link | default: default_dark
   %}
 
