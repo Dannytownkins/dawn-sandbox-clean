@@ -6,13 +6,44 @@
   </div>
 </section>
 <style>
-.usp{ position:relative; background:#0c0c0d; border-top:1px solid #151515; border-bottom:1px solid #151515; }
-.usp__wrap{
-  max-width:1200px;margin:0 auto;padding:12px clamp(12px,3vw,24px);
-  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;color:#eaeaea;font-weight:600;
-}
-.usp__item{ display:flex; align-items:center; gap:10px; white-space:nowrap; opacity:.95;}
-@media (max-width: 900px){ .usp__wrap{ grid-template-columns:1fr; justify-items:center; text-align:center; } }
-@media (prefers-color-scheme: light){ .usp{ background:#f7f7f7; border-color:#eee; } .usp__item{ color:#111; } }
+  .usp {
+    position: relative;
+    background: #0c0c0d;
+    border-top: 1px solid #151515;
+    border-bottom: 1px solid #151515;
+  }
+  .usp__wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px clamp(12px, 3vw, 24px);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    color: #eaeaea;
+    font-weight: 600;
+  }
+  .usp__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    opacity: 0.95;
+  }
+  @media (max-width: 900px) {
+    .usp__wrap {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      text-align: center;
+    }
+  }
+  @media (prefers-color-scheme: light) {
+    .usp {
+      background: #f7f7f7;
+      border-color: #eee;
+    }
+    .usp__item {
+      color: #111;
+    }
+  }
 </style>
 {% schema %}{ "name":"Trust bar (USPs)", "presets":[{ "name":"Trust bar (USPs)"}]}{% endschema %}
