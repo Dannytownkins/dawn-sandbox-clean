@@ -93,6 +93,14 @@ if (!customElements.get('product-form')) {
             } else {
               CartPerformance.measure("add:paint-updated-sections", () => {
                 this.cart.renderContents(response);
+                // Open cart drawer if available
+                try {
+                  if (window.CartDrawer && window.CartDrawer.open) {
+                    window.CartDrawer.open();
+                  } else {
+                    document.documentElement.dispatchEvent(new CustomEvent('cart:refresh'));
+                  }
+                } catch (e) {}
               });
             }
           })
