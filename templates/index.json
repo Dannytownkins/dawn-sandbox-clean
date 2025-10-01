@@ -9,37 +9,149 @@
  */
 {
   "sections": {
-    "featured_collection_ktMWUC": {
-      "type": "featured-collection",
-      "name": "t:sections.featured-collection.presets.name",
+    "featured_product_r7VC6W": {
+      "type": "featured-product",
+      "blocks": {
+        "text_wKrJDH": {
+          "type": "text",
+          "settings": {
+            "text": "{{ section.settings.product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title_6R89CN": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "price_tTyd3U": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker_MwgFia": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector_NLndwY": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_gLLmEq": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "share_encmYJ": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "text_wKrJDH",
+        "title_6R89CN",
+        "price_tTyd3U",
+        "variant_picker_MwgFia",
+        "quantity_selector_NLndwY",
+        "buy_buttons_gLLmEq",
+        "share_encmYJ"
+      ],
+      "name": "t:sections.featured-product.presets.name",
       "settings": {
-        "collection": "dark-humor",
-        "products_to_show": 2,
-        "title": "Featured collection",
-        "heading_size": "h1",
-        "description": "",
-        "show_description": false,
-        "description_style": "subtitle",
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": false,
-        "view_all_style": "solid",
-        "color_scheme": "",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "standard",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 8,
+        "product": "the-3p-fulfilled-snowboard",
+        "color_scheme": "scheme-1",
+        "secondary_background": false,
+        "media_size": "small",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 0,
         "padding_bottom": 0
+      }
+    },
+    "featured_product_yUHpLf": {
+      "type": "featured-product",
+      "blocks": {
+        "text_YqWM6f": {
+          "type": "text",
+          "settings": {
+            "text": "{{ section.settings.product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title_6czXPD": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "price_xBYzxa": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker_nx3yYq": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector_CxANCM": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_xXBJyn": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "share_H68q83": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "text_YqWM6f",
+        "title_6czXPD",
+        "price_xBYzxa",
+        "variant_picker_nx3yYq",
+        "quantity_selector_CxANCM",
+        "buy_buttons_xXBJyn",
+        "share_H68q83"
+      ],
+      "name": "t:sections.featured-product.presets.name",
+      "settings": {
+        "product": "short-sleeve-skelly-t",
+        "color_scheme": "",
+        "secondary_background": false,
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     }
   },
   "order": [
-    "featured_collection_ktMWUC"
+    "featured_product_r7VC6W",
+    "featured_product_yUHpLf"
   ]
 }
