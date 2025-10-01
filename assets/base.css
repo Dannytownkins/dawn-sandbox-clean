@@ -3759,3 +3759,7 @@ body.template-cart html, body.template-cart body { overflow: auto !important; }
   background: rgba(0,0,0,.6);
   backdrop-filter: blur(2px);
 }
+
+/* Collection/product cards — comfortable size */
+.template-collection .product-grid { gap: 18px; }
+.template-collection .card-wrapper { max-width: 360px; margin-inline: auto; }
