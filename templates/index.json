@@ -9,17 +9,6 @@
  */
 {
   "sections": {
-    "split-hero-01": {
-      "type": "split-hero",
-      "settings": {
-        "left_heading": "Light Humor",
-        "left_sub": "Sarcastic optimism for sunnier days.",
-        "left_link": "/collections/light-humor",
-        "right_heading": "Dark Humor",
-        "right_sub": "Pitch-black jokes, midnight cotton.",
-        "right_link": "/collections/dark-humor"
-      }
-    },
     "usp-bar-01": {
       "type": "usp-bar",
       "settings": {}
@@ -54,7 +43,6 @@
     }
   },
   "order": [
-    "split-hero-01",
     "usp-bar-01",
     "home-featured"
   ]
