@@ -16,13 +16,17 @@
       "settings": {
         "title": "Featured products",
         "columns_desktop": 3,
-        "columns_mobile": 2,
+        "columns_mobile": "2",
         "image_ratio": "square",
         "show_vendor": false
       },
-      "blocks": [
-        { "type": "product", "settings": { "product": "" } },
-        { "type": "product", "settings": { "product": "" } }
+      "blocks": {
+        "home_picks_prod_1": { "type": "product", "settings": { "product": "" } },
+        "home_picks_prod_2": { "type": "product", "settings": { "product": "" } }
+      },
+      "block_order": [
+        "home_picks_prod_1",
+        "home_picks_prod_2"
       ],
       "custom_css_class": "section-home-picks"
     }
