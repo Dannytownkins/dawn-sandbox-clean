@@ -21,10 +21,17 @@
           "settings": {
             "product": "short-sleeve-skelly-t"
           }
+        },
+        "product_LnKUqq": {
+          "type": "product",
+          "settings": {
+            "product": "the-3p-fulfilled-snowboard"
+          }
         }
       },
       "block_order": [
-        "product_Ug9jgq"
+        "product_Ug9jgq",
+        "product_LnKUqq"
       ],
       "settings": {
         "title": "Featured products",
