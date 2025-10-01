@@ -64,7 +64,8 @@ window.CartDrawer = {
       setTimeout(() => closeBtn.focus(), 100);
     }
 
-    // Prevent body scroll
+    // Prevent page scroll and ensure top stacking
+    document.documentElement.classList.add('cart-open');
     document.body.style.overflow = 'hidden';
   },
 
@@ -75,7 +76,8 @@ window.CartDrawer = {
     this.drawer.setAttribute('aria-hidden', 'true');
     this.isOpen = false;
 
-    // Restore body scroll
+    // Restore page scroll
+    document.documentElement.classList.remove('cart-open');
     document.body.style.overflow = '';
   },
 

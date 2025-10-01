@@ -71,6 +71,14 @@
     "success": "Thanks for subscribing",
     "button_label": "Subscribe"
   },
+  "cart": {
+    "free_shipping_qualified": "You’re eligible for free shipping!",
+    "free_shipping_progress": "Spend {{ amount }} more for free shipping",
+    "view_cart": "View cart",
+    "checkout": "Checkout",
+    "subtotal": "Subtotal",
+    "empty": "Your cart is empty"
+  },
   "accessibility": {
     "skip_to_text": "Skip to content",
     "skip_to_product_info": "Skip to product information",
