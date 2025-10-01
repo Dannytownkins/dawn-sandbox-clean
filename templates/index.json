@@ -9,6 +9,24 @@
  */
 {
   "sections": {
+    "split_hero": {
+      "type": "split-hero",
+      "settings": {
+        "left_heading": "Light Humor",
+        "left_subhead": "Sarcastic optimism for sunnier days.",
+        "left_cta_label": "Shop Light",
+        "left_collection": "light-humor",
+        "left_overlay": 0.08,
+        "left_align": "center-right",
+        "right_heading": "Dark Humor",
+        "right_subhead": "Pitch-black jokes, midnight cotton.",
+        "right_cta_label": "Shop Dark",
+        "right_collection": "dark-humor",
+        "right_overlay": 0.08,
+        "right_align": "center-right",
+        "min_height": "60vh"
+      }
+    },
     "category_duo": {
       "type": "category-duo",
       "blocks": {
@@ -114,7 +132,8 @@
     }
   },
   "order": [
-    "category_duo",
+    "split_hero",
+    
     "featured_testimonials",
     "collection_list_LyRWEx"
   ]

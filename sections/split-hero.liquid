@@ -1,0 +1,102 @@
+{% comment %}
+  Split Hero: two side-by-side panels (Light/Dark)
+{% endcomment %}
+
+{{ 'split-hero.css' | asset_url | stylesheet_tag }}
+
+<section class="split-hero" style="--hero-min-h: {{ section.settings.min_height | default: '60vh' }}">
+  <div class="split-hero__grid">
+    {%- assign panels = 'left,right' | split: ',' -%}
+    {%- for side in panels -%}
+      {%- assign bg_image = section.settings[side | append: '_image'] -%}
+      {%- assign bg_image_mobile = section.settings[side | append: '_image_mobile'] -%}
+      {%- assign heading = section.settings[side | append: '_heading'] -%}
+      {%- assign subhead = section.settings[side | append: '_subhead'] -%}
+      {%- assign cta_label = section.settings[side | append: '_cta_label'] -%}
+      {%- assign link_collection = section.settings[side | append: '_collection'] -%}
+      {%- assign link_url = section.settings[side | append: '_url'] -%}
+      {%- assign overlay_percent = section.settings[side | append: '_overlay'] | default: 8 -%}
+      {%- assign overlay = overlay_percent | times: 0.01 -%}
+      {%- assign align = section.settings[side | append: '_align'] | default: 'center-right' -%}
+
+      {%- liquid
+        assign href = ''
+        if link_collection != blank
+          assign href = link_collection.url
+        elsif link_url != blank
+          assign href = link_url
+        endif
+      -%}
+
+      <div class="split-hero__panel split-hero__panel--{{ side }} align-{{ align }}" style="--overlay: {{ overlay | times: 1.0 }}">
+        {%- if bg_image != blank -%}
+          <picture>
+            {%- if bg_image_mobile != blank -%}
+              <source media="(max-width: 990px)" srcset="{{ bg_image_mobile | image_url: width: 1200 }}">
+            {%- endif -%}
+            <img
+              class="split-hero__image"
+              src="{{ bg_image | image_url: width: 2400 }}"
+              alt=""
+              loading="eager"
+              width="2400"
+              height="1400"
+            >
+          </picture>
+        {%- endif -%}
+        <div class="split-hero__overlay" aria-hidden="true"></div>
+        <div class="split-hero__content">
+          {%- if heading != blank -%}
+            <h2 class="split-hero__heading h2">{{ heading | escape }}</h2>
+          {%- endif -%}
+          {%- if subhead != blank -%}
+            <p class="split-hero__subhead">{{ subhead }}</p>
+          {%- endif -%}
+          {%- if cta_label != blank and href != blank -%}
+            <a class="split-hero__btn" href="{{ href }}" aria-label="Shop {{ heading | default: cta_label | escape }} collection">{{ cta_label }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Split hero",
+  "settings": [
+    {"type": "text", "id": "left_heading", "label": "Left headline", "default": "Light Humor"},
+    {"type": "textarea", "id": "left_subhead", "label": "Left subhead", "default": "Sarcastic optimism for sunnier days."},
+    {"type": "text", "id": "left_cta_label", "label": "Left CTA label", "default": "Shop Light"},
+    {"type": "collection", "id": "left_collection", "label": "Left collection"},
+    {"type": "url", "id": "left_url", "label": "Left custom URL (fallback)"},
+    {"type": "image_picker", "id": "left_image", "label": "Left background image (desktop)"},
+    {"type": "image_picker", "id": "left_image_mobile", "label": "Left background image (mobile)"},
+    {"type": "range", "id": "left_overlay", "label": "Left overlay intensity", "min": 0, "max": 12, "step": 1, "unit": "%", "default": 8},
+    {"type": "select", "id": "left_align", "label": "Left text alignment", "options": [
+      {"value": "center-right", "label": "Center right"},
+      {"value": "center", "label": "Center"},
+      {"value": "bottom-right", "label": "Bottom right"}
+    ], "default": "center-right"},
+
+    {"type": "text", "id": "right_heading", "label": "Right headline", "default": "Dark Humor"},
+    {"type": "textarea", "id": "right_subhead", "label": "Right subhead", "default": "Pitch-black jokes, midnight cotton."},
+    {"type": "text", "id": "right_cta_label", "label": "Right CTA label", "default": "Shop Dark"},
+    {"type": "collection", "id": "right_collection", "label": "Right collection"},
+    {"type": "url", "id": "right_url", "label": "Right custom URL (fallback)"},
+    {"type": "image_picker", "id": "right_image", "label": "Right background image (desktop)"},
+    {"type": "image_picker", "id": "right_image_mobile", "label": "Right background image (mobile)"},
+    {"type": "range", "id": "right_overlay", "label": "Right overlay intensity", "min": 0, "max": 12, "step": 1, "unit": "%", "default": 8},
+    {"type": "select", "id": "right_align", "label": "Right text alignment", "options": [
+      {"value": "center-right", "label": "Center right"},
+      {"value": "center", "label": "Center"},
+      {"value": "bottom-right", "label": "Bottom right"}
+    ], "default": "center-right"},
+
+    {"type": "text", "id": "min_height", "label": "Section min-height (e.g., 60vh)", "default": "60vh"}
+  ],
+  "presets": [{"name": "Split hero"}]
+}
+{% endschema %}
+
+

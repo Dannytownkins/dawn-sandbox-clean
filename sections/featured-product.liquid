@@ -4,10 +4,7 @@
     assign placeholder = true
   endif
 
-  assign product_available = false
-  if product and product.selected_or_first_available_variant
-    assign product_available = product.selected_or_first_available_variant.available
-  endif
+  
 -%}
 
 <product-info
@@ -15,7 +12,7 @@
   data-product-id="{{ product.id }}"
   data-update-url="false"
   data-url="{{ product.url }}"
-  data-available="{{ product_available }}"
+  data-available="{{ product.selected_or_first_available_variant.available }}"
   {% if section.settings.image_zoom == 'hover' %}
     data-zoom-on-hover
   {% endif %}
