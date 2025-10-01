@@ -38,15 +38,20 @@
         </a>
       {%- endif -%}
 
-      <a href="{{ routes.cart_url }}" id="cart-icon-bubble" class="icon-btn cart-btn" aria-label="Open cart">
+      <button type="button" class="icon-btn cart-btn" data-open-cart aria-label="Open cart">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 1L3 6v13h14V6l-3-5M3 6h14M13 10a3 3 0 01-6 0"/>
         </svg>
-        <div class="cart-count-bubble">
-          <span aria-hidden="true">{{ cart.item_count }}</span>
-          <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
-        </div>
-      </a>
+        <span
+          class="cart-badge"
+          data-cart-count
+          {% if cart.item_count == 0 %}
+            style="display: none;"
+          {% endif %}
+        >
+          {{- cart.item_count -}}
+        </span>
+      </button>
 
       <button class="burger" data-open-menu aria-label="Open menu">☰</button>
     </div>
