@@ -47,6 +47,7 @@
           type="hidden"
           name="id"
           value="{{ product.selected_or_first_available_variant.id }}"
+          data-variant-id
           {% unless preview_force_available %}
             {% if product.selected_or_first_available_variant == null
               or quantity_rule_soldout
