@@ -3612,6 +3612,19 @@ details-disclosure > details {
 .section-home-picks .card-wrapper{ max-width:340px; margin-inline:auto; border-radius:14px; overflow:hidden }
 @media (min-width:990px){ .section-home-picks .card-wrapper{ max-width:360px } }
 
+/* Home featured grid — compact two-up */
+.section-home-picks .grid{ gap:18px }
+.section-home-picks .card-wrapper{
+  max-width:360px; margin-inline:auto; border-radius:14px; overflow:hidden;
+}
+@media (max-width: 989px){
+  .section-home-picks .card-wrapper{ max-width: none; }
+}
+
+/* Collection grids compact */
+.template-collection .product-grid{ gap:18px }
+.template-collection .product-grid .card-wrapper{ max-width:320px; margin-inline:auto }
+
 /* home picks sizing by section id */
 #shopify-section-home-picks .grid{ gap:18px }
 #shopify-section-home-picks .card-wrapper{ max-width:340px; margin-inline:auto; border-radius:14px; overflow:hidden }

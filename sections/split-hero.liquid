@@ -3,6 +3,21 @@
   {% assign left_img = section.settings.left_image | image_url: width: 2400 %}
   {% assign right_img = section.settings.right_image | image_url: width: 2400 %}
 
+  {% liquid
+    assign default_light = routes.collections_url | append: '/light-humor'
+    assign default_dark  = routes.collections_url | append: '/dark-humor'
+
+    assign left_link  = section.settings.left_cta_link
+    assign right_link = section.settings.right_cta_link
+
+    if left_link == blank
+      assign left_link = default_light
+    endif
+    if right_link == blank
+      assign right_link = default_dark
+    endif
+  %}
+
   <div class="split-hero__panel split-hero__left bg-grain"
        style="--img:url('{{ left_img }}'); --pos: {{ section.settings.left_pos_x }}% {{ section.settings.left_pos_y }}%; --dim: {{ section.settings.left_dim }}%;">
     <div class="split-hero__bg"></div>
@@ -13,8 +28,8 @@
         <h2 class="split-hero__eyebrow">{{ section.settings.left_eyebrow }}</h2>
         <h1 class="split-hero__title">{{ section.settings.left_title }}</h1>
         <p class="split-hero__subtitle">{{ section.settings.left_subtitle }}</p>
-        {% if section.settings.left_cta_label and section.settings.left_cta_link %}
-          <a class="split-hero__btn" href="{{ section.settings.left_cta_link }}">{{ section.settings.left_cta_label }}</a>
+        {% if section.settings.left_cta_label %}
+          <a class="split-hero__btn" href="{{ left_link }}">{{ section.settings.left_cta_label }}</a>
         {% endif %}
       </div>
     </div>
@@ -30,8 +45,8 @@
         <h2 class="split-hero__eyebrow">{{ section.settings.right_eyebrow }}</h2>
         <h1 class="split-hero__title">{{ section.settings.right_title }}</h1>
         <p class="split-hero__subtitle">{{ section.settings.right_subtitle }}</p>
-        {% if section.settings.right_cta_label and section.settings.right_cta_link %}
-          <a class="split-hero__btn" href="{{ section.settings.right_cta_link }}">{{ section.settings.right_cta_label }}</a>
+        {% if section.settings.right_cta_label %}
+          <a class="split-hero__btn" href="{{ right_link }}">{{ section.settings.right_cta_label }}</a>
         {% endif %}
       </div>
     </div>
