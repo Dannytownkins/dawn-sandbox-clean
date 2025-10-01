@@ -10,7 +10,7 @@
 {
   "sections": {
     "main": { "type": "main-product", "settings": {} },
-    "recommendations": { "type": "product-recommendations", "settings": {} }
+    "recommendations": { "type": "related-products", "settings": {} }
   },
   "order": ["main", "recommendations"]
 }
