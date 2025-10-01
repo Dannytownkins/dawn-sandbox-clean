@@ -3763,3 +3763,81 @@ body.template-cart html, body.template-cart body { overflow: auto !important; }
 /* Collection/product cards — comfortable size */
 .template-collection .product-grid { gap: 18px; }
 .template-collection .card-wrapper { max-width: 360px; margin-inline: auto; }
+
+/* Softer cart overlay, no heavy blur */
+.cart-notification, .drawer {
+  backdrop-filter: none !important;
+}
+.cart-notification__overlay, .drawer__overlay {
+  background: rgba(0,0,0,0.25) !important; /* light dim, no blur */
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+body.js-drawer-open main, 
+body.cart-open main {
+  filter: none !important;
+}
+
+/* Two-up grid on home featured products */
+.index .section--featured-products .grid,
+.index .featured-collection .grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 2.5rem !important;
+}
+@media (max-width: 740px) {
+  .index .section--featured-products .grid,
+  .index .featured-collection .grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Card media sane aspect + no murder-crop */
+.card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* show full tee */
+  aspect-ratio: 3 / 4;   /* portrait tee shape */
+}
+
+/* Keep product images from overflowing giant */
+.card--product,
+.card--product .card__inner {
+  max-width: 520px;
+  margin-inline: auto;
+}
+
+/* Split hero readability & crop control */
+.split-hero {
+  --hero-radius: 16px;
+}
+.split-hero .panel {
+  border-radius: var(--hero-radius);
+  overflow: hidden;
+  position: relative;
+}
+.split-hero .panel img {
+  width: 100%;
+  height: clamp(320px, 42vw, 520px);
+  object-fit: cover;
+  object-position: 50% 40%;
+  display: block;
+  filter: saturate(1.05);
+}
+.split-hero .panel::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.12) 30%, transparent 70%);
+  pointer-events: none;
+}
+.split-hero .copy {
+  position: absolute; inset: auto 1.25rem 1.25rem 1.25rem;
+  max-width: 36ch;
+  color: #fff;
+  text-shadow: 0 4px 18px rgba(0,0,0,.5);
+}
+.split-hero .btn {
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.25);
+}
