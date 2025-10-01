@@ -1,8 +1,95 @@
 {% comment %}
-  Split Hero: two side-by-side panels (Light/Dark)
+  Section: split-hero.liquid
+  Two-panel hero for Light vs Dark collections with clean CTAs and strong contrast.
 {% endcomment %}
 
-{{ 'split-hero.css' | asset_url | stylesheet_tag }}
+<section id="SplitHero" class="split-hero">
+  <div class="split-hero__panel split-hero__left">
+    {% if section.settings.left_image != blank %}
+      {{ section.settings.left_image | image_url: width: 2000 | image_tag: loading: 'lazy', class: 'split-hero__bg' }}
+    {% endif %}
+    <div class="split-hero__scrim"></div>
+    <div class="split-hero__content">
+      <h2 class="split-hero__eyebrow">{{ section.settings.left_eyebrow }}</h2>
+      <h1 class="split-hero__title">{{ section.settings.left_title }}</h1>
+      <p class="split-hero__subtitle">{{ section.settings.left_subtitle }}</p>
+      {% if section.settings.left_cta_label != blank and section.settings.left_cta_link != blank %}
+        <a class="split-hero__btn" href="{{ section.settings.left_cta_link }}">{{ section.settings.left_cta_label }}</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="split-hero__panel split-hero__right">
+    {% if section.settings.right_image != blank %}
+      {{ section.settings.right_image | image_url: width: 2000 | image_tag: loading: 'lazy', class: 'split-hero__bg' }}
+    {% endif %}
+    <div class="split-hero__scrim"></div>
+    <div class="split-hero__content">
+      <h2 class="split-hero__eyebrow">{{ section.settings.right_eyebrow }}</h2>
+      <h1 class="split-hero__title">{{ section.settings.right_title }}</h1>
+      <p class="split-hero__subtitle">{{ section.settings.right_subtitle }}</p>
+      {% if section.settings.right_cta_label != blank and section.settings.right_cta_link != blank %}
+        <a class="split-hero__btn" href="{{ section.settings.right_cta_link }}">{{ section.settings.right_cta_label }}</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+.split-hero {
+  display:grid; grid-template-columns:1fr 1fr; gap:24px;
+  max-width: 1200px; margin: 0 auto; padding: clamp(12px, 3vw, 24px);
+}
+.split-hero__panel { position:relative; min-height: 520px; border-radius: 20px; overflow:hidden; }
+.split-hero__bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.split-hero__scrim { position:absolute; inset:0; background:linear-gradient(120deg, rgba(0,0,0,.55), rgba(0,0,0,.25)); }
+.split-hero__content {
+  position:relative; z-index:1; display:flex; flex-direction:column; gap:10px;
+  color:#fff; max-width: 420px; margin: clamp(20px, 5vw, 48px);
+  text-shadow: 0 2px 12px rgba(0,0,0,.35);
+}
+.split-hero__eyebrow { font-size:.9rem; letter-spacing:.08em; text-transform:uppercase; opacity:.9; margin:0; }
+.split-hero__title { font-size: clamp(28px, 4vw, 48px); line-height:1.05; margin:0; }
+.split-hero__subtitle { font-size: clamp(14px, 2.1vw, 18px); opacity:.95; margin:0 0 10px 0; }
+.split-hero__btn {
+  display:inline-block; padding:12px 18px; border-radius:999px; background:#F7E06A; color:#111; font-weight:700;
+  box-shadow: 0 6px 18px rgba(0,0,0,.25); transform: translateY(0); transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+.split-hero__btn:hover { transform: translateY(-1px); box-shadow:0 10px 26px rgba(0,0,0,.35); }
+.split-hero__left .split-hero__scrim { background: linear-gradient(110deg, rgba(0,0,0,.45), rgba(0,0,0,.15)); }
+.split-hero__right .split-hero__scrim { background: linear-gradient(110deg, rgba(0,0,0,.6), rgba(0,0,0,.25)); }
+
+@media (max-width: 900px){
+  .split-hero { grid-template-columns:1fr; }
+  .split-hero__panel { min-height: 440px; }
+  .split-hero__content { max-width: 85%; margin: 24px; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Split hero",
+  "settings": [
+    { "type": "image_picker", "id": "left_image", "label": "Left image" },
+    { "type": "text", "id": "left_eyebrow", "label": "Left eyebrow", "default": "Light Humor" },
+    { "type": "text", "id": "left_title", "label": "Left title", "default": "Sarcastic optimism for sunnier days." },
+    { "type": "textarea", "id": "left_subtitle", "label": "Left subtitle", "default": "Wear your mood without killing the vibe." },
+    { "type": "url", "id": "left_cta_link", "label": "Left CTA link" },
+    { "type": "text", "id": "left_cta_label", "label": "Left CTA label", "default": "Shop Light" },
+
+    { "type": "image_picker", "id": "right_image", "label": "Right image" },
+    { "type": "text", "id": "right_eyebrow", "label": "Right eyebrow", "default": "Dark Humor" },
+    { "type": "text", "id": "right_title", "label": "Right title", "default": "Pitch-black jokes, midnight cotton." },
+    { "type": "textarea", "id": "right_subtitle", "label": "Right subtitle", "default": "Smirk first. Apologize never." },
+    { "type": "url", "id": "right_cta_link", "label": "Right CTA link" },
+    { "type": "text", "id": "right_cta_label", "label": "Right CTA label", "default": "Shop Dark" }
+  ],
+  "presets": [{ "name": "Split hero" }]
+}
+{% endschema %}
+{% comment %}
+  Split Hero: two side-by-side panels (Light/Dark)
+{% endcomment %}
 
 <section class="split-hero" style="--hero-min-h: {{ section.settings.min_height | default: '60vh' }}">
   <div class="split-hero__grid">
@@ -28,7 +115,10 @@
         endif
       -%}
 
-      <div class="split-hero__panel split-hero__panel--{{ side }} align-{{ align }}" style="--overlay: {{ overlay | times: 1.0 }}">
+      <div
+        class="split-hero__panel split-hero__panel--{{ side }} align-{{ align }}"
+        style="--overlay: {{ overlay | times: 1.0 }}"
+      >
         {%- if bg_image != blank -%}
           <picture>
             {%- if bg_image_mobile != blank -%}
@@ -53,7 +143,13 @@
             <p class="split-hero__subhead">{{ subhead }}</p>
           {%- endif -%}
           {%- if cta_label != blank and href != blank -%}
-            <a class="split-hero__btn" href="{{ href }}" aria-label="Shop {{ heading | default: cta_label | escape }} collection">{{ cta_label }}</a>
+            <a
+              class="split-hero__btn"
+              href="{{ href }}"
+              aria-label="Shop {{ heading | default: cta_label | escape }} collection"
+            >
+              {{- cta_label -}}
+            </a>
           {%- endif -%}
         </div>
       </div>
@@ -65,38 +161,76 @@
 {
   "name": "Split hero",
   "settings": [
-    {"type": "text", "id": "left_heading", "label": "Left headline", "default": "Light Humor"},
-    {"type": "textarea", "id": "left_subhead", "label": "Left subhead", "default": "Sarcastic optimism for sunnier days."},
-    {"type": "text", "id": "left_cta_label", "label": "Left CTA label", "default": "Shop Light"},
-    {"type": "collection", "id": "left_collection", "label": "Left collection"},
-    {"type": "url", "id": "left_url", "label": "Left custom URL (fallback)"},
-    {"type": "image_picker", "id": "left_image", "label": "Left background image (desktop)"},
-    {"type": "image_picker", "id": "left_image_mobile", "label": "Left background image (mobile)"},
-    {"type": "range", "id": "left_overlay", "label": "Left overlay intensity", "min": 0, "max": 12, "step": 1, "unit": "%", "default": 8},
-    {"type": "select", "id": "left_align", "label": "Left text alignment", "options": [
-      {"value": "center-right", "label": "Center right"},
-      {"value": "center", "label": "Center"},
-      {"value": "bottom-right", "label": "Bottom right"}
-    ], "default": "center-right"},
+    { "type": "text", "id": "left_heading", "label": "Left headline", "default": "Light Humor" },
+    {
+      "type": "textarea",
+      "id": "left_subhead",
+      "label": "Left subhead",
+      "default": "Sarcastic optimism for sunnier days."
+    },
+    { "type": "text", "id": "left_cta_label", "label": "Left CTA label", "default": "Shop Light" },
+    { "type": "collection", "id": "left_collection", "label": "Left collection" },
+    { "type": "url", "id": "left_url", "label": "Left custom URL (fallback)" },
+    { "type": "image_picker", "id": "left_image", "label": "Left background image (desktop)" },
+    { "type": "image_picker", "id": "left_image_mobile", "label": "Left background image (mobile)" },
+    {
+      "type": "range",
+      "id": "left_overlay",
+      "label": "Left overlay intensity",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "%",
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "left_align",
+      "label": "Left text alignment",
+      "options": [
+        { "value": "center-right", "label": "Center right" },
+        { "value": "center", "label": "Center" },
+        { "value": "bottom-right", "label": "Bottom right" }
+      ],
+      "default": "center-right"
+    },
 
-    {"type": "text", "id": "right_heading", "label": "Right headline", "default": "Dark Humor"},
-    {"type": "textarea", "id": "right_subhead", "label": "Right subhead", "default": "Pitch-black jokes, midnight cotton."},
-    {"type": "text", "id": "right_cta_label", "label": "Right CTA label", "default": "Shop Dark"},
-    {"type": "collection", "id": "right_collection", "label": "Right collection"},
-    {"type": "url", "id": "right_url", "label": "Right custom URL (fallback)"},
-    {"type": "image_picker", "id": "right_image", "label": "Right background image (desktop)"},
-    {"type": "image_picker", "id": "right_image_mobile", "label": "Right background image (mobile)"},
-    {"type": "range", "id": "right_overlay", "label": "Right overlay intensity", "min": 0, "max": 12, "step": 1, "unit": "%", "default": 8},
-    {"type": "select", "id": "right_align", "label": "Right text alignment", "options": [
-      {"value": "center-right", "label": "Center right"},
-      {"value": "center", "label": "Center"},
-      {"value": "bottom-right", "label": "Bottom right"}
-    ], "default": "center-right"},
+    { "type": "text", "id": "right_heading", "label": "Right headline", "default": "Dark Humor" },
+    {
+      "type": "textarea",
+      "id": "right_subhead",
+      "label": "Right subhead",
+      "default": "Pitch-black jokes, midnight cotton."
+    },
+    { "type": "text", "id": "right_cta_label", "label": "Right CTA label", "default": "Shop Dark" },
+    { "type": "collection", "id": "right_collection", "label": "Right collection" },
+    { "type": "url", "id": "right_url", "label": "Right custom URL (fallback)" },
+    { "type": "image_picker", "id": "right_image", "label": "Right background image (desktop)" },
+    { "type": "image_picker", "id": "right_image_mobile", "label": "Right background image (mobile)" },
+    {
+      "type": "range",
+      "id": "right_overlay",
+      "label": "Right overlay intensity",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "%",
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "right_align",
+      "label": "Right text alignment",
+      "options": [
+        { "value": "center-right", "label": "Center right" },
+        { "value": "center", "label": "Center" },
+        { "value": "bottom-right", "label": "Bottom right" }
+      ],
+      "default": "center-right"
+    },
 
-    {"type": "text", "id": "min_height", "label": "Section min-height (e.g., 60vh)", "default": "60vh"}
+    { "type": "text", "id": "min_height", "label": "Section min-height (e.g., 60vh)", "default": "60vh" }
   ],
-  "presets": [{"name": "Split hero"}]
+  "presets": [{ "name": "Split hero" }]
 }
 {% endschema %}
-
-
