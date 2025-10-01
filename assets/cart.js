@@ -224,3 +224,53 @@
     }
   });
 })();
+
+// Additional cart drawer functionality as requested
+(() => {
+  const drawer = document.getElementById('cart-drawer');
+  if (!drawer) return;
+
+  const panel = drawer.querySelector('.cart-drawer__panel');
+  const openers = document.querySelectorAll('[data-open-cart]');
+  const closers = drawer.querySelectorAll('[data-close-cart]');
+
+  const open = () => {
+    drawer.hidden = false;
+    drawer.setAttribute('aria-hidden', 'false');
+    // focus first interactive element for a11y
+    (panel.querySelector('button, a, input, select, textarea') || panel).focus({ preventScroll: true });
+  };
+  const close = () => {
+    drawer.hidden = true;
+    drawer.setAttribute('aria-hidden', 'true');
+  };
+
+  openers.forEach((btn) =>
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      open();
+    })
+  );
+  closers.forEach((btn) => btn.addEventListener('click', close));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !drawer.hidden) close();
+  });
+
+  // Auto-open after AJAX add-to-cart — dispatch this in your add success OR listen globally
+  window.addEventListener('danliora_add_to_cart', open);
+
+  // If your add code doesn't dispatch the event yet, patch it:
+  // After successful /cart/add.js:
+  // window.dispatchEvent(new CustomEvent('danliora_add_to_cart'));
+
+  // Keep cart badge fresh
+  const refreshBadge = () =>
+    fetch('/cart.js', { headers: { Accept: 'application/json' } })
+      .then((r) => r.json())
+      .then((cart) => {
+        const badge = document.querySelector('[data-cart-count]');
+        if (badge) badge.textContent = cart.item_count;
+      });
+
+  window.addEventListener('danliora_add_to_cart', refreshBadge);
+})();

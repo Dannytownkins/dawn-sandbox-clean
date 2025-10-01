@@ -586,3 +586,19 @@ textarea:focus-visible {
   background: #151518;
   color: #fff;
 }
+
+/* ========================================================================
+   Cart Drawer Styles
+   ======================================================================== */
+
+.cart-drawer[hidden]{ display:none !important; }
+.cart-drawer { position:fixed; inset:0; z-index:70; }
+.cart-drawer__overlay { position:absolute; inset:0; background:rgba(0,0,0,.45); }
+.cart-drawer__panel {
+  position:absolute; right:0; top:0; bottom:0;
+  width:min(420px, 92vw);
+  background:#0b0b0c; color:#fff;
+  box-shadow:-12px 0 32px rgba(0,0,0,.35);
+  padding:16px; outline: none;
+}
+.cart-drawer__close { all:unset; cursor:pointer; font-size:26px; line-height:1; padding:8px; border-radius:10px; }
