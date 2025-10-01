@@ -3595,3 +3595,7 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
+/* DEBUG: outline split hero */
+#SplitHero {
+  outline: 4px solid red !important;
+}
