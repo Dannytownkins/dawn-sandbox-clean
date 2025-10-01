@@ -1,6 +1,6 @@
 {% comment %} Section: split-hero.liquid {% endcomment %}
 <section id="SplitHero" class="split-hero">
-  <div class="split-hero__panel split-hero__left">
+  <div class="split-hero__panel split-hero__left bg-grain">
     {% if section.settings.left_image != blank %}
       {{ section.settings.left_image | image_url: width: 2000 | image_tag: loading: 'lazy', class: 'split-hero__bg' }}
     {% endif %}
@@ -14,7 +14,7 @@
       {%- endif %}
     </div>
   </div>
-  <div class="split-hero__panel split-hero__right">
+  <div class="split-hero__panel split-hero__right bg-grain">
     {% if section.settings.right_image != blank %}
       {{ section.settings.right_image | image_url: width: 2000 | image_tag: loading: 'lazy', class: 'split-hero__bg' }}
     {% endif %}

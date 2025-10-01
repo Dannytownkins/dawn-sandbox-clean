@@ -1,0 +1,51 @@
+{% comment %}
+  Featured products - simple manual picks grid
+{% endcomment %}
+
+<div class="section section-featured-products">
+  <div class="page-width">
+    {% if section.settings.title != blank %}
+      <h2 class="title h2">{{ section.settings.title }}</h2>
+    {% endif %}
+    <ul class="grid grid--{{ section.settings.columns_mobile }}-col-tablet-down grid--{{ section.settings.columns_desktop }}-col-desktop">
+      {% for block in section.blocks %}
+        {% assign prod = block.settings.product %}
+        {% if prod != blank %}
+          <li class="grid__item">
+            {% render 'card-product', card_product: prod, media_aspect_ratio: section.settings.image_ratio, show_vendor: section.settings.show_vendor %}
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+  <style>
+    .section-featured-products .grid{ gap:18px; }
+    .section-featured-products .card-wrapper{ max-width:340px; margin-inline:auto; }
+    @media (min-width:990px){ .section-featured-products .card-wrapper{ max-width:360px; } }
+  </style>
+</div>
+
+{% schema %}
+{
+  "name": "Featured products",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Heading", "default": "Featured products" },
+    { "type": "range", "id": "columns_desktop", "min": 2, "max": 5, "step": 1, "label": "Products per row (desktop)", "default": 3 },
+    { "type": "range", "id": "columns_mobile", "min": 1, "max": 2, "step": 1, "label": "Products per row (mobile)", "default": 2 },
+    { "type": "select", "id": "image_ratio", "label": "Image ratio", "default": "square",
+      "options": [
+        { "value": "adapt", "label": "Adapt to image" },
+        { "value": "square", "label": "Square" },
+        { "value": "portrait", "label": "Portrait" }
+      ]
+    },
+    { "type": "checkbox", "id": "show_vendor", "label": "Show vendor", "default": false }
+  ],
+  "blocks": [
+    { "type": "product", "name": "Product", "limit": 12, "settings": [ { "type": "product", "id": "product", "label": "Product" } ] }
+  ],
+  "presets": [ { "name": "Featured products" } ]
+}
+{% endschema %}
+
+

@@ -6,40 +6,13 @@
   </div>
 </section>
 <style>
-  .usp {
-    border-block: 1px solid rgba(0, 0, 0, 0.08);
-    background: #111;
-  }
-  .usp__wrap {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 14px clamp(12px, 3vw, 24px);
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
-  .usp__item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 600;
-    color: #f5f5f5;
-    opacity: 0.95;
-  }
-  @media (prefers-color-scheme: light) {
-    .usp {
-      background: #f7f7f7;
-    }
-    .usp__item {
-      color: #111;
-    }
-  }
-  @media (max-width: 900px) {
-    .usp__wrap {
-      grid-template-columns: 1fr;
-      justify-items: center;
-      text-align: center;
-    }
-  }
+.usp{ position:relative; background:#0c0c0d; border-top:1px solid #151515; border-bottom:1px solid #151515; }
+.usp__wrap{
+  max-width:1200px;margin:0 auto;padding:12px clamp(12px,3vw,24px);
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;color:#eaeaea;font-weight:600;
+}
+.usp__item{ display:flex; align-items:center; gap:10px; white-space:nowrap; opacity:.95;}
+@media (max-width: 900px){ .usp__wrap{ grid-template-columns:1fr; justify-items:center; text-align:center; } }
+@media (prefers-color-scheme: light){ .usp{ background:#f7f7f7; border-color:#eee; } .usp__item{ color:#111; } }
 </style>
 {% schema %}{ "name":"Trust bar (USPs)", "presets":[{ "name":"Trust bar (USPs)"}]}{% endschema %}
