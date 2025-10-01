@@ -8,6 +8,15 @@
   {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
 {%- endif -%}
 
+{%- comment -%} Add near top or keep as-is; this just scopes a max width so cards don’t go huge {%- endcomment -%}
+<style>
+  .section-{{ section.id }} .grid { gap: 18px; }
+  .section-{{ section.id }} .card-wrapper { max-width: 320px; margin-inline: auto; }
+  @media (min-width: 990px){
+    .section-{{ section.id }} .card-wrapper { max-width: 360px; }
+  }
+</style>
+
 {%- unless section.settings.quick_add == 'none' -%}
   {{ 'quick-add.css' | asset_url | stylesheet_tag }}
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
