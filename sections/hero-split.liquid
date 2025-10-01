@@ -12,15 +12,15 @@
     grid-template-columns: 1fr 1fr;
     gap: 0;
   }
-   @media (max-width: 920px) {
-     .hero-split__grid {
-       grid-template-columns: 1fr;
-     }
-     .hero-split__content {
-       place-items: center;
-       text-align: center;
-     }
-   }
+  @media (max-width: 920px) {
+    .hero-split__grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-split__content {
+      place-items: center;
+      text-align: center;
+    }
+  }
   .hero-split__pane {
     position: relative;
     min-height: clamp(360px, 55vh, 560px); /* shorter than 100vh */
@@ -41,16 +41,16 @@
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.1));
     pointer-events: none;
   }
-   .hero-split__content {
-     position: relative;
-     z-index: 2;
-     display: grid;
-     /* Center vertically + align to the right horizontally */
-     place-items: center end;     /* vertical center, horizontal right */
-     height: 100%;
-     padding: var(--hero-pad);
-     text-align: right;
-   }
+  .hero-split__content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    /* Center vertically + align to the right horizontally */
+    place-items: center end; /* vertical center, horizontal right */
+    height: 100%;
+    padding: var(--hero-pad);
+    text-align: right;
+  }
   .hero-split__content-inner {
     max-width: 520px;
   }
@@ -123,7 +123,7 @@
         >
       {% endif %}
       <span class="hero-split__shade"></span>
-      <div class="hero-split__content" style="justify-items:end; text-align:right;">
+      <div class="hero-split__content">
         <div class="hero-split__content-inner">
           <h2 class="hero-split__title">{{ section.settings.dark_title }}</h2>
           <p class="hero-split__desc">{{ section.settings.dark_desc }}</p>
