@@ -9,6 +9,8 @@
  */
 {
   "sections": {
+    "split-hero-01": { "type": "split-hero" },
+    "usp-bar-01": { "type": "usp-bar" },
     "split_hero": {
       "type": "split-hero",
       "settings": {
@@ -132,6 +134,8 @@
     }
   },
   "order": [
+    "split-hero-01",
+    "usp-bar-01",
     "split_hero",
     
     "featured_testimonials",
