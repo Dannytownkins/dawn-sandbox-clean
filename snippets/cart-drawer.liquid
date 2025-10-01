@@ -23,7 +23,18 @@
           <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary" data-close-cart>Start Shopping</a>
         </div>
       {% else %}
-        {% render 'free-shipping-bar' %}
+        {% liquid
+          assign free_ship_threshold = settings.free_shipping_threshold | default: 50.0
+          assign subtotal_cents = cart.total_price
+          assign threshold_cents = free_ship_threshold | times: 100
+        %}
+        {% if subtotal_cents >= threshold_cents %}
+          <div class="cart-free-shipping">{{ 'cart.free_shipping_qualified' | t }}</div>
+        {% else %}
+          <div class="cart-free-shipping">
+            {{ 'cart.free_shipping_progress' | t: amount: free_ship_threshold | minus: cart.total_price | divided_by: 100.0 | money_without_trailing_zeros }}
+          </div>
+        {% endif %}
         <div class="cart-drawer__items">
           {% for item in cart.items %}
             <div class="cart-line" data-line-index="{{ forloop.index }}">
