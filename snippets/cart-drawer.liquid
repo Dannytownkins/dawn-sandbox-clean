@@ -32,7 +32,13 @@
           <div class="cart-free-shipping">{{ 'cart.free_shipping_qualified' | t }}</div>
         {% else %}
           <div class="cart-free-shipping">
-            {{ 'cart.free_shipping_progress' | t: amount: free_ship_threshold | minus: cart.total_price | divided_by: 100.0 | money_without_trailing_zeros }}
+            {{
+              'cart.free_shipping_progress'
+              | t: amount: free_ship_threshold
+              | minus: cart.total_price
+              | divided_by: 100.0
+              | money_without_trailing_zeros
+            }}
           </div>
         {% endif %}
         <div class="cart-drawer__items">
