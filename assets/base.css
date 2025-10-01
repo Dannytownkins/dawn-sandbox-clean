@@ -3607,6 +3607,16 @@ details-disclosure > details {
 .split-hero .split-hero__btn:hover{ transform: translateY(-1px); box-shadow:0 12px 28px rgba(0,0,0,.38); }
 .split-hero .split-hero__title{ margin-top:2px }
 
+/* home picks sizing */
+.section-home-picks .grid{ gap:18px }
+.section-home-picks .card-wrapper{ max-width:340px; margin-inline:auto; border-radius:14px; overflow:hidden }
+@media (min-width:990px){ .section-home-picks .card-wrapper{ max-width:360px } }
+
+/* home picks sizing by section id */
+#shopify-section-home-picks .grid{ gap:18px }
+#shopify-section-home-picks .card-wrapper{ max-width:340px; margin-inline:auto; border-radius:14px; overflow:hidden }
+@media (min-width:990px){ #shopify-section-home-picks .card-wrapper{ max-width:360px } }
+
 /* ===== Astra tune-up — tokens ===== */
 :root{
   --brand-yellow: #F7E06A;
