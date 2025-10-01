@@ -71,7 +71,12 @@
               {%- render 'loading-spinner' -%}
             </button>
           {%- else -%}
-            <button type="button" class="product-form__submit button button--full-width button--primary" disabled aria-disabled="true">
+            <button
+              type="button"
+              class="product-form__submit button button--full-width button--primary"
+              disabled
+              aria-disabled="true"
+            >
               <span>{{ 'products.product.sold_out' | t }}</span>
             </button>
           {%- endif -%}
