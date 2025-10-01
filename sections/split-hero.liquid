@@ -33,87 +33,25 @@
 </section>
 
 <style>
-  .split-hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: clamp(12px, 3vw, 24px);
-  }
-  .split-hero__panel {
-    position: relative;
-    min-height: 520px;
-    border-radius: 20px;
-    overflow: hidden;
-  }
-  .split-hero__bg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .split-hero__scrim {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.25));
-  }
-  .split-hero__content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    color: #fff;
-    max-width: 420px;
-    margin: clamp(20px, 5vw, 48px);
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
-  }
-  .split-hero__eyebrow {
-    font-size: 0.9rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0.9;
-    margin: 0;
-  }
-  .split-hero__title {
-    font-size: clamp(28px, 4vw, 48px);
-    line-height: 1.05;
-    margin: 0;
-  }
-  .split-hero__subtitle {
-    font-size: clamp(14px, 2.1vw, 18px);
-    opacity: 0.95;
-    margin: 0 0 10px 0;
-  }
-  .split-hero__btn {
-    display: inline-block;
-    padding: 12px 18px;
-    border-radius: 999px;
-    background: #f7e06a;
-    color: #111;
-    font-weight: 700;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-    transform: translateY(0);
-    transition: transform 0.12s ease, box-shadow 0.12s ease;
-  }
-  .split-hero__btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
-  }
-  @media (max-width: 900px) {
-    .split-hero {
-      grid-template-columns: 1fr;
-    }
-    .split-hero__panel {
-      min-height: 440px;
-    }
-    .split-hero__content {
-      max-width: 85%;
-      margin: 24px;
-    }
-  }
+.split-hero{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:1200px;margin:0 auto;padding:clamp(12px,3vw,28px)}
+.split-hero__panel{position:relative;min-height:560px;border-radius:24px;overflow:hidden}
+.split-hero__bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.split-hero__scrim{position:absolute;inset:0;background:linear-gradient(120deg,rgba(0,0,0,.6),rgba(0,0,0,.25))}
+.split-hero__content{position:relative;z-index:1;display:flex;flex-direction:column;gap:10px;color:#fff;max-width:440px;text-shadow:0 2px 12px rgba(0,0,0,.35)}
+/* LEFT: bottom-left */
+.split-hero__left .split-hero__content{margin:0;position:absolute;left:clamp(20px,4vw,48px);bottom:clamp(20px,4vw,48px)}
+/* RIGHT: bottom-right */
+.split-hero__right .split-hero__content{margin:0;position:absolute;right:clamp(20px,4vw,48px);bottom:clamp(20px,4vw,48px);text-align:right;align-items:flex-end}
+.split-hero__eyebrow{font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;opacity:.9;margin:0}
+.split-hero__title{font-size:clamp(30px,4.5vw,52px);line-height:1.04;margin:0}
+.split-hero__subtitle{font-size:clamp(14px,2.1vw,18px);opacity:.95;margin:0 0 10px 0}
+.split-hero__btn{display:inline-block;padding:12px 18px;border-radius:999px;background:#F7E06A;color:#111;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,.25);transform:translateY(0);transition:transform .12s ease,box-shadow .12s ease}
+.split-hero__btn:hover{transform:translateY(-1px);box-shadow:0 10px 26px rgba(0,0,0,.35)}
+@media (max-width: 900px){
+  .split-hero{grid-template-columns:1fr}
+  .split-hero__panel{min-height:460px}
+  .split-hero__right .split-hero__content{text-align:left;align-items:flex-start;left:clamp(20px,4vw,40px);right:auto}
+}
 </style>
 
 {% schema %}
