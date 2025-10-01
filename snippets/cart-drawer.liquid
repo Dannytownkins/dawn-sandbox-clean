@@ -16,6 +16,8 @@
       </button>
     </div>
 
+    {% render 'cart-progress' %}
+
     <div class="cart-drawer__body">
       {% if cart.item_count == 0 %}
         <div class="cart-drawer__empty">

@@ -63,6 +63,11 @@
             style="position: relative;"
           >
             {% render 'product-badges', product: card_product %}
+            {% if card_product.available == false %}
+              <span class="pill pill--soldout">Sold out</span>
+            {% elsif card_product.total_inventory and card_product.total_inventory < 5 %}
+              <span class="pill pill--low">Only {{ card_product.total_inventory }} left</span>
+            {% endif %}
             <div class="media media--transparent media--hover-effect">
               {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
               <img
@@ -574,6 +579,10 @@
         </div>
       </div>
     </div>
+    <form class="quick-add" action="{{ routes.cart_add_url }}" method="post">
+      <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
+      <button class="button button--secondary button--pill">Quick add</button>
+    </form>
   </div>
 {%- else -%}
   {%- liquid
