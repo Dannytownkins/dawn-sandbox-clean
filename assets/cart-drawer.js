@@ -43,6 +43,12 @@ window.CartDrawer = {
       this.refresh();
       this.open();
     });
+
+    // Also listen for Dawn's standard cart refresh event
+    document.documentElement.addEventListener('cart:refresh', () => {
+      this.refresh();
+      this.open();
+    });
   },
 
   open() {

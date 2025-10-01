@@ -10,6 +10,9 @@
   Usage:
   {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true %}
 {% endcomment %}
+
+{%- assign selected_variant = product.selected_or_first_available_variant -%}
+{%- assign single_variant = product.has_only_default_variant -%}
 <div {{ block.shopify_attributes }}>
   {%- if product != blank -%}
     {%- liquid
@@ -39,23 +42,22 @@
       {%- form 'product',
         product,
         id: product_form_id,
-        class: 'form',
+        class: 'product-form',
+        method: 'post',
+        action: '/cart/add',
+        enctype: 'multipart/form-data',
+        data-product-handle: product.handle,
         novalidate: 'novalidate',
         data-type: 'add-to-cart-form'
       -%}
         <input
           type="hidden"
           name="id"
-          value="{{ product.selected_or_first_available_variant.id }}"
-          data-variant-id
-          {% unless preview_force_available %}
-            {% if product.selected_or_first_available_variant == null
-              or quantity_rule_soldout
-              or product.selected_or_first_available_variant.available == false
-            %}
-              disabled
-            {% endif %}
+          value="{{ selected_variant.id }}"
+          {% unless single_variant %}
+            disabled
           {% endunless %}
+          data-variant-id
           class="product-variant-id"
         >
 
@@ -79,14 +81,9 @@
             name="add"
             class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
             data-cta="atc-main"
-            {% unless preview_force_available %}
-              {% if product.selected_or_first_available_variant == null
-                or quantity_rule_soldout
-                or product.selected_or_first_available_variant.available == false
-              %}
-                disabled
-              {% endif %}
-            {% endunless %}
+            {% if selected_variant == null %}
+              disabled
+            {% endif %}
           >
             <span>
               {%- if product.selected_or_first_available_variant == null -%}

@@ -26,6 +26,8 @@
       const match = variantMap.find((v) => v.key === key);
       if (idInput) {
         idInput.value = match ? match.id : '';
+        // Enable the input when we have a valid variant
+        idInput.disabled = !match;
       }
     };
 
@@ -96,6 +98,7 @@
 
         // Success: open the drawer + refresh badge
         window.dispatchEvent(new CustomEvent('danliora_add_to_cart'));
+        document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true }));
 
         // Update cart badge
         fetch('/cart.js', { headers: { Accept: 'application/json' } })
