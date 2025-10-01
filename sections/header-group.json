@@ -46,11 +46,13 @@
       "type": "split-hero",
       "name": "Split hero",
       "settings": {
+        "left_image": "shopify://shop_images/hero_light1.jpg",
         "left_eyebrow": "Light Humor",
         "left_title": "Sarcastic optimism for sunnier days.",
         "left_subtitle": "Wear your mood without killing the vibe.",
         "left_cta_link": "",
         "left_cta_label": "Shop Light",
+        "right_image": "shopify://shop_images/hero_landing__solo.jpg",
         "right_eyebrow": "Dark Humor",
         "right_title": "Pitch-black jokes, midnight cotton.",
         "right_subtitle": "Smirk first. Apologize never.",
