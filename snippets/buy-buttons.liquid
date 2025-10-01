@@ -83,6 +83,11 @@
           {%- if show_dynamic_checkout and selected_variant and selected_variant.available -%}
             {{ form | payment_button }}
           {%- endif -%}
+          <div class="product-trust" style="display:flex;gap:18px;align-items:center;margin-top:10px;opacity:.9">
+            <span>🔒 SSL Secure Checkout</span>
+            <span>↩️ 30-Day Returns</span>
+            <span>🚚 Free Shipping $50+</span>
+          </div>
         </div>
       {%- endform -%}
     </product-form>
