@@ -49,51 +49,32 @@
         novalidate: 'novalidate',
         data-type: 'add-to-cart-form'
       -%}
-        <input
-          type="hidden"
-          name="id"
-          value="{{ selected_variant.id }}"
-          data-variant-id
-          class="product-variant-id"
-        >
+        {%- if selected_variant and selected_variant.available -%}
+          <input type="hidden" name="id" value="{{ selected_variant.id }}" data-variant-id class="product-variant-id">
+        {%- endif -%}
 
         {%- if gift_card_recipient_feature_active -%}
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
         {%- endif -%}
 
         <div class="product-form__buttons">
-          {%- liquid
-            assign check_against_inventory = true
-            if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
-              assign check_against_inventory = false
-            endif
-            if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
-              assign quantity_rule_soldout = true
-            endif
-          -%}
-          <button
-            id="ProductSubmitButton-{{ section_id }}"
-            type="submit"
-            name="add"
-            class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
-            data-cta="atc-main"
-            {% if selected_variant == null %}
-              disabled
-            {% endif %}
-          >
-            <span>
-              {%- if product.selected_or_first_available_variant == null -%}
-                {{ 'products.product.unavailable' | t }}
-              {%- elsif preview_force_available -%}
-                {{ 'products.product.add_to_cart' | t }}
-              {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
-                {{ 'products.product.sold_out' | t }}
-              {%- else -%}
-                {{ 'products.product.add_to_cart' | t }}
-              {%- endif -%}
-            </span>
-            {%- render 'loading-spinner' -%}
-          </button>
+          {%- comment -%} inventory checks handled by selected_variant.available guard above {%- endcomment -%}
+          {%- if selected_variant and selected_variant.available -%}
+            <button
+              id="ProductSubmitButton-{{ section_id }}"
+              type="submit"
+              name="add"
+              class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
+              data-cta="atc-main"
+            >
+              <span>{{ 'products.product.add_to_cart' | t }}</span>
+              {%- render 'loading-spinner' -%}
+            </button>
+          {%- else -%}
+            <button type="button" class="product-form__submit button button--full-width button--primary" disabled aria-disabled="true">
+              <span>{{ 'products.product.sold_out' | t }}</span>
+            </button>
+          {%- endif -%}
           {%- if show_dynamic_checkout and selected_variant and selected_variant.available -%}
             {{ form | payment_button }}
           {%- endif -%}

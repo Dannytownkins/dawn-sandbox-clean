@@ -1,3 +1,66 @@
+{% comment %} Section: split-hero.liquid {% endcomment %}
+<section id="SplitHero" class="split-hero">
+  <div class="split-hero__panel split-hero__left">
+    {% if section.settings.left_image != blank %}
+      {{ section.settings.left_image | image_url: width: 2000 | image_tag: loading: 'lazy', class: 'split-hero__bg' }}
+    {% endif %}
+    <div class="split-hero__scrim"></div>
+    <div class="split-hero__content">
+      <h2 class="split-hero__eyebrow">{{ section.settings.left_eyebrow }}</h2>
+      <h1 class="split-hero__title">{{ section.settings.left_title }}</h1>
+      <p class="split-hero__subtitle">{{ section.settings.left_subtitle }}</p>
+      {% if section.settings.left_cta_label and section.settings.left_cta_link %}<a class="split-hero__btn" href="{{ section.settings.left_cta_link }}">{{ section.settings.left_cta_label }}</a>{% endif %}
+    </div>
+  </div>
+  <div class="split-hero__panel split-hero__right">
+    {% if section.settings.right_image != blank %}
+      {{ section.settings.right_image | image_url: width: 2000 | image_tag: loading: 'lazy', class: 'split-hero__bg' }}
+    {% endif %}
+    <div class="split-hero__scrim"></div>
+    <div class="split-hero__content">
+      <h2 class="split-hero__eyebrow">{{ section.settings.right_eyebrow }}</h2>
+      <h1 class="split-hero__title">{{ section.settings.right_title }}</h1>
+      <p class="split-hero__subtitle">{{ section.settings.right_subtitle }}</p>
+      {% if section.settings.right_cta_label and section.settings.right_cta_link %}<a class="split-hero__btn" href="{{ section.settings.right_cta_link }}">{{ section.settings.right_cta_label }}</a>{% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+.split-hero{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1200px;margin:0 auto;padding:clamp(12px,3vw,24px)}
+.split-hero__panel{position:relative;min-height:520px;border-radius:20px;overflow:hidden}
+.split-hero__bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.split-hero__scrim{position:absolute;inset:0;background:linear-gradient(120deg,rgba(0,0,0,.55),rgba(0,0,0,.25))}
+.split-hero__content{position:relative;z-index:1;display:flex;flex-direction:column;gap:10px;color:#fff;max-width:420px;margin:clamp(20px,5vw,48px);text-shadow:0 2px 12px rgba(0,0,0,.35)}
+.split-hero__eyebrow{font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;opacity:.9;margin:0}
+.split-hero__title{font-size:clamp(28px,4vw,48px);line-height:1.05;margin:0}
+.split-hero__subtitle{font-size:clamp(14px,2.1vw,18px);opacity:.95;margin:0 0 10px 0}
+.split-hero__btn{display:inline-block;padding:12px 18px;border-radius:999px;background:#F7E06A;color:#111;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,.25);transform:translateY(0);transition:transform .12s ease,box-shadow .12s ease}
+.split-hero__btn:hover{transform:translateY(-1px);box-shadow:0 10px 26px rgba(0,0,0,.35)}
+@media (max-width:900px){.split-hero{grid-template-columns:1fr}.split-hero__panel{min-height:440px}.split-hero__content{max-width:85%;margin:24px}}
+</style>
+
+{% schema %}
+{
+  "name":"Split hero",
+  "settings":[
+    {"type":"image_picker","id":"left_image","label":"Left image"},
+    {"type":"text","id":"left_eyebrow","label":"Left eyebrow","default":"Light Humor"},
+    {"type":"text","id":"left_title","label":"Left title","default":"Sarcastic optimism for sunnier days."},
+    {"type":"textarea","id":"left_subtitle","label":"Left subtitle","default":"Wear your mood without killing the vibe."},
+    {"type":"url","id":"left_cta_link","label":"Left CTA link"},
+    {"type":"text","id":"left_cta_label","label":"Left CTA label","default":"Shop Light"},
+
+    {"type":"image_picker","id":"right_image","label":"Right image"},
+    {"type":"text","id":"right_eyebrow","label":"Right eyebrow","default":"Dark Humor"},
+    {"type":"text","id":"right_title","label":"Right title","default":"Pitch-black jokes, midnight cotton."},
+    {"type":"textarea","id":"right_subtitle","label":"Right subtitle","default":"Smirk first. Apologize never."},
+    {"type":"url","id":"right_cta_link","label":"Right CTA link"},
+    {"type":"text","id":"right_cta_label","label":"Right CTA label","default":"Shop Dark"}
+  ],
+  "presets":[{"name":"Split hero"}]
+}
+{% endschema %}
 {% comment %}
   Section: split-hero.liquid
   Two-panel hero for Light vs Dark collections with clean CTAs and strong contrast.
