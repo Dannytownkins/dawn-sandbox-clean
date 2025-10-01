@@ -3741,3 +3741,21 @@ html.cart-open, html.cart-open body {
 
 /* ===== Section spacing rhythm ===== */
 .section { padding-block: clamp(20px, 5vw, 48px); }
+
+/* Lock scroll only while drawer is open */
+html.cart-open, html.cart-open body { overflow: hidden; }
+
+/* Drawer/overlay z-index sane */
+.cart-drawer,
+.cart-drawer__overlay,
+.modal__overlay { z-index: 9999 !important; }
+
+/* Hide overlay on the full cart page, always */
+body.template-cart .cart-drawer__overlay { display: none !important; }
+body.template-cart html, body.template-cart body { overflow: auto !important; }
+
+/* Subtle blur and dim */
+.cart-drawer__overlay, .modal__overlay {
+  background: rgba(0,0,0,.6);
+  backdrop-filter: blur(2px);
+}
