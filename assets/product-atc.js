@@ -11,18 +11,19 @@
     const sectionId = form.closest('[data-section]')?.dataset.section;
     if (!sectionId) return;
 
-    const productJsonEl = document.getElementById(`ProductJson-${sectionId}`);
-    const product = productJsonEl ? JSON.parse(productJsonEl.textContent) : null;
+    const variantMapEl = document.getElementById(`VariantMap-${sectionId}`);
+    const variantMap = variantMapEl ? JSON.parse(variantMapEl.textContent) : null;
     const idInput = form.querySelector('[data-variant-id]');
 
-    if (!product || !idInput) return;
+    if (!variantMap || !idInput) return;
 
-    // 1) Keep hidden variant id in sync with selected options
+    // 1) Keep hidden variant id in sync with selected options using VariantMap
     const optionSelects = form.querySelectorAll('select[name^="options"], input[name^="options"]');
     const syncVariantId = () => {
-      if (!product) return;
+      if (!variantMap) return;
       const chosen = Array.from(optionSelects).map((el) => el.value);
-      const match = product.variants.find((v) => v.options.every((o, i) => o === chosen[i]));
+      const key = chosen.map((v) => v.toLowerCase().trim()).join('||');
+      const match = variantMap.find((v) => v.key === key);
       if (idInput) {
         idInput.value = match ? match.id : '';
       }
@@ -34,15 +35,38 @@
     // Listen for option changes
     optionSelects.forEach((el) => el.addEventListener('change', syncVariantId));
 
+    // Helper function to show inline error
+    const showError = (message) => {
+      const errorWrapper = form.querySelector('.product-form__error-message-wrapper');
+      const errorMessage = form.querySelector('.product-form__error-message');
+      if (errorWrapper && errorMessage) {
+        errorMessage.textContent = message;
+        errorWrapper.hidden = false;
+        errorWrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        // Fallback to alert if no error wrapper found
+        alert(message);
+      }
+    };
+
+    const hideError = () => {
+      const errorWrapper = form.querySelector('.product-form__error-message-wrapper');
+      if (errorWrapper) {
+        errorWrapper.hidden = true;
+      }
+    };
+
     // 2) Intercept submit -> /cart/add.js
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      hideError(); // Clear any previous errors
+
       const fd = new FormData(form);
 
       // Guard: no variant id -> show helpful message
       const vId = fd.get('id');
       if (!vId) {
-        alert('Please select a valid variant.');
+        showError('Please select a valid variant.');
         return;
       }
 
@@ -82,7 +106,7 @@
           });
       } catch (err) {
         console.error('ATC error', err);
-        alert(err.message); // now you'll see the real reason (e.g., "This product is sold out.")
+        showError(err.message); // Show inline error instead of alert
       } finally {
         // Reset button
         if (submitBtn) {

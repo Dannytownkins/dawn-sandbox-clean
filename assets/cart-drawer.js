@@ -1,136 +1,136 @@
-class CartDrawer extends HTMLElement {
-  constructor() {
-    super();
+/**
+ * Cart Drawer Functionality
+ * Handles opening/closing, refreshing content, and cart badge updates
+ */
 
-    this.addEventListener('keyup', (evt) => evt.code === 'Escape' && this.close());
-    this.querySelector('#CartDrawer-Overlay').addEventListener('click', this.close.bind(this));
-    this.setHeaderCartIconAccessibility();
-  }
+window.CartDrawer = {
+  drawer: null,
+  isOpen: false,
 
-  setHeaderCartIconAccessibility() {
-    const cartLink = document.querySelector('#cart-icon-bubble');
-    if (!cartLink) return;
+  init() {
+    this.drawer = document.getElementById('cart-drawer');
+    if (!this.drawer) return;
 
-    cartLink.setAttribute('role', 'button');
-    cartLink.setAttribute('aria-haspopup', 'dialog');
-    cartLink.addEventListener('click', (event) => {
-      event.preventDefault();
-      this.open(cartLink);
-    });
-    cartLink.addEventListener('keydown', (event) => {
-      if (event.code.toUpperCase() === 'SPACE') {
-        event.preventDefault();
-        this.open(cartLink);
+    this.setupEventListeners();
+    this.refresh();
+  },
+
+  setupEventListeners() {
+    // Open drawer triggers
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('[data-open-cart-drawer]') || e.target.closest('[data-open-cart]')) {
+        e.preventDefault();
+        this.open();
       }
     });
-  }
 
-  open(triggeredBy) {
-    if (triggeredBy) this.setActiveElement(triggeredBy);
-    const cartDrawerNote = this.querySelector('[id^="Details-"] summary');
-    if (cartDrawerNote && !cartDrawerNote.hasAttribute('role')) this.setSummaryAccessibility(cartDrawerNote);
-    // here the animation doesn't seem to always get triggered. A timeout seem to help
-    setTimeout(() => {
-      this.classList.add('animate', 'active');
+    // Close drawer triggers
+    this.drawer.addEventListener('click', (e) => {
+      if (e.target.closest('[data-close-cart]') || e.target === this.drawer.querySelector('.cart-drawer__overlay')) {
+        this.close();
+      }
     });
 
-    this.addEventListener(
-      'transitionend',
-      () => {
-        const containerToTrapFocusOn = this.classList.contains('is-empty')
-          ? this.querySelector('.drawer__inner-empty')
-          : document.getElementById('CartDrawer');
-        const focusElement = this.querySelector('.drawer__inner') || this.querySelector('.drawer__close');
-        trapFocus(containerToTrapFocusOn, focusElement);
-      },
-      { once: true }
-    );
-
-    document.body.classList.add('overflow-hidden');
-  }
-
-  close() {
-    this.classList.remove('active');
-    removeTrapFocus(this.activeElement);
-    document.body.classList.remove('overflow-hidden');
-  }
-
-  setSummaryAccessibility(cartDrawerNote) {
-    cartDrawerNote.setAttribute('role', 'button');
-    cartDrawerNote.setAttribute('aria-expanded', 'false');
-
-    if (cartDrawerNote.nextElementSibling.getAttribute('id')) {
-      cartDrawerNote.setAttribute('aria-controls', cartDrawerNote.nextElementSibling.id);
-    }
-
-    cartDrawerNote.addEventListener('click', (event) => {
-      event.currentTarget.setAttribute('aria-expanded', !event.currentTarget.closest('details').hasAttribute('open'));
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.isOpen) {
+        this.close();
+      }
     });
 
-    cartDrawerNote.parentElement.addEventListener('keyup', onKeyUpEscape);
-  }
-
-  renderContents(parsedState) {
-    this.querySelector('.drawer__inner').classList.contains('is-empty') &&
-      this.querySelector('.drawer__inner').classList.remove('is-empty');
-    this.productId = parsedState.id;
-    this.getSectionsToRender().forEach((section) => {
-      const sectionElement = section.selector
-        ? document.querySelector(section.selector)
-        : document.getElementById(section.id);
-
-      if (!sectionElement) return;
-      sectionElement.innerHTML = this.getSectionInnerHTML(parsedState.sections[section.id], section.selector);
-    });
-
-    setTimeout(() => {
-      this.querySelector('#CartDrawer-Overlay').addEventListener('click', this.close.bind(this));
+    // Listen for add to cart events
+    window.addEventListener('danliora_add_to_cart', () => {
+      this.refresh();
       this.open();
     });
-  }
+  },
 
-  getSectionInnerHTML(html, selector = '.shopify-section') {
-    return new DOMParser().parseFromString(html, 'text/html').querySelector(selector).innerHTML;
-  }
+  open() {
+    if (!this.drawer) return;
 
-  getSectionsToRender() {
-    return [
-      {
-        id: 'cart-drawer',
-        selector: '#CartDrawer',
-      },
-      {
-        id: 'cart-icon-bubble',
-      },
-    ];
-  }
+    this.drawer.hidden = false;
+    this.drawer.setAttribute('aria-hidden', 'false');
+    this.isOpen = true;
 
-  getSectionDOM(html, selector = '.shopify-section') {
-    return new DOMParser().parseFromString(html, 'text/html').querySelector(selector);
-  }
+    // Focus management
+    const closeBtn = this.drawer.querySelector('[data-close-cart]');
+    if (closeBtn) {
+      setTimeout(() => closeBtn.focus(), 100);
+    }
 
-  setActiveElement(element) {
-    this.activeElement = element;
-  }
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+  },
+
+  close() {
+    if (!this.drawer) return;
+
+    this.drawer.hidden = true;
+    this.drawer.setAttribute('aria-hidden', 'true');
+    this.isOpen = false;
+
+    // Restore body scroll
+    document.body.style.overflow = '';
+  },
+
+  async refresh() {
+    if (!this.drawer) return;
+
+    try {
+      // Fetch cart content
+      const response = await fetch('/cart?view=drawer', {
+        headers: {
+          Accept: 'text/html',
+        },
+      });
+
+      if (!response.ok) throw new Error('Failed to fetch cart');
+
+      const html = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const newContent = doc.querySelector('#cart-drawer .cart-drawer__body');
+
+      if (newContent) {
+        const currentBody = this.drawer.querySelector('.cart-drawer__body');
+        if (currentBody) {
+          currentBody.innerHTML = newContent.innerHTML;
+        }
+      }
+
+      // Update cart badge
+      await this.updateCartBadge();
+    } catch (error) {
+      console.error('Cart refresh error:', error);
+    }
+  },
+
+  async updateCartBadge() {
+    try {
+      const response = await fetch('/cart.js', {
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (!response.ok) throw new Error('Failed to fetch cart data');
+
+      const cart = await response.json();
+      const badges = document.querySelectorAll('[data-cart-count]');
+
+      badges.forEach((badge) => {
+        badge.textContent = cart.item_count;
+        badge.style.display = cart.item_count > 0 ? '' : 'none';
+      });
+    } catch (error) {
+      console.error('Cart badge update error:', error);
+    }
+  },
+};
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => CartDrawer.init());
+} else {
+  CartDrawer.init();
 }
-
-customElements.define('cart-drawer', CartDrawer);
-
-class CartDrawerItems extends CartItems {
-  getSectionsToRender() {
-    return [
-      {
-        id: 'CartDrawer',
-        section: 'cart-drawer',
-        selector: '.drawer__inner',
-      },
-      {
-        id: 'cart-icon-bubble',
-        section: 'cart-icon-bubble',
-        selector: '.shopify-section',
-      },
-    ];
-  }
-}
-
-customElements.define('cart-drawer-items', CartDrawerItems);

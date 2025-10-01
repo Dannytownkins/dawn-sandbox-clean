@@ -404,6 +404,9 @@
 
     {% render 'analytics-hooks' %}
     {% render 'cart-drawer' %}
+    {{ 'cart-drawer.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'cart-drawer.js' | asset_url }}" defer></script>
+    <script src="{{ 'product-atc.js' | asset_url }}" defer></script>
     <script src="{{ 'cart.js' | asset_url }}" defer></script>
     <script src="{{ 'lazy.js' | asset_url }}" defer></script>
   </body>

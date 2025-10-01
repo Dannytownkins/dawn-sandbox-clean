@@ -1,120 +1,208 @@
-{%- comment -%}
-  Sticky ATC with dev preview support:
-  - If product is out of stock and dev_force is true, we create a hidden form so the sticky button still submits.
-  - Requires render with context:
-    {% render 'sticky-atc', product: product, dev_force: settings.dev_force_in_stock %}
-{%- endcomment -%}
+{% comment %}
+  Sticky Add to Cart button for product pages
+  Appears on scroll and submits the main product form
+{% endcomment %}
 
-{%- assign _dev = dev_force | default: false -%}
-{%- assign _variant_id = product.selected_or_first_available_variant.id | default: product.variants.first.id -%}
-
-{%- assign _available = product.selected_or_first_available_variant.available | default: product.available -%}
-<div
-  id="sticky-atc"
-  hidden
-  {% unless _available or _dev %}
-    style="display:none"
-  {% endunless %}
->
-  <button id="sticky-atc-btn" data-cta="atc-sticky" aria-label="Add to cart (sticky)">
-    {{ 'products.product.add_to_cart' | t }}
-  </button>
+<div class="sticky-atc" id="sticky-atc" hidden>
+  <div class="sticky-atc__content">
+    <div class="sticky-atc__product-info">
+      {% if product.featured_media %}
+        <img
+          src="{{ product.featured_media | image_url: width: 60 }}"
+          alt="{{ product.title | escape }}"
+          class="sticky-atc__image"
+          width="60"
+          height="60"
+        >
+      {% endif %}
+      <div class="sticky-atc__details">
+        <h3 class="sticky-atc__title">{{ product.title }}</h3>
+        <div class="sticky-atc__price">
+          {% render 'price', product: product, price_class: '' %}
+        </div>
+      </div>
+    </div>
+    <button
+      type="button"
+      class="sticky-atc__button"
+      data-sticky-atc-submit
+      {% unless product.selected_or_first_available_variant.available %}
+        disabled
+      {% endunless %}
+    >
+      <span class="sticky-atc__button-text">
+        {% if product.selected_or_first_available_variant.available %}
+          {{ 'products.product.add_to_cart' | t }}
+        {% else %}
+          {{ 'products.product.sold_out' | t }}
+        {% endif %}
+      </span>
+    </button>
+  </div>
 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // Try to find the real product form
-    let form = document.querySelector('form[action*="/cart/add"]');
-
-    const devForce = {{ _dev | json }};
-    const fallbackVariant = "{{ _variant_id }}";
-
-    // If there's no form and we're in dev preview mode, synthesize a minimal form
-    if (!form && devForce) {
-      form = document.createElement('form');
-      form.method = 'post';
-      form.action = '/cart/add';
-
-      const idInput = document.createElement('input');
-      idInput.type = 'hidden';
-      idInput.name = 'id';
-      idInput.value = fallbackVariant;
-
-      const qtyInput = document.createElement('input');
-      qtyInput.type = 'hidden';
-      qtyInput.name = 'quantity';
-      qtyInput.value = '1';
-
-      form.appendChild(idInput);
-      form.appendChild(qtyInput);
-      form.style.display = 'none';
-      document.body.appendChild(form);
-    }
-
-    // If after all that we still have no form, just bail silently
-    if (!form) return;
-
-    const bar = document.getElementById('sticky-atc');
-    const btn = document.getElementById('sticky-atc-btn');
-
-    // If devForce is true and there's no on-page ATC to observe, just show the bar
-    const primaryATC = document.querySelector('form[action*="/cart/add"]');
-    if (devForce && !primaryATC) {
-      bar.hidden = false;
-    } else {
-      // Normal behavior: show bar when the main ATC scrolls out of view
-      const io = new IntersectionObserver(([entry]) => {
-        bar.hidden = entry.isIntersecting;
-      }, { threshold: 0 });
-      io.observe(form);
-    }
-
-    btn.addEventListener('click', () => {
-      try {
-        if (form.requestSubmit) {
-          form.requestSubmit();
-        } else {
-          form.submit();
-        }
-      } catch (e) {
-        // no-op
-      }
-    });
-  });
-</script>
-
 <style>
-  #sticky-atc {
+  .sticky-atc {
     position: fixed;
+    bottom: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    background: #0b0b0c;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
-    border-top: 1px solid #222;
-    z-index: 80;
+    background: #fff;
+    border-top: 1px solid #e0e0e0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    z-index: 50;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
   }
-  #sticky-atc-btn {
-    all: unset;
+
+  .sticky-atc:not([hidden]) {
+    transform: translateY(0);
+  }
+
+  .sticky-atc__content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .sticky-atc__product-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .sticky-atc__image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .sticky-atc__details {
+    min-width: 0;
+  }
+
+  .sticky-atc__title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 4px;
+    color: #111;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sticky-atc__price {
+    font-size: 0.875rem;
+    color: #666;
+  }
+
+  .sticky-atc__button {
     background: #eded6b;
     color: #111;
-    font-weight: 800;
-    padding: 14px 18px;
-    border-radius: 12px;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-weight: 600;
     cursor: pointer;
-    width: min(420px, 100%);
-    text-align: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
   }
-  @media (max-width: 749px) {
-    #sticky-atc {
-      padding-left: 12px;
-      padding-right: 12px;
+
+  .sticky-atc__button:hover:not(:disabled) {
+    background: #d4d45a;
+  }
+
+  .sticky-atc__button:disabled {
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 768px) {
+    .sticky-atc__content {
+      padding: 12px;
+      gap: 12px;
     }
-    #sticky-atc-btn {
-      width: 100%;
+
+    .sticky-atc__image {
+      width: 50px;
+      height: 50px;
+    }
+
+    .sticky-atc__title {
+      font-size: 0.9rem;
+    }
+
+    .sticky-atc__button {
+      padding: 10px 20px;
+      font-size: 0.9rem;
     }
   }
 </style>
+
+<script>
+  (() => {
+    const stickyATC = document.getElementById('sticky-atc');
+    const submitBtn = stickyATC?.querySelector('[data-sticky-atc-submit]');
+    const mainForm = document.querySelector('form[data-type="add-to-cart-form"]');
+
+    if (!stickyATC || !submitBtn || !mainForm) return;
+
+    let isVisible = false;
+    const threshold = 200; // Show after scrolling 200px
+
+    const toggleStickyATC = () => {
+      const shouldShow = window.scrollY > threshold;
+
+      if (shouldShow && !isVisible) {
+        stickyATC.hidden = false;
+        isVisible = true;
+      } else if (!shouldShow && isVisible) {
+        stickyATC.hidden = true;
+        isVisible = false;
+      }
+    };
+
+    // Show/hide based on scroll
+    window.addEventListener('scroll', toggleStickyATC, { passive: true });
+
+    // Submit main form when sticky button is clicked
+    submitBtn.addEventListener('click', () => {
+      if (mainForm) {
+        mainForm.requestSubmit();
+      }
+    });
+
+    // Update button state when variant changes
+    const updateButtonState = () => {
+      const variantInput = mainForm.querySelector('[data-variant-id]');
+      if (variantInput) {
+        const isAvailable = !variantInput.disabled && variantInput.value;
+        submitBtn.disabled = !isAvailable;
+
+        const buttonText = submitBtn.querySelector('.sticky-atc__button-text');
+        if (buttonText) {
+          buttonText.textContent = isAvailable
+            ? '{{ "products.product.add_to_cart" | t }}'
+            : '{{ "products.product.sold_out" | t }}';
+        }
+      }
+    };
+
+    // Listen for variant changes
+    const variantInputs = mainForm.querySelectorAll('select[name^="options"], input[name^="options"]');
+    variantInputs.forEach((input) => {
+      input.addEventListener('change', updateButtonState);
+    });
+
+    // Initial state
+    updateButtonState();
+  })();
+</script>
