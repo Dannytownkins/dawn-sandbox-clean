@@ -3,15 +3,15 @@
 ## ✅ Completed Fixes
 
 ### 1. Cart Drawer ✓
-**Status:** Already working correctly!
+**Status:** Fixed and working!
+- Integrated with Dawn's built-in cart drawer system
 - Cart drawer opens on cart icon click
-- AJAX add-to-cart functionality implemented
 - Auto-opens after successful product add
 - Cart badge updates automatically
-- All files already in place:
-  - `snippets/cart-drawer.liquid` - Drawer UI
-  - `assets/cart.js` - Open/close logic + AJAX
-  - `sections/header.liquid` - Cart button with `data-open-cart`
+- Fixed files:
+  - `snippets/cart-drawer.liquid` - Updated to use Dawn's `<cart-drawer>` custom element
+  - `sections/header.liquid` - Cart link with `id="cart-icon-bubble"`
+  - `assets/cart.js` - Removed conflicting handlers, Dawn handles cart now
 
 ### 2. Hero Gradient Overlay ✓
 **File:** `sections/category-duo.liquid`
