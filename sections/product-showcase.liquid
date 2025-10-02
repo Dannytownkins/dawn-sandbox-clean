@@ -42,7 +42,8 @@
 
   <div class="ps-grid">
     {%- assign limit = section.settings.limit | default: 2 -%}
-    {% if col and col.products_count | plus: 0 > 0 %}
+    {%- assign products_count = col.products_count | plus: 0 -%}
+    {% if col and products_count > 0 %}
       {% for product in col.products limit: limit %}
         {% render 'card-product',
           card_product: product,
