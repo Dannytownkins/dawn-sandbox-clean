@@ -18,7 +18,7 @@
     "spacing_sections": 0,
     "spacing_grid_horizontal": 8,
     "spacing_grid_vertical": 8,
-    "animations_reveal_on_scroll": false,
+    "animations_reveal_on_scroll": true,
     "buttons_border_thickness": 2,
     "buttons_border_opacity": 75,
     "buttons_radius": 10,
@@ -116,12 +116,12 @@
     "predictive_search_enabled": true,
     "predictive_search_show_vendor": false,
     "predictive_search_show_price": false,
-    "currency_code_enabled": true,
+    "currency_code_enabled": false,
     "cart_type": "drawer",
     "show_vendor": false,
     "show_cart_note": false,
     "cart_drawer_collection": "",
-    "dev_force_in_stock": true,
+    "dev_force_in_stock": false,
     "sections": {
       "main-password-header": {
         "type": "main-password-header",
