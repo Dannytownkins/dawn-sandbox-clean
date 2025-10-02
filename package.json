@@ -1,0 +1,20 @@
+{
+  "name": "dawn-theme-guardrails",
+  "version": "1.0.0",
+  "description": "Shopify Dawn theme with feature-first architecture guardrails",
+  "scripts": {
+    "check": "shopify theme check",
+    "format": "prettier --write '**/*.{js,css,liquid,json}'",
+    "format:check": "prettier --check '**/*.{js,css,liquid,json}'",
+    "dev": "shopify theme dev",
+    "build": "shopify theme build"
+  },
+  "devDependencies": {
+    "@shopify/theme-check": "^1.0.0",
+    "@shopify/prettier-plugin-liquid": "^1.0.0",
+    "prettier": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
