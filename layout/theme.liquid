@@ -48,6 +48,7 @@
 
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
+    {% render 'perf-boost-2' %}
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
@@ -430,5 +431,7 @@
     {% render 'confetti' %}
     {% render 'newsletter-modal' %}
     {% render 'back-to-top' %}
+    {% render 'pdp-zoom' %}
+    {% render 'added-to-cart-toast' %}
   </body>
 </html>
