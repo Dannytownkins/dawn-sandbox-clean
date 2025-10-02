@@ -43,6 +43,30 @@
 -%}
 
 <div class="section section-featured-collection">
+  <style>
+    /* Scope to this Featured section instance */
+    #shopify-section-{{ section.id }} ul.product-grid.grid.grid--force-two{
+      display: grid !important;                     /* beat .grid{display:flex} */
+      grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+      column-gap: 24px !important;
+      row-gap: 20px !important;
+      max-width: 1100px;
+      margin-inline: auto;
+    }
+    #shopify-section-{{ section.id }} ul.product-grid.grid.grid--force-two > li.grid__item{
+      max-width: none !important;
+      flex: 0 0 auto; /* neutralize any flex leftovers */
+    }
+    #shopify-section-{{ section.id }} .card--product .quick-add{
+      display: block !important;
+      visibility: visible !important;
+    }
+    #shopify-section-{{ section.id }} .quick-add__submit{
+      min-height: 36px; padding: 8px 12px; font-size: 14px; width: 100%; border-radius: 10px;
+    }
+    /* Trim this section's vertical padding so it doesn't look cavernous */
+    #shopify-section-{{ section.id }} .section{ padding-block: 28px 36px; }
+  </style>
   <div class="page-width">
     <ul class="product-grid grid grid--2-col-desktop grid--2-col-tablet-down grid--force-two">
         {% assign skip_card_product_styles = false %}
