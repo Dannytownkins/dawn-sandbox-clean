@@ -9,6 +9,35 @@
  */
 {
   "sections": {
+    "split_hero_WhacWB": {
+      "type": "split-hero",
+      "name": "Split hero (v2)",
+      "settings": {
+        "full_width": false,
+        "left_image": "shopify://shop_images/hero_light1.jpg",
+        "left_dim": 0,
+        "left_pos_x": 0,
+        "left_pos_y": 0,
+        "left_offset_x": 0,
+        "left_offset_y": -40,
+        "left_eyebrow": "Light Humor",
+        "left_title": "Sarcastic optimism for sunnier days.",
+        "left_subtitle": "Wear your mood without killing the vibe.",
+        "left_cta_link": "",
+        "left_cta_label": "Shop Light",
+        "right_image": "shopify://shop_images/hero_landing__solo2.jpg",
+        "right_dim": 35,
+        "right_pos_x": 60,
+        "right_pos_y": 50,
+        "right_offset_x": 0,
+        "right_offset_y": -40,
+        "right_eyebrow": "Dark Humor",
+        "right_title": "Pitch-black jokes, midnight cotton.",
+        "right_subtitle": "Smirk first. Apologize never.",
+        "right_cta_link": "",
+        "right_cta_label": "Shop Dark"
+      }
+    },
     "usp-bar-01": {
       "type": "usp-bar",
       "settings": {}
@@ -18,11 +47,11 @@
       "settings": {
         "collection": "all",
         "products_to_show": 2,
-        "title": "Featured products",
+        "title": "<strong>Featured products</strong>",
         "heading_size": "h1",
         "description": "",
         "show_description": false,
-        "description_style": "body",
+        "description_style": "subtitle",
         "columns_desktop": 2,
         "enable_desktop_slider": false,
         "full_width": false,
@@ -37,12 +66,13 @@
         "quick_add": "standard",
         "columns_mobile": "2",
         "swipe_on_mobile": true,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     }
   },
   "order": [
+    "split_hero_WhacWB",
     "usp-bar-01",
     "home-featured"
   ]

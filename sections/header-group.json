@@ -44,6 +44,7 @@
     },
     "hero_split_QxmGLf": {
       "type": "hero-split",
+      "disabled": true,
       "name": "Split hero",
       "settings": {
         "light_image": "shopify://shop_images/hero_light1.jpg",
