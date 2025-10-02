@@ -31,6 +31,7 @@
       "settings": {
         "heading": "Featured Products",
         "subheading": "Discover our handpicked selection of premium products",
+        "collection": "products",
         "show_quick_add": true,
         "image_ratio": "adapt",
         "limit": 2
