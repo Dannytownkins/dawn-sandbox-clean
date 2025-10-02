@@ -8,16 +8,11 @@
   {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
 {%- endif -%}
 
-{%- comment -%} Add near top or keep as-is; this just scopes a max width so cards don't go huge {%- endcomment -%}
 <style>
-  .section-{{ section.id }} .grid { gap: 28px; }
-  .section-{{ section.id }} .card-wrapper { max-width: 340px; margin-inline: auto; }
-  @media (min-width: 990px){
-    .section-{{ section.id }} .card-wrapper { max-width: 360px; }
-  }
-  /* Match featured-products spacing */
-  .section-{{ section.id }}-padding { padding-top: 0 !important; padding-bottom: 0 !important; }
-  .section-{{ section.id }} .title { margin-bottom: 1rem; }
+  #shopify-section-{{ section.id }} .card__inner { aspect-ratio:auto; }
+  #shopify-section-{{ section.id }} .card__media img{ object-fit:contain !important; }
+  #shopify-section-{{ section.id }} .grid{ grid-template-columns: repeat({{ section.settings.columns_desktop }}, minmax(0,1fr)); gap: 28px; }
+  #shopify-section-{{ section.id }} .section-{{ section.id }}-padding { padding-top: 0 !important; padding-bottom: 0 !important; }
 </style>
 
 {%- unless section.settings.quick_add == 'none' -%}
@@ -82,8 +77,7 @@
       <h2 class="title {{ section.settings.heading_size }}">{{ section.settings.title }}</h2>
     {%- endif -%}
     
-    <ul class="grid product-grid contains-card contains-card--product{% if settings.card_style == 'standard' %} contains-card--standard{% endif %} grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
-        role="list">
+    <ul class="grid" role="list">
         {% assign skip_card_product_styles = false %}
 
         {%- if section.settings.collection.products.size > 0 -%}
