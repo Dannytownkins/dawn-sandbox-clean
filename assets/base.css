@@ -3865,3 +3865,20 @@ h3{font-size:var(--step-1)}
 .button{font-weight:700;border-radius:var(--radius-pill);transition:transform .06s ease, box-shadow .2s}
 .button:active{transform:translateY(1px)}
 .button--primary{box-shadow:0 10px 24px rgba(255,225,105,.25)}
+/* Cart drawer: ensure it sits above the overlay and is clickable */
+.cart-drawer,
+#CartDrawer,
+aside[aria-labelledby="cart-drawer"] {
+  z-index: 9999 !important;
+}
+
+/* Overlay should not eat clicks while still showing a dim */
+.cart-drawer__overlay,
+.drawer__overlay,
+#CartDrawer-Overlay,
+#CartOverlay,
+.cart-overlay,
+.overlay {
+  pointer-events: none !important;
+  opacity: 0.35 !important; /* keep the blur/dim visual without blocking */
+}
