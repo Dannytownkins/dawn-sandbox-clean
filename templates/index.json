@@ -24,7 +24,7 @@
             "text_alignment": "center",
             "product_1": "the-3p-fulfilled-snowboard",
             "product_2": "short-sleeve-skelly-t",
-            "show_vendor": true,
+            "show_vendor": false,
             "button_text": "View Product",
             "section_padding_top": 12,
             "section_padding_bottom": 12,
