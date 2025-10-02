@@ -9,57 +9,70 @@
  */
 {
   "sections": {
-    "hero_split_home": {
-      "type": "hero-split",
-      "settings": {
-        "light_image": "shopify://shop_images/hero_light1.jpg",
-        "light_title": "Toxic Positivity",
-        "light_desc": "Sarcastic optimism for sunnier days.",
-        "light_link": "shopify://collections/light-humor",
-        "dark_image": "shopify://shop_images/hero_landing__solo2.jpg",
-        "dark_title": "Meh Wear",
-        "dark_desc": "Pitch-black jokes, midnight cotton.",
-        "dark_link": "shopify://collections/dark-humor"
-      }
-    },
     "usp-bar-01": {
       "type": "usp-bar",
       "settings": {}
     },
-    "featured_collection_8yWDWa": {
-      "type": "featured-collection",
-      "custom_css": [],
-      "name": "t:sections.featured-collection.presets.name",
-      "settings": {
-        "collection": "products",
-        "products_to_show": 8,
-        "title": "Featured collection",
-        "heading_size": "hxxl",
-        "description": "<p>fghghgfhgfh</p>",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 2,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": false,
-        "view_all_style": "solid",
-        "color_scheme": "",
-        "image_ratio": "square",
-        "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "standard",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
+    "1759433915259c4dad": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_e24646f_9w93HX": {
+          "type": "ai_gen_block_e24646f",
+          "settings": {
+            "section_title": "Featured Products",
+            "section_description": "<p>Discover our handpicked selection of premium products</p>",
+            "text_alignment": "center",
+            "product_1": "the-3p-fulfilled-snowboard",
+            "product_2": "short-sleeve-skelly-t",
+            "show_vendor": true,
+            "button_text": "View Product",
+            "section_padding_top": 12,
+            "section_padding_bottom": 12,
+            "header_spacing": 20,
+            "grid_spacing": 28,
+            "product_spacing": 16,
+            "background_color": "#ffffff",
+            "text_color": "#121212",
+            "accent_color": "#ffffff",
+            "sale_price_color": "#d82c0d",
+            "card_background_color": "#ffffff",
+            "card_border_radius": 0,
+            "card_border_width": 0,
+            "card_border_color": "#e5e5e5",
+            "card_padding": 16,
+            "card_shadow_opacity": 0,
+            "card_shadow_vertical": 0,
+            "card_shadow_blur": 0,
+            "image_aspect_ratio": "1.25",
+            "badge_background_color": "#ffffff",
+            "badge_text_color": "#ffffff",
+            "badge_border_radius": 0,
+            "button_background_color": "#121212",
+            "button_text_color": "#ffffff",
+            "button_hover_background_color": "#334fb4",
+            "button_hover_text_color": "#ffffff",
+            "button_border_radius": 6,
+            "button_border_width": 0,
+            "button_border_color": "#121212",
+            "heading_size": 32,
+            "description_size": 16,
+            "title_spacing": 16,
+            "product_title_size": 18,
+            "vendor_size": 14,
+            "price_size": 16,
+            "button_text_size": 14
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_e24646f_9w93HX"
+      ],
+      "settings": {}
     }
   },
   "order": [
-    "hero_split_home",
     "usp-bar-01",
-    "featured_collection_8yWDWa"
+    "1759433915259c4dad"
   ]
 }
