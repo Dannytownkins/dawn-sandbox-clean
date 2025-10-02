@@ -58,28 +58,12 @@
         "enable_search": false
       }
     },
-    "duo_hero_UCzMmF": {
-      "type": "duo-hero",
-      "name": "Duo Hero",
-      "settings": {
-        "light_image": "shopify://shop_images/hero_light1.jpg",
-        "light_heading": "Toxic positivity",
-        "light_text": "<p>Bright, airy, and uplifting. Perfect for those who love a good laugh.</p>",
-        "light_cta_text": "Shop Light",
-        "light_cta_link": "shopify://collections/light-humor",
-        "dark_image": "shopify://shop_images/hero_landing__solo2.jpg",
-        "dark_heading": "Meh threads",
-        "dark_text": "<p>Bold, edgy, and mysterious. For those who prefer their comedy on the darker side.</p>",
-        "dark_cta_text": "Shop Dark",
-        "dark_cta_link": "shopify://collections/dark-humor"
-      }
-    },
     "hero_split_adfD9A": {
       "type": "hero-split",
       "name": "Split hero",
       "settings": {
         "light_image": "shopify://shop_images/hero_light1.jpg",
-        "light_title": "Light Humor",
+        "light_title": "Toxic Positivty",
         "light_desc": "Sarcastic optimism for sunnier days.",
         "light_link": "",
         "dark_image": "shopify://shop_images/hero_landing__solo2.jpg",
@@ -92,7 +76,6 @@
   "order": [
     "announcement-bar",
     "header",
-    "duo_hero_UCzMmF",
     "hero_split_adfD9A"
   ]
 }
