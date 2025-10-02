@@ -1,0 +1,28 @@
+{% comment %} sections/split-hero-v2.liquid {% endcomment %}
+{{ 'component-split-hero.css' | asset_url | stylesheet_tag }}
+<section class="split-hero" data-section-type="split-hero">
+  <div class="split-hero__col split-hero__col--light">
+    <div class="split-hero__content">
+      <p class="eyebrow">Light Humor</p>
+      <h2>Sarcastic optimism for sunnier days.</h2>
+      <a class="button button--primary" href="/collections/light-humor">Shop Light</a>
+    </div>
+  </div>
+  <div class="split-hero__col split-hero__col--dark">
+    <div class="split-hero__content">
+      <p class="eyebrow">Dark Humor</p>
+      <h2>Pitch-black jokes, midnight cotton.</h2>
+      <a class="button button--secondary" href="/collections/dark-humor">Shop Dark</a>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Split hero v2",
+  "enabled_on": { "templates": ["index"] },
+  "settings": [
+    { "type": "image_picker", "id": "light_image", "label": "Light image" },
+    { "type": "image_picker", "id": "dark_image", "label": "Dark image" }
+  ]
+}
+{% endschema %}
