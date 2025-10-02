@@ -1,4 +1,7 @@
-{% assign col = collections[section.settings.collection] %}
+{% assign col = false %}
+{% if section.settings.collection %}
+  {% assign col = collections[section.settings.collection] %}
+{% endif %}
 <section id="shopify-section-{{ section.id }}" class="section section--tight">
   <style>
     /* Scoped to THIS section only */
@@ -39,7 +42,7 @@
 
   <div class="ps-grid">
     {%- assign limit = section.settings.limit | default: 2 -%}
-    {% if col and col.products_count > 0 %}
+    {% if col and col.products_count | plus: 0 > 0 %}
       {% for product in col.products limit: limit %}
         {% render 'card-product',
           card_product: product,
