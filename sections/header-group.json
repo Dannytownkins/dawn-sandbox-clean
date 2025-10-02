@@ -65,11 +65,11 @@
         "light_image": "shopify://shop_images/hero_light1.jpg",
         "light_title": "Toxic Positivty",
         "light_desc": "Sarcastic optimism for sunnier days.",
-        "light_link": "",
+        "light_link": "shopify://collections/light-humor",
         "dark_image": "shopify://shop_images/hero_landing__solo2.jpg",
         "dark_title": "Dark Humor",
         "dark_desc": "Pitch-black jokes, midnight cotton.",
-        "dark_link": ""
+        "dark_link": "shopify://collections/dark-humor"
       }
     }
   },
