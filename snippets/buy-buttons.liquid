@@ -38,7 +38,8 @@
         <span class="product-form__error-message"></span>
       </div>
 
-      {%- form 'product', product, id: product_form_id, novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+      <product-form class="product-form" data-hide-errors="false" data-section-id="{{ section_id }}">
+        {%- form 'product', product, id: product_form_id, novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" class="product-variant-id">
 
         <div class="product-form__quantity">
@@ -52,12 +53,17 @@
             name="add"
             class="product-form__submit button"
           >
-            {{ 'products.product.add_to_cart' | t }}
+            <span>{{ 'products.product.add_to_cart' | t }}</span>
+            <div class="loading__spinner hidden">
+              <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                <circle class="path" fill="none" stroke="currentColor" stroke-width="6" cx="33" cy="33" r="30"></circle>
+              </svg>
+            </div>
           </button>
           {{ form | payment_button }}
         </div>
-      {%- endform -%}
-    </product-form>
+        {%- endform -%}
+      </product-form>
   {%- else -%}
     <div class="product-form">
       <div class="product-form__buttons form">
