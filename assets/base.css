@@ -3765,11 +3765,7 @@ body.template-cart html, body.template-cart body { overflow: auto !important; }
 .cart-notification, .drawer {
   backdrop-filter: none !important;
 }
-.cart-notification__overlay, .drawer__overlay {
-  background: rgba(0,0,0,0.25) !important; /* light dim, no blur */
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-}
+.drawer__overlay{backdrop-filter: blur(2px); background: rgba(0,0,0,.45);}
 
 body.js-drawer-open main, 
 body.cart-open main {

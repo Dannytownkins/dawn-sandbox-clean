@@ -35,7 +35,7 @@
         {% else %}
           <div class="cart-free-shipping">
             {{
-              'cart.free_shipping_progress'
+              'cart.free_shipping_remaining'
               | t: amount: free_ship_threshold
               | minus: cart.total_price
               | divided_by: 100.0
