@@ -3987,3 +3987,31 @@ aside[aria-labelledby="cart-drawer"] {
   border-radius: 10px;
   width: 100%;
 }
+
+/* === Featured on Home: force 2-col grid and compact Quick Add === */
+.template-index ul.product-grid.grid.grid--force-two{
+  display: grid !important;                 /* beat .grid{display:flex} */
+  grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  column-gap: 24px !important;
+  row-gap: 20px !important;
+  max-width: 1100px;
+  margin-inline: auto;
+}
+/* remove any width cap that could cause stacking */
+.template-index ul.product-grid.grid.grid--force-two > li.grid__item{
+  max-width: none !important;
+  flex: 0 0 auto; /* neutralize flex leftovers */
+}
+/* show Quick Add (ensure not hidden by previous rules) */
+.template-index .card--product .quick-add{
+  display: block !important;
+  visibility: visible !important;
+}
+/* compact Quick Add button style */
+.template-index .quick-add__submit{
+  min-height: 36px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 10px;
+  width: 100%;
+}
