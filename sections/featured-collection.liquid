@@ -66,6 +66,40 @@
     }
     /* Trim this section's vertical padding so it doesn't look cavernous */
     #shopify-section-{{ section.id }} .section{ padding-block: 28px 36px; }
+
+    /* Make each card use the full grid cell */
+    #shopify-section-{{ section.id }} .product-card-wrapper{
+      max-width: none !important;
+      width: 100% !important;
+    }
+    #shopify-section-{{ section.id }} .card--product{
+      width: 100% !important;
+    }
+    #shopify-section-{{ section.id }} .card--product .card__inner,
+    #shopify-section-{{ section.id }} .card--product .card__media,
+    #shopify-section-{{ section.id }} .card--product .media{
+      width: 100% !important;
+    }
+    #shopify-section-{{ section.id }} .card--product .media img{
+      width: 100% !important;
+      height: auto !important;
+      display: block;
+      object-fit: contain;
+    }
+    /* Reduce empty gutters inside card content */
+    #shopify-section-{{ section.id }} .card__content{
+      padding-left: 0;
+      padding-right: 0;
+    }
+    /* Keep our 2-column layout from earlier */
+    #shopify-section-{{ section.id }} ul.product-grid.grid.grid--force-two{
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+      column-gap: 24px !important;
+      row-gap: 20px !important;
+      max-width: 1100px;
+      margin-inline: auto;
+    }
   </style>
   <div class="page-width">
     <ul class="product-grid grid grid--2-col-desktop grid--2-col-tablet-down grid--force-two">
