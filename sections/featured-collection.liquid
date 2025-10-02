@@ -55,7 +55,8 @@
     }
     #shopify-section-{{ section.id }} ul.product-grid.grid.grid--force-two > li.grid__item{
       max-width: none !important;
-      flex: 0 0 auto; /* neutralize any flex leftovers */
+      width: 100% !important;
+      flex: 1 1 auto; /* fill available space */
     }
     #shopify-section-{{ section.id }} .card--product .quick-add{
       display: block !important;
@@ -68,23 +69,25 @@
     #shopify-section-{{ section.id }} .section{ padding-block: 28px 36px; }
 
     /* Make each card use the full grid cell */
-    #shopify-section-{{ section.id }} .product-card-wrapper{
+    #shopify-section-{{ section.id }} .product-card-wrapper,
+    #shopify-section-{{ section.id }} .card-wrapper,
+    #shopify-section-{{ section.id }} .card--product{
       max-width: none !important;
       width: 100% !important;
-    }
-    #shopify-section-{{ section.id }} .card--product{
-      width: 100% !important;
+      box-sizing: border-box !important;
     }
     #shopify-section-{{ section.id }} .card--product .card__inner,
     #shopify-section-{{ section.id }} .card--product .card__media,
+    #shopify-section-{{ section.id }} .card--product .card__media .media,
     #shopify-section-{{ section.id }} .card--product .media{
       width: 100% !important;
+      height: auto !important;
     }
     #shopify-section-{{ section.id }} .card--product .media img{
       width: 100% !important;
       height: auto !important;
-      display: block;
-      object-fit: contain;
+      display: block !important;
+      object-fit: contain !important;
     }
     /* Reduce empty gutters inside card content */
     #shopify-section-{{ section.id }} .card__content{
