@@ -3965,5 +3965,25 @@ aside[aria-labelledby="cart-drawer"] {
 .card-information{ row-gap: .25rem; }
 .card-information__text{ margin: 0; }
 
-/* Kill any stray Quick Add UI on home cards */
-.template-index .card--product .quick-add{ display: none !important; }
+/* === HOME FEATURED: 2-up with visible Quick Add === */
+.template-index .product-grid{
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  column-gap: 24px !important;
+  row-gap: 20px !important;
+  max-width: 1100px;
+  margin-inline: auto;
+}
+/* remove the earlier width cap that could force stacking */
+.template-index .product-grid .grid__item{ max-width: none !important; }
+
+/* show quick add (we previously hid it) */
+.template-index .card--product .quick-add{ display: block !important; visibility: visible !important; }
+
+/* make quick add compact */
+.template-index .quick-add__submit{
+  padding: 10px 14px;
+  font-size: 14px;
+  border-radius: 10px;
+  width: 100%;
+}
