@@ -4015,3 +4015,7 @@ aside[aria-labelledby="cart-drawer"] {
   border-radius: 10px;
   width: 100%;
 }
+
+@media (max-width: 749px){
+  .product__info-wrapper{ padding-bottom: 120px; } /* space for sticky bar */
+}

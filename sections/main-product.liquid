@@ -470,6 +470,8 @@
                 -%}
                 {% render 'urgency-inline', variant: product.selected_or_first_available_variant %}
                 {% render 'trust-badges' %}
+                {% render 'reassurance-icons' %}
+                {% render 'sticky-atc' %}
               {%- when 'trust_icons' -%}
                 {% render 'trust-icons', block: block %}
               {%- when 'faq' -%}
