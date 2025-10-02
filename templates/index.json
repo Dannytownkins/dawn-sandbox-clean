@@ -13,66 +13,19 @@
       "type": "usp-bar",
       "settings": {}
     },
-    "1759433915259c4dad": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_e24646f_9w93HX": {
-          "type": "ai_gen_block_e24646f",
-          "settings": {
-            "section_title": "Featured Products",
-            "section_description": "<p>Discover our handpicked selection of premium products</p>",
-            "text_alignment": "center",
-            "product_1": "the-3p-fulfilled-snowboard",
-            "product_2": "short-sleeve-skelly-t",
-            "show_vendor": false,
-            "button_text": "View Product",
-            "section_padding_top": 0,
-            "section_padding_bottom": 0,
-            "header_spacing": 20,
-            "grid_spacing": 20,
-            "product_spacing": 16,
-            "background_color": "#ffffff",
-            "text_color": "#121212",
-            "accent_color": "#ffffff",
-            "sale_price_color": "#d82c0d",
-            "card_background_color": "#f3f3f3",
-            "card_border_radius": 0,
-            "card_border_width": 0,
-            "card_border_color": "#e5e5e5",
-            "card_padding": 16,
-            "card_shadow_opacity": 0,
-            "card_shadow_vertical": 0,
-            "card_shadow_blur": 0,
-            "image_aspect_ratio": "1",
-            "badge_background_color": "#ffffff",
-            "badge_text_color": "#ffffff",
-            "badge_border_radius": 0,
-            "button_background_color": "#121212",
-            "button_text_color": "#ffffff",
-            "button_hover_background_color": "#5d74c4",
-            "button_hover_text_color": "#ffffff",
-            "button_border_radius": 10,
-            "button_border_width": 1,
-            "button_border_color": "#121212",
-            "heading_size": 38,
-            "description_size": 15,
-            "title_spacing": 8,
-            "product_title_size": 20,
-            "vendor_size": 12,
-            "price_size": 18,
-            "button_text_size": 17
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_e24646f_9w93HX"
-      ],
-      "settings": {}
+    "product_showcase": {
+      "type": "product-showcase",
+      "settings": {
+        "heading": "Featured Products",
+        "subheading": "Discover our handpicked selection of premium products",
+        "show_quick_add": true,
+        "image_ratio": "adapt",
+        "limit": 2
+      }
     }
   },
   "order": [
     "usp-bar-01",
-    "1759433915259c4dad"
+    "product_showcase"
   ]
 }
