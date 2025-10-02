@@ -30,19 +30,7 @@
           assign subtotal_cents = cart.total_price
           assign threshold_cents = free_ship_threshold | times: 100
         %}
-        {% if subtotal_cents >= threshold_cents %}
-          <div class="cart-free-shipping">{{ 'cart.free_shipping_qualified' | t }}</div>
-        {% else %}
-          <div class="cart-free-shipping">
-            {{
-              'cart.free_shipping_remaining'
-              | t: amount: free_ship_threshold
-              | minus: cart.total_price
-              | divided_by: 100.0
-              | money_without_trailing_zeros
-            }}
-          </div>
-        {% endif %}
+        {% render 'free-shipping-progress' %}
         <div class="cart-drawer__items">
           {% for item in cart.items %}
             <div class="cart-line" data-line-index="{{ forloop.index }}">
