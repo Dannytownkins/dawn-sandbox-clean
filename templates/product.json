@@ -12,18 +12,17 @@
     "main": {
       "type": "main-product",
       "settings": {
+        "enable_sticky_info": true,
         "color_scheme": "scheme-1",
-        "image_position": "left",
-        "media_size": "large",
-        "constrain_to_viewport": true,
+        "media_size": "small",
+        "constrain_to_viewport": false,
         "media_fit": "contain",
-        "gallery_layout": "stacked",
-        "mobile_thumbnails": "show",
+        "gallery_layout": "columns",
+        "mobile_thumbnails": "columns",
         "media_position": "left",
         "image_zoom": "lightbox",
-        "hide_variants": false,
+        "hide_variants": true,
         "enable_video_looping": false,
-        "enable_sticky_info": true,
         "padding_top": 36,
         "padding_bottom": 36
       }
