@@ -20,10 +20,18 @@
             "text": "Welcome to our store",
             "link": ""
           }
+        },
+        "announcement_n9zcdd": {
+          "type": "announcement",
+          "settings": {
+            "text": "Welcome to our store",
+            "link": ""
+          }
         }
       },
       "block_order": [
-        "announcement-bar-0"
+        "announcement-bar-0",
+        "announcement_n9zcdd"
       ],
       "settings": {
         "auto_rotate": false,
@@ -41,10 +49,27 @@
         "menu": "main-menu",
         "enable_search": false
       }
+    },
+    "duo_hero_UCzMmF": {
+      "type": "duo-hero",
+      "name": "Duo Hero",
+      "settings": {
+        "light_image": "shopify://shop_images/hero_light1.jpg",
+        "light_heading": "Toxic positivity",
+        "light_text": "<p>Bright, airy, and uplifting. Perfect for those who love a good laugh.</p>",
+        "light_cta_text": "Shop Light",
+        "light_cta_link": "shopify://collections/light-humor",
+        "dark_image": "shopify://shop_images/hero_landing__solo2.jpg",
+        "dark_heading": "Meh threads",
+        "dark_text": "<p>Bold, edgy, and mysterious. For those who prefer their comedy on the darker side.</p>",
+        "dark_cta_text": "Shop Dark",
+        "dark_cta_link": "shopify://collections/dark-humor"
+      }
     }
   },
   "order": [
     "announcement-bar",
-    "header"
+    "header",
+    "duo_hero_UCzMmF"
   ]
 }
