@@ -1,0 +1,39 @@
+{% assign limit = 2 %}
+{% assign pool = collections['all'] %}
+{% assign in_cart_ids = '' | split: ',' %}
+{% for it in cart.items %}{% assign in_cart_ids = in_cart_ids | push: it.product_id %}{% endfor %}
+<style>
+.xsell{margin-top:14px;padding-top:14px;border-top:1px solid var(--color-border-light,#e0e0e0)}
+.xsell h4{margin:0 0 10px;font-size:1rem}
+.xsell-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.xsell .card{border:1px solid var(--color-border-light,#e0e0e0);border-radius:12px;padding:10px}
+.xsell img{width:100%;height:auto;display:block}
+.xsell .title{font-size:.95rem;margin:6px 0 4px}
+.xsell .price{font-weight:600;margin-bottom:6px}
+.xsell .btn{width:100%;min-height:36px;border-radius:10px;background:#111;color:#fff;border:1px solid #111;font-size:.9rem;padding:6px 10px}
+</style>
+<div class="xsell">
+  <h4>You may also like</h4>
+  <div class="xsell-grid">
+  {% assign shown = 0 %}
+  {% for p in pool.products %}
+    {% unless in_cart_ids contains p.id %}
+      <div class="card">
+        <img src="{{ p.featured_image | image_url: width: 420 }}" alt="{{ p.title | escape }}">
+        <div class="title">{{ p.title }}</div>
+        <div class="price">{{ p.price | money }}</div>
+        {% if p.has_only_default_variant or p.variants.size == 1 %}
+          <form method="post" action="/cart/add">
+            <input type="hidden" name="id" value="{{ p.selected_or_first_available_variant.id }}">
+            <button class="btn" type="submit">Add</button>
+          </form>
+        {% else %}
+          <a class="btn" href="{{ p.url }}">Choose options</a>
+        {% endif %}
+      </div>
+      {% assign shown = shown | plus: 1 %}
+      {% if shown >= limit %}{% break %}{% endif %}
+    {% endunless %}
+  {% endfor %}
+  </div>
+</div>
