@@ -39,7 +39,7 @@
       "type": "header",
       "settings": {
         "menu": "main-menu",
-        "enable_search": true
+        "enable_search": false
       }
     }
   },
