@@ -1,0 +1,92 @@
+{% assign col = collections[section.settings.collection] %}
+<section id="shopify-section-{{ section.id }}" class="section section--tight">
+  <style>
+    /* Scoped to THIS section only */
+    #shopify-section-{{ section.id }} .ps-grid{
+      display:grid!important; grid-template-columns:repeat(2,minmax(0,1fr))!important;
+      gap:24px!important; max-width:1100px; margin:0 auto;
+    }
+    @media (max-width:989px){ #shopify-section-{{ section.id }} .ps-grid{ grid-template-columns:1fr; gap:18px!important; } }
+    /* Let cards fill the column; kill Dawn's internal caps */
+    #shopify-section-{{ section.id }} .product-card-wrapper{ max-width:none!important; width:100%!important; }
+    #shopify-section-{{ section.id }} .card--product{ width:100%!important; }
+    #shopify-section-{{ section.id }} .card--product .card__inner,
+    #shopify-section-{{ section.id }} .card--product .card__media,
+    #shopify-section-{{ section.id }} .card--product .media{ width:100%!important; }
+    #shopify-section-{{ section.id }} .card--product .media img{ width:100%!important; height:auto!important; display:block; object-fit:contain; }
+    /* Tidy text + hide vendor */
+    #shopify-section-{{ section.id }} .card-information{ row-gap:.25rem; }
+    #shopify-section-{{ section.id }} .card-information__text{ margin:0; }
+    #shopify-section-{{ section.id }} .card__information .caption-with-letter-spacing{ display:none!important; }
+    /* Compact Quick Add */
+    #shopify-section-{{ section.id }} .quick-add__submit{ min-height:40px; padding:10px 14px; font-size:15px; border-radius:12px; width:100%; }
+    /* Trim section padding */
+    #shopify-section-{{ section.id }} .section{ padding-block:20px 28px!important; }
+  </style>
+
+  {% if section.settings.heading != blank %}
+    <h2 class="h2" style="max-width:1100px;margin:0 auto 8px;">{{ section.settings.heading }}</h2>
+  {% endif %}
+  {% if section.settings.subheading != blank %}
+    <p style="max-width:1100px;margin:0 auto 20px;opacity:.7;">{{ section.settings.subheading }}</p>
+  {% endif %}
+
+  <div class="ps-grid">
+    {%- assign limit = section.settings.limit | default: 2 -%}
+    {% if col and col.products_count > 0 %}
+      {% for product in col.products limit: limit %}
+        {% render 'card-product',
+          card_product: product,
+          show_quick_add: section.settings.show_quick_add,
+          show_vendor: false,
+          media_aspect_ratio: section.settings.image_ratio | default: 'adapt',
+          section_id: section.id
+        %}
+      {% endfor %}
+    {% elsif section.blocks.size > 0 %}
+      {% for block in section.blocks limit: limit %}
+        {% assign p = all_products[block.settings.product] %}
+        {% if p %}
+          {% render 'card-product',
+            card_product: p,
+            show_quick_add: section.settings.show_quick_add,
+            show_vendor: false,
+            media_aspect_ratio: section.settings.image_ratio | default: 'adapt',
+            section_id: section.id
+          %}
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      {% for product in collections['all'].products limit: limit %}
+        {% render 'card-product',
+          card_product: product,
+          show_quick_add: section.settings.show_quick_add,
+          show_vendor: false,
+          media_aspect_ratio: section.settings.image_ratio | default: 'adapt',
+          section_id: section.id
+        %}
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product showcase",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Featured Products" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Discover our handpicked selection." },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "checkbox", "id": "show_quick_add", "label": "Show Quick add", "default": true },
+    { "type": "select", "id": "image_ratio", "label": "Image ratio",
+      "options": [ { "value": "adapt", "label": "Adapt to image" }, { "value": "square", "label": "Square" } ],
+      "default": "adapt"
+    },
+    { "type": "range", "id": "limit", "label": "Products to show", "min": 2, "max": 12, "step": 1, "default": 2 }
+  ],
+  "blocks": [
+    { "type": "product", "name": "Product", "settings": [ { "type": "product", "id": "product", "label": "Product" } ] }
+  ],
+  "presets": [ { "name": "Product showcase" } ]
+}
+{% endschema %}
