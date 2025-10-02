@@ -27,11 +27,19 @@
             "text": "Welcome to our store",
             "link": ""
           }
+        },
+        "announcement_4TF9Rf": {
+          "type": "announcement",
+          "settings": {
+            "text": "Welcome to our store",
+            "link": ""
+          }
         }
       },
       "block_order": [
         "announcement-bar-0",
-        "announcement_n9zcdd"
+        "announcement_n9zcdd",
+        "announcement_4TF9Rf"
       ],
       "settings": {
         "auto_rotate": false,
@@ -65,11 +73,26 @@
         "dark_cta_text": "Shop Dark",
         "dark_cta_link": "shopify://collections/dark-humor"
       }
+    },
+    "hero_split_adfD9A": {
+      "type": "hero-split",
+      "name": "Split hero",
+      "settings": {
+        "light_image": "shopify://shop_images/hero_light1.jpg",
+        "light_title": "Light Humor",
+        "light_desc": "Sarcastic optimism for sunnier days.",
+        "light_link": "",
+        "dark_image": "shopify://shop_images/hero_landing__solo2.jpg",
+        "dark_title": "Dark Humor",
+        "dark_desc": "Pitch-black jokes, midnight cotton.",
+        "dark_link": ""
+      }
     }
   },
   "order": [
     "announcement-bar",
     "header",
-    "duo_hero_UCzMmF"
+    "duo_hero_UCzMmF",
+    "hero_split_adfD9A"
   ]
 }
