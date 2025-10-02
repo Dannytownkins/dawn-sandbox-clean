@@ -31,7 +31,21 @@
     const fd = new FormData(f);
     fetch('/cart/add.js', {method:'POST', headers:{'Accept':'application/json'}, body:fd})
       .then(r => r.json())
-      .then(data => { toast(data?.title || 'Added'); bubble(); })
+      .then(data => {
+        toast(data?.title || 'Added');
+        bubble();
+        // Try to open Dawn's cart drawer if present
+        try {
+          const drawer = document.querySelector('cart-drawer, #CartDrawer');
+          if (drawer && typeof drawer.open === 'function') { drawer.open(); }
+          else if (drawer) { drawer.setAttribute('open', ''); drawer.classList.remove('is-empty'); }
+          else {
+            // Fallback: click the cart icon if it controls the drawer
+            const btn = document.querySelector('[aria-controls*="cart-drawer"], .header__icon--cart');
+            if (btn) btn.click();
+          }
+        } catch(e) {}
+      })
       .catch(() => { f.submit(); });
   }, true);
 })();

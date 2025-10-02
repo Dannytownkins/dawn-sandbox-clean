@@ -4024,3 +4024,9 @@ aside[aria-labelledby="cart-drawer"] {
 .template-collection .quick-add{ display:block !important; }
 .template-collection .card-information{ row-gap: .25rem; }
 .template-collection .card-information__text{ margin: 0; }
+
+/* Collection filters: sticky + tidy */
+.template-collection .facets-vertical{ position: sticky; top: 84px; max-height: calc(100vh - 120px); overflow: auto; }
+.template-collection .facets-vertical .facets__summary{ font-weight: 600; }
+.template-collection .facets-vertical .facets__disclosure{ margin-bottom: 10px; }
+.template-collection .active-facets, .template-collection .facets-vertical .active-facets{ margin: 8px 0 0; }
