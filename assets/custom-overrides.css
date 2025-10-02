@@ -17,7 +17,11 @@
 
 /* --- Product page layout improvements --- */
 .product .grid { gap: 3rem; }
-/* Let the main-product section handle its own responsive layout */
+.product--no-media .product__info-wrapper {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
 
 /* --- Hero V2: force images above gradient tiles --- */
 .split-hero-v2 .tile {
