@@ -41,10 +41,25 @@
         "menu": "main-menu",
         "enable_search": false
       }
+    },
+    "hero_split_LrCBDT": {
+      "type": "hero-split",
+      "name": "Split hero",
+      "settings": {
+        "light_image": "shopify://shop_images/hero_light1.jpg",
+        "light_title": "Toxic Positivity",
+        "light_desc": "Sarcastic optimism for sunnier days.",
+        "light_link": "shopify://collections/light-humor",
+        "dark_image": "shopify://shop_images/hero_landing__solo2.jpg",
+        "dark_title": "Meh Wear",
+        "dark_desc": "Pitch-black jokes, midnight cotton.",
+        "dark_link": "shopify://collections/dark-humor"
+      }
     }
   },
   "order": [
     "announcement-bar",
-    "header"
+    "header",
+    "hero_split_LrCBDT"
   ]
 }

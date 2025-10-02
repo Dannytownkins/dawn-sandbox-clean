@@ -9,19 +9,6 @@
  */
 {
   "sections": {
-    "hero_split_home": {
-      "type": "hero-split",
-      "settings": {
-        "light_image": "shopify://shop_images/hero_light1.jpg",
-        "light_title": "Toxic Positivity",
-        "light_desc": "Sarcastic optimism for sunnier days.",
-        "light_link": "shopify://collections/light-humor",
-        "dark_image": "shopify://shop_images/hero_landing__solo2.jpg",
-        "dark_title": "Meh Wear",
-        "dark_desc": "Pitch-black jokes, midnight cotton.",
-        "dark_link": "shopify://collections/dark-humor"
-      }
-    },
     "usp-bar-01": {
       "type": "usp-bar",
       "settings": {}
@@ -34,8 +21,8 @@
         "collection": "products",
         "products_to_show": 8,
         "title": "Featured collection",
-        "heading_size": "h2",
-        "description": "",
+        "heading_size": "hxxl",
+        "description": "<p>fghghgfhgfh</p>",
         "show_description": false,
         "description_style": "body",
         "columns_desktop": 2,
@@ -44,7 +31,7 @@
         "show_view_all": false,
         "view_all_style": "solid",
         "color_scheme": "",
-        "image_ratio": "adapt",
+        "image_ratio": "square",
         "image_shape": "default",
         "show_secondary_image": false,
         "show_vendor": false,
@@ -58,7 +45,6 @@
     }
   },
   "order": [
-    "hero_split_home",
     "usp-bar-01",
     "featured_collection_8yWDWa"
   ]
