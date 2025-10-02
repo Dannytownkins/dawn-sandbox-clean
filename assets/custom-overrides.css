@@ -15,13 +15,9 @@
 .card__content { padding-top: 0.75rem !important; }
 .price { font-weight: 600; }
 
-/* --- Product page two-column layout sanity --- */
-.product .grid { gap: 3rem !important; }
-@media (min-width: 990px) {
-  .product .grid {
-    grid-template-columns: minmax(0,1fr) minmax(0,1fr) !important;
-  }
-}
+/* --- Product page layout improvements --- */
+.product .grid { gap: 3rem; }
+/* Let the main-product section handle its own responsive layout */
 
 /* --- Hero V2: force images above gradient tiles --- */
 .split-hero-v2 .tile {
