@@ -3932,3 +3932,12 @@ aside[aria-labelledby="cart-drawer"] {
 @media (min-width: 990px){
   .grid--2-col-desktop{ grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
+
+/* Make sold-out size chips visually obvious */
+.product-form__input input[disabled] + label,
+.product-form__input input[aria-disabled="true"] + label{
+  opacity:.45; filter:saturate(.6); text-decoration: line-through;
+  cursor:not-allowed;
+}
+/* Keep size chips snug */
+.product-form__input .product-form__swatch-list{ gap:.5rem; }
