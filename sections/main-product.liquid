@@ -458,6 +458,9 @@
               {%- when 'variant_picker' -%}
                 {% if product.variants.size > 1 %}
                   {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+                  {% render 'size-chart-drawer' %}
+                  {% render 'fit-notes' %}
+                  {% render 'low-stock-urgency' %}
                 {% endif %}
               {%- when 'buy_buttons' -%}
                 {%- render 'buy-buttons',

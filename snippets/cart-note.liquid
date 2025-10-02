@@ -1,0 +1,19 @@
+<style>
+.cart-note{margin:10px 0 14px}
+.cart-note label{display:block;margin-bottom:6px;font-weight:600}
+.cart-note textarea{width:100%;min-height:80px;border:1px solid #ddd;border-radius:10px;padding:10px}
+</style>
+<div class="cart-note">
+  <label for="CartNote">Order note</label>
+  <textarea id="CartNote" name="note" placeholder="Add delivery notes, gift message, etc.">{{ cart.note }}</textarea>
+</div>
+<script>
+(function(){
+  var t=document.getElementById('CartNote'); if(!t) return;
+  var save=function(){
+    var fd=new FormData(); fd.append('note', t.value);
+    fetch('/cart/update.js', {method:'POST', headers:{'Accept':'application/json'}, body:fd}).catch(function(){});
+  };
+  t.addEventListener('change', save); t.addEventListener('blur', save);
+})();
+</script>
