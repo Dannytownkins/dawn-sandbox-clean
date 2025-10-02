@@ -17,24 +17,9 @@
         "menu": "main-menu",
         "enable_search": false
       }
-    },
-    "hero_split_adfD9A": {
-      "type": "hero-split",
-      "name": "Split hero",
-      "settings": {
-        "light_image": "shopify://shop_images/hero_light1.jpg",
-        "light_title": "Toxic Positivty",
-        "light_desc": "Sarcastic optimism for sunnier days.",
-        "light_link": "shopify://collections/light-humor",
-        "dark_image": "shopify://shop_images/hero_landing__solo2.jpg",
-        "dark_title": "Meh…",
-        "dark_desc": "Pitch-black jokes, midnight cotton.",
-        "dark_link": "shopify://collections/dark-humor"
-      }
     }
   },
   "order": [
-    "header",
-    "hero_split_adfD9A"
+    "header"
   ]
 }

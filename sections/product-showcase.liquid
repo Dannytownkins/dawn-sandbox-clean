@@ -1,36 +1,27 @@
-{% assign col = false %}
-{% if section.settings.collection %}
-  {% assign col = collections[section.settings.collection] %}
-{% endif %}
+{% assign col = collections[section.settings.collection] %}
 <section id="shopify-section-{{ section.id }}" class="section section--tight">
   <style>
-    /* Scoped to THIS section only */
+    /* Layout: 2-up desktop, 1-up mobile */
     #shopify-section-{{ section.id }} .ps-grid{
-      display:grid!important; grid-template-columns:repeat(2,minmax(0,1fr))!important;
-      gap:24px!important; max-width:1100px; margin:0 auto;
+      display:grid; grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:24px; max-width:1100px; margin:0 auto;
     }
-    @media (max-width:989px){
-      #shopify-section-{{ section.id }} .ps-grid{ grid-template-columns:1fr; gap:18px!important; }
+    @media (max-width:989px){ #shopify-section-{{ section.id }} .ps-grid{ grid-template-columns:1fr; gap:18px; } }
+    /* Card */
+    #shopify-section-{{ section.id }} .ps-card{ display:flex; flex-direction:column; gap:10px; }
+    #shopify-section-{{ section.id }} .ps-media img{ width:100%; height:auto; display:block; object-fit:contain; }
+    #shopify-section-{{ section.id }} .ps-title{ font-size:clamp(16px,1.4vw,20px); margin:0; }
+    #shopify-section-{{ section.id }} .ps-price{ font-weight:600; margin:.25rem 0 .5rem; }
+    #shopify-section-{{ section.id }} .ps-btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:100%; min-height:40px; padding:10px 14px; border-radius:12px;
+      background:#111; color:#fff; border:1px solid #111; font-size:15px;
     }
-    /* Let cards fill the column; kill Dawn caps */
-    #shopify-section-{{ section.id }} .product-card-wrapper{ max-width:none!important; width:100%!important; }
-    #shopify-section-{{ section.id }} .card--product{ width:100%!important; }
-    #shopify-section-{{ section.id }} .card--product .card__inner,
-    #shopify-section-{{ section.id }} .card--product .card__media,
-    #shopify-section-{{ section.id }} .card--product .media{ width:100%!important; }
-    #shopify-section-{{ section.id }} .card--product .media img{
-      width:100%!important; height:auto!important; display:block; object-fit:contain;
-    }
-    /* Tidy text + hide vendor */
-    #shopify-section-{{ section.id }} .card-information{ row-gap:.25rem; }
-    #shopify-section-{{ section.id }} .card-information__text{ margin:0; }
-    #shopify-section-{{ section.id }} .card__information .caption-with-letter-spacing{ display:none!important; }
-    /* Compact Quick Add */
-    #shopify-section-{{ section.id }} .quick-add__submit{
-      min-height:40px; padding:10px 14px; font-size:15px; border-radius:12px; width:100%;
-    }
+    #shopify-section-{{ section.id }} .ps-btn:hover{ filter:brightness(1.05); }
+    /* Hide vendor (belt & suspenders) */
+    #shopify-section-{{ section.id }} .caption-with-letter-spacing{ display:none; }
     /* Trim section padding */
-    #shopify-section-{{ section.id }} .section{ padding-block:20px 28px!important; }
+    #shopify-section-{{ section.id }} .section{ padding-block:20px 28px; }
   </style>
 
   {% if section.settings.heading != blank %}
@@ -41,42 +32,39 @@
   {% endif %}
 
   <div class="ps-grid">
-    {%- assign limit = section.settings.limit | default: 2 -%}
-    {%- assign products_count = col.products_count | plus: 0 -%}
-    {% if col and products_count > 0 %}
-      {% for product in col.products limit: limit %}
-        {% render 'card-product',
-          card_product: product,
-          show_quick_add: section.settings.show_quick_add,
-          show_vendor: false,
-          media_aspect_ratio: section.settings.image_ratio | default: 'adapt',
-          section_id: section.id
-        %}
-      {% endfor %}
+    {% assign limit = section.settings.limit | default: 2 %}
+    {% assign source_products = nil %}
+    {% if col and col.products_count > 0 %}
+      {% assign source_products = col.products %}
     {% elsif section.blocks.size > 0 %}
-      {% for block in section.blocks limit: limit %}
-        {% assign p = all_products[block.settings.product] %}
-        {% if p %}
-          {% render 'card-product',
-            card_product: p,
-            show_quick_add: section.settings.show_quick_add,
-            show_vendor: false,
-            media_aspect_ratio: section.settings.image_ratio | default: 'adapt',
-            section_id: section.id
-          %}
-        {% endif %}
+      {% assign source_products = '' | split: ',' %}
+      {% for b in section.blocks %}
+        {% assign p = all_products[b.settings.product] %}
+        {% if p %}{% assign source_products = source_products | push: p %}{% endif %}
       {% endfor %}
     {% else %}
-      {% for product in collections['all'].products limit: limit %}
-        {% render 'card-product',
-          card_product: product,
-          show_quick_add: section.settings.show_quick_add,
-          show_vendor: false,
-          media_aspect_ratio: section.settings.image_ratio | default: 'adapt',
-          section_id: section.id
-        %}
-      {% endfor %}
+      {% assign source_products = collections['all'].products %}
     {% endif %}
+
+    {% for product in source_products limit: limit %}
+      <article class="ps-card">
+        <a href="{{ product.url }}" class="ps-media">
+          {{ product.featured_image | image_url: width: 1100 | image_tag: loading: 'lazy', alt: product.title }}
+        </a>
+        <div class="ps-info">
+          <h3 class="ps-title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+          <div class="ps-price">{{ product.price | money }}</div>
+          {% if product.has_only_default_variant or product.variants.size == 1 %}
+            <form method="post" action="/cart/add" class="ps-quick">
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              <button type="submit" class="ps-btn">Add to cart</button>
+            </form>
+          {% else %}
+            <a href="{{ product.url }}" class="ps-btn">Choose options</a>
+          {% endif %}
+        </div>
+      </article>
+    {% endfor %}
   </div>
 </section>
 
@@ -87,11 +75,6 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Featured Products" },
     { "type": "text", "id": "subheading", "label": "Subheading", "default": "Discover our handpicked selection of premium products" },
     { "type": "collection", "id": "collection", "label": "Collection" },
-    { "type": "checkbox", "id": "show_quick_add", "label": "Show Quick add", "default": true },
-    { "type": "select", "id": "image_ratio", "label": "Image ratio",
-      "options": [ { "value": "adapt", "label": "Adapt to image" }, { "value": "square", "label": "Square" } ],
-      "default": "adapt"
-    },
     { "type": "range", "id": "limit", "label": "Products to show", "min": 2, "max": 12, "step": 1, "default": 2 }
   ],
   "blocks": [
