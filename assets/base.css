@@ -3905,3 +3905,19 @@ aside[aria-labelledby="cart-drawer"] {
 /* Trim card text spacing a bit */
 .card-information{ row-gap: .25rem; }
 .card-information__text{ margin: 0; }
+
+/* Prevent sticky ATC from overlapping tappable content */
+@media (max-width: 749px){
+  .product__info-wrapper{ padding-bottom: 120px; }
+  .product-form__buttons{ z-index: 5; }
+}
+
+/* Grid tightening */
+:root{
+  --grid-desktop-horizontal-spacing: 16px;
+  --grid-desktop-vertical-spacing: 24px;
+  --grid-mobile-horizontal-spacing: 12px;
+  --grid-mobile-vertical-spacing: 18px;
+}
+.card-information{ row-gap: .25rem; }
+.card-information__text{ margin: 0; }
