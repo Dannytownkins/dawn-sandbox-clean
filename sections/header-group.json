@@ -41,26 +41,10 @@
         "menu": "main-menu",
         "enable_search": true
       }
-    },
-    "hero_split_QxmGLf": {
-      "type": "hero-split",
-      "disabled": true,
-      "name": "Split hero",
-      "settings": {
-        "light_image": "shopify://shop_images/hero_light1.jpg",
-        "light_title": "Light Humor",
-        "light_desc": "Sarcastic optimism for sunnier days.",
-        "light_link": "shopify://collections/light-humor",
-        "dark_image": "shopify://shop_images/hero_landing__solo2.jpg",
-        "dark_title": "Dark Humor",
-        "dark_desc": "Pitch-black jokes, midnight cotton.",
-        "dark_link": "shopify://collections/dark-humor"
-      }
     }
   },
   "order": [
     "announcement-bar",
-    "header",
-    "hero_split_QxmGLf"
+    "header"
   ]
 }
