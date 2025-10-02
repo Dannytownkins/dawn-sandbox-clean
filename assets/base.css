@@ -4019,3 +4019,8 @@ aside[aria-labelledby="cart-drawer"] {
 @media (max-width: 749px){
   .product__info-wrapper{ padding-bottom: 120px; } /* space for sticky bar */
 }
+
+/* Show quick-add on collection grids and tighten card info */
+.template-collection .quick-add{ display:block !important; }
+.template-collection .card-information{ row-gap: .25rem; }
+.template-collection .card-information__text{ margin: 0; }

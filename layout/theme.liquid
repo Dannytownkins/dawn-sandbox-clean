@@ -7,12 +7,24 @@
     <meta name="theme-color" content="">
     <link rel="canonical" href="{{ canonical_url }}">
 
+    <!-- Performance preconnects -->
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    <link rel="preconnect" href="https://monorail-edge.shopifysvc.com" crossorigin>
+
+    <!-- Nudge the first hero image to be LCP -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){
+        var hero = document.querySelector('main .banner img, .slideshow__image img, .hero img, .banner__media img');
+        if (hero) { hero.setAttribute('fetchpriority','high'); hero.setAttribute('loading','eager'); }
+      });
+    </script>
+
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     {%- endif -%}
 
     {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
-      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
     {%- comment -%} Preload critical CSS {%- endcomment -%}
@@ -416,5 +428,7 @@
     <script src="{{ 'lazy.js' | asset_url }}" defer></script>
     <script src="{{ 'cart-drawer-helper.js' | asset_url }}" defer></script>
     {% render 'confetti' %}
+    {% render 'newsletter-modal' %}
+    {% render 'back-to-top' %}
   </body>
 </html>
