@@ -1,8 +1,20 @@
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+
 <style>
   #shopify-section-{{ section.id }} .card__inner { aspect-ratio:auto; }
   #shopify-section-{{ section.id }} .card__media img{ object-fit:contain !important; }
   #shopify-section-{{ section.id }} .grid{ grid-template-columns: repeat({{ section.settings.columns_desktop }}, minmax(0,1fr)); gap: 28px; }
 </style>
+
+{%- unless section.settings.quick_add == 'none' -%}
+  {{ 'quick-add.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+{%- endunless -%}
+
+{%- if section.settings.quick_add == 'standard' -%}
+  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
 
 {%- liquid
   assign products_to_display = section.settings.collection.all_products_count
