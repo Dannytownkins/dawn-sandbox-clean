@@ -123,6 +123,7 @@
               {% if card_product.featured_media == null and settings.card_style == 'standard' %}
                 id="title-{{ section_id }}-{{ card_product.id }}"
               {% endif %}
+              data-hl
             >
               <a
                 href="{{ card_product.url }}"
