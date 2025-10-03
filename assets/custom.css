@@ -37,3 +37,23 @@
   fill: currentColor !important;
   stroke: currentColor !important;
 }
+
+/* --- Fix Pack v2 --- */
+
+/* PDP: keep primary/secondary buttons same width & tidy */
+.product-form .product__submit,
+.shopify-payment-button__button--unbranded {
+  width: 100%;
+  max-width: 360px;
+  margin-inline: 0;
+}
+.shopify-payment-button__button--unbranded { box-shadow: 0 8px 16px rgba(0,0,0,.18); }
+
+/* Hide "translation missing" blocks in the drawer (temporary safety) */
+[id*="translation-missing"], .translation-missing { display:none !important; }
+
+/* Trust bar: prevent wrapping on mobile, center baseline */
+.trustbar, .trust-bar, .announcement-bar__inner {
+  display:flex; gap:18px; align-items:center; justify-content:center;
+  flex-wrap: nowrap; overflow:auto; white-space: nowrap;
+}

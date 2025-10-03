@@ -449,6 +449,11 @@
 
       {% render 'cart-cross-sell' %}
 
+      {% if cart.items.size > 0 and recommendations_performed != true %}
+      {% assign recommendations_performed = true %}
+
+      <div class="cart-drawer__recommendations"> {% for product in collections.all.products limit: 2 %} {% render 'card-product', card_product: product, section_id: 'cart-drawer-recs' %} {% endfor %} </div> {% endif %}
+
       {% render 'cart-trust-badges' %}
 
       <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status"></p>
