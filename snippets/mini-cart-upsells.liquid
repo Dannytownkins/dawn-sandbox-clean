@@ -78,7 +78,9 @@
 
   {%- if found_count > 0 -%}
     <div class="cart-upsells">
-      <h3 class="cart-upsells__heading">{{ 'cart.upsells.heading' | t }}</h3>
+      {%- assign upsell_heading = 'cart.upsells.heading' | t -%}
+      {%- if upsell_heading contains 'translation missing' -%}{% assign upsell_heading = 'You may also like' %}{% endif %}
+      <h3 class="cart-upsells__heading">{{ upsell_heading }}</h3>
       <div class="cart-upsells__grid">
         {%- for product_id in upsell_ids -%}
           {%- assign upsell = all_products[product_id] -%}

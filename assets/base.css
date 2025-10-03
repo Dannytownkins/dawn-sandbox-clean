@@ -4125,3 +4125,28 @@ aside[aria-labelledby="cart-drawer"] {
 /* When header switches to light background, inherit default color */
 .header--light .header__icons .header__icon,
 .header--light .header__icons .menu-drawer__trigger { color: inherit; }
+
+/* ===== Collection grid sizing ===== */
+/* Make collection cards larger: 2-up desktop, 1-up mobile */
+.template-collection .grid.product-grid {
+  grid-template-columns: repeat(2, minmax(360px, 1fr)) !important;
+  gap: 28px !important;
+}
+@media (max-width: 989px){
+  .template-collection .grid.product-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+}
+/* Taller image area so thumbs look big */
+.template-collection .card--product .card__inner .media { padding-top: 120% !important; }
+.card--product .media img { object-fit: cover; }
+
+/* Center titles/prices under the image */
+.card--product .card__content,
+.card--product .card__information { text-align: center !important; align-items: center; }
+.card--product .price { justify-content: center; }
+
+/* Full-width CTA under each card */
+.card--product .card__cta { margin-top: 10px; }
+.card--product .card__cta .button { width: 100%; }

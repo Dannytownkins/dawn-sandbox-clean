@@ -580,10 +580,17 @@
         </div>
       </div>
     </div>
-    <form class="quick-add" action="{{ routes.cart_add_url }}" method="post">
-      <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
-      <button class="button button--secondary button--pill">Quick add</button>
-    </form>
+    {%- assign first_available = product.variants | where: 'available', true | first -%}
+    <div class="card__cta">
+      {%- if product.has_only_default_variant and first_available -%}
+        <form method="post" action="/cart/add" class="quick-add" data-product-id="{{ product.id }}">
+          <input type="hidden" name="id" value="{{ first_available.id }}">
+          <button type="submit" class="button button--full">Add to cart</button>
+        </form>
+      {%- else -%}
+        <a href="{{ product.url }}" class="button button--full button--secondary">View options</a>
+      {%- endif -%}
+    </div>
   </div>
 {%- else -%}
   {%- liquid
