@@ -4042,9 +4042,47 @@ aside[aria-labelledby="cart-drawer"] {
 /* Ensure images fill their media box cleanly */
 .template-collection .card--product .media > img{ width:100%; height:100%; object-fit: cover; }
 
-/* Center titles/prices below product images everywhere cards appear */
+/* Catalog grid: bigger thumbs */
+.template-collection .product-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important; /* 2-up on desktop for larger cards */
+  gap: 28px !important;
+}
+@media (max-width: 989px){
+  .template-collection .product-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
+}
+
+/* Force square-ish media so the image area is tall and fills the card */
+.template-collection .card--product .card__inner .media { padding-top: 110% !important; } /* ~1:1.1 */
+.card--product .media img { object-fit: cover; }
+
+/* Center text under images everywhere */
 .card--product .card__content,
-.card--product .card-information{ text-align:center; }
-.card--product .card__heading{ margin-left:auto; margin-right:auto; }
-.card--product .price{ justify-content:center !important; text-align:center; }
-.card--product .rating{ justify-content:center; }
+.card--product .card__information {
+  text-align: center !important;
+  align-items: center;
+}
+.card--product .price { justify-content: center; }
+/* Optional: center the badge if present */
+.card--product .card__badge { left: 50%; transform: translateX(-50%); }
+
+/* Reassurance bar alignment + mobile behavior */
+.ast-reassurance { background: var(--gradient-background); }
+.ast-reassurance__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  min-height: 44px;
+}
+.ast-reassurance__inner > * { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+
+/* On narrow viewports: keep in one line and allow horizontal scroll instead of stacking */
+@media (max-width: 600px){
+  .ast-reassurance__inner {
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+  }
+  .ast-reassurance__inner > * { flex: 0 0 auto; }
+}
