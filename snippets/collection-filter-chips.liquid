@@ -6,8 +6,8 @@
       {%- if f.min_value or f.max_value -%}
         <a class="chip" href="{{ f.url_to_remove }}">
           Price:
-          {%- if f.min_value -%} {{ f.min_value | money }} {%- endif -%}
-          {%- if f.max_value -%} – {{ f.max_value | money }} {%- endif -%}
+          {%- if f.min_value -%} {{ f.min_value.value | money }} {%- endif -%}
+          {%- if f.max_value -%} – {{ f.max_value.value | money }} {%- endif -%}
           ×
         </a>
       {%- endif -%}
