@@ -15,7 +15,7 @@
       "type": "header",
       "settings": {
         "menu": "main-menu",
-        "enable_search": false
+        "enable_search": true
       }
     }
   },
