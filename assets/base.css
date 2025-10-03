@@ -4150,3 +4150,26 @@ aside[aria-labelledby="cart-drawer"] {
 /* Full-width CTA under each card */
 .card--product .card__cta { margin-top: 10px; }
 .card--product .card__cta .button { width: 100%; }
+
+/* Trust bar centered + one row on mobile */
+.ast-usp__inner{ display:flex; align-items:center; justify-content:center; gap:22px; min-height:44px; }
+.ast-usp__inner>*{ display:inline-flex; align-items:center; gap:8px; white-space:nowrap; }
+@media (max-width:640px){
+  .ast-usp__inner{ justify-content:flex-start; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:6px; }
+  .ast-usp__inner>*{ flex:0 0 auto; }
+}
+
+/* Header icons: remove the white "pills" */
+.header__icons .header__icon,
+.header__icons .menu-drawer__trigger{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: #fff; width:44px; height:44px;
+  display:inline-flex; align-items:center; justify-content:center;
+}
+.header__icon--cart .cart-count-bubble{
+  position:absolute; top:4px; right:4px;
+  background:#F7E06A; color:#111; min-width:16px; height:16px;
+  line-height:16px; padding:0 4px; border-radius:999px; font-size:11px;
+}

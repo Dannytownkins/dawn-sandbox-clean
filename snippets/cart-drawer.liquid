@@ -25,12 +25,6 @@
           <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary" data-close-cart>Start Shopping</a>
         </div>
       {% else %}
-        {% liquid
-          assign free_ship_threshold = settings.free_shipping_threshold | default: 50.0
-          assign subtotal_cents = cart.total_price
-          assign threshold_cents = free_ship_threshold | times: 100
-        %}
-        {% render 'free-shipping-progress' %}
         <div class="cart-drawer__items">
           {% for item in cart.items %}
             <div class="cart-line" data-line-index="{{ forloop.index }}">

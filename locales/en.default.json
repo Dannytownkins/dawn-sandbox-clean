@@ -74,11 +74,13 @@
     "cart": {
       "free_shipping_qualified": "You're eligible for free shipping!",
       "free_shipping_remaining": "Only {{ amount }} away from free shipping",
-    "view_cart": "View cart",
-    "checkout": "Checkout",
-    "subtotal": "Subtotal",
-    "empty": "Your cart is empty"
-  },
+      "upsells": { "heading": "You may also like", "add": "Add" },
+      "discount": { "have_code": "Have a discount code?" },
+      "view_cart": "View cart",
+      "checkout": "Checkout",
+      "subtotal": "Subtotal",
+      "empty": "Your cart is empty"
+    },
   "accessibility": {
     "skip_to_text": "Skip to content",
     "skip_to_product_info": "Skip to product information",

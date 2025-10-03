@@ -13,7 +13,9 @@
 .xsell .btn{width:100%;min-height:36px;border-radius:10px;background:#111;color:#fff;border:1px solid #111;font-size:.9rem;padding:6px 10px}
 </style>
 <div class="xsell">
-  <h4>You may also like</h4>
+  {%- assign upsell_heading = 'cart.upsells.heading' | t -%}
+  {%- if upsell_heading contains 'translation missing' -%}{% assign upsell_heading = 'You may also like' %}{% endif %}
+  <h4>{{ upsell_heading }}</h4>
   <div class="xsell-grid">
   {% assign shown = 0 %}
   {% for p in pool.products %}
@@ -25,7 +27,9 @@
         {% if p.has_only_default_variant or p.variants.size == 1 %}
           <form method="post" action="/cart/add">
             <input type="hidden" name="id" value="{{ p.selected_or_first_available_variant.id }}">
-            <button class="btn" type="submit">Add</button>
+            {%- assign add_label = 'cart.upsells.add' | t -%}
+            {%- if add_label contains 'translation missing' -%}{% assign add_label = 'Add' %}{% endif %}
+            <button class="btn" type="submit">{{ add_label }}</button>
           </form>
         {% else %}
           <a class="btn" href="{{ p.url }}">Choose options</a>
