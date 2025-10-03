@@ -1,0 +1,89 @@
+---
+alwaysApply: false
+---
+
+# Cursor Project Rules — Shopify Dawn (Shrug Life)
+
+## Purpose
+
+Keep this theme stable. Every change must be feature-scoped, pass checks, and visually match the spec before committing.
+
+---
+
+## Golden Rules
+
+- DO NOT commit until **all gates below are green** and screenshots show the change working.
+- Scope new CSS/JS to the feature (no global selectors). Prefer `assets/component-*.css` loaded by the section/snippet.
+- Only touch files listed in the task. If you must add files, list them explicitly and why.
+- Preserve Dawn semantics and accessibility (buttons stay <button>, links stay <a>, aria labels intact).
+
+---
+
+## Targeted UX fixes (baseline to keep)
+
+1. Catalog grid:
+   - Bigger product images.
+   - Title & price **centered** below images.
+   - Grid not overly spaced (reasonable gaps).
+2. Product card & Featured Products on home:
+   - Center title/price.
+   - “Add to cart” has proper hover/active states.
+3. Cart drawer:
+   - Dark theme, consistent buttons.
+   - Quantity stepper and Remove (trash) present & working.
+4. Mobile header:
+   - Hamburger + cart icons styled (no white box); drawer background dark, links readable.
+5. Trust bar:
+   - Single instance only.
+   - Horizontally centered; does NOT stack on mobile (wrap inside one row with icons+labels).
+6. PDP (product pages):
+   - Single set of badges (no duplicates).
+   - No extra sticky footer “Add to cart” unless explicitly requested.
+   - “You may also like” visible and card text centered.
+7. Store title in header: **“shrug life”** (lowercase) until changed in settings.
+
+---
+
+## Files you are allowed to change for the above
+
+- layout/theme.liquid
+- sections/header.liquid
+- sections/footer.liquid
+- sections/main-product.liquid
+- sections/main-collection-product-grid.liquid
+- sections/featured-collection.liquid (or the section powering home “Featured Products”)
+- snippets/card-product.liquid
+- snippets/cart-drawer.liquid (or equivalent) and snippets/cart-drawer-items.liquid (if present)
+- snippets/trust-bar.liquid (or equivalent trust/benefits snippet)
+- assets/component-catalog.css
+- assets/component-product-card.css
+- assets/component-cart-drawer.css
+- assets/component-trust-bar.css
+- assets/base.css (ONLY if unavoidable global utility is needed; keep tiny and documented)
+
+If a listed file is missing, create it with a new, clearly prefixed component name and import it only where used.
+
+---
+
+## Visual spec (quick)
+
+- Product card text alignment: center; price directly under title.
+- Buttons: hover = slight elevation + opacity 0.92; active = translateY(1px).
+- Trust bar: in a single row; center; icon and label aligned; on small screens allow horizontal scroll or tight wrap but do **not** stack to 3 lines.
+- Icon fills: yellow badges fully filled; no cutoff borders.
+- Catalog grid: `repeat(auto-fit, minmax(260px, 1fr))`, gap ~24px (mobile 16px).
+
+---
+
+## Validation Gates (must run & pass before commit)
+
+### 1) Static checks
+
+```bash
+npm run check            # shopify theme check
+npm run format:check     # prettier check
+node tools/mcp-stabilizer/cli.js audit
+```
+
+node tools/mcp-stabilizer/cli.js fix-all
+npm run format
