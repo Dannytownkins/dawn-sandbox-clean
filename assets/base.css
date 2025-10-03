@@ -4086,3 +4086,42 @@ aside[aria-labelledby="cart-drawer"] {
   }
   .ast-reassurance__inner > * { flex: 0 0 auto; }
 }
+
+/* Header icon reset: no pill backgrounds */
+.header__icons .header__icon,
+.header__icons .header__icon .icon,
+.header__icons .header__icon--cart,
+.header__icons .header__icon--account,
+.header__icons .header__icon--search,
+.header__icons .menu-drawer__trigger {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Make them tappable and white on dark header */
+.header__icons .header__icon,
+.header__icons .menu-drawer__trigger {
+  position: relative;
+  width: 44px; height: 44px;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #fff;
+}
+.header__icons .header__icon svg,
+.header__icons .menu-drawer__trigger svg { width: 20px; height: 20px; }
+
+/* Cart bubble style (keep, but tidy) */
+.header__icon--cart .cart-count-bubble{
+  position: absolute; top: 4px; right: 4px;
+  background: #F7E06A; color: #111;
+  min-width: 16px; height: 16px; line-height: 16px;
+  padding: 0 4px; border-radius: 999px; font-size: 11px;
+}
+
+/* Hamburger states */
+.menu-drawer__trigger .icon-hamburger,
+.menu-drawer__trigger .icon-close { stroke: currentColor; }
+
+/* When header switches to light background, inherit default color */
+.header--light .header__icons .header__icon,
+.header--light .header__icons .menu-drawer__trigger { color: inherit; }
