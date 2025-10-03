@@ -1,3 +1,14 @@
-{% assign store_name = shop.name | escape %}
-
-<script type="application/ld+json"> { "@context": "https://schema.org", "@type": "Organization", "name": "{{ store_name }}", "url": "{{ shop.secure_url | default: shop.url }}", "logo": "{{ settings.logo | image_url: width: 512 }}" } </script>
+{%- comment -%} Minimal JSON-LD to satisfy include and remove banner error {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": {{ shop.name | json }},
+  "url": {{ shop.url | json }},
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {{ routes.search_url | append: "?q={search_term_string}" | json }},
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
