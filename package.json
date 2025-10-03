@@ -16,11 +16,6 @@
     "fs-extra": "latest",
     "glob": "latest"
   },
-  "devDependencies": {
-    "@shopify/prettier-plugin-liquid": "^1.0.0",
-    "@shopify/theme-check": "^1.0.0",
-    "prettier": "^3.0.0"
-  },
   "engines": {
     "node": ">=18.0.0"
   }
