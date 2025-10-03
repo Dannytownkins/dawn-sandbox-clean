@@ -1,22 +1,3 @@
-{%- comment -%} Minimal JSON-LD so the layout render stops erroring {%- endcomment -%}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": {{ shop.name | json }},
-  "url": {{ shop.secure_url | default: shop.url | json }},
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "{{ routes.search_url }}?q={query}",
-    "query-input": "required name=query"
-  }
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": {{ shop.name | json }},
-  "url": {{ shop.secure_url | default: shop.url | json }}
-}
-</script>
+{% assign store_name = shop.name | escape %}
+
+<script type="application/ld+json"> { "@context": "https://schema.org", "@type": "Organization", "name": "{{ store_name }}", "url": "{{ shop.secure_url | default: shop.url }}", "logo": "{{ settings.logo | image_url: width: 512 }}" } </script>
