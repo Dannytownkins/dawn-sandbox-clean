@@ -646,3 +646,15 @@
     </div>
   </div>
 {%- endif -%}
+
+{%- assign first_available = product.variants | where: 'available', true | first -%}
+<div class="card__cta"><!-- MCP_QUICK_ADD -->
+  {%- if product.has_only_default_variant and first_available -%}
+    <form method="post" action="/cart/add" class="quick-add">
+      <input type="hidden" name="id" value="{{ first_available.id }}">
+      <button type="submit" class="button button--full">Add to cart</button>
+    </form>
+  {%- else -%}
+    <a href="{{ product.url }}" class="button button--full button--secondary">View options</a>
+  {%- endif -%}
+</div>
