@@ -474,7 +474,6 @@
                 {% render 'urgency-inline', variant: product.selected_or_first_available_variant %}
                 {% render 'trust-badges' %}
                 {% render 'reassurance-icons' %}
-                {% render 'sticky-atc' %}
                 {% render 'back-in-stock' %}
               {%- when 'trust_icons' -%}
                 {% render 'trust-icons', block: block %}
@@ -2306,6 +2305,5 @@
   {{ product | json }}
 </script>
 
-{% render 'sticky-atc' %}
 {% render 'pdp-sticky-atc' %}
 {% render 'jsonld-product', product: product %}

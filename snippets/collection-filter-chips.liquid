@@ -1,24 +1,25 @@
-{% comment %} Active filter chips with Clear all {% endcomment %}
-{% assign has_any = false %}
-<style>
-.cf-chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px}
-.cf-chip{padding:6px 10px;border:1px solid #ddd;border-radius:999px;font-size:.9rem}
-.cf-chip.clear{background:#111;color:#fff;border-color:#111}
-</style>
-<div class="cf-chips">
-{% for f in collection.filters %}
-  {% for v in f.active_values %}
-    {% assign has_any = true %}
-    <a class="cf-chip" href="{{ v.url_to_remove }}">{{ v.label }}</a>
-  {% endfor %}
-  {% if f.type == 'price_range' and (f.min_value.value or f.max_value.value) %}
-    {% assign has_any = true %}
-    <a class="cf-chip" href="{{ f.url_to_remove }}">
-      Price: {% if f.min_value.value %}{{ f.min_value.value | money }}{% else %}0{% endif %} – {% if f.max_value.value %}{{ f.max_value.value | money }}{% else %}∞{% endif %}
-    </a>
-  {% endif %}
-{% endfor %}
-{% if has_any %}
-  <a class="cf-chip clear" href="{{ collection.url }}">Clear all</a>
-{% endif %}
+{%- if collection.filters and collection.filters.size > 0 -%}
+<div class="filter-chips">
+  {%- for f in collection.filters -%}
+    {%- case f.type -%}
+    {%- when 'price_range' -%}
+      {%- if f.min_value or f.max_value -%}
+        <a class="chip" href="{{ f.url_to_remove }}">
+          Price:
+          {%- if f.min_value -%} {{ f.min_value | money }} {%- endif -%}
+          {%- if f.max_value -%} – {{ f.max_value | money }} {%- endif -%}
+          ×
+        </a>
+      {%- endif -%}
+    {%- else -%}
+      {%- for v in f.active_values -%}
+        <a class="chip" href="{{ v.url_to_remove }}">{{ v.label }} ×</a>
+      {%- endfor -%}
+    {%- endcase -%}
+  {%- endfor -%}
 </div>
+{%- endif -%}
+<style>
+.filter-chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 16px}
+.filter-chips .chip{border:1px solid #ddd;border-radius:999px;padding:6px 10px;display:inline-block}
+</style>

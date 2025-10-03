@@ -94,29 +94,29 @@
 /* Sticky header */
 header.header, .shopify-section-header { position: sticky; top: 0; z-index: 40; }
 
-/* Hamburger */
-.ast-hamburger{ display:none; width:44px; height:44px; align-items:center; justify-content:center; gap:4px; border:1px solid #111; border-radius:12px; background:#fff; }
-.ast-hamburger span{ display:block; width:18px; height:2px; background:#111; }
+/* Hamburger (clean icon) */
+.ast-hamburger{ display:none; width:44px; height:44px; align-items:center; justify-content:center; gap:5px; border:1px solid rgba(255,255,255,.25); border-radius:12px; background:transparent }
+.ast-hamburger span{ display:block; width:18px; height:2px; background:#fff }
 
 /* Drawer */
-.ast-drawer[aria-hidden="true"]{ display:none; }
-.ast-drawer{ position:fixed; inset:0; z-index:60; }
-.ast-drawer__overlay{ position:absolute; inset:0; background:rgba(0,0,0,.45); }
-.ast-drawer__panel{ position:absolute; right:0; top:0; bottom:0; width:min(86vw, 360px); background:#fff; padding:18px; box-shadow:-20px 0 60px rgba(0,0,0,.25); overflow:auto; }
-.ast-drawer__close{ position:absolute; top:10px; right:10px; width:32px; height:32px; border-radius:999px; border:0; background:#f2f2f2; }
-.ast-drawer__menu{ list-style:none; padding:0; margin:28px 0 0; display:grid; gap:10px; }
-.ast-drawer__menu a{ display:block; padding:10px 8px; border-radius:10px; }
-.ast-drawer__menu a:hover{ background:#f7f7f8; }
+.ast-drawer[aria-hidden="true"]{ display:none }
+.ast-drawer{ position:fixed; inset:0; z-index:60 }
+.ast-drawer__overlay{ position:absolute; inset:0; background:rgba(0,0,0,.55) }
+.ast-drawer__panel{ position:absolute; right:0; top:0; bottom:0; width:min(86vw, 360px); background:#0b0b0c; color:#fff; padding:18px; box-shadow:-20px 0 60px rgba(0,0,0,.35); overflow:auto }
+.ast-drawer__close{ position:absolute; top:10px; right:10px; width:32px; height:32px; border-radius:999px; border:0; background:#1a1a1a; color:#fff }
+.ast-drawer__menu{ list-style:none; padding:0; margin:28px 0 0; display:grid; gap:8px }
+.ast-drawer__menu a{ color:#fff; display:block; padding:10px 8px; border-radius:10px }
+.ast-drawer__menu a:hover{ background:rgba(255,255,255,.08) }
 .ast-sub{ list-style:none; padding-left:12px; margin:6px 0 0; display:grid; gap:6px; }
 
-/* Responsive: show hamburger, hide inline menu on mobile */
+/* Mobile visibility */
 @media (max-width: 989px){
-  .ast-hamburger{ display:flex; }
+  .ast-hamburger{ display:flex }
   .header__inline-menu, .list-menu--inline{ display:none !important; }
 }
 
 /* Optional: style tweak for mobile icons */
-.header__icon--search, .header__icon--cart{ display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border:1px solid #111; border-radius:12px; margin-left:8px; }
+.header__icon--search, .header__icon--cart{ display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border:1px solid #111; border-radius:12px; margin-left:8px; color:#fff }
 @media (min-width: 990px){ .header__icon--search, .header__icon--cart{ border:0; } }
 </style>
 
