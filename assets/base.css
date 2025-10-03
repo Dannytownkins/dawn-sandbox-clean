@@ -4030,3 +4030,21 @@ aside[aria-labelledby="cart-drawer"] {
 .template-collection .facets-vertical .facets__summary{ font-weight: 600; }
 .template-collection .facets-vertical .facets__disclosure{ margin-bottom: 10px; }
 .template-collection .active-facets, .template-collection .facets-vertical .active-facets{ margin: 8px 0 0; }
+
+/* COLLECTION GRID: larger product thumbs on phones, 2-up on tablets, 3-up desktop */
+@media (max-width: 749px){
+  .template-collection ul.grid.grid--2-col-tablet-down{ grid-template-columns: 1fr !important; }
+  .template-collection .card--product .card__inner .media{ padding-top: 100% !important; } /* square and larger */
+}
+@media (min-width: 750px) and (max-width: 989px){
+  .template-collection ul.grid.grid--2-col-tablet-down{ grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+}
+/* Ensure images fill their media box cleanly */
+.template-collection .card--product .media > img{ width:100%; height:100%; object-fit: cover; }
+
+/* Center titles/prices below product images everywhere cards appear */
+.card--product .card__content,
+.card--product .card-information{ text-align:center; }
+.card--product .card__heading{ margin-left:auto; margin-right:auto; }
+.card--product .price{ justify-content:center !important; text-align:center; }
+.card--product .rating{ justify-content:center; }
