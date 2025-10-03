@@ -1,13 +1,7 @@
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "url": {{ shop.url | json }},
-  "name": {{ shop.name | json }},
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {{ shop.url | append: "/search?q={query}" | json }},
-    "query-input": "required name=query"
-  }
-}
+{"@context":"https://schema.org","@type":"WebSite",
+ "url": {{ shop.url | json }}, "name": {{ shop.name | json }},
+ "potentialAction":{"@type":"SearchAction",
+  "target": {{ shop.url | append: "/search?q={query}" | json }},
+  "query-input":"required name=query"}}
 </script>

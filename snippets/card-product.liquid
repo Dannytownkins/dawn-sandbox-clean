@@ -580,15 +580,15 @@
         </div>
       </div>
     </div>
-    {%- assign first_available = card_product.variants | where: 'available', true | first -%}
+    {%- assign first_available = product.variants | where: 'available', true | first -%}
 <div class="card__cta">
-  {%- if card_product.has_only_default_variant and first_available -%}
-    <form method="post" action="/cart/add" class="quick-add" data-product-id="{{ card_product.id }}">
+  {%- if product.has_only_default_variant and first_available -%}
+    <form method="post" action="/cart/add" class="quick-add">
       <input type="hidden" name="id" value="{{ first_available.id }}">
       <button type="submit" class="button button--full">Add to cart</button>
     </form>
   {%- else -%}
-    <a href="{{ card_product.url }}" class="button button--full button--secondary">View options</a>
+    <a href="{{ product.url }}" class="button button--full button--secondary">View options</a>
   {%- endif -%}
 </div>
   </div>

@@ -4173,3 +4173,5 @@ aside[aria-labelledby="cart-drawer"] {
   background:#F7E06A; color:#111; min-width:16px; height:16px;
   line-height:16px; padding:0 4px; border-radius:999px; font-size:11px;
 }
+.menu-drawer__inner-container{ background:#0b0b0c; color:#fff; }
+.menu-drawer__menu-item{ color:#fff; }
