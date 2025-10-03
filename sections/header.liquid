@@ -21,7 +21,7 @@
 
     <div class="header-ctas">
       {%- if section.settings.enable_search -%}
-        <a href="{{ routes.search_url }}" class="icon-btn" aria-label="Search">
+        <a href="{{ routes.search_url }}" class="header__icon--search" aria-label="Search">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="8" cy="8" r="6"/>
             <path d="M13 13l4 4"/>
@@ -38,7 +38,7 @@
         </a>
       {%- endif -%}
 
-      <button type="button" class="icon-btn cart-btn" data-open-cart aria-label="Open cart">
+      <button type="button" class="header__icon--cart" data-open-cart aria-label="Open cart">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 1L3 6v13h14V6l-3-5M3 6h14M13 10a3 3 0 01-6 0"/>
         </svg>
@@ -53,30 +53,85 @@
         </span>
       </button>
 
-      <button class="burger" data-open-menu aria-label="Open menu">☰</button>
+      <!-- Mobile hamburger (visible ≤ 989px) -->
+      <button class="ast-hamburger" aria-controls="ast-mobile-drawer" aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 
   <!-- Mobile drawer -->
-  <div class="mobile-drawer" hidden aria-hidden="true">
-    <div class="mobile-panel" role="dialog" aria-modal="true" aria-label="Menu">
-      <button class="mobile-close" data-close-menu aria-label="Close menu">×</button>
-      <ul class="mobile-list">
-        {%- if section.settings.menu != blank -%}
-          {%- for link in section.settings.menu.links -%}
+  <div id="ast-mobile-drawer" class="ast-drawer" aria-hidden="true">
+    <div class="ast-drawer__overlay" data-close></div>
+    <nav class="ast-drawer__panel" role="dialog" aria-modal="true" aria-label="Mobile menu">
+      <button class="ast-drawer__close" type="button" aria-label="Close" data-close>×</button>
+      <ul class="ast-drawer__menu" role="menu">
+        {% assign menu = section.settings.menu %}
+        {% if menu and menu.links.size > 0 %}
+          {% for link in menu.links %}
             <li>
-              <a href="{{ link.url }}">{{ link.title }}</a>
+              <a role="menuitem" href="{{ link.url }}">{{ link.title }}</a>
+              {% if link.links.size > 0 %}
+                <ul class="ast-sub">
+                  {% for child in link.links %}
+                    <li><a role="menuitem" href="{{ child.url }}">{{ child.title }}</a></li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
             </li>
-          {%- endfor -%}
-        {%- else -%}
-          <li><a href="{{ routes.root_url }}">Home</a></li>
-          <li><a href="{{ routes.all_products_collection_url | default: '/collections/all' }}">Shop All</a></li>
-        {%- endif -%}
+          {% endfor %}
+        {% else %}
+          <li><a role="menuitem" href="/collections/all">Shop</a></li>
+          <li><a role="menuitem" href="/pages/faq">FAQ</a></li>
+          <li><a role="menuitem" href="/pages/contact">Contact</a></li>
+        {% endif %}
       </ul>
-    </div>
-    <div class="mobile-overlay" data-close-menu></div>
+    </nav>
   </div>
 </header>
+
+<style>
+/* Sticky header */
+header.header, .shopify-section-header { position: sticky; top: 0; z-index: 40; }
+
+/* Hamburger */
+.ast-hamburger{ display:none; width:44px; height:44px; align-items:center; justify-content:center; gap:4px; border:1px solid #111; border-radius:12px; background:#fff; }
+.ast-hamburger span{ display:block; width:18px; height:2px; background:#111; }
+
+/* Drawer */
+.ast-drawer[aria-hidden="true"]{ display:none; }
+.ast-drawer{ position:fixed; inset:0; z-index:60; }
+.ast-drawer__overlay{ position:absolute; inset:0; background:rgba(0,0,0,.45); }
+.ast-drawer__panel{ position:absolute; right:0; top:0; bottom:0; width:min(86vw, 360px); background:#fff; padding:18px; box-shadow:-20px 0 60px rgba(0,0,0,.25); overflow:auto; }
+.ast-drawer__close{ position:absolute; top:10px; right:10px; width:32px; height:32px; border-radius:999px; border:0; background:#f2f2f2; }
+.ast-drawer__menu{ list-style:none; padding:0; margin:28px 0 0; display:grid; gap:10px; }
+.ast-drawer__menu a{ display:block; padding:10px 8px; border-radius:10px; }
+.ast-drawer__menu a:hover{ background:#f7f7f8; }
+.ast-sub{ list-style:none; padding-left:12px; margin:6px 0 0; display:grid; gap:6px; }
+
+/* Responsive: show hamburger, hide inline menu on mobile */
+@media (max-width: 989px){
+  .ast-hamburger{ display:flex; }
+  .header__inline-menu, .list-menu--inline{ display:none !important; }
+}
+
+/* Optional: style tweak for mobile icons */
+.header__icon--search, .header__icon--cart{ display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border:1px solid #111; border-radius:12px; margin-left:8px; }
+@media (min-width: 990px){ .header__icon--search, .header__icon--cart{ border:0; } }
+</style>
+
+<script>
+(function(){
+  var btn = document.querySelector('.ast-hamburger');
+  var drawer = document.getElementById('ast-mobile-drawer');
+  if(!btn || !drawer) return;
+  var open = function(){ drawer.setAttribute('aria-hidden','false'); btn.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; };
+  var close = function(){ drawer.setAttribute('aria-hidden','true'); btn.setAttribute('aria-expanded','false'); document.body.style.overflow=''; };
+  btn.addEventListener('click', open);
+  drawer.querySelectorAll('[data-close]').forEach(function(n){ n.addEventListener('click', close); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+})();
+</script>
 
 {% schema %}
 {
