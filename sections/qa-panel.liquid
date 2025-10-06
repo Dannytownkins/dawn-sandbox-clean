@@ -1,7 +1,20 @@
+<div class="section section-{{ section.id }}">
+<style>
+  .section-{{ section.id }} {
+    text-align: {{ section.settings.text_align | default: 'left' }};
+  }
+  .section-{{ section.id }} .qa-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: {% if section.settings.button_align == 'center' %}center{% elsif section.settings.button_align == 'right' %}flex-end{% else %}flex-start{% endif %};
+  }
+</style>
+
 <section class="section" style="max-width:1100px;margin:0 auto;">
   <h1 class="h1" style="margin:0 0 8px;">QA Panel</h1>
   <p style="opacity:.8;margin:0 0 16px">Run audits without code tools.</p>
-  <div style="display:flex;gap:10px;flex-wrap:wrap">
+  <div class="qa-buttons">
     <a class="button" style="border-radius:12px;min-height:44px" href="/?qa=a11y">Run A11y Audit</a>
     <a class="button" style="border-radius:12px;min-height:44px" href="/?qa=links">Run Link Crawl</a>
     <a class="button" style="border-radius:12px;min-height:44px;background:#f2f2f2;color:#111" href="/">Clear QA mode</a>
@@ -9,4 +22,38 @@
   <div style="height:12px"></div>
   <p>Tip: also run the link crawl on a product page and a collection page to catch deeper links.</p>
 </section>
-{% schema %}{ "name": "QA panel" }{% endschema %}
+</div>
+
+{% schema %}
+{
+  "name": "QA panel",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Design Controls"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "button_align",
+      "label": "Button alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    }
+  ]
+}
+{% endschema %}
