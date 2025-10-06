@@ -3,31 +3,31 @@
  * Fixed to right side, dark background, white text, smooth overlay, responsive sizing
  */
 
-.cart-drawer[hidden] { 
-  display: none !important; 
+.cart-drawer[hidden] {
+  display: none !important;
 }
 
-.cart-drawer { 
-  position: fixed; 
-  inset: 0; 
-  z-index: 70; 
+.cart-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
 }
 
-.cart-drawer__overlay { 
-  position: absolute; 
-  inset: 0; 
+.cart-drawer__overlay {
+  position: absolute;
+  inset: 0;
   background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(2px);
 }
 
 .cart-drawer__panel {
-  position: absolute !important; 
-  right: 0 !important; 
+  position: absolute !important;
+  right: 0 !important;
   left: auto !important;
-  top: 0 !important; 
+  top: 0 !important;
   bottom: 0 !important;
   width: min(420px, 92vw) !important;
-  background: #0b0b0c; 
+  background: #0b0b0c;
   color: #fff;
   box-shadow: -12px 0 32px rgba(0, 0, 0, 0.35);
   padding: 0;
@@ -57,12 +57,12 @@
   font-weight: 600;
 }
 
-.cart-drawer__close { 
-  all: unset; 
-  cursor: pointer; 
-  font-size: 26px; 
-  line-height: 1; 
-  padding: 8px; 
+.cart-drawer__close {
+  all: unset;
+  cursor: pointer;
+  font-size: 26px;
+  line-height: 1;
+  padding: 8px;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -224,7 +224,7 @@
   .cart-drawer__panel {
     width: 100vw;
   }
-  
+
   .cart-drawer__header,
   .cart-drawer__body,
   .cart-drawer__footer {
