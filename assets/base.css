@@ -3727,6 +3727,17 @@ html.cart-open, html.cart-open body {
 }
 .button[disabled], .btn[disabled] { opacity:.6; cursor:not-allowed; }
 
+/* Cart page layout - footer at top */
+.cart__footer-wrapper {
+  order: -1 !important;
+  margin-bottom: 32px !important;
+}
+
+.main-cart-items {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
 /* Cart page checkout button - ensure visibility */
 .cart__checkout-button, .cart__checkout-button.button {
   display: inline-flex !important;
@@ -3735,12 +3746,19 @@ html.cart-open, html.cart-open body {
   font-weight: 700 !important;
   min-height: 48px !important;
   padding: 14px 32px !important;
+  font-size: 1.1rem !important;
 }
 
 .cart__ctas {
   display: flex !important;
   justify-content: center !important;
   margin: 16px 0 !important;
+}
+
+/* Cart recommendations - push to bottom */
+.cart-drawer__recommendations,
+.cart-recommendations {
+  order: 999 !important;
 }
 
 /* Ghost button */

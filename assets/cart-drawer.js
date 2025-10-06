@@ -101,8 +101,8 @@ window.CartDrawer = {
     this._refreshing = true;
 
     try {
-      // Use Shopify's section rendering API
-      const response = await fetch(window.location.href + '?sections=cart-drawer', {
+      // Fetch fresh cart HTML from the cart-drawer section
+      const response = await fetch('/?sections=cart-drawer', {
         headers: {
           Accept: 'application/json',
         },
@@ -114,14 +114,24 @@ window.CartDrawer = {
       const cartDrawerHtml = data['cart-drawer'];
       
       if (cartDrawerHtml) {
-        // Parse the HTML and extract just the body content
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(cartDrawerHtml, 'text/html');
-        const newBody = doc.querySelector('.cart-drawer__body');
+        // Create temporary container to parse HTML
+        const temp = document.createElement('div');
+        temp.innerHTML = cartDrawerHtml;
+        
+        // Extract just the body content
+        const newBody = temp.querySelector('.cart-drawer__body');
         const currentBody = this.drawer.querySelector('.cart-drawer__body');
         
         if (newBody && currentBody) {
+          // Replace content
           currentBody.innerHTML = newBody.innerHTML;
+        }
+        
+        // Also update progress bar if present
+        const newProgress = temp.querySelector('.cart-progress');
+        const currentProgress = this.drawer.querySelector('.cart-progress');
+        if (newProgress && currentProgress) {
+          currentProgress.outerHTML = newProgress.outerHTML;
         }
       }
 

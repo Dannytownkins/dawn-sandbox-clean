@@ -389,25 +389,49 @@
 </style>
 
 <script>
+// Quantity and remove handling WITHOUT page reload
 document.addEventListener('click', async (e) => {
   const btn = e.target.closest('.qty__btn');
-  if (!btn) return;
+  const removeBtn = e.target.closest('.cart-drawer__remove');
+  
+  if (btn) {
+    e.preventDefault();
+    const line = Number(btn.dataset.line);
+    const delta = btn.dataset.qty === '+1' ? 1 : -1;
+    const input = btn.parentElement.querySelector('.qty__input');
+    const currentQty = parseInt(input.value || '1', 10);
+    const next = Math.max(0, currentQty + delta);
 
-  const line = Number(btn.dataset.line);
-  const delta = btn.dataset.qty === '+1' ? 1 : -1;
-  const input = btn.parentElement.querySelector('.qty__input');
-  const next = Math.max(0, parseInt(input.value || '1', 10) + delta);
-
-  input.value = next;
-
-  // Update Shopify cart for this line
-  await fetch('{{ routes.cart_change_url }}', {
-    method: 'POST',
-    headers: { 'Content-Type':'application/json', 'Accept':'application/json' },
-    body: JSON.stringify({ line, quantity: next })
-  }).catch(()=>{});
-
-  // Refresh UI (simple + reliable)
-  location.reload();
+    try {
+      const response = await fetch('{{ routes.cart_change_url }}', {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json', 'Accept':'application/json' },
+        body: JSON.stringify({ line, quantity: next })
+      });
+      
+      if (response.ok) {
+        // Trigger refresh without page reload
+        if (window.CartDrawer && window.CartDrawer.refresh) {
+          await window.CartDrawer.refresh();
+        }
+      }
+    } catch(err) {
+      console.error('Cart update failed:', err);
+    }
+  }
+  
+  if (removeBtn) {
+    e.preventDefault();
+    const url = removeBtn.getAttribute('href');
+    try {
+      await fetch(url, { method: 'POST' });
+      // Trigger refresh without page reload
+      if (window.CartDrawer && window.CartDrawer.refresh) {
+        await window.CartDrawer.refresh();
+      }
+    } catch(err) {
+      console.error('Remove failed:', err);
+    }
+  }
 });
 </script>
