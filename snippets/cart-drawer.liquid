@@ -18,7 +18,7 @@
 
     {% render 'cart-progress' %}
 
-    <div class="cart-drawer__body">
+    <div class="cart-drawer__body" style="padding-bottom: 180px;">
       {% if cart.item_count == 0 %}
         <div class="cart-drawer__empty">
           <p>Your cart is empty</p>
@@ -43,19 +43,17 @@
                 {% unless item.product.has_only_default_variant %}
                   <div class="cart-line__variant">{{ item.variant.title }}</div>
                 {% endunless %}
+                <div class="cart-line__price">{{ item.final_line_price | money }}</div>
                 <div class="cart-drawer__qty" data-line="{{ forloop.index }}">
                   <button type="button" class="qty__btn" data-qty="-1" data-line="{{ forloop.index }}" aria-label="Decrease">−</button>
                   <input class="qty__input" name="updates[{{ item.key }}]" value="{{ item.quantity }}" inputmode="numeric">
                   <button type="button" class="qty__btn" data-qty="+1" data-line="{{ forloop.index }}" aria-label="Increase">+</button>
                   <a class="cart-drawer__remove" href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0" aria-label="Remove">🗑</a>
                 </div>
-                <div class="cart-line__price">{{ item.final_line_price | money }}</div>
               </div>
             </div>
           {% endfor %}
         </div>
-
-        {% render 'mini-cart-upsells' %}
 
         {% render 'cart-cross-sell' %}
 
@@ -65,9 +63,7 @@
 
         {% render 'cart-note' %}
 
-        {% render 'cart-cta-extras' %}
-
-        <div class="cart-drawer__footer">
+        <div class="cart-drawer__footer-fixed">
           {% render 'discount-code-inline' %}
           <div class="cart-subtotal">
             <span>Subtotal</span>
@@ -256,7 +252,51 @@
 /* Drawer content spacing */
 #cart-drawer .cart-drawer__body,
 .cart-drawer .cart-drawer__body {
-  padding: 16px 16px 24px;
+  padding: 16px;
+  overflow-y: auto;
+  max-height: calc(100vh - 80px);
+}
+
+/* Fixed footer at bottom - dark background, no white block */
+#cart-drawer .cart-drawer__footer-fixed,
+.cart-drawer .cart-drawer__footer-fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #0a0a0a;
+  padding: 16px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  z-index: 10;
+}
+
+/* Remove white blocks from upsells */
+#cart-drawer .xsell,
+#cart-drawer .cart-upsells,
+.cart-drawer .xsell,
+.cart-drawer .cart-upsells {
+  background: transparent !important;
+  border: none !important;
+  padding: 12px 0 !important;
+  margin: 12px 0 !important;
+}
+
+/* Cart subtotal styling */
+#cart-drawer .cart-subtotal,
+.cart-drawer .cart-subtotal {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 12px 0;
+  color: #fff;
+}
+
+#cart-drawer .cart-drawer__note,
+.cart-drawer .cart-drawer__note {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin: 8px 0 12px;
 }
 </style>
 
