@@ -388,14 +388,26 @@ textarea:focus-visible {
 }
 
 .header-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
   padding: 12px 20px;
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
+}
+
+.header-row .logo {
+  justify-self: start;
+}
+
+.header-row .main-nav {
+  justify-self: center;
+}
+
+.header-row .header-ctas {
+  justify-self: end;
 }
 
 .logo {
