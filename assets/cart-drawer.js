@@ -40,15 +40,27 @@ window.CartDrawer = {
 
     // Listen for add to cart events
     window.addEventListener('danliora_add_to_cart', () => {
-      this.refresh();
-      this.open();
+      // Simple approach: reload page once to refresh cart
+      if (!sessionStorage.getItem('cart_just_added')) {
+        sessionStorage.setItem('cart_just_added', '1');
+        location.reload();
+      }
     });
 
     // Also listen for Dawn's standard cart refresh event
     document.documentElement.addEventListener('cart:refresh', () => {
-      this.refresh();
-      this.open();
+      // Simple approach: reload page once to refresh cart
+      if (!sessionStorage.getItem('cart_just_added')) {
+        sessionStorage.setItem('cart_just_added', '1');
+        location.reload();
+      }
     });
+    
+    // Clear the flag after page loads
+    if (sessionStorage.getItem('cart_just_added')) {
+      sessionStorage.removeItem('cart_just_added');
+      this.open();
+    }
   },
 
   open() {
