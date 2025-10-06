@@ -3730,8 +3730,13 @@ html.cart-open, html.cart-open body {
 /* Cart page layout - compact, footer at top */
 .cart__footer-wrapper {
   order: -1 !important;
-  margin-bottom: 24px !important;
-  margin-top: 0 !important;
+  margin: 0 0 24px 0 !important;
+  padding: 0 !important;
+}
+
+.cart__footer {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .main-cart-items, .cart-items {
@@ -3740,16 +3745,8 @@ html.cart-open, html.cart-open body {
 }
 
 .cart__items {
-  margin-bottom: 24px !important;
-}
-
-/* Kill excessive spacing in cart */
-.cart-drawer__recommendations,
-.cart-recommendations,
-[data-id*="recommendation"],
-.cart__footer ~ *:not(.cart__footer-wrapper) {
-  margin-top: 24px !important;
-  margin-bottom: 24px !important;
+  order: 2 !important;
+  margin: 0 0 24px 0 !important;
 }
 
 /* Cart page checkout button - ensure visibility */
@@ -3765,16 +3762,31 @@ html.cart-open, html.cart-open body {
 
 .cart__ctas {
   display: flex !important;
+  flex-direction: row !important;
   justify-content: center !important;
   gap: 12px !important;
-  margin: 16px 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-/* Cart recommendations - push to bottom, compact */
-.cart-drawer__recommendations,
-.cart-recommendations {
+.cart__ctas .button--secondary {
+  background: transparent !important;
+  border: 2px solid rgba(0,0,0,0.2) !important;
+  color: #000 !important;
+}
+
+/* Cart note and extras - compact */
+[id*="cart-note"],
+.cart__note {
+  order: 3 !important;
+  margin: 24px 0 !important;
+}
+
+/* Cart recommendations - visible at bottom */
+.cart__footer ~ *,
+section[id*="shopify-section"][id*="cart"] ~ section {
   order: 999 !important;
-  margin-top: 32px !important;
+  margin: 24px 0 !important;
 }
 
 /* Remove excessive padding from cart sections */
@@ -3782,6 +3794,10 @@ html.cart-open, html.cart-open body {
 [class*="cart"][class*="padding"] {
   padding-top: 40px !important;
   padding-bottom: 40px !important;
+}
+
+.cart-items form > * {
+  margin-top: 0 !important;
 }
 
 /* Ghost button */
