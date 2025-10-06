@@ -9,15 +9,6 @@
  */
 {
   "sections": {
-    "usp-bar-01": {
-      "type": "usp-bar",
-      "settings": {
-        "text_align": "left",
-        "pad_y": 0,
-        "image_max": 800,
-        "button_align": "left"
-      }
-    },
     "hero_split_home": {
       "type": "hero-split",
       "settings": {
@@ -50,7 +41,6 @@
     }
   },
   "order": [
-    "usp-bar-01",
     "hero_split_home",
     "product_showcase"
   ]
