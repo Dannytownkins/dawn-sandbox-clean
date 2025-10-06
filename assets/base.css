@@ -3880,10 +3880,14 @@ section[id*="shopify-section"][id*="cart"]:not([id*="main-cart"]) {
 }
 
 /* Fix mobile menu drawer visibility and layout */
+.ast-drawer {
+  z-index: 9999 !important;
+}
+
 .ast-drawer__menu {
   display: grid !important;
-  gap: 8px !important;
-  margin-top: 40px !important;
+  gap: 4px !important;
+  margin-top: 48px !important;
 }
 
 .ast-drawer__menu li {
@@ -3894,15 +3898,22 @@ section[id*="shopify-section"][id*="cart"]:not([id*="main-cart"]) {
 
 .ast-drawer__menu a {
   display: block !important;
-  padding: 12px 16px !important;
+  padding: 14px 16px !important;
   color: #fff !important;
-  font-size: 1.1rem !important;
-  font-weight: 500 !important;
-  border-radius: 8px !important;
+  font-size: 1.2rem !important;
+  font-weight: 600 !important;
+  border-radius: 10px !important;
+  letter-spacing: -0.01em !important;
 }
 
 .ast-drawer__menu a:hover {
   background: rgba(255,255,255,0.1) !important;
+}
+
+.ast-sub a {
+  font-size: 1.05rem !important;
+  font-weight: 500 !important;
+  padding: 10px 12px !important;
 }
 
 /* OVERRIDE all cart section padding */
