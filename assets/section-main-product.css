@@ -365,6 +365,9 @@ a.product__text {
 
 .product-form__buttons {
   max-width: 44rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .product--no-media .product__info-container > modal-opener {
