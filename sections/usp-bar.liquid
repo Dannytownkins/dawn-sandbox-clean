@@ -1,69 +1,51 @@
-<div class="section section-{{ section.id }}">
 <style>
-  .section-{{ section.id }} {
-    padding-block: {{ section.settings.pad_y | default: 40 }}px;
-    text-align: {{ section.settings.text_align | default: 'left' }};
+.usp.trustbar{ 
+  background:#0a0a0a; 
+  color:#fff; 
+  padding:8px 16px; 
+  border-top:1px solid rgba(255,255,255,.06); 
+  overflow-x: hidden !important;
+}
+.usp__wrap{ 
+  display:flex !important; 
+  align-items:center; 
+  justify-content:center; 
+  gap:20px; 
+  flex-wrap:wrap !important;
+  max-width: 100%;
+  overflow: visible;
+}
+.usp__item{ 
+  display:flex; 
+  align-items:center; 
+  gap:6px; 
+  font-size:.875rem; 
+  opacity:.86;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+@media(max-width: 749px){
+  .usp.trustbar{ 
+    padding:12px 16px; 
   }
-  .section-{{ section.id }} :where(.image, .media, .card__media, .image-with-text__media) img {
-    max-width: {{ section.settings.image_max | default: 800 }}px;
-    height: auto;
+  .usp__wrap{ 
+    gap:12px 16px !important; 
+    font-size:.85rem; 
+    justify-content:center !important;
   }
-  .section-{{ section.id }} :where(.buttons, .button-row, .card__actions, .cta-row) {
-    display: flex;
-    justify-content: {% if section.settings.button_align == 'center' %}center{% elsif section.settings.button_align == 'right' %}flex-end{% else %}flex-start{% endif %};
-    gap: .5rem;
-    flex-wrap: wrap;
+  .usp__item{ 
+    flex: 0 1 auto;
+    min-width: fit-content;
   }
+}
 </style>
-<section class="usp trustbar">
+<section class="usp trustbar" data-trust-bar>
   <div class="usp__wrap">
     <div class="usp__item">🔒 <span>SSL Secure Checkout</span></div>
     <div class="usp__item">↩️ <span>30-Day Returns</span></div>
     <div class="usp__item">🚚 <span>Free Shipping $50+</span></div>
   </div>
 </section>
-<style>
-  .usp {
-    position: relative;
-    background: #0c0c0d;
-    border-top: 1px solid #151515;
-    border-bottom: 1px solid #151515;
-  }
-  .usp__wrap {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 12px clamp(12px, 3vw, 24px);
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    color: #eaeaea;
-    font-weight: 600;
-  }
-  .usp__item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    white-space: nowrap;
-    opacity: 0.95;
-  }
-  @media (max-width: 900px) {
-    .usp__wrap {
-      grid-template-columns: 1fr;
-      justify-items: center;
-      text-align: center;
-    }
-  }
-  @media (prefers-color-scheme: light) {
-    .usp {
-      background: #f7f7f7;
-      border-color: #eee;
-    }
-    .usp__item {
-      color: #111;
-    }
-  }
-</style>
-</div>
 {% schema %}{
   "name": "Trust bar (USPs)",
   "settings": [
