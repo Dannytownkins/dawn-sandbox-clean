@@ -42,7 +42,7 @@
         "subheading": "Discover our handpicked selection of premium products",
         "collection": "products",
         "limit": 2,
-        "text_align": "left",
+        "text_align": "center",
         "image_max": 1000,
         "button_align": "left",
         "hover_zoom": false
