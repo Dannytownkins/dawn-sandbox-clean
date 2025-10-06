@@ -28,15 +28,20 @@
         <div class="cart-drawer__items">
           {% for item in cart.items %}
             <div class="cart-line" data-line-index="{{ forloop.index }}">
-              {% if item.image %}
+              {% assign cart_item_image = item.image | default: item.featured_image | default: item.product.featured_image %}
+              {% if cart_item_image %}
                 <img
-                  src="{{ item.image | image_url: width: 100 }}"
-                  alt="{{ item.image.alt | escape }}"
+                  src="{{ cart_item_image | image_url: width: 100 }}"
+                  alt="{{ cart_item_image.alt | default: item.product.title | escape }}"
                   width="60"
                   height="60"
                   loading="lazy"
                   class="cart-line__image"
                 >
+              {% else %}
+                <div class="cart-line__image cart-line__image--placeholder" style="width:60px;height:60px;background:rgba(255,255,255,0.05);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;">
+                  👕
+                </div>
               {% endif %}
               <div class="cart-line__body">
                 <a href="{{ item.url }}" class="cart-line__title">{{ item.product.title }}</a>
