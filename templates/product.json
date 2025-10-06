@@ -76,7 +76,6 @@
     },
     "related": {
       "type": "related-products",
-      "disabled": false,
       "settings": {
         "heading": "You may also like",
         "heading_size": "h2",
