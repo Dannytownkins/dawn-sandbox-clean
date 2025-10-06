@@ -147,3 +147,93 @@
   outline: 2px solid currentColor;
   outline-offset: 2px;
 }
+
+/* ===== CART DRAWER FIX PACK ===== */
+
+/* Drawer container: sane width + scroll */
+.cart-drawer,
+#CartDrawer {
+  max-width: 420px;
+}
+.cart-drawer__inner,
+.cart-drawer .drawer__contents {
+  max-height: 100vh;
+  overflow-y: auto;
+  padding-bottom: 1rem;
+}
+
+/* Free-shipping progress: compact */
+.cart-drawer .free-shipping,
+.cart-drawer [class*="progress"] {
+  margin: .5rem 1rem 0;
+}
+
+/* Line item row: tight + aligned */
+.cart-drawer .cart-item,
+.cart-drawer .cart-items .item {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: .75rem;
+  align-items: center;
+  padding: .5rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.cart-drawer .cart-item__image img { 
+  width: 64px; height: 64px; object-fit: cover; border-radius: .25rem;
+}
+.cart-drawer .cart-item__title { 
+  font-weight: 600; line-height: 1.2; margin-bottom: .25rem;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.cart-drawer .quantity { display: inline-flex; align-items: center; gap: .25rem; }
+.cart-drawer .price { white-space: nowrap; }
+
+/* Kill duplicate trust bars INSIDE drawer */
+.cart-drawer .trustbar,
+.cart-drawer .usps { display: none !important; }
+
+/* Recommendations block — 2 cards per row, no giant blanks */
+.cart-drawer .cart-recommendations,
+.cart-drawer [class*="cart__recommendations"],
+.cart-drawer [data-cart-recommendations] {
+  padding: .5rem 1rem 1rem;
+}
+.cart-drawer .cart-rec-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: .75rem;
+}
+.cart-drawer .cart-rec {
+  background: rgba(255,255,255,.06);
+  border-radius: .5rem;
+  padding: .5rem;
+}
+.cart-drawer .cart-rec__img { 
+  width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: .35rem; background: rgba(255,255,255,.04);
+}
+.cart-drawer .cart-rec__title {
+  font-size: .9rem; margin: .4rem 0 .25rem; line-height: 1.2; height: 2.3em; overflow: hidden;
+}
+.cart-drawer .cart-rec__price { font-size: .9rem; opacity: .85; }
+.cart-drawer .cart-rec__cta { width: 100%; margin-top: .35rem; }
+
+/* Hide any empty media slots the app injected */
+.cart-drawer img[src=""], 
+.cart-drawer img[alt=""], 
+.cart-drawer img:not([src]) { display: none !important; }
+
+/* Buttons: consistent sizing + states */
+.cart-drawer .button,
+.cart-drawer button,
+.cart-drawer .shopify-payment-button__button {
+  width: 100%;
+  border-radius: .75rem;
+  padding: .7rem .9rem;
+  transition: transform .08s ease, filter .12s ease, opacity .12s ease;
+}
+.cart-drawer .button:hover { filter: brightness(1.05); }
+.cart-drawer .button:active { transform: translateY(1px) scale(.99); }
+
+/* Drawer CTAs section: tidy */
+.cart-drawer .cart__ctas { 
+  display: grid; gap: .5rem; padding: 1rem;
+}
+.cart-drawer .cart__ctas .button--secondary { opacity: .9; }

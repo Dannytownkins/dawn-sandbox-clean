@@ -69,6 +69,10 @@
       "heading": "You may also like",
       "add": "Add"
     },
+    "drawer": {
+      "view_details": "View full details",
+      "view_options": "View options"
+    },
     "discount": {
       "have_code": "Have a discount code?"
     },

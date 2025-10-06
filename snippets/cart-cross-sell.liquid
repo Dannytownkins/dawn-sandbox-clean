@@ -12,27 +12,31 @@
 .xsell .price{font-weight:600;margin-bottom:6px}
 .xsell .btn{width:100%;min-height:36px;border-radius:10px;background:#111;color:#fff;border:1px solid #111;font-size:.9rem;padding:6px 10px}
 </style>
-<div class="xsell">
+<div class="xsell cart-recommendations">
   {%- assign upsell_heading = 'cart.upsells.heading' | t -%}
   {%- if upsell_heading contains 'translation missing' -%}{% assign upsell_heading = 'You may also like' %}{% endif %}
   <h4>{{ upsell_heading }}</h4>
-  <div class="xsell-grid">
+  <div class="xsell-grid cart-rec-grid">
   {% assign shown = 0 %}
   {% for p in pool.products %}
     {% unless in_cart_ids contains p.id %}
-      <div class="card">
-        <img src="{{ p.featured_image | image_url: width: 420 }}" alt="{{ p.title | escape }}">
-        <div class="title">{{ p.title }}</div>
-        <div class="price">{{ p.price | money }}</div>
+      <div class="card cart-rec">
+        {% if p.featured_image %}
+          <img src="{{ p.featured_image | image_url: width: 600 }}" alt="{{ p.title | escape }}" class="cart-rec__img" loading="lazy">
+        {% endif %}
+        <div class="title cart-rec__title">{{ p.title }}</div>
+        <div class="price cart-rec__price">{{ p.price | money }}</div>
         {% if p.has_only_default_variant or p.variants.size == 1 %}
           <form method="post" action="/cart/add">
             <input type="hidden" name="id" value="{{ p.selected_or_first_available_variant.id }}">
             {%- assign add_label = 'cart.upsells.add' | t -%}
             {%- if add_label contains 'translation missing' -%}{% assign add_label = 'Add' %}{% endif %}
-            <button class="btn" type="submit">{{ add_label }}</button>
+            <button class="btn cart-rec__cta" type="submit">{{ add_label }}</button>
           </form>
         {% else %}
-          <a class="btn" href="{{ p.url }}">Choose options</a>
+          {%- assign view_label = 'cart.drawer.view_options' | t -%}
+          {%- if view_label contains 'translation missing' -%}{% assign view_label = 'View options' %}{% endif %}
+          <a class="btn cart-rec__cta" href="{{ p.url }}">{{ view_label }}</a>
         {% endif %}
       </div>
       {% assign shown = shown | plus: 1 %}

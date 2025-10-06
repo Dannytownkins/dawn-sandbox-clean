@@ -64,7 +64,7 @@
 
         <div class="cart-drawer__recommendations"> {% for product in collections.all.products limit: 2 %} {% render 'card-product', card_product: product, section_id: 'cart-drawer-recs' %} {% endfor %} </div> {% endif %}
 
-        {% render 'cart-trust-badges' %}
+        {%- comment -%} removed trustbar/trust-badges from cart drawer {%- endcomment -%}
 
         {% render 'cart-note' %}
 
