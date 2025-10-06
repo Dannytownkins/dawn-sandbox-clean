@@ -114,13 +114,19 @@
 #cart-drawer .product-card,
 #cart-drawer .collection-card,
 #cart-drawer .article-card,
+#cart-drawer .card-wrapper,
+#cart-drawer .card__content,
+#cart-drawer .card__inner,
 .cart-drawer .card,
 .cart-drawer .product-card,
 .cart-drawer .collection-card,
-.cart-drawer .article-card {
+.cart-drawer .article-card,
+.cart-drawer .card-wrapper,
+.cart-drawer .card__content,
+.cart-drawer .card__inner {
   background: transparent !important;
   box-shadow: none !important;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.08) !important;
   border-radius: 12px;
 }
 
@@ -143,10 +149,15 @@
 }
 
 /* Buttons: yellow fill, black stroke, no halo INSIDE drawer only */
-#cart-drawer .button,
-#cart-drawer .btn,
-.cart-drawer .button,
-.cart-drawer .btn {
+/* BUT exclude buttons inside product cards (they're hidden anyway) */
+#cart-drawer .cart-drawer__footer .button,
+#cart-drawer .cart-drawer__footer .btn,
+#cart-drawer .cart-drawer__empty .button,
+#cart-drawer .cart-drawer__empty .btn,
+.cart-drawer .cart-drawer__footer .button,
+.cart-drawer .cart-drawer__footer .btn,
+.cart-drawer .cart-drawer__empty .button,
+.cart-drawer .cart-drawer__empty .btn {
   background-color: #ecd96c !important;
   border: 2px solid #000 !important;
   background-clip: border-box !important;
@@ -178,11 +189,19 @@
   justify-content: flex-start;
 }
 
-/* Hide duplicate CTAs in upsells (keep primary only) */
-#cart-drawer .card .button--secondary,
-#cart-drawer .card .quick-add,
-.cart-drawer .card .button--secondary,
-.cart-drawer .card .quick-add {
+/* Hide ALL product card CTAs in drawer - we're in cart already */
+#cart-drawer .card .button,
+#cart-drawer .card .btn,
+#cart-drawer .card__actions,
+#cart-drawer .product-card .button,
+#cart-drawer .product-card .btn,
+#cart-drawer .xsell .btn,
+.cart-drawer .card .button,
+.cart-drawer .card .btn,
+.cart-drawer .card__actions,
+.cart-drawer .product-card .button,
+.cart-drawer .product-card .btn,
+.cart-drawer .xsell .btn {
   display: none !important;
 }
 
@@ -205,9 +224,24 @@
 /* Prevent oversized white blocks in upsells */
 #cart-drawer .upsell-grid .card__content,
 #cart-drawer .xsell .card,
+#cart-drawer .cart-drawer__recommendations,
+#cart-drawer .cart-recommendations,
+#cart-drawer .mini-cart-upsells,
 .cart-drawer .upsell-grid .card__content,
-.cart-drawer .xsell .card {
+.cart-drawer .xsell .card,
+.cart-drawer .cart-drawer__recommendations,
+.cart-drawer .cart-recommendations,
+.cart-drawer .mini-cart-upsells {
   background: transparent !important;
+}
+
+/* Upsell grid spacing */
+#cart-drawer .xsell-grid,
+#cart-drawer .cart-rec-grid,
+.cart-drawer .xsell-grid,
+.cart-drawer .cart-rec-grid {
+  gap: 12px;
+  margin-top: 12px;
 }
 
 /* Typography consistency */
