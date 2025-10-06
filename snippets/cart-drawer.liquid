@@ -141,14 +141,17 @@
   background: transparent;
 }
 
-/* Buttons: yellow fill, black stroke, no halo INSIDE drawer only */
-/* BUT exclude buttons inside product cards (they're hidden anyway) */
+/* Buttons: yellow fill, BLACK TEXT, black stroke */
 #cart-drawer .cart-drawer__footer .button,
 #cart-drawer .cart-drawer__footer .btn,
+#cart-drawer .cart-drawer__footer-fixed .button,
+#cart-drawer .cart-drawer__footer-fixed .btn,
 #cart-drawer .cart-drawer__empty .button,
 #cart-drawer .cart-drawer__empty .btn,
 .cart-drawer .cart-drawer__footer .button,
 .cart-drawer .cart-drawer__footer .btn,
+.cart-drawer .cart-drawer__footer-fixed .button,
+.cart-drawer .cart-drawer__footer-fixed .btn,
 .cart-drawer .cart-drawer__empty .button,
 .cart-drawer .cart-drawer__empty .btn {
   background-color: #ecd96c !important;
@@ -156,6 +159,7 @@
   background-clip: border-box !important;
   border-radius: 9999px !important;
   color: #000 !important;
+  font-weight: 700 !important;
   box-shadow: 0 6px 12px rgba(0,0,0,.25) !important;
 }
 #cart-drawer .button::before,
