@@ -17,9 +17,20 @@
         "menu": "main-menu",
         "enable_search": true
       }
+    },
+    "usp_bar_PpyU48": {
+      "type": "usp-bar",
+      "name": "Trust bar (USPs)",
+      "settings": {
+        "text_align": "left",
+        "pad_y": 0,
+        "image_max": 240,
+        "button_align": "left"
+      }
     }
   },
   "order": [
-    "header"
+    "header",
+    "usp_bar_PpyU48"
   ]
 }
