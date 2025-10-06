@@ -158,13 +158,18 @@
 
 /* Ensure drawer panel is on the RIGHT side */
 .cart-drawer__panel {
-  position: absolute;
-  right: 0;
-  left: auto;
-  top: 0;
-  bottom: 0;
+  position: absolute !important;
+  right: 0 !important;
+  left: auto !important;
+  top: 0 !important;
+  bottom: 0 !important;
   max-width: 420px;
-  width: min(420px, 92vw);
+  width: min(420px, 92vw) !important;
+  transform: translateX(100%) !important;
+}
+
+.cart-drawer:not([hidden]) .cart-drawer__panel {
+  transform: translateX(0) !important;
 }
 .cart-drawer__inner,
 .cart-drawer .drawer__contents {
