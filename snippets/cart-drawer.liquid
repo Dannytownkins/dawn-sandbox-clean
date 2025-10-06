@@ -324,10 +324,67 @@
   margin: 8px 0 12px;
 }
 
-/* Button spacing */
+/* Button spacing and text visibility */
 #cart-drawer .btn--full-width,
 .cart-drawer .btn--full-width {
   margin: 6px 0;
+  color: #000 !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  line-height: 1.5 !important;
+  padding: 14px 24px !important;
+}
+
+/* Quantity controls - compact styling */
+#cart-drawer .cart-drawer__qty,
+.cart-drawer .cart-drawer__qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+#cart-drawer .qty__btn,
+.cart-drawer .qty__btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+#cart-drawer .qty__input,
+.cart-drawer .qty__input {
+  width: 40px;
+  height: 28px;
+  text-align: center;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 4px;
+}
+
+#cart-drawer .cart-drawer__remove,
+.cart-drawer .cart-drawer__remove {
+  font-size: 1.1rem;
+  opacity: 0.7;
+  margin-left: 4px;
+  text-decoration: none;
+}
+
+#cart-drawer .cart-drawer__remove:hover,
+.cart-drawer .cart-drawer__remove:hover {
+  opacity: 1;
 }
 </style>
 
