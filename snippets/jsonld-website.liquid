@@ -1,14 +1,10 @@
-{%- comment -%} Minimal JSON-LD to satisfy include and remove banner error {%- endcomment -%}
+{%- assign site_name = shop.name | escape -%}
+{%- assign site_url  = shop.url  -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": {{ shop.name | json }},
-  "url": {{ shop.url | json }},
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {{ routes.search_url | append: "?q={search_term_string}" | json }},
-    "query-input": "required name=search_term_string"
-  }
+  "name": "{{ site_name }}",
+  "url": "{{ site_url }}"
 }
 </script>
