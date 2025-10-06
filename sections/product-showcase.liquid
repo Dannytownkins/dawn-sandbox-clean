@@ -1,4 +1,28 @@
 {% assign col = collections[section.settings.collection] %}
+<div class="section section-{{ section.id }}">
+<style>
+  .section-{{ section.id }} {
+    text-align: {{ section.settings.text_align | default: 'left' }};
+  }
+  .section-{{ section.id }} :where(.image, .media, .card__media, .product-card__media, .ps-media) img {
+    max-width: {{ section.settings.image_max | default: 1000 }}px;
+    height: auto;
+    margin-inline: auto;
+    display: block;
+  }
+  .section-{{ section.id }} :where(.buttons, .button-row, .card__actions, .cta-row, .ps-btn) {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    justify-content: {% if section.settings.button_align == 'center' %}center{% elsif section.settings.button_align == 'right' %}flex-end{% else %}flex-start{% endif %};
+  }
+  {% if section.settings.hover_zoom %}
+  .section-{{ section.id }} :where(.ps-card):hover {
+    transform: scale(1.03);
+    transition: transform .2s ease;
+  }
+  {% endif %}
+</style>
 <section id="shopify-section-{{ section.id }}" class="section section--tight">
   <style>
     /* Layout: 2-up desktop, 1-up mobile */
@@ -67,6 +91,7 @@
     {% endfor %}
   </div>
 </section>
+</div>
 
 {% schema %}
 {
@@ -75,7 +100,49 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Featured Products" },
     { "type": "text", "id": "subheading", "label": "Subheading", "default": "Discover our handpicked selection of premium products" },
     { "type": "collection", "id": "collection", "label": "Collection" },
-    { "type": "range", "id": "limit", "label": "Products to show", "min": 2, "max": 12, "step": 1, "default": 2 }
+    { "type": "range", "id": "limit", "label": "Products to show", "min": 2, "max": 12, "step": 1, "default": 2 },
+    {
+      "type": "header",
+      "content": "Design Controls"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "image_max",
+      "min": 240,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Max image width",
+      "default": 1000
+    },
+    {
+      "type": "select",
+      "id": "button_align",
+      "label": "Button alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "hover_zoom",
+      "label": "Hover zoom effect",
+      "default": false
+    }
   ],
   "blocks": [
     { "type": "product", "name": "Product", "settings": [ { "type": "product", "id": "product", "label": "Product" } ] }

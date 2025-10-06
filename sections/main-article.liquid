@@ -1,5 +1,29 @@
 {{ 'section-blog-post.css' | asset_url | stylesheet_tag }}
 
+<div class="section section-{{ section.id }}">
+<style>
+  .section-{{ section.id }} {
+    text-align: {{ section.settings.text_align | default: 'left' }};
+  }
+  .section-{{ section.id }} :where(.image, .media, .card__media, .product-card__media, .article-template__hero-container) img {
+    max-width: {{ section.settings.image_max | default: 1000 }}px;
+    height: auto;
+    margin-inline: auto;
+    display: block;
+  }
+  .section-{{ section.id }} :where(.buttons, .button-row, .card__actions, .cta-row) {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    justify-content: {% if section.settings.button_align == 'center' %}center{% elsif section.settings.button_align == 'right' %}flex-end{% else %}flex-start{% endif %};
+  }
+  {% if section.settings.hover_zoom %}
+  .section-{{ section.id }} :hover {
+    transform: scale(1.03);
+    transition: transform .2s ease;
+  }
+  {% endif %}
+</style>
 <article class="article-template">
   {%- for block in section.blocks -%}
     {%- case block.type -%}
@@ -287,6 +311,7 @@
     </div>
   {%- endif -%}
 </article>
+</div>
 
 <script type="application/ld+json">
   {{ article | structured_data }}
@@ -297,6 +322,50 @@
   "name": "t:sections.main-article.name",
   "tag": "section",
   "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Design Controls"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "image_max",
+      "min": 240,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Max image width",
+      "default": 1000
+    },
+    {
+      "type": "select",
+      "id": "button_align",
+      "label": "Button alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "hover_zoom",
+      "label": "Hover zoom effect",
+      "default": false
+    }
+  ],
   "blocks": [
     {
       "type": "@app"
