@@ -143,11 +143,12 @@ cart-drawer-items.is-empty + .drawer__footer {
 }
 
 cart-drawer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100%;
+  position: fixed !important;
+  top: 0 !important;
+  left: auto !important;
+  right: 0 !important;
+  width: 100vw !important;
+  height: 100% !important;
 }
 
 .cart-drawer__overlay {

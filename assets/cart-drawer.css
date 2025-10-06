@@ -8,9 +8,11 @@
 }
 
 .cart-drawer {
-  position: fixed;
-  inset: 0;
-  z-index: 70;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 70 !important;
+  left: auto !important;
+  right: 0 !important;
 }
 
 .cart-drawer__overlay {
