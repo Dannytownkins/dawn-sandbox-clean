@@ -3730,23 +3730,24 @@ html.cart-open, html.cart-open body {
 /* Cart page layout - compact, footer at top */
 .cart__footer-wrapper {
   order: -1 !important;
-  margin: 0 0 24px 0 !important;
+  margin: 0 !important;
   padding: 0 !important;
 }
 
 .cart__footer {
   margin: 0 !important;
-  padding: 0 !important;
+  padding: 16px 0 !important;
 }
 
-.main-cart-items, .cart-items {
+.main-cart-items, .cart-items, cart-items {
   display: flex !important;
   flex-direction: column !important;
 }
 
 .cart__items {
   order: 2 !important;
-  margin: 0 0 24px 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 /* Cart page checkout button - ensure visibility */
@@ -3775,29 +3776,39 @@ html.cart-open, html.cart-open body {
   color: #000 !important;
 }
 
-/* Cart note and extras - compact */
-[id*="cart-note"],
-.cart__note {
-  order: 3 !important;
-  margin: 24px 0 !important;
+/* Kill ALL excessive cart spacing */
+.cart-items form,
+.cart-items form > *,
+.cart__footer > *,
+.cart__blocks,
+.cart__note,
+.totals,
+.js-contents {
+  margin-top: 0 !important;
+  margin-bottom: 12px !important;
 }
 
-/* Cart recommendations - visible at bottom */
-.cart__footer ~ *,
-section[id*="shopify-section"][id*="cart"] ~ section {
+/* Cart recommendations - compact at bottom */
+section[id*="shopify-section"][id*="cart"]:not([id*="main-cart"]) {
   order: 999 !important;
-  margin: 24px 0 !important;
+  margin: 24px 0 0 0 !important;
+  padding: 24px 0 !important;
 }
 
 /* Remove excessive padding from cart sections */
 .section-main-cart-items-padding,
+.section-main-cart-footer-padding,
 [class*="cart"][class*="padding"] {
-  padding-top: 40px !important;
-  padding-bottom: 40px !important;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
 }
 
-.cart-items form > * {
-  margin-top: 0 !important;
+/* Product page - compact related products */
+section[id*="related"],
+.related-products {
+  margin-top: 32px !important;
+  padding-top: 32px !important;
+  padding-bottom: 32px !important;
 }
 
 /* Ghost button */
