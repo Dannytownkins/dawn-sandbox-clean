@@ -3799,11 +3799,42 @@ cart-items > div,
   margin-bottom: 16px !important;
 }
 
-/* Cart recommendations - compact at bottom */
+/* Cart recommendations - compact at bottom, NO BUTTONS */
 section[id*="shopify-section"][id*="cart"]:not([id*="main-cart"]) {
   order: 999 !important;
   margin: 24px 0 0 0 !important;
   padding: 24px 0 !important;
+}
+
+/* Hide ALL buttons in cart recommendations */
+.cart-items .card .button,
+.cart-items .card .btn,
+.cart-items .product-card .button,
+.cart-items .product-card .btn,
+.cart-items .card__actions,
+.cart-items [class*="quick-add"],
+.cart__footer ~ * .button,
+.cart__footer ~ * .btn,
+.cart__footer ~ * .card__actions {
+  display: none !important;
+}
+
+/* Trust bar mobile slider fix */
+.footer-trust {
+  overflow-x: hidden !important;
+}
+
+@media (max-width: 749px) {
+  .footer-trust {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 12px !important;
+  }
+  
+  .footer-trust > * {
+    flex: 0 0 auto !important;
+  }
 }
 
 /* OVERRIDE all cart section padding */
