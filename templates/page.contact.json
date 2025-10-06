@@ -9,7 +9,22 @@
  */
 {
   "sections": {
-    "main": { "type": "contact-form", "settings": {} }
+    "main": {
+      "type": "contact-form",
+      "settings": {
+        "heading": "Contact form",
+        "heading_size": "h1",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "text_align": "center",
+        "pad_y": 40,
+        "image_max": 800,
+        "button_align": "center"
+      }
+    }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
