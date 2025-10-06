@@ -411,10 +411,10 @@ textarea:focus-visible {
 
 /* Desktop nav */
 .main-nav {
-  display: block;
+  display: flex;
   flex: 1;
-  margin: 0 auto;
-  max-width: 600px;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav-list {
