@@ -30,37 +30,36 @@
   text-align: center;
 }
 
-/* ===== PRODUCT RECOMMENDATIONS: Larger images ===== */
-.product-recos,
-.product-recos .grid,
-.product-recos product-recommendations,
-.product-recos product-recommendations.grid {
+/* ===== RELATED PRODUCTS: Larger images ===== */
+.related-products,
+.related-products .product-grid,
+.related-products product-recommendations {
   display: grid !important;
   grid-template-columns: repeat(2, 1fr) !important;
   gap: 2rem !important;
   width: 100% !important;
 }
 
-.product-recos .card-wrapper,
-.product-recos .grid__item {
+.related-products .card-wrapper,
+.related-products .grid__item {
   max-width: none !important;
   margin-inline: 0 !important;
   width: 100% !important;
 }
 
-.product-recos .card--product,
-.product-recos .card--product .card__inner {
+.related-products .card--product,
+.related-products .card--product .card__inner {
   max-width: none !important;
   width: 100% !important;
 }
 
-.product-recos .card--product .card__inner .media {
+.related-products .card--product .card__inner .media {
   padding-top: 100% !important; /* Square aspect ratio */
   width: 100% !important;
   height: auto !important;
 }
 
-.product-recos .card--product .media img {
+.related-products .card--product .media img {
   object-fit: cover !important;
   width: 100% !important;
   height: 100% !important;
@@ -70,20 +69,18 @@
 }
 
 @media (min-width: 750px) {
-  .product-recos,
-  .product-recos .grid,
-  .product-recos product-recommendations,
-  .product-recos product-recommendations.grid {
+  .related-products,
+  .related-products .product-grid,
+  .related-products product-recommendations {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 3rem !important;
   }
 }
 
 @media (min-width: 990px) {
-  .product-recos,
-  .product-recos .grid,
-  .product-recos product-recommendations,
-  .product-recos product-recommendations.grid {
+  .related-products,
+  .related-products .product-grid,
+  .related-products product-recommendations {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 4rem !important;
   }
