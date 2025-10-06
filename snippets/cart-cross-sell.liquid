@@ -24,20 +24,10 @@
         {% if p.featured_image %}
           <img src="{{ p.featured_image | image_url: width: 600 }}" alt="{{ p.title | escape }}" class="cart-rec__img" loading="lazy">
         {% endif %}
-        <div class="title cart-rec__title">{{ p.title }}</div>
-        <div class="price cart-rec__price">{{ p.price | money }}</div>
-        {% if p.has_only_default_variant or p.variants.size == 1 %}
-          <form method="post" action="/cart/add">
-            <input type="hidden" name="id" value="{{ p.selected_or_first_available_variant.id }}">
-            {%- assign add_label = 'cart.upsells.add' | t -%}
-            {%- if add_label contains 'translation missing' -%}{% assign add_label = 'Add' %}{% endif %}
-            <button class="btn cart-rec__cta" type="submit">{{ add_label }}</button>
-          </form>
-        {% else %}
-          {%- assign view_label = 'cart.drawer.view_options' | t -%}
-          {%- if view_label contains 'translation missing' -%}{% assign view_label = 'View options' %}{% endif %}
-          <a class="btn cart-rec__cta" href="{{ p.url }}">{{ view_label }}</a>
-        {% endif %}
+        <a href="{{ p.url }}" style="text-decoration: none; color: inherit;">
+          <div class="title cart-rec__title">{{ p.title }}</div>
+          <div class="price cart-rec__price">{{ p.price | money }}</div>
+        </a>
       </div>
       {% assign shown = shown | plus: 1 %}
       {% if shown >= limit %}{% break %}{% endif %}

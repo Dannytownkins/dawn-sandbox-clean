@@ -102,15 +102,6 @@
                   <p class="cart-upsell-card__price">{{ upsell.price | money }}</p>
                 </div>
               </a>
-              <form method="post" action="{{ routes.cart_add_url }}" class="cart-upsell-form">
-                <input type="hidden" name="id" value="{{ upsell.selected_or_first_available_variant.id }}">
-                <input type="hidden" name="quantity" value="1">
-                <button type="submit" class="btn btn--sm btn--secondary" aria-label="Add {{ upsell.title }} to cart">
-                  {% assign add_label = 'cart.upsells.add' | t %}
-                  {% if add_label contains 'translation missing' %}{% assign add_label = 'Add' %}{% endif %}
-                  {{ add_label }}
-                </button>
-              </form>
             </div>
           {%- endif -%}
         {%- endfor -%}
