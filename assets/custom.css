@@ -108,7 +108,7 @@
 .product-form .product__submit,
 .shopify-payment-button__button--unbranded {
   width: 100%;
-  max-width: 100%;
+  max-width: 360px;
   margin-inline: 0;
 }
 .shopify-payment-button__button--unbranded {
