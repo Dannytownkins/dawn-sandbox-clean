@@ -252,9 +252,24 @@
 /* Drawer content spacing */
 #cart-drawer .cart-drawer__body,
 .cart-drawer .cart-drawer__body {
-  padding: 16px;
+  padding: 12px 16px;
   overflow-y: auto;
   max-height: calc(100vh - 80px);
+}
+
+/* Cart line items - remove white dividers */
+#cart-drawer .cart-line,
+.cart-drawer .cart-line {
+  border: none !important;
+  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+  padding: 12px 0;
+  margin: 0 !important;
+}
+
+#cart-drawer .cart-drawer__items,
+.cart-drawer .cart-drawer__items {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 /* Fixed footer at bottom - dark background, no white block */
@@ -268,6 +283,12 @@
   padding: 16px;
   border-top: 1px solid rgba(255,255,255,0.1);
   z-index: 10;
+}
+
+/* Hide discount code section - has translation errors */
+#cart-drawer .discount-inline,
+.cart-drawer .discount-inline {
+  display: none !important;
 }
 
 /* Remove white blocks from upsells */
@@ -297,6 +318,12 @@
   font-size: 0.85rem;
   opacity: 0.7;
   margin: 8px 0 12px;
+}
+
+/* Button spacing */
+#cart-drawer .btn--full-width,
+.cart-drawer .btn--full-width {
+  margin: 6px 0;
 }
 </style>
 
