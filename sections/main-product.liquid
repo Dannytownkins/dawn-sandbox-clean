@@ -476,7 +476,7 @@
                 {% render 'reassurance-icons' %}
                 {% render 'back-in-stock' %}
               {%- when 'trust_icons' -%}
-                {% render 'trust-icons', block: block %}
+                {%- comment -%} removed duplicate trust icons (already shown in buy_buttons block) {%- endcomment -%}
               {%- when 'faq' -%}
                 {% render 'faq-accordion', block: block %}
               {%- when 'rating' -%}
@@ -736,7 +736,7 @@
     </script>
   </div>
 </product-info>
-{% render 'sticky-atc', product: product, dev_force: settings.dev_force_in_stock %}
+{%- comment -%} removed duplicate sticky ATC {%- endcomment -%}
 
 {% schema %}
 {
@@ -2305,5 +2305,7 @@
   {{ product | json }}
 </script>
 
-{% render 'pdp-sticky-atc' %}
+{%- comment -%} removed duplicate sticky ATC {%- endcomment -%}
 {% render 'jsonld-product', product: product %}
+
+{% section 'product-recommendations' %}
