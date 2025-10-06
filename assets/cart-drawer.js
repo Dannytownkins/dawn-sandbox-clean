@@ -84,9 +84,13 @@ window.CartDrawer = {
   async refresh() {
     if (!this.drawer) return;
 
+    // Don't refresh if already refreshing
+    if (this._refreshing) return;
+    this._refreshing = true;
+
     try {
-      // Fetch cart data
-      const response = await fetch('/cart.js', {
+      // Use Shopify's section rendering API
+      const response = await fetch(window.location.href + '?sections=cart-drawer', {
         headers: {
           Accept: 'application/json',
         },
@@ -94,30 +98,27 @@ window.CartDrawer = {
 
       if (!response.ok) throw new Error('Failed to fetch cart');
 
-      const cart = await response.json();
+      const data = await response.json();
+      const cartDrawerHtml = data['cart-drawer'];
       
-      // Rebuild cart items HTML
-      const currentBody = this.drawer.querySelector('.cart-drawer__body');
-      if (!currentBody) return;
-
-      if (cart.item_count === 0) {
-        currentBody.innerHTML = `
-          <div class="cart-drawer__empty">
-            <p>Your cart is empty</p>
-            <a href="/collections/all" class="btn btn--primary" data-close-cart>Start Shopping</a>
-          </div>
-        `;
-      } else {
-        // Reload the entire page to refresh cart content properly
-        location.reload();
+      if (cartDrawerHtml) {
+        // Parse the HTML and extract just the body content
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(cartDrawerHtml, 'text/html');
+        const newBody = doc.querySelector('.cart-drawer__body');
+        const currentBody = this.drawer.querySelector('.cart-drawer__body');
+        
+        if (newBody && currentBody) {
+          currentBody.innerHTML = newBody.innerHTML;
+        }
       }
 
       // Update cart badge
       await this.updateCartBadge();
     } catch (error) {
       console.error('Cart refresh error:', error);
-      // Fallback: reload page
-      location.reload();
+    } finally {
+      this._refreshing = false;
     }
   },
 
