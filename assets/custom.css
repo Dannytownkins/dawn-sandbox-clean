@@ -30,6 +30,41 @@
   text-align: center;
 }
 
+/* ===== PRODUCT RECOMMENDATIONS: Larger images ===== */
+.product-recos .grid {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 2rem !important;
+}
+
+.product-recos .card-wrapper {
+  max-width: none !important;
+  margin-inline: 0 !important;
+}
+
+.product-recos .card--product .card__inner .media {
+  padding-top: 100% !important; /* Square aspect ratio */
+}
+
+.product-recos .card--product .media img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 750px) {
+  .product-recos .grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 3rem !important;
+  }
+}
+
+@media (min-width: 990px) {
+  .product-recos .grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 4rem !important;
+  }
+}
+
 /* Ensure header icons inherit the header foreground color, not forced white */
 .header__icon,
 .header__icon svg {
