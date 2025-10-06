@@ -3727,6 +3727,22 @@ html.cart-open, html.cart-open body {
 }
 .button[disabled], .btn[disabled] { opacity:.6; cursor:not-allowed; }
 
+/* Cart page checkout button - ensure visibility */
+.cart__checkout-button, .cart__checkout-button.button {
+  display: inline-flex !important;
+  background: var(--brand-yellow) !important;
+  color: #000 !important;
+  font-weight: 700 !important;
+  min-height: 48px !important;
+  padding: 14px 32px !important;
+}
+
+.cart__ctas {
+  display: flex !important;
+  justify-content: center !important;
+  margin: 16px 0 !important;
+}
+
 /* Ghost button */
 .btn-ghost { background:transparent; border:1px solid rgba(255,255,255,.25); color:#fff; }
 @media (prefers-color-scheme: light){ .btn-ghost{ color:#111; border-color: rgba(0,0,0,.2);} }
