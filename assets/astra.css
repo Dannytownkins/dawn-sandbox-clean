@@ -393,8 +393,9 @@ textarea:focus-visible {
   justify-content: space-between;
   gap: 16px;
   padding: 12px 20px;
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .logo {
