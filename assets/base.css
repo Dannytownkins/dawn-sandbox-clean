@@ -3828,15 +3828,28 @@ section[id*="shopify-section"][id*="cart"]:not([id*="main-cart"]) {
   overflow-y: visible !important;
 }
 
-/* Hide trust bar inside mobile menu drawer */
-.ast-drawer .usp-bar,
+/* CRITICAL: Hide trust bar inside mobile menu drawer */
+[data-mobile-menu] .usp,
+[data-mobile-menu] .trustbar,
+[data-mobile-menu] .usp-bar,
+[data-mobile-menu] [data-trust-bar],
+#ast-mobile-drawer .usp,
+#ast-mobile-drawer .trustbar,
+#ast-mobile-drawer .usp-bar,
+#ast-mobile-drawer [data-trust-bar],
 .ast-drawer .usp,
 .ast-drawer .trustbar,
-.ast-drawer [class*="trust"],
-#ast-mobile-drawer .usp-bar,
-#ast-mobile-drawer .usp,
-#ast-mobile-drawer .trustbar {
+.ast-drawer .usp-bar,
+.ast-drawer [data-trust-bar],
+.ast-drawer__panel .usp,
+.ast-drawer__panel .trustbar,
+.ast-drawer__panel .usp-bar,
+.ast-drawer__panel [data-trust-bar] {
   display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
 }
 
 .announcement-bar__usp {
