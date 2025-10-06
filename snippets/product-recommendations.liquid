@@ -11,6 +11,8 @@
   <product-recommendations
     class="grid grid--2-col-tablet grid--4-col-desktop"
     data-product-id="{{ product.id }}"
+    data-section-id="product-recommendations"
+    data-url="{{ routes.product_recommendations_url }}?section_id=product-recommendations&limit={{ limit }}&intent=related"
     data-limit="{{ limit }}"
   >
     {% if recommendations.performed and recommendations.products_count > 0 %}
