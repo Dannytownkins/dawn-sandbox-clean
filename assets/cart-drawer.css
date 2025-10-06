@@ -21,11 +21,12 @@
 }
 
 .cart-drawer__panel {
-  position: absolute; 
-  right: 0; 
-  top: 0; 
-  bottom: 0;
-  width: min(420px, 92vw);
+  position: absolute !important; 
+  right: 0 !important; 
+  left: auto !important;
+  top: 0 !important; 
+  bottom: 0 !important;
+  width: min(420px, 92vw) !important;
   background: #0b0b0c; 
   color: #fff;
   box-shadow: -12px 0 32px rgba(0, 0, 0, 0.35);
@@ -33,12 +34,12 @@
   outline: none;
   display: flex;
   flex-direction: column;
-  transform: translateX(100%);
+  transform: translateX(100%) !important;
   transition: transform 0.3s ease;
 }
 
 .cart-drawer:not([hidden]) .cart-drawer__panel {
-  transform: translateX(0);
+  transform: translateX(0) !important;
 }
 
 .cart-drawer__header {
