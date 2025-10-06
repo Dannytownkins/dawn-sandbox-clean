@@ -473,7 +473,7 @@
                 -%}
                 {% render 'urgency-inline', variant: product.selected_or_first_available_variant %}
                 {% render 'trust-badges' %}
-                {% render 'reassurance-icons' %}
+                {%- comment -%} removed duplicate reassurance-icons (keeping trust-badges with icons) {%- endcomment -%}
                 {% render 'back-in-stock' %}
               {%- when 'trust_icons' -%}
                 {%- comment -%} removed duplicate trust icons (already shown in buy_buttons block) {%- endcomment -%}
