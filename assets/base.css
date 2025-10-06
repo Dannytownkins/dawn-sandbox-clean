@@ -3819,12 +3819,24 @@ section[id*="shopify-section"][id*="cart"]:not([id*="main-cart"]) {
   display: none !important;
 }
 
-/* Trust bar mobile fix - no slider, proper wrapping */
+/* Trust bar mobile fix - no slider, proper wrapping, NEVER inside mobile menu */
 .announcement-bar__usp,
 .usp-bar,
+.usp.trustbar,
 [class*="trust"] {
   overflow-x: hidden !important;
   overflow-y: visible !important;
+}
+
+/* Hide trust bar inside mobile menu drawer */
+.ast-drawer .usp-bar,
+.ast-drawer .usp,
+.ast-drawer .trustbar,
+.ast-drawer [class*="trust"],
+#ast-mobile-drawer .usp-bar,
+#ast-mobile-drawer .usp,
+#ast-mobile-drawer .trustbar {
+  display: none !important;
 }
 
 .announcement-bar__usp {
@@ -3852,6 +3864,32 @@ section[id*="shopify-section"][id*="cart"]:not([id*="main-cart"]) {
     flex: 0 1 auto !important;
     min-width: fit-content !important;
   }
+}
+
+/* Fix mobile menu drawer visibility and layout */
+.ast-drawer__menu {
+  display: grid !important;
+  gap: 8px !important;
+  margin-top: 40px !important;
+}
+
+.ast-drawer__menu li {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.ast-drawer__menu a {
+  display: block !important;
+  padding: 12px 16px !important;
+  color: #fff !important;
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+}
+
+.ast-drawer__menu a:hover {
+  background: rgba(255,255,255,0.1) !important;
 }
 
 /* OVERRIDE all cart section padding */
