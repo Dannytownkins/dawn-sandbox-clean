@@ -17,7 +17,7 @@
   >
     {% if recommendations.performed and recommendations.products_count > 0 %}
       {% for reco in recommendations.products %}
-        {% render 'card-product', card_product: reco, media_aspect_ratio: 'square' %}
+        {% render 'card-product', card_product: reco, media_aspect_ratio: 'adapt' %}
       {% endfor %}
     {% endif %}
   </product-recommendations>
