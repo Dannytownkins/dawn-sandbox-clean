@@ -3727,15 +3727,29 @@ html.cart-open, html.cart-open body {
 }
 .button[disabled], .btn[disabled] { opacity:.6; cursor:not-allowed; }
 
-/* Cart page layout - footer at top */
+/* Cart page layout - compact, footer at top */
 .cart__footer-wrapper {
   order: -1 !important;
-  margin-bottom: 32px !important;
+  margin-bottom: 24px !important;
+  margin-top: 0 !important;
 }
 
-.main-cart-items {
+.main-cart-items, .cart-items {
   display: flex !important;
   flex-direction: column !important;
+}
+
+.cart__items {
+  margin-bottom: 24px !important;
+}
+
+/* Kill excessive spacing in cart */
+.cart-drawer__recommendations,
+.cart-recommendations,
+[data-id*="recommendation"],
+.cart__footer ~ *:not(.cart__footer-wrapper) {
+  margin-top: 24px !important;
+  margin-bottom: 24px !important;
 }
 
 /* Cart page checkout button - ensure visibility */
@@ -3752,13 +3766,22 @@ html.cart-open, html.cart-open body {
 .cart__ctas {
   display: flex !important;
   justify-content: center !important;
+  gap: 12px !important;
   margin: 16px 0 !important;
 }
 
-/* Cart recommendations - push to bottom */
+/* Cart recommendations - push to bottom, compact */
 .cart-drawer__recommendations,
 .cart-recommendations {
   order: 999 !important;
+  margin-top: 32px !important;
+}
+
+/* Remove excessive padding from cart sections */
+.section-main-cart-items-padding,
+[class*="cart"][class*="padding"] {
+  padding-top: 40px !important;
+  padding-bottom: 40px !important;
 }
 
 /* Ghost button */
