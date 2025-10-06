@@ -17,7 +17,7 @@ window.CartDrawer = {
 
   setupEventListeners() {
     // Open drawer triggers
-    document.addEventListener('click', (e) => {
+    document.addEventListener('click', e => {
       if (e.target.closest('[data-open-cart-drawer]') || e.target.closest('[data-open-cart]')) {
         e.preventDefault();
         this.open();
@@ -25,27 +25,30 @@ window.CartDrawer = {
     });
 
     // Close drawer triggers
-    this.drawer.addEventListener('click', (e) => {
+    this.drawer.addEventListener('click', e => {
       if (e.target.closest('[data-close-cart]') || e.target === this.drawer.querySelector('.cart-drawer__overlay')) {
         this.close();
       }
     });
 
     // Close on Escape key
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && this.isOpen) {
         this.close();
       }
     });
 
-    // Listen for add to cart events - just refresh drawer
+    // Listen for add to cart events - wait for Shopify to update, then refresh
     window.addEventListener('danliora_add_to_cart', async () => {
+      // Wait 300ms for Shopify backend to update
+      await new Promise(resolve => setTimeout(resolve, 300));
       await this.refresh();
       this.open();
     });
 
     // Also listen for Dawn's standard cart refresh event
     document.documentElement.addEventListener('cart:refresh', async () => {
+      await new Promise(resolve => setTimeout(resolve, 300));
       await this.refresh();
       this.open();
     });
@@ -89,10 +92,12 @@ window.CartDrawer = {
     this._refreshing = true;
 
     try {
-      // Fetch fresh cart HTML from the cart-drawer section
-      const response = await fetch('/?sections=cart-drawer', {
+      // Fetch fresh cart HTML from the cart-drawer section with cache-busting
+      const timestamp = Date.now();
+      const response = await fetch(`/?sections=cart-drawer&t=${timestamp}`, {
         headers: {
           Accept: 'application/json',
+          'Cache-Control': 'no-cache',
         },
       });
 
@@ -100,26 +105,26 @@ window.CartDrawer = {
 
       const data = await response.json();
       const cartDrawerHtml = data['cart-drawer'];
-      
+
       if (cartDrawerHtml) {
         // Create temporary container to parse HTML
         const temp = document.createElement('div');
         temp.innerHTML = cartDrawerHtml;
-        
-        // Extract just the body content
-        const newBody = temp.querySelector('.cart-drawer__body');
-        const currentBody = this.drawer.querySelector('.cart-drawer__body');
-        
-        if (newBody && currentBody) {
-          // Replace content
-          currentBody.innerHTML = newBody.innerHTML;
-        }
-        
-        // Also update progress bar if present
-        const newProgress = temp.querySelector('.cart-progress');
-        const currentProgress = this.drawer.querySelector('.cart-progress');
-        if (newProgress && currentProgress) {
-          currentProgress.outerHTML = newProgress.outerHTML;
+
+        // Extract and replace the ENTIRE drawer content
+        const newDrawerInner = temp.querySelector('.cart-drawer');
+        const currentDrawerInner = this.drawer.querySelector('.cart-drawer');
+
+        if (newDrawerInner && currentDrawerInner) {
+          // Replace entire inner content to ensure everything updates
+          currentDrawerInner.innerHTML = newDrawerInner.innerHTML;
+        } else {
+          // Fallback: just update body
+          const newBody = temp.querySelector('.cart-drawer__body');
+          const currentBody = this.drawer.querySelector('.cart-drawer__body');
+          if (newBody && currentBody) {
+            currentBody.innerHTML = newBody.innerHTML;
+          }
         }
       }
 
@@ -127,6 +132,8 @@ window.CartDrawer = {
       await this.updateCartBadge();
     } catch (error) {
       console.error('Cart refresh error:', error);
+      // If fetch fails, force reload as last resort
+      location.reload();
     } finally {
       this._refreshing = false;
     }
@@ -145,7 +152,7 @@ window.CartDrawer = {
       const cart = await response.json();
       const badges = document.querySelectorAll('[data-cart-count]');
 
-      badges.forEach((badge) => {
+      badges.forEach(badge => {
         badge.textContent = cart.item_count;
         badge.style.display = cart.item_count > 0 ? '' : 'none';
       });
