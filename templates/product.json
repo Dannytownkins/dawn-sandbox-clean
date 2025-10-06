@@ -49,15 +49,7 @@
           }
         }
       },
-      "block_order": [
-        "title",
-        "price",
-        "variant_picker",
-        "quantity_selector",
-        "buy_buttons",
-        "description",
-        "share"
-      ],
+      "block_order": ["title", "price", "variant_picker", "quantity_selector", "buy_buttons", "description", "share"],
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "",
@@ -93,8 +85,5 @@
       }
     }
   },
-  "order": [
-    "main",
-    "related"
-  ]
+  "order": ["main", "related"]
 }
