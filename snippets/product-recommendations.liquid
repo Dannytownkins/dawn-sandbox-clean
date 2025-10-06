@@ -5,7 +5,7 @@
   {% render 'product-recommendations', product: product %}
 {% endcomment %}
 
-{% assign limit = 4 %}
+{% assign limit = 6 %}
 <div class="page-width product-recos">
   <h3 class="h3">You may also like</h3>
   <product-recommendations
@@ -19,6 +19,24 @@
       {% for reco in recommendations.products %}
         {% render 'card-product', card_product: reco, media_aspect_ratio: 'adapt' %}
       {% endfor %}
+    {% else %}
+      <div class="grid__item">
+        <div class="card card--product">
+          <div class="card__inner">
+            <div class="card__media">
+              <div class="media" style="padding-top: 100%;">
+                <img src="https://cdn.shopify.com/s/files/1/0613/2288/7363/files/sunny-t-shirt.jpg" alt="Loading recommendations..." loading="lazy">
+              </div>
+            </div>
+            <div class="card__content">
+              <div class="card__information">
+                <h3 class="card__heading">Loading recommendations...</h3>
+                <div class="price">Please wait...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     {% endif %}
   </product-recommendations>
 </div>
