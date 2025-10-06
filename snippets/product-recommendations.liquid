@@ -1,0 +1,22 @@
+{% comment %}
+  Product recommendations snippet
+  
+  Usage:
+  {% render 'product-recommendations', product: product %}
+{% endcomment %}
+
+{% assign limit = 4 %}
+<div class="page-width product-recos">
+  <h3 class="h3">You may also like</h3>
+  <product-recommendations
+    class="grid grid--2-col-tablet grid--4-col-desktop"
+    data-product-id="{{ product.id }}"
+    data-limit="{{ limit }}"
+  >
+    {% if recommendations.performed and recommendations.products_count > 0 %}
+      {% for reco in recommendations.products %}
+        {% render 'card-product', card_product: reco, media_aspect_ratio: 'square' %}
+      {% endfor %}
+    {% endif %}
+  </product-recommendations>
+</div>
