@@ -3819,21 +3819,38 @@ section[id*="shopify-section"][id*="cart"]:not([id*="main-cart"]) {
   display: none !important;
 }
 
-/* Trust bar mobile slider fix */
-.footer-trust {
+/* Trust bar mobile fix - no slider, proper wrapping */
+.announcement-bar__usp,
+.usp-bar,
+[class*="trust"] {
   overflow-x: hidden !important;
+  overflow-y: visible !important;
+}
+
+.announcement-bar__usp {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: 8px 16px !important;
+}
+
+.announcement-bar__usp > * {
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
 }
 
 @media (max-width: 749px) {
-  .footer-trust {
-    display: flex !important;
+  .announcement-bar__usp {
     flex-wrap: wrap !important;
-    justify-content: center !important;
-    gap: 12px !important;
+    gap: 12px 16px !important;
+    padding: 12px 16px !important;
   }
   
-  .footer-trust > * {
-    flex: 0 0 auto !important;
+  .announcement-bar__usp > * {
+    flex: 0 1 auto !important;
+    min-width: fit-content !important;
   }
 }
 
