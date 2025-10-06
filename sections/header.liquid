@@ -55,7 +55,9 @@
 
       <!-- Mobile hamburger (visible ≤ 989px) -->
       <button class="ast-hamburger" aria-controls="ast-mobile-drawer" aria-expanded="false" aria-label="Open menu">
-        <span></span><span></span><span></span>
+        <svg class="icon icon-hamburger" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+          <path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z" fill="currentColor"/>
+        </svg>
       </button>
     </div>
   </div>
@@ -95,8 +97,8 @@
 header.header, .shopify-section-header { position: sticky; top: 0; z-index: 40; }
 
 /* Hamburger (clean icon) */
-.ast-hamburger{ display:none; width:44px; height:44px; align-items:center; justify-content:center; gap:5px; border:1px solid rgba(255,255,255,.25); border-radius:12px; background:transparent }
-.ast-hamburger span{ display:block; width:18px; height:2px; background:#fff }
+.ast-hamburger{ display:none; width:44px; height:44px; align-items:center; justify-content:center; border:0; background:transparent; color:currentColor }
+.ast-hamburger svg{ width:24px; height:24px; }
 
 /* Drawer */
 .ast-drawer[aria-hidden="true"]{ display:none }
