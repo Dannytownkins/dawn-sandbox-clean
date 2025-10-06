@@ -85,31 +85,39 @@ window.CartDrawer = {
     if (!this.drawer) return;
 
     try {
-      // Fetch cart content
-      const response = await fetch('/cart?view=drawer', {
+      // Fetch cart data
+      const response = await fetch('/cart.js', {
         headers: {
-          Accept: 'text/html',
+          Accept: 'application/json',
         },
       });
 
       if (!response.ok) throw new Error('Failed to fetch cart');
 
-      const html = await response.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const newContent = doc.querySelector('#cart-drawer .cart-drawer__body');
+      const cart = await response.json();
+      
+      // Rebuild cart items HTML
+      const currentBody = this.drawer.querySelector('.cart-drawer__body');
+      if (!currentBody) return;
 
-      if (newContent) {
-        const currentBody = this.drawer.querySelector('.cart-drawer__body');
-        if (currentBody) {
-          currentBody.innerHTML = newContent.innerHTML;
-        }
+      if (cart.item_count === 0) {
+        currentBody.innerHTML = `
+          <div class="cart-drawer__empty">
+            <p>Your cart is empty</p>
+            <a href="/collections/all" class="btn btn--primary" data-close-cart>Start Shopping</a>
+          </div>
+        `;
+      } else {
+        // Reload the entire page to refresh cart content properly
+        location.reload();
       }
 
       // Update cart badge
       await this.updateCartBadge();
     } catch (error) {
       console.error('Cart refresh error:', error);
+      // Fallback: reload page
+      location.reload();
     }
   },
 
