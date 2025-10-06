@@ -5,16 +5,22 @@
 
 {%- style -%}
   .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    padding-top: {{ section.settings.padding_top | default: 16 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 16 }}px;
   }
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
+  /* Button spacing control */
+  #main-cart-footer .cart__ctas {
+    gap: {{ section.settings.button_spacing | default: 12 }}px !important;
   }
+
+  /* Continue shopping button visibility */
+  {% unless section.settings.show_continue_shopping %}
+  #main-cart-footer .cart__ctas .button--secondary,
+  #main-cart-footer .cart__ctas a[href*="collection"] {
+    display: none !important;
+  }
+  {% endunless %}
 {%- endstyle -%}
 
 <div

@@ -7,16 +7,28 @@
 
 {%- style -%}
   .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    padding-top: {{ section.settings.padding_top | default: 20 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 20 }}px;
   }
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
+  /* Cart item spacing control */
+  #main-cart-items .cart__items tbody tr {
+    margin-bottom: {{ section.settings.item_spacing | default: 16 }}px;
   }
+
+  /* Recommendations spacing control */
+  {% if section.settings.show_recommendations %}
+  #main-cart-items ~ section,
+  .cart-items + section {
+    margin-top: {{ section.settings.recommendations_spacing | default: 32 }}px !important;
+  }
+  {% else %}
+  /* Hide recommendations if disabled */
+  #main-cart-items ~ section:not(#main-cart-footer),
+  .cart-items + section:not(.cart__footer-wrapper) {
+    display: none !important;
+  }
+  {% endif %}
 {%- endstyle -%}
 
 {%- unless settings.cart_type == 'drawer' -%}
