@@ -16,19 +16,42 @@
     margin-bottom: {{ section.settings.item_spacing | default: 16 }}px;
   }
 
+  /* Clean layout - remove bottom spacing */
+  #main-cart-items {
+    padding-bottom: 0 !important;
+  }
+
+  cart-items > div {
+    padding-bottom: 24px !important;
+  }
+
+  /* Checkout button styling */
+  .cart__checkout-wrapper .cart__checkout-button {
+    background: var(--brand-yellow) !important;
+    color: #000 !important;
+    border: 2px solid #000 !important;
+    font-weight: 700 !important;
+    min-height: 52px !important;
+    font-size: 1.1rem !important;
+  }
+
   /* Recommendations spacing control */
   {% if section.settings.show_recommendations %}
-  #main-cart-items ~ section,
-  .cart-items + section {
-    margin-top: {{ section.settings.recommendations_spacing | default: 32 }}px !important;
+  #main-cart-items ~ section:not(.cart__footer-wrapper) {
+    margin-top: {{ section.settings.recommendations_spacing | default: 24 }}px !important;
+    padding-top: 24px !important;
   }
   {% else %}
   /* Hide recommendations if disabled */
-  #main-cart-items ~ section:not(#main-cart-footer),
-  .cart-items + section:not(.cart__footer-wrapper) {
+  #main-cart-items ~ section:not(#main-cart-footer):not(.cart__footer-wrapper) {
     display: none !important;
   }
   {% endif %}
+
+  /* Hide the separate cart footer section - checkout is now inline */
+  .cart__footer-wrapper {
+    display: none !important;
+  }
 {%- endstyle -%}
 
 {%- unless settings.cart_type == 'drawer' -%}
