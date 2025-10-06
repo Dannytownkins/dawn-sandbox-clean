@@ -3931,32 +3931,13 @@ body.mobile-menu-open section.usp.trustbar {
   padding-bottom: 0 !important;
 }
 
-/* Product page - FORCE related products to be visible */
+/* Product page - compact related products */
 section[id*="related"],
 .related-products,
-product-recommendations,
 #shopify-section-template--*--related {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  margin-top: 48px !important;
-  padding-top: 48px !important;
-  padding-bottom: 48px !important;
-  border-top: 1px solid rgba(0,0,0,0.08);
-}
-
-/* Make sure the heading and grid are visible */
-.related-products__heading {
-  display: block !important;
-  visibility: visible !important;
-  margin-bottom: 32px !important;
-  font-size: 2rem !important;
-  font-weight: 700 !important;
-}
-
-.related-products .grid {
-  display: grid !important;
-  visibility: visible !important;
+  margin-top: 24px !important;
+  padding-top: 24px !important;
+  padding-bottom: 24px !important;
 }
 
 /* Ghost button */

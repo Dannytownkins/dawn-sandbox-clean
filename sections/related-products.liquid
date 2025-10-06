@@ -52,35 +52,16 @@
     data-section-id="{{ section.id }}"
     data-product-id="{{ product.id }}"
   >
-    {% comment %} Force heading to always show for debugging {% endcomment %}
-    <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}" style="display:block !important; visibility:visible !important;">
-      {{ section.settings.heading }}
-    </h2>
-    
-    {% comment %} Determine which products to show {% endcomment %}
     {% if recommendations.performed and recommendations.products_count > 0 %}
-      {% assign products_to_show = recommendations.products %}
-    {% else %}
-      {% comment %} Fallback: show products from the same collection as current product {% endcomment %}
-      {% if product.collections.size > 0 %}
-        {% assign first_collection = product.collections.first %}
-        {% assign products_to_show = first_collection.products | where_not: "id", product.id %}
-      {% else %}
-        {% comment %} Last resort: show all products {% endcomment %}
-        {% assign products_to_show = collections.all.products %}
-      {% endif %}
-    {% endif %}
-    
-    {% if products_to_show.size > 0 %}
+      <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}">
+        {{ section.settings.heading }}
+      </h2>
       <ul
         class="grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
         role="list"
       >
         {% assign skip_card_product_styles = false %}
-        {% assign max_products = section.settings.products_to_show | at_most: products_to_show.size %}
-        {% for i in (0..max_products) %}
-          {% assign recommendation = products_to_show[i] %}
-          {% if recommendation.id != product.id %}
+        {% for recommendation in recommendations.products %}
           <li class="grid__item">
             {% render 'card-product',
               card_product: recommendation,
@@ -93,7 +74,6 @@
             %}
           </li>
           {%- assign skip_card_product_styles = true -%}
-          {% endif %}
         {% endfor %}
       </ul>
     {% endif %}
