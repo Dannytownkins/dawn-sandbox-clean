@@ -98,6 +98,137 @@
   <div class="cart-drawer__overlay" data-close-cart></div>
 </div>
 
+<style>
+/* ===== CART DRAWER SCOPED STYLES ===== */
+/* Dark theme base */
+#cart-drawer, .cart-drawer {
+  color: #fff;
+  background: #0a0a0a;
+}
+#cart-drawer *, .cart-drawer * {
+  color: inherit;
+}
+
+/* Kill white slabs: product cards transparent on dark */
+#cart-drawer .card,
+#cart-drawer .product-card,
+#cart-drawer .collection-card,
+#cart-drawer .article-card,
+.cart-drawer .card,
+.cart-drawer .product-card,
+.cart-drawer .collection-card,
+.cart-drawer .article-card {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+}
+
+/* Titles/prices readable on dark */
+#cart-drawer .price,
+.cart-drawer .price { color: #fff; opacity: 0.92; }
+#cart-drawer .card__title,
+.cart-drawer .card__title { color: #fff; }
+
+/* Images: contained, rounded */
+#cart-drawer .card__media img,
+#cart-drawer .product-card__media img,
+.cart-drawer .card__media img,
+.cart-drawer .product-card__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  background: transparent;
+}
+
+/* Buttons: yellow fill, black stroke, no halo INSIDE drawer only */
+#cart-drawer .button,
+#cart-drawer .btn,
+.cart-drawer .button,
+.cart-drawer .btn {
+  background-color: #ecd96c !important;
+  border: 2px solid #000 !important;
+  background-clip: border-box !important;
+  border-radius: 9999px !important;
+  color: #000 !important;
+  box-shadow: 0 6px 12px rgba(0,0,0,.25) !important;
+}
+#cart-drawer .button::before,
+#cart-drawer .button::after,
+#cart-drawer .btn::before,
+#cart-drawer .btn::after,
+.cart-drawer .button::before,
+.cart-drawer .button::after,
+.cart-drawer .btn::before,
+.cart-drawer .btn::after {
+  display: none !important;
+}
+
+/* Button alignment */
+#cart-drawer .buttons,
+#cart-drawer .button-row,
+#cart-drawer .card__actions,
+.cart-drawer .buttons,
+.cart-drawer .button-row,
+.cart-drawer .card__actions {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+/* Hide duplicate CTAs in upsells (keep primary only) */
+#cart-drawer .card .button--secondary,
+#cart-drawer .card .quick-add,
+.cart-drawer .card .button--secondary,
+.cart-drawer .card .quick-add {
+  display: none !important;
+}
+
+/* Free shipping progress bar */
+#cart-drawer .progress,
+#cart-drawer .cart-progress__bar,
+.cart-drawer .progress,
+.cart-drawer .cart-progress__bar {
+  background: rgba(255,255,255,.12);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+#cart-drawer .progress__bar,
+#cart-drawer .cart-progress__bar span,
+.cart-drawer .progress__bar,
+.cart-drawer .cart-progress__bar span {
+  background: #ecd96c !important;
+}
+
+/* Prevent oversized white blocks in upsells */
+#cart-drawer .upsell-grid .card__content,
+#cart-drawer .xsell .card,
+.cart-drawer .upsell-grid .card__content,
+.cart-drawer .xsell .card {
+  background: transparent !important;
+}
+
+/* Typography consistency */
+#cart-drawer h1,
+#cart-drawer h2,
+#cart-drawer h3,
+#cart-drawer h4,
+.cart-drawer h1,
+.cart-drawer h2,
+.cart-drawer h3,
+.cart-drawer h4 {
+  color: #fff;
+}
+
+/* Drawer content spacing */
+#cart-drawer .cart-drawer__body,
+.cart-drawer .cart-drawer__body {
+  padding: 16px 16px 24px;
+}
+</style>
+
 <script>
 document.addEventListener('click', async (e) => {
   const btn = e.target.closest('.qty__btn');
