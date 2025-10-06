@@ -38,29 +38,17 @@ window.CartDrawer = {
       }
     });
 
-    // Listen for add to cart events
-    window.addEventListener('danliora_add_to_cart', () => {
-      // Simple approach: reload page once to refresh cart
-      if (!sessionStorage.getItem('cart_just_added')) {
-        sessionStorage.setItem('cart_just_added', '1');
-        location.reload();
-      }
+    // Listen for add to cart events - just refresh drawer
+    window.addEventListener('danliora_add_to_cart', async () => {
+      await this.refresh();
+      this.open();
     });
 
     // Also listen for Dawn's standard cart refresh event
-    document.documentElement.addEventListener('cart:refresh', () => {
-      // Simple approach: reload page once to refresh cart
-      if (!sessionStorage.getItem('cart_just_added')) {
-        sessionStorage.setItem('cart_just_added', '1');
-        location.reload();
-      }
-    });
-    
-    // Clear the flag after page loads
-    if (sessionStorage.getItem('cart_just_added')) {
-      sessionStorage.removeItem('cart_just_added');
+    document.documentElement.addEventListener('cart:refresh', async () => {
+      await this.refresh();
       this.open();
-    }
+    });
   },
 
   open() {
