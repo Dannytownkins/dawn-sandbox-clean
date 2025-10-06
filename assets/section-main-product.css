@@ -365,19 +365,25 @@ a.product__text {
 
 .product-form__buttons {
   max-width: 44rem;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
-.product-form__buttons .product-form__submit,
+.product-form__buttons > * {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.product-form__buttons .product-form__submit {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
 .product-form__buttons .shopify-payment-button {
   width: 100%;
+  margin: 0;
 }
 
 .product-form__buttons .shopify-payment-button__button {
   width: 100% !important;
-  margin: 0 !important;
 }
 
 .product--no-media .product__info-container > modal-opener {
