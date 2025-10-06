@@ -127,8 +127,18 @@ header.header, .shopify-section-header { position: sticky; top: 0; z-index: 40; 
   var btn = document.querySelector('.ast-hamburger');
   var drawer = document.getElementById('ast-mobile-drawer');
   if(!btn || !drawer) return;
-  var open = function(){ drawer.setAttribute('aria-hidden','false'); btn.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; };
-  var close = function(){ drawer.setAttribute('aria-hidden','true'); btn.setAttribute('aria-expanded','false'); document.body.style.overflow=''; };
+  var open = function(){ 
+    drawer.setAttribute('aria-hidden','false'); 
+    btn.setAttribute('aria-expanded','true'); 
+    document.body.style.overflow='hidden';
+    document.body.classList.add('mobile-menu-open');
+  };
+  var close = function(){ 
+    drawer.setAttribute('aria-hidden','true'); 
+    btn.setAttribute('aria-expanded','false'); 
+    document.body.style.overflow='';
+    document.body.classList.remove('mobile-menu-open');
+  };
   btn.addEventListener('click', open);
   drawer.querySelectorAll('[data-close]').forEach(function(n){ n.addEventListener('click', close); });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });

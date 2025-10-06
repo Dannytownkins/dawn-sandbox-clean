@@ -3828,7 +3828,19 @@ section[id*="shopify-section"][id*="cart"]:not([id*="main-cart"]) {
   overflow-y: visible !important;
 }
 
-/* CRITICAL: Hide trust bar inside mobile menu drawer */
+/* CRITICAL: Hide trust bar when mobile menu is open */
+body.mobile-menu-open .usp,
+body.mobile-menu-open .trustbar,
+body.mobile-menu-open .usp-bar,
+body.mobile-menu-open [data-trust-bar],
+body.mobile-menu-open section.usp.trustbar {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Also hide trust bar inside mobile menu drawer */
 [data-mobile-menu] .usp,
 [data-mobile-menu] .trustbar,
 [data-mobile-menu] .usp-bar,
