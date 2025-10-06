@@ -15,6 +15,23 @@
   }
 {%- endstyle -%}
 
+<div class="section section-{{ section.id }}">
+<style>
+  .section-{{ section.id }} {
+    padding-block: {{ section.settings.pad_y | default: 40 }}px;
+    text-align: {{ section.settings.text_align | default: 'left' }};
+  }
+  .section-{{ section.id }} :where(.image, .media, .card__media, .image-with-text__media, .multicolumn-card__image) img {
+    max-width: {{ section.settings.image_max | default: 800 }}px;
+    height: auto;
+  }
+  .section-{{ section.id }} :where(.buttons, .button-row, .card__actions, .cta-row) {
+    display: flex;
+    justify-content: {% if section.settings.button_align == 'center' %}center{% elsif section.settings.button_align == 'right' %}flex-end{% else %}flex-start{% endif %};
+    gap: .5rem;
+    flex-wrap: wrap;
+  }
+</style>
 {%- liquid
   assign columns_mobile_int = section.settings.columns_mobile | plus: 0
   assign show_mobile_slider = false
@@ -188,6 +205,7 @@
       {%- endif -%}
     </div>
   </div>
+</div>
 </div>
 
 {% schema %}
@@ -397,6 +415,52 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Design Controls"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "pad_y",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "image_max",
+      "min": 240,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Max image width",
+      "default": 800
+    },
+    {
+      "type": "select",
+      "id": "button_align",
+      "label": "Button alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
     }
   ],
   "blocks": [

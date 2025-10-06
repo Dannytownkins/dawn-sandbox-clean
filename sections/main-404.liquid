@@ -1,3 +1,20 @@
+<div class="section section-{{ section.id }}">
+<style>
+  .section-{{ section.id }} {
+    padding-block: {{ section.settings.pad_y | default: 40 }}px;
+    text-align: {{ section.settings.text_align | default: 'left' }};
+  }
+  .section-{{ section.id }} :where(.image, .media, .card__media, .image-with-text__media) img {
+    max-width: {{ section.settings.image_max | default: 800 }}px;
+    height: auto;
+  }
+  .section-{{ section.id }} :where(.buttons, .button-row, .card__actions, .cta-row, .button) {
+    display: flex;
+    justify-content: {% if section.settings.button_align == 'center' %}center{% elsif section.settings.button_align == 'right' %}flex-end{% else %}flex-start{% endif %};
+    gap: .5rem;
+    flex-wrap: wrap;
+  }
+</style>
 <section class="section">
   <div class="page-width" style="max-width:1100px;margin:0 auto;">
     <h1 class="h1" style="margin:0 0 8px;">Page not found</h1>
@@ -15,4 +32,55 @@
     </div>
   </div>
 </section>
-{% schema %}{ "name": "404" }{% endschema %}
+</div>
+{% schema %}{
+  "name": "404",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Design Controls"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "pad_y",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "image_max",
+      "min": 240,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Max image width",
+      "default": 800
+    },
+    {
+      "type": "select",
+      "id": "button_align",
+      "label": "Button alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    }
+  ]
+}{% endschema %}
