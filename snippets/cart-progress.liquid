@@ -1,4 +1,4 @@
-{% assign threshold = 5000 %} {# $50.00 in cents #}
+{% assign threshold = 5000 %}
 {% assign subtotal = cart.total_price %}
 {% assign remaining = threshold | minus: subtotal %}
 <div class="cart-progress">
