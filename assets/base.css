@@ -3727,21 +3727,23 @@ html.cart-open, html.cart-open body {
 }
 .button[disabled], .btn[disabled] { opacity:.6; cursor:not-allowed; }
 
-/* Cart page layout - compact, footer at top */
+/* Cart page layout - ULTRA compact, footer at top */
 .cart__footer-wrapper {
   order: -1 !important;
   margin: 0 !important;
   padding: 0 !important;
 }
 
+#main-cart-footer,
 .cart__footer {
   margin: 0 !important;
-  padding: 16px 0 !important;
+  padding: 0 !important;
 }
 
 .main-cart-items, .cart-items, cart-items {
   display: flex !important;
   flex-direction: column !important;
+  padding: 20px 0 !important;
 }
 
 .cart__items {
@@ -3766,7 +3768,7 @@ html.cart-open, html.cart-open body {
   flex-direction: row !important;
   justify-content: center !important;
   gap: 12px !important;
-  margin: 0 !important;
+  margin: 16px 0 !important;
   padding: 0 !important;
 }
 
@@ -3776,16 +3778,25 @@ html.cart-open, html.cart-open body {
   color: #000 !important;
 }
 
-/* Kill ALL excessive cart spacing */
+/* NUCLEAR option - kill ALL cart spacing */
 .cart-items form,
-.cart-items form > *,
-.cart__footer > *,
+.cart-items form > div,
+.cart__footer > div,
+.cart__footer .page-width,
 .cart__blocks,
 .cart__note,
 .totals,
-.js-contents {
-  margin-top: 0 !important;
-  margin-bottom: 12px !important;
+.js-contents,
+cart-items > div,
+#main-cart-items > div,
+#main-cart-footer > div {
+  margin: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.cart__blocks > * {
+  margin-bottom: 16px !important;
 }
 
 /* Cart recommendations - compact at bottom */
@@ -3795,20 +3806,23 @@ section[id*="shopify-section"][id*="cart"]:not([id*="main-cart"]) {
   padding: 24px 0 !important;
 }
 
-/* Remove excessive padding from cart sections */
+/* OVERRIDE all cart section padding */
 .section-main-cart-items-padding,
 .section-main-cart-footer-padding,
-[class*="cart"][class*="padding"] {
-  padding-top: 20px !important;
-  padding-bottom: 20px !important;
+[class*="cart"][class*="padding"],
+#main-cart-items,
+#main-cart-footer {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 /* Product page - compact related products */
 section[id*="related"],
-.related-products {
-  margin-top: 32px !important;
-  padding-top: 32px !important;
-  padding-bottom: 32px !important;
+.related-products,
+#shopify-section-template--*--related {
+  margin-top: 24px !important;
+  padding-top: 24px !important;
+  padding-bottom: 24px !important;
 }
 
 /* Ghost button */
