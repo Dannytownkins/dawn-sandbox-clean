@@ -486,6 +486,10 @@
         </button>
       </div>
 
+      {% if cart.items.size > 0 and section.settings.show_recommendations %}
+        {% render 'cart-cross-sell' %}
+      {% endif %}
+
       <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status"></p>
       <p
         class="visually-hidden"
