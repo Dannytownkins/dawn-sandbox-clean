@@ -17,7 +17,7 @@
     margin: 0 auto;
     padding: 12px clamp(12px, 3vw, 24px);
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 12px;
     color: #eaeaea;
     font-weight: 600;
@@ -25,15 +25,24 @@
   .usp__item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    white-space: nowrap;
+    justify-content: center;
+    gap: 8px;
     opacity: 0.95;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    text-align: center;
+  }
+  .usp__item span {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
   }
   @media (max-width: 900px) {
     .usp__wrap {
       grid-template-columns: 1fr;
       justify-items: center;
-      text-align: center;
+    }
+    .usp__item {
+      white-space: nowrap;
     }
   }
   @media (prefers-color-scheme: light) {
