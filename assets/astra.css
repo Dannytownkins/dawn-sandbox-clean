@@ -451,7 +451,7 @@ textarea:focus-visible {
 .nav-list a:focus-visible {
   background: #151518;
   color: #fff;
-  outline: 2px solid transparent;
+  outline: 2px solid rgba(255, 255, 255, 0.15);
 }
 
 /* Header CTAs */
