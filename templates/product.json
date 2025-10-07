@@ -54,9 +54,22 @@
           "settings": {
             "text_style": "body"
           }
+        },
+        "complementary": {
+          "type": "complementary",
+          "settings": {
+            "block_heading": "You may also like",
+            "make_collapsible_row": false,
+            "icon": "price_tag",
+            "product_list_limit": 10,
+            "products_per_page": 3,
+            "pagination_style": "counter",
+            "image_ratio": "square",
+            "enable_quick_add": false
+          }
         }
       },
-      "block_order": ["title", "price", "variant_picker", "quantity_selector", "buy_buttons", "description", "share", "sku_QrGXpp"],
+      "block_order": ["title", "price", "variant_picker", "quantity_selector", "buy_buttons", "description", "share", "complementary", "sku_QrGXpp"],
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "",
@@ -75,6 +88,7 @@
     },
     "related": {
       "type": "related-products",
+      "disabled": true,
       "settings": {
         "heading": "You may also like",
         "heading_size": "h2",
