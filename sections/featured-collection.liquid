@@ -31,19 +31,27 @@
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <div
-    class="featured-collection container section-{{ section.id }}-padding isolate scroll-reveal"
+    class="related-products page-width section-{{ section.id }}-padding isolate"
   >
     {% if products_to_show > 0 %}
-      <h2 class="featured-collection__title {{ section.settings.heading_size }}">
+      <h2 class="title {{ section.settings.heading_size }}">
         {{ section.settings.title | escape }}
       </h2>
       <ul
-        class="product-grid"
+        class="grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
         role="list"
       >
         {% for product in collection.products limit: products_to_show %}
           <li class="grid__item">
-            {% render 'product-card-astra', card_product: product %}
+            {% render 'card-product',
+              card_product: product,
+              media_aspect_ratio: section.settings.image_ratio,
+              image_shape: section.settings.image_shape,
+              show_secondary_image: section.settings.show_secondary_image,
+              show_vendor: section.settings.show_vendor,
+              show_rating: section.settings.show_rating,
+              enable_quick_add: section.settings.enable_quick_add
+            %}
           </li>
         {% endfor %}
       </ul>
