@@ -56,9 +56,10 @@
   }
 {%- endstyle -%}
 
-<div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="section-{{ section.id }}-padding{% if section.settings.full_width %} featured-collection--full-width{% endif %}">
-    <ul class="product-grid grid grid--2-col-desktop grid--2-col-tablet-down grid--force-two">
+<div class="featured-collection">
+  <div class="color-{{ section.settings.color_scheme }} gradient">
+    <div class="section-{{ section.id }}-padding{% if section.settings.full_width %} featured-collection--full-width{% endif %}">
+      <ul class="product-grid grid grid--2-col-desktop grid--2-col-tablet-down grid--force-two">
         {% assign skip_card_product_styles = false %}
 
         {%- if section.settings.collection.products.size > 0 -%}
@@ -101,7 +102,8 @@
             </li>
           {%- endfor -%}
         {%- endif -%}
-    </ul>
+      </ul>
+    </div>
   </div>
 </div>
 
