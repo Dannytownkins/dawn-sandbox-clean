@@ -2,9 +2,32 @@
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 
 <style>
-  #shopify-section-{{ section.id }} .card__inner { aspect-ratio:auto; }
-  #shopify-section-{{ section.id }} .card__media img{ object-fit:contain !important; }
-  #shopify-section-{{ section.id }} .grid{ grid-template-columns: repeat({{ section.settings.columns_desktop }}, minmax(0,1fr)); gap: 28px; }
+  #shopify-section-{{ section.id }} .featured-collection {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  #shopify-section-{{ section.id }} .featured-collection__title {
+    text-align: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .product-grid {
+      display: grid;
+      grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+      column-gap: 2rem;
+      row-gap: 2rem;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .product-grid {
+      display: grid;
+      grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr);
+      column-gap: 1rem;
+      row-gap: 1rem;
+    }
+  }
 </style>
 
 {%- unless section.settings.quick_add == 'none' -%}
@@ -17,27 +40,21 @@
 {%- endif -%}
 
 {%- liquid
-  assign products_to_display = section.settings.collection.all_products_count
+  assign collection = section.settings.collection
+  assign products_to_show = section.settings.products_to_show | at_most: collection.products.size
 
-  if section.settings.collection.all_products_count > section.settings.products_to_show
-    assign products_to_display = section.settings.products_to_show
-    assign more_in_collection = true
+  if collection.products.size == 0
+    assign products_to_show = 0
   endif
 
   assign columns_mobile_int = section.settings.columns_mobile | plus: 0
-  assign columns_desktop_int = section.settings.columns_desktop | plus: 0
   assign show_mobile_slider = false
-  if section.settings.swipe_on_mobile and products_to_display > columns_mobile_int
+  if section.settings.swipe_on_mobile and products_to_show > columns_mobile_int
     assign show_mobile_slider = true
   endif
 
-  assign max_columns_to_show = columns_mobile_int
-  if columns_desktop_int > columns_mobile_int
-    assign max_columns_to_show = columns_desktop_int
-  endif
-
   assign show_desktop_slider = false
-  if section.settings.enable_desktop_slider and products_to_display > section.settings.columns_desktop
+  if section.settings.enable_desktop_slider and products_to_show > section.settings.columns_desktop
     assign show_desktop_slider = true
   endif
 -%}
@@ -56,55 +73,24 @@
   }
 {%- endstyle -%}
 
-<div class="featured-collection">
-  <div class="color-{{ section.settings.color_scheme }} gradient">
-    <div class="section-{{ section.id }}-padding{% if section.settings.full_width %} featured-collection--full-width{% endif %}">
-      <ul class="product-grid grid grid--2-col-desktop grid--2-col-tablet-down grid--force-two">
-        {% assign skip_card_product_styles = false %}
-
-        {%- if section.settings.collection.products.size > 0 -%}
-          {% assign lazy_load = false %}
-          {% paginate section.settings.collection.products by section.settings.products_to_show %}
-            {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
-              {% if lazy_load == false and forloop.index > max_columns_to_show %}
-                {% assign lazy_load = true %}
-              {% endif %}
-              <li class="grid__item">
-                {% render 'card-product',
-                  card_product: product,
-                  section_id: section.id,
-                  show_quick_add: true
-                %}
-              </li>
-              {%- assign skip_card_product_styles = true -%}
-            {%- endfor -%}
-          {% endpaginate %}
-        {%- else -%}
-          {%- for i in (1..section.settings.columns_desktop) -%}
-            <li class="grid__item">
-              {% liquid
-                assign ridx = forloop.rindex
-                case ridx
-                  when 5
-                    assign ridx = 1
-                  when 6
-                    assign ridx = 2
-                endcase
-              %}
-              {%- assign placeholder_image = 'product-apparel-' | append: ridx -%}
-              {% render 'card-product',
-                show_vendor: section.settings.show_vendor,
-                media_aspect_ratio: section.settings.image_ratio,
-                image_shape: section.settings.image_shape,
-                lazy_load: false,
-                placeholder_image: placeholder_image
-              %}
-            </li>
-          {%- endfor -%}
-        {%- endif -%}
+<div class="featured-collection color-{{ section.settings.color_scheme }} gradient">
+    <div class="page-width">
+      <h2 class="featured-collection__title">{{ section.settings.title }}</h2>
+      <ul class="product-grid">
+        {%- for product in collection.products limit: section.settings.products_to_show -%}
+          <li class="grid__item">
+            {% render 'card-product',
+              card_product: product,
+              media_aspect_ratio: section.settings.image_ratio,
+              show_secondary_image: section.settings.show_secondary_image,
+              show_vendor: section.settings.show_vendor,
+              show_rating: section.settings.show_rating,
+              enable_quick_add: section.settings.enable_quick_add
+            %}
+          </li>
+        {%- endfor -%}
       </ul>
     </div>
-  </div>
 </div>
 
 {% schema %}
