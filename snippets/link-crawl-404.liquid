@@ -1,0 +1,35 @@
+<style>
+.qa-crawl{position:fixed;left:16px;right:16px;bottom:16px;z-index:9998;background:#111;color:#fff;border-radius:12px;padding:12px 14px;box-shadow:0 12px 30px rgba(0,0,0,.35);font:14px/1.4 system-ui}
+.qa-crawl progress{width:100%}
+.qa-crawl .bad{color:#fca5a5}
+.qa-crawl .redirect{color:#fde047}
+</style>
+<script>
+(function(){
+  if (new URLSearchParams(location.search).get('qa')!=='links') return;
+  function ui(){ var d=document.createElement('div'); d.className='qa-crawl'; d.innerHTML='<div><b>Link crawl</b> — checking internal links on this page</div><progress max="1" value="0"></progress><div class="log" style="max-height:32vh;overflow:auto;margin-top:6px"></div>'; document.body.appendChild(d); return d; }
+  function log(el, msg, cls){ var row=document.createElement('div'); if(cls) row.className=cls; row.textContent=msg; el.querySelector('.log').appendChild(row); }
+  var box = ui();
+  var anchors = Array.from(document.querySelectorAll('a[href]'))
+    .map(a=>a.getAttribute('href'))
+    .filter(h=>h && h.charAt(0)==='/' && !h.startsWith('/#') && !h.startsWith('/cart') && !h.startsWith('/account') && !h.startsWith('/checkout'))
+    .map(h=>h.split('#')[0])
+    .filter((h,i,arr)=>arr.indexOf(h)===i)
+    .slice(0,120);
+  var done=0, bad=0, redir=0;
+  box.querySelector('progress').max = anchors.length||1;
+  function tick(){ done++; box.querySelector('progress').value = done; }
+  function check(href){
+    return fetch(href, {method:'GET', credentials:'same-origin'}).then(function(res){
+      if (res.status>=400){ bad++; log(box, res.status+' '+href, 'bad'); }
+      else if (res.redirected || (res.status>=300 && res.status<400)){ redir++; log(box, '→ '+(res.status||'3xx')+' '+href+' → '+res.url, 'redirect'); }
+    }).catch(function(){ bad++; log(box, 'ERR '+href, 'bad'); })
+      .finally(tick);
+  }
+  (async function run(){
+    for (let i=0;i<anchors.length;i+=8){ await Promise.all(anchors.slice(i,i+8).map(check)); }
+    log(box, 'Done. Links: '+anchors.length+' • 404/4xx: '+bad+' • Redirects: '+redir);
+    console.info('Crawl finished', {links:anchors.length, bad, redir});
+  })();
+})();
+</script>

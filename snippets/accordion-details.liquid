@@ -1,0 +1,115 @@
+{%- comment -%}
+  Accordion Details
+  Renders collapsible product information panels
+  
+  Usage:
+    {% render 'accordion-details' %}
+{%- endcomment -%}
+
+{%- if settings.pdp_show_accordions -%}
+  <div class="product-accordions">
+    {%- if settings.accordion_shipping -%}
+      <details class="accordion">
+        <summary class="accordion__summary">
+          <span>{{ 'products.product.shipping_returns' | t }}</span>
+          <svg class="icon icon-caret" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
+            <path d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z"/>
+          </svg>
+        </summary>
+        <div class="accordion__content">
+          {{ settings.accordion_shipping_text }}
+        </div>
+      </details>
+    {%- endif -%}
+
+    {%- if settings.accordion_care -%}
+      <details class="accordion">
+        <summary class="accordion__summary">
+          <span>{{ 'products.product.care_instructions' | t }}</span>
+          <svg class="icon icon-caret" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
+            <path d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z"/>
+          </svg>
+        </summary>
+        <div class="accordion__content">
+          {{ settings.accordion_care_text }}
+        </div>
+      </details>
+    {%- endif -%}
+
+    {%- if settings.accordion_sizing -%}
+      <details class="accordion">
+        <summary class="accordion__summary">
+          <span>{{ 'products.product.sizing' | t }}</span>
+          <svg class="icon icon-caret" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
+            <path d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z"/>
+          </svg>
+        </summary>
+        <div class="accordion__content">
+          {{ settings.accordion_sizing_text }}
+        </div>
+      </details>
+    {%- endif -%}
+
+    {%- if settings.accordion_fabric -%}
+      <details class="accordion">
+        <summary class="accordion__summary">
+          <span>{{ 'products.product.fabric' | t }}</span>
+          <svg class="icon icon-caret" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true">
+            <path d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z"/>
+          </svg>
+        </summary>
+        <div class="accordion__content">
+          {{ settings.accordion_fabric_text }}
+        </div>
+      </details>
+    {%- endif -%}
+  </div>
+
+  <style>
+    .product-accordions {
+      margin: 1.5rem 0;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .accordion {
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .accordion__summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      cursor: pointer;
+      font-weight: 600;
+      list-style: none;
+      user-select: none;
+    }
+
+    .accordion__summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .accordion__summary .icon-caret {
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+      margin-left: 1rem;
+    }
+
+    .accordion[open] .accordion__summary .icon-caret {
+      transform: rotate(180deg);
+    }
+
+    .accordion__content {
+      padding: 0 0 1rem 0;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .accordion__summary .icon-caret {
+        transition: none;
+      }
+    }
+  </style>
+{%- endif -%}

@@ -1,0 +1,165 @@
+{% comment %}
+  Inline Discount Code Capture
+  Note: Shopify doesn't allow applying discount codes via Liquid/AJAX
+  This is a UX surface to capture codes for checkout
+  
+  Usage:
+  {% render 'discount-code-inline' %}
+{% endcomment %}
+
+<div class="discount-inline">
+  <details class="discount-inline__details">
+    <summary class="discount-inline__summary">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+        <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.629 13.09a1 1 0 0 1-.629-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+      </svg>
+      <span>{{ 'cart.discount.have_code' | t }}</span>
+    </summary>
+    <div class="discount-inline__content">
+      <form class="discount-inline__form" data-discount-form>
+        <input
+          type="text"
+          name="discount_code"
+          id="discount-code-input"
+          class="discount-inline__input"
+          placeholder="{{ 'cart.discount.placeholder' | t }}"
+          aria-label="{{ 'cart.discount.aria_label' | t }}"
+        >
+        <button type="submit" class="btn btn--sm btn--secondary">
+          {{ 'cart.discount.apply' | t }}
+        </button>
+      </form>
+      <p class="discount-inline__note" id="discount-message" role="status" aria-live="polite"></p>
+    </div>
+  </details>
+</div>
+
+<script>
+  (() => {
+    const form = document.querySelector('[data-discount-form]');
+    const input = document.getElementById('discount-code-input');
+    const message = document.getElementById('discount-message');
+    
+    if (!form) return;
+    
+    // Check for saved discount code
+    const savedCode = localStorage.getItem('danliora_discount_code');
+    if (savedCode) {
+      input.value = savedCode;
+      message.textContent = '{{ 'cart.discount.saved' | t }}';
+      message.classList.add('discount-inline__note--success');
+    }
+    
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const code = input.value.trim().toUpperCase();
+      
+      if (!code) {
+        message.textContent = '{{ 'cart.discount.error_empty' | t }}';
+        message.classList.remove('discount-inline__note--success');
+        message.classList.add('discount-inline__note--error');
+        return;
+      }
+      
+      // Save to localStorage (will be available on checkout)
+      localStorage.setItem('danliora_discount_code', code);
+      
+      // Add to cart note as well
+      fetch('/cart/update.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          note: `Discount code: ${code}`
+        })
+      })
+      .then(res => res.json())
+      .then(() => {
+        message.textContent = '{{ 'cart.discount.success' | t }}';
+        message.classList.remove('discount-inline__note--error');
+        message.classList.add('discount-inline__note--success');
+        
+        // Dispatch event for potential integrations
+        document.dispatchEvent(new CustomEvent('danliora_discount_saved', {
+          detail: { code }
+        }));
+      })
+      .catch(err => {
+        console.error('Discount save error:', err);
+        message.textContent = '{{ 'cart.discount.error' | t }}';
+        message.classList.add('discount-inline__note--error');
+      });
+    });
+  })();
+</script>
+
+<style>
+  .discount-inline {
+    margin: 12px 0;
+  }
+  
+  .discount-inline__details {
+    background: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .discount-inline__summary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 14px;
+    font-weight: 600;
+    list-style: none;
+  }
+  
+  .discount-inline__summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  .discount-inline__summary svg {
+    flex-shrink: 0;
+    color: #666;
+  }
+  
+  .discount-inline__content {
+    padding: 0 12px 12px;
+  }
+  
+  .discount-inline__form {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .discount-inline__input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+  
+  .discount-inline__input:focus {
+    outline: 2px solid var(--focus, #eded6b);
+    outline-offset: 2px;
+  }
+  
+  .discount-inline__note {
+    font-size: 13px;
+    margin: 0;
+    min-height: 18px;
+  }
+  
+  .discount-inline__note--success {
+    color: #28a745;
+  }
+  
+  .discount-inline__note--error {
+    color: #dc3545;
+  }
+</style>

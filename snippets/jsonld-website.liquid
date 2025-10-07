@@ -1,0 +1,10 @@
+{%- assign site_name = shop.name | escape -%}
+{%- assign site_url  = shop.url  -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ site_name }}",
+  "url": "{{ site_url }}"
+}
+</script>

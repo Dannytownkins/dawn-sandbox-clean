@@ -1,0 +1,103 @@
+<style>
+.usp.trustbar{ 
+  background:#0a0a0a; 
+  color:#fff; 
+  padding:6px 20px; 
+  border-top:1px solid rgba(255,255,255,.06); 
+  overflow: visible;
+  position: relative;
+  z-index: 10;
+}
+.usp__wrap{ 
+  display:flex !important; 
+  align-items:center; 
+  justify-content:center; 
+  gap:20px; 
+  flex-wrap:wrap !important;
+  max-width: 1400px;
+  margin: 0 auto;
+  overflow: visible;
+}
+.usp__item{ 
+  display:flex; 
+  align-items:center; 
+  gap:6px; 
+  font-size:.875rem; 
+  opacity:.86;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+@media(max-width: 749px){
+  .usp.trustbar{ 
+    padding:12px 16px; 
+  }
+  .usp__wrap{ 
+    gap:12px 16px !important; 
+    font-size:.85rem; 
+    justify-content:center !important;
+  }
+  .usp__item{ 
+    flex: 0 1 auto;
+    min-width: fit-content;
+  }
+}
+</style>
+<section class="usp trustbar" data-trust-bar>
+  <div class="usp__wrap">
+    <div class="usp__item">🔒 <span>SSL Secure Checkout</span></div>
+    <div class="usp__item">↩️ <span>30-Day Returns</span></div>
+    <div class="usp__item">🚚 <span>Free Shipping $50+</span></div>
+  </div>
+</section>
+{% schema %}{
+  "name": "Trust bar (USPs)",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Design Controls"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "pad_y",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "image_max",
+      "min": 240,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Max image width",
+      "default": 800
+    },
+    {
+      "type": "select",
+      "id": "button_align",
+      "label": "Button alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    }
+  ],
+  "presets": [{ "name": "Trust bar (USPs)" }]
+}{% endschema %}

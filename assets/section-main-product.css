@@ -364,7 +364,22 @@ a.product__text {
 }
 
 .product-form__buttons {
-  max-width: 44rem;
+  max-width: 15rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.product-form__buttons .product-form__submit,
+.product-form__buttons .shopify-payment-button {
+  width: 100%;
+  max-width: 360px;
+}
+
+.product-form__buttons .shopify-payment-button__button {
+  width: 100%;
 }
 
 .product--no-media .product__info-container > modal-opener {
@@ -1209,7 +1224,7 @@ a.product__text {
 }
 
 .product__inventory .icon-inventory-status circle:first-of-type {
-  opacity: .3;
+  opacity: 0.3;
 }
 
 /* Icon with text */

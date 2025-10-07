@@ -1,0 +1,42 @@
+<style>
+.hl { background: #F7E06A; padding: 0 .1em; border-radius: .2em; }
+</style>
+<script>
+(function(){
+  // Debounce helper
+  function debounce(fn,ms){var t;return function(){clearTimeout(t);var a=arguments;var c=this;t=setTimeout(function(){fn.apply(c,a)},ms);};}
+  // Highlight matched terms within a container
+  function highlight(container, query){
+    if(!container || !query) return;
+    var terms = query.trim().split(/\s+/).filter(Boolean); if(!terms.length) return;
+    var rx = new RegExp('('+terms.map(function(t){return t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}).join('|')+')','gi');
+    container.querySelectorAll('[data-hl]').forEach(function(n){ n.innerHTML = n.textContent.replace(rx, '<mark class="hl">$1</mark>'); });
+  }
+  // On search template: debounce the main input + highlight results
+  document.addEventListener('DOMContentLoaded', function(){
+    var onSearchPage = document.body.classList.contains('template-search');
+    var qInput = document.querySelector('input[name="q"]#Search-In-Template') || document.querySelector('.template-search input[name="q"]');
+    if (onSearchPage && qInput){
+      qInput.setAttribute('autocomplete','on');
+      qInput.addEventListener('input', debounce(function(){
+        this.form && this.form.submit();
+      }, 400));
+      // Mark result titles/descriptions with data-hl for highlighting
+      document.querySelectorAll('.template-search .card-information__text, .template-search .article-card__title, .template-search .article-card__excerpt').forEach(function(n){ n.setAttribute('data-hl',''); });
+      var q = new URLSearchParams(location.search).get('q') || qInput.value;
+      highlight(document, q);
+    }
+    // Predictive search (if Dawn's component exists): lightly highlight after it renders
+    var ps = document.querySelector('predictive-search');
+    if (ps){
+      var obs = new MutationObserver(function(){
+        var q = (ps && ps.querySelector('input[type="search"]')) ? ps.querySelector('input[type="search"]').value : '';
+        var c = ps.querySelector('[data-predictive-search-mount]') || ps;
+        c && c.querySelectorAll('[data-predictive-search-item-title]').forEach(function(n){ n.setAttribute('data-hl',''); });
+        highlight(c, q);
+      });
+      obs.observe(ps, {childList:true, subtree:true});
+    }
+  });
+})();
+</script>

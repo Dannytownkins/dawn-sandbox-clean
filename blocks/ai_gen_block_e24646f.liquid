@@ -1,0 +1,494 @@
+{% doc %}
+  @prompt
+    a clean product section for my 2 skus
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+<style>
+  /* Scope to this Featured section instance */
+  #shopify-section-{{ section.id }} .ps-grid{
+    display: grid !important;                     /* beat .grid{display:flex} */
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+    gap: 24px !important;
+    max-width: 1100px; margin: 0 auto;
+  }
+  @media (max-width: 989px){
+    #shopify-section-{{ section.id }} .ps-grid{ grid-template-columns: 1fr; gap: 18px !important; }
+  }
+  /* Let cards fill their column */
+  #shopify-section-{{ section.id }} .product-card-wrapper{ max-width:none !important; width:100% !important; }
+  #shopify-section-{{ section.id }} .card--product{ width:100% !important; }
+  #shopify-section-{{ section.id }} .card--product .card__inner,
+  #shopify-section-{{ section.id }} .card--product .card__media,
+  #shopify-section-{{ section.id }} .card--product .media{ width:100% !important; }
+  #shopify-section-{{ section.id }} .card--product .media img{ width:100% !important; height:auto !important; display:block; object-fit:contain; }
+  /* Hide vendor line and tighten text */
+  #shopify-section-{{ section.id }} .card__information .caption-with-letter-spacing{ display:none !important; }
+  #shopify-section-{{ section.id }} .card-information{ row-gap:.25rem; }
+  #shopify-section-{{ section.id }} .card-information__text{ margin:0; }
+  /* Compact Quick Add */
+  #shopify-section-{{ section.id }} .quick-add__submit{ min-height:40px; padding:10px 14px; font-size:15px; border-radius:12px; width:100%; }
+  /* Trim section padding */
+  #shopify-section-{{ section.id }} .section{ padding-block: 20px 28px !important; }
+</style>
+
+<div class="ai-product-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-product-section__container-{{ ai_gen_id }}">
+    {% if block.settings.section_title != blank or block.settings.section_description != blank %}
+      <div class="ai-product-section__header-{{ ai_gen_id }}">
+        {% if block.settings.section_title != blank %}
+          <h2 class="ai-product-section__title-{{ ai_gen_id }}">{{ block.settings.section_title }}</h2>
+        {% endif %}
+        {% if block.settings.section_description != blank %}
+          <div class="ai-product-section__description-{{ ai_gen_id }}">{{ block.settings.section_description }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% comment %} Product Showcase → unified product card with Quick Add {% endcomment %}
+    <div class="ps-grid">
+      {% assign col = collections[section.settings.collection] %}
+      {% for product in col.products limit: section.settings.limit %}
+        {% render 'card-product',
+          card_product: product,
+          show_quick_add: true,
+          show_vendor: false,
+          media_aspect_ratio: section.settings.image_ratio | default: 'adapt',
+          section_id: section.id
+        %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Product showcase",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section content"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section title",
+      "default": "Featured Products"
+    },
+    {
+      "type": "richtext",
+      "id": "section_description",
+      "label": "Section description",
+      "default": "<p>Discover our handpicked selection of premium products</p>"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2,
+      "label": "Number of products"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image aspect ratio",
+      "options": [
+        { "value": "adapt", "label": "Adapt to image" },
+        { "value": "square", "label": "Square" },
+        { "value": "portrait", "label": "Portrait" }
+      ],
+      "default": "adapt"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "View Product"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Header spacing",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "grid_spacing",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Grid spacing",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "product_spacing",
+      "min": 16,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Product spacing",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#334fb4"
+    },
+    {
+      "type": "color",
+      "id": "sale_price_color",
+      "label": "Sale price color",
+      "default": "#d82c0d"
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Card border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Card border width",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "min": 16,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Card padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_opacity",
+      "min": 0,
+      "max": 30,
+      "step": 5,
+      "unit": "%",
+      "label": "Card shadow opacity",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_vertical",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Card shadow vertical",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_blur",
+      "min": 0,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "label": "Card shadow blur",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image aspect ratio",
+      "options": [
+        {
+          "value": "1",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "1.25",
+          "label": "Portrait (4:5)"
+        },
+        {
+          "value": "1.33",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "1.78",
+          "label": "Widescreen (16:9)"
+        }
+      ],
+      "default": "1.25"
+    },
+    {
+      "type": "header",
+      "content": "Badge"
+    },
+    {
+      "type": "color",
+      "id": "badge_background_color",
+      "label": "Badge background",
+      "default": "#334fb4"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "badge_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Badge border radius",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "color",
+      "id": "button_background_color",
+      "label": "Button background",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background_color",
+      "label": "Button hover background",
+      "default": "#334fb4"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Button border width",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button border color",
+      "default": "#121212"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Section heading size",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "min": 8,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "label": "Title spacing",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "product_title_size",
+      "min": 16,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Product title size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "vendor_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Vendor size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "price_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Price size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Button text size",
+      "default": 14
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product showcase"
+    }
+  ]
+}
+{% endschema %}

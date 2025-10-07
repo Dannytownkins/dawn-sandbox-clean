@@ -1,0 +1,34 @@
+{%- comment -%}
+  Quick Add to Cart
+  Renders a quick add button for products with only one variant
+  
+  Usage:
+    {% render 'quick-add', product: product %}
+{%- endcomment -%}
+
+{%- if product.has_only_default_variant and product.available -%}
+  {%- assign variant = product.selected_or_first_available_variant -%}
+  <form method="post" action="/cart/add" class="quick-add">
+    <input type="hidden" name="id" value="{{ variant.id }}">
+    <input type="hidden" name="quantity" value="1">
+    <button type="submit" class="btn btn--primary btn--sm" aria-label="Quick add {{ product.title | escape }}">
+      {{ 'products.product.add_to_cart' | t }}
+    </button>
+  </form>
+{%- elsif product.available -%}
+  <a href="{{ product.url }}" class="btn btn--secondary btn--sm">
+    {{ 'products.product.view_full_details' | t }}
+  </a>
+{%- endif -%}
+
+<style>
+  .quick-add {
+    margin-top: 0.5rem;
+  }
+
+  .btn--sm {
+    padding: 0.65rem 0.9rem;
+    font-size: 14px;
+    width: 100%;
+  }
+</style>

@@ -1,0 +1,31 @@
+<canvas id="confetti" class="confetti" aria-hidden="true"></canvas>
+<script>
+(function(){
+  const c = document.getElementById('confetti'); if(!c) return;
+  const ctx = c.getContext('2d'); let W,H,parts=[],running=false;
+  function resize(){W= c.width = innerWidth; H= c.height = innerHeight}
+  addEventListener('resize', resize); resize();
+  function burst(){
+    parts = Array.from({length:120}).map(()=>({
+      x: W/2, y: H/2, r: Math.random()*6+2,
+      vx: (Math.random()-0.5)*6, vy: (Math.random()-1.2)*8,
+      a: Math.random()*Math.PI
+    }));
+    if(!running){running=true; requestAnimationFrame(loop);}
+    setTimeout(()=>{parts.length=0; running=false; ctx.clearRect(0,0,W,H);}, 900);
+  }
+  function loop(){
+    if(!running) return;
+    ctx.clearRect(0,0,W,H);
+    parts.forEach(p=>{
+      p.vy += 0.18; p.x += p.vx; p.y += p.vy; p.a += 0.1;
+      ctx.fillStyle = `hsl(${(p.a*80)%360} 90% 60%)`;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fill();
+    });
+    requestAnimationFrame(loop);
+  }
+  document.documentElement.addEventListener('cart:refresh', burst);
+})();
+</script>
+<style>.confetti{position:fixed;inset:0;pointer-events:none;z-index:9999}</style>
+

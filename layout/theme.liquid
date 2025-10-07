@@ -7,13 +7,29 @@
     <meta name="theme-color" content="">
     <link rel="canonical" href="{{ canonical_url }}">
 
+    <!-- Performance preconnects -->
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    <link rel="preconnect" href="https://monorail-edge.shopifysvc.com" crossorigin>
+
+    <!-- Nudge the first hero image to be LCP -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){
+        var hero = document.querySelector('main .banner img, .slideshow__image img, .hero img, .banner__media img');
+        if (hero) { hero.setAttribute('fetchpriority','high'); hero.setAttribute('loading','eager'); }
+      });
+    </script>
+
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     {%- endif -%}
 
     {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
-      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
+
+    {%- comment -%} Preload critical CSS {%- endcomment -%}
+    {{ 'base.css' | asset_url | preload_tag: as: 'style' }}
+    {{ 'astra.css' | asset_url | preload_tag: as: 'style' }}
 
     <title>
       {{ page_title }}
@@ -27,9 +43,12 @@
     {% endif %}
 
     {% render 'meta-tags' %}
+    {% render 'meta-social' %}
+    {% render 'jsonld-breadcrumb' %}
 
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
+    {% render 'perf-boost-2' %}
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
@@ -257,6 +276,8 @@
     {% endstyle %}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'astra.css' | asset_url | stylesheet_tag }}
+    {{ 'custom.css' | asset_url | stylesheet_tag }}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
     {%- if settings.cart_type == 'drawer' -%}
@@ -297,6 +318,11 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+    {{ 'custom-overrides.css' | asset_url | stylesheet_tag }}
+
+    {% render 'social-meta' %}
+    {% render 'jsonld-website' %}
+    {{ 'component-ux-fixes.css' | asset_url | stylesheet_tag }}
   </head>
 
   <body
@@ -304,12 +330,9 @@
       gradient
       {%- if settings.animations_hover_elements != 'none' -%}
         animate--hover-{{ settings.animations_hover_elements }}
-      {%- endif -%}
-    "
+      {%- endif -%}"
   >
-    <a class="skip-to-content-link button visually-hidden" href="#MainContent">
-      {{ 'accessibility.skip_to_text' | t }}
-    </a>
+    {% render 'a11y-core' %}
 
     {%- if settings.cart_type == 'drawer' -%}
       {%- render 'cart-drawer' -%}
@@ -380,5 +403,38 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const headerWrapper = document.querySelector('.header-wrapper');
+        if (!headerWrapper) return;
+        const observer = new IntersectionObserver(([entry]) => {
+          headerWrapper.classList.toggle('header--scrolled', !entry.isIntersecting);
+        });
+        const sentinel = document.createElement('div');
+        sentinel.setAttribute('data-header-sentinel', '');
+        headerWrapper.before(sentinel);
+        observer.observe(sentinel);
+      });
+    </script>
+
+    {% render 'analytics-hooks' %}
+    {% render 'cart-drawer' %}
+    {{ 'cart-drawer.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'cart-drawer.js' | asset_url }}" defer></script>
+    <script src="{{ 'product-atc.js' | asset_url }}" defer></script>
+    <script src="{{ 'atc-fallback.js' | asset_url }}" defer></script>
+    <script src="{{ 'cart.js' | asset_url }}" defer></script>
+    <script src="{{ 'lazy.js' | asset_url }}" defer></script>
+    <script src="{{ 'cart-drawer-helper.js' | asset_url }}" defer></script>
+    {% render 'confetti' %}
+    {% render 'newsletter-modal' %}
+    {% render 'back-to-top' %}
+    {% render 'pdp-zoom' %}
+    {% render 'added-to-cart-toast' %}
+    {% render 'search-ux' %}
+    {% render 'cookie-banner' %}
+    {% render 'a11y-audit' %}
+    {% render 'link-crawl-404' %}
   </body>
 </html>

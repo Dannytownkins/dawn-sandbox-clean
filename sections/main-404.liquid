@@ -1,23 +1,86 @@
-<style type="text/css">
-  .template-404 .title + * {
-    margin-top: 1rem;
+<div class="section section-{{ section.id }}">
+<style>
+  .section-{{ section.id }} {
+    padding-block: {{ section.settings.pad_y | default: 40 }}px;
+    text-align: {{ section.settings.text_align | default: 'left' }};
   }
-
-  @media screen and (min-width: 750px) {
-    .template-404 .title + * {
-      margin-top: 2rem;
-    }
+  .section-{{ section.id }} :where(.image, .media, .card__media, .image-with-text__media) img {
+    max-width: {{ section.settings.image_max | default: 800 }}px;
+    height: auto;
+  }
+  .section-{{ section.id }} :where(.buttons, .button-row, .card__actions, .cta-row, .button) {
+    display: flex;
+    justify-content: {% if section.settings.button_align == 'center' %}center{% elsif section.settings.button_align == 'right' %}flex-end{% else %}flex-start{% endif %};
+    gap: .5rem;
+    flex-wrap: wrap;
   }
 </style>
-
-<div class="template-404 page-width page-margin center">
-  <p>
-    {{ 'templates.404.subtext' | t }}
-  </p>
-  <h1 class="title">
-    {{ 'templates.404.title' | t }}
-  </h1>
-  <a href="{{ routes.all_products_collection_url }}" class="button">
-    {{ 'general.continue_shopping' | t }}
-  </a>
+<section class="section">
+  <div class="page-width" style="max-width:1100px;margin:0 auto;">
+    <h1 class="h1" style="margin:0 0 8px;">Page not found</h1>
+    <p style="opacity:.8;margin:0 0 16px;">We couldn’t find that page. Try a search or keep browsing.</p>
+    <form role="search" action="{{ routes.search_url }}" style="display:flex;gap:8px;margin:0 0 20px;">
+      <input name="q" placeholder="Search products…" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:12px" />
+      <button type="submit" class="button" style="min-height:44px;border-radius:12px;padding:0 14px">Search</button>
+    </form>
+    <a href="{{ routes.collections_url }}/all" class="button" style="border-radius:12px;min-height:44px">Browse all products</a>
+    <div style="height:18px"></div>
+    <div class="grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;">
+      {% for p in collections['all'].products limit: 2 %}
+        {% render 'card-product', card_product: p, show_quick_add: true, show_vendor: false, section_id: section.id %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
 </div>
+{% schema %}{
+  "name": "404",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Design Controls"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "pad_y",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "image_max",
+      "min": 240,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Max image width",
+      "default": 800
+    },
+    {
+      "type": "select",
+      "id": "button_align",
+      "label": "Button alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    }
+  ]
+}{% endschema %}

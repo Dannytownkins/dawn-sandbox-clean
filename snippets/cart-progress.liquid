@@ -1,0 +1,12 @@
+{% assign threshold = 5000 %}
+{% assign subtotal = cart.total_price %}
+{% assign remaining = threshold | minus: subtotal %}
+<div class="cart-progress">
+  {% if remaining > 0 %}
+    <div class="cart-progress__msg">Only {{ remaining | money }} away from free shipping</div>
+  {% else %}
+    <div class="cart-progress__msg cart-progress__msg--ok">You're eligible for free shipping!</div>
+  {% endif %}
+  {% assign pct = subtotal | times: 100 | divided_by: threshold | at_most: 100 %}
+  <div class="cart-progress__bar"><span style="width: {{ pct }}%"></span></div>
+</div>

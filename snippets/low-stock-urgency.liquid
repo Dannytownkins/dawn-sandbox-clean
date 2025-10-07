@@ -1,0 +1,41 @@
+{% if template.name == 'product' %}
+{% assign threshold = 5 %}
+<style>
+.low-stock{margin:8px 0 10px;font-weight:600}
+.low-stock.ok{display:none}
+.low-stock.warn{color:#b45309} /* amber */
+.low-stock.out{color:#b91c1c}  /* red */
+</style>
+<div id="low-stock" class="low-stock ok" data-threshold="{{ threshold }}">Only <span class="n"></span> left — order soon</div>
+<script>
+(function(){
+  var el=document.getElementById('low-stock'); if(!el) return;
+  var THRESH=parseInt(el.dataset.threshold||'5',10);
+  // Build inventory map from Liquid
+  var INV={
+  {% for v in product.variants %}
+    "{{ v.id }}": {q: {{ v.inventory_quantity | default: 0 }}, pol: "{{ v.inventory_policy }}", av: {{ v.available | json }} }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+  };
+  function render(vid){
+    var d=INV[vid]; if(!d){ el.className='low-stock ok'; return; }
+    if(!d.av){ el.className='low-stock out'; el.innerHTML='Out of stock'; return; }
+    if(d.q > 0 && d.q <= THRESH && d.pol !== 'continue'){
+      el.className='low-stock warn'; el.querySelector('.n').textContent=d.q; el.innerHTML='Only <span class="n">'+d.q+'</span> left — order soon';
+    } else {
+      el.className='low-stock ok';
+    }
+  }
+  function currentVariantId(){
+    var h=document.querySelector('input[name="id"].product-variant-id, form[action*="/cart/add"] input[name="id"]');
+    return h && h.value ? h.value : null;
+  }
+  document.addEventListener('change', function(e){
+    if(e.target && (e.target.name==='id' || e.target.closest('variant-radios') || e.target.closest('variant-selects'))) {
+      setTimeout(function(){ render(currentVariantId()); }, 0);
+    }
+  }, true);
+  document.addEventListener('DOMContentLoaded', function(){ render(currentVariantId()); });
+})();
+</script>
+{% endif %}
