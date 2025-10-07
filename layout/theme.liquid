@@ -12,6 +12,10 @@
     <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     <link rel="preconnect" href="https://monorail-edge.shopifysvc.com" crossorigin>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
     <!-- Nudge the first hero image to be LCP -->
     <script>
       document.addEventListener('DOMContentLoaded', function(){
@@ -404,6 +408,43 @@
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const scrollElements = document.querySelectorAll('.scroll-reveal');
+
+        const elementInView = (el, dividend = 1) => {
+          const elementTop = el.getBoundingClientRect().top;
+
+          return (
+            elementTop <=
+            (window.innerHeight || document.documentElement.clientHeight) / dividend
+          );
+        };
+
+        const displayScrollElement = (element) => {
+          element.classList.add('scroll-reveal--visible');
+        };
+
+        const hideScrollElement = (element) => {
+          element.classList.remove('scroll-reveal--visible');
+        }
+
+        const handleScrollAnimation = () => {
+          scrollElements.forEach((el) => {
+            if (elementInView(el, 1.25)) {
+              displayScrollElement(el);
+            } else {
+              hideScrollElement(el);
+            }
+          })
+        }
+
+        window.addEventListener('scroll', () => {
+          handleScrollAnimation();
+        });
+      });
+    </script>
+    
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const headerWrapper = document.querySelector('.header-wrapper');
