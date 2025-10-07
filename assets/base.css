@@ -3824,7 +3824,7 @@ section[id*="shopify-section"][id*="cart"]:not([id*="main-cart"]) {
 .usp-bar,
 .usp.trustbar,
 [class*="trust"] {
-  overflow-x: hidden !important;
+  overflow-x: visible !important;
   overflow-y: visible !important;
 }
 
