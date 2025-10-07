@@ -56,16 +56,7 @@
           }
         }
       },
-      "block_order": [
-        "title",
-        "price",
-        "variant_picker",
-        "quantity_selector",
-        "buy_buttons",
-        "description",
-        "share",
-        "sku_QrGXpp"
-      ],
+      "block_order": ["title", "price", "variant_picker", "quantity_selector", "buy_buttons", "description", "share", "sku_QrGXpp"],
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "",
@@ -106,8 +97,5 @@
       }
     }
   },
-  "order": [
-    "main",
-    "related"
-  ]
+  "order": ["main", "related"]
 }
