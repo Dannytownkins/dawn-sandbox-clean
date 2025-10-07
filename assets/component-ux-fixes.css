@@ -7,6 +7,17 @@
   margin-right: auto;
 }
 
+/* Product title links - black color instead of purple */
+.card__heading a {
+  color: #000;
+  text-decoration: none;
+}
+
+.card__heading a:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
 /* Hover/press feedback on buttons (quick add & PDP) */
 .button,
 .shopify-payment-button__button--unbranded {
