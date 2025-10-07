@@ -31,12 +31,22 @@
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
   <div
-    class="related-products page-width section-{{ section.id }}-padding isolate"
+    class="related-products section-featured-collection page-width section-{{ section.id }}-padding isolate"
   >
     {% if products_to_show > 0 %}
-      <h2 class="title {{ section.settings.heading_size }}">
+      <h2 class="title {{ section.settings.heading_size }}{% if section.settings.text_alignment_center %} title--center{% endif %}">
         {{ section.settings.title | escape }}
       </h2>
+      {% if section.settings.show_view_all and collection %}
+        <div class="section-featured-collection__cta">
+          <a
+            href="{{ collection.url }}"
+            class="button {% case section.settings.view_all_style %}{% when 'outline' %}button--secondary{% when 'link' %}link link--text{% else %}button--primary{% endcase %}"
+          >
+            {{ 'sections.featured-collection.view_all' | t | default: 'View all' }}
+          </a>
+        </div>
+      {% endif %}
       <ul
         class="grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
         role="list"
