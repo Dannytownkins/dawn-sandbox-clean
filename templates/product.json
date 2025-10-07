@@ -47,9 +47,25 @@
           "settings": {
             "share_label": "Share"
           }
+        },
+        "sku_QrGXpp": {
+          "type": "sku",
+          "disabled": true,
+          "settings": {
+            "text_style": "body"
+          }
         }
       },
-      "block_order": ["title", "price", "variant_picker", "quantity_selector", "buy_buttons", "description", "share"],
+      "block_order": [
+        "title",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description",
+        "share",
+        "sku_QrGXpp"
+      ],
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "",
@@ -68,6 +84,7 @@
     },
     "related": {
       "type": "related-products",
+      "disabled": true,
       "settings": {
         "heading": "You may also like",
         "heading_size": "h2",
@@ -81,27 +98,72 @@
         "show_vendor": false,
         "show_rating": false,
         "padding_top": 32,
-        "padding_bottom": 32
+        "padding_bottom": 32,
+        "text_align": "left",
+        "image_max": 1000,
+        "button_align": "left",
+        "hover_zoom": false
+      }
+    },
+    "image_with_text_W4HLJB": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_CrpH8c": {
+          "type": "heading",
+          "settings": {
+            "heading": "You may also Like",
+            "heading_size": "h1"
+          }
+        },
+        "button_6iHWkY": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop Now",
+            "button_link": "shopify://products/sunny-t-shirt",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_CrpH8c",
+        "button_6iHWkY"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/hero_light_nobasic.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "manual_recommendations": {
       "type": "featured-collection",
       "settings": {
-        "collection": "all",
-        "products_to_show": 3,
         "title": "You may also like",
         "heading_size": "h2",
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
+        "collection": "all",
+        "products_to_show": 3,
+        "columns_desktop": 1,
         "full_width": false,
         "show_view_all": false,
         "view_all_style": "solid",
+        "enable_desktop_slider": false,
         "color_scheme": "",
         "image_ratio": "square",
         "image_shape": "default",
         "show_secondary_image": false,
         "show_vendor": false,
         "show_rating": false,
+        "enable_quick_add": false,
         "columns_mobile": "2",
         "swipe_on_mobile": false,
         "padding_top": 0,
@@ -109,5 +171,10 @@
       }
     }
   },
-  "order": ["main", "related", "manual_recommendations"]
+  "order": [
+    "main",
+    "related",
+    "image_with_text_W4HLJB",
+    "manual_recommendations"
+  ]
 }
