@@ -54,13 +54,23 @@
   }
 {%- endstyle -%}
 
-{%- unless settings.cart_type == 'drawer' -%}
-  <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
-{%- endunless -%}
+<style>
+  .section-{{ section.id }} {
+    text-align: center;
+  }
+  .cart-items, .cart-items__header, .cart-item {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cart-item__details {
+    text-align: left;
+  }
+  .cart__ctas {
+    justify-content: center;
+  }
+</style>
 
-<script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
-
-<cart-items class="gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
+<div class="section section-{{ section.id }}">
   <div class="page-width">
     <div class="title-wrapper-with-link">
       <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
@@ -502,7 +512,7 @@
       </p>
     </form>
   </div>
-</cart-items>
+</div>
 
 {% schema %}
 {
