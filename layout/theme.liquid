@@ -436,21 +436,5 @@
     {% render 'cookie-banner' %}
     {% render 'a11y-audit' %}
     {% render 'link-crawl-404' %}
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        try {
-          document.querySelectorAll('img:not([decoding])').forEach(function (img) {
-            img.decoding = 'async';
-          });
-          document
-            .querySelectorAll('img:not([loading]):not([fetchpriority="high"])')
-            .forEach(function (img) {
-              img.loading = 'lazy';
-            });
-        } catch (e) {
-          /* no-op */
-        }
-      });
-    </script>
   </body>
 </html>
