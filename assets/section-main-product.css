@@ -363,13 +363,34 @@ a.product__text {
   margin-bottom: 1.2rem;
 }
 
-.product-form__buttons {
-  max-width: 15rem;
-  margin-top: 2rem;
+/* --- HORIZONTAL BUY BUTTONS LAYOUT --- */
+.product-form .form {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  align-items: flex-end;
   gap: 1rem;
+}
+
+.product-form__quantity {
+  flex: 0 0 12rem; /* Set a fixed width for the quantity selector */
+  margin: 0;
+}
+
+.product-form__buttons {
+  flex: 1 1 20rem; /* Allow the buttons container to grow */
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+}
+
+.product-form__buttons > * {
+  flex: 1; /* Make buttons share space equally */
+  margin: 0;
+}
+/* --- END HORIZONTAL LAYOUT --- */
+
+.product-form__quantity-top .form__label {
+  margin-bottom: 1.2rem;
 }
 
 .product-form__buttons .product-form__submit,
