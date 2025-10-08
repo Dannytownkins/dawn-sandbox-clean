@@ -405,8 +405,8 @@ function updateCartProgress(cartData) {
   const remaining = threshold - subtotal;
   const pct = Math.min((subtotal * 100) / threshold, 100);
   
-  const progressMsg = document.querySelector('.cart-progress__msg');
-  const progressBar = document.querySelector('.cart-progress__bar span');
+  const progressMsg = document.querySelector('#cart-drawer .cart-progress__msg');
+  const progressBar = document.querySelector('#cart-drawer .cart-progress__bar span');
   
   if (progressMsg) {
     if (remaining > 0) {
@@ -423,9 +423,37 @@ function updateCartProgress(cartData) {
   }
   
   // Update subtotal
-  const subtotalEl = document.querySelector('.cart-subtotal__amount');
+  const subtotalEl = document.querySelector('#cart-drawer .cart-subtotal__amount');
   if (subtotalEl) {
     subtotalEl.textContent = `$${(subtotal / 100).toFixed(2)}`;
+  }
+}
+
+// Refresh cart drawer content
+async function refreshCartDrawer() {
+  try {
+    const response = await fetch(window.location.pathname + '?sections=cart-drawer');
+    if (response.ok) {
+      const data = await response.json();
+      const html = data['cart-drawer'];
+      if (html) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+        const newDrawerContent = tempDiv.querySelector('#cart-drawer');
+        const currentDrawer = document.querySelector('#cart-drawer');
+        if (newDrawerContent && currentDrawer) {
+          const wasOpen = !currentDrawer.hasAttribute('hidden');
+          currentDrawer.replaceWith(newDrawerContent);
+          // Keep drawer open if it was open
+          if (wasOpen) {
+            newDrawerContent.removeAttribute('hidden');
+            newDrawerContent.setAttribute('aria-hidden', 'false');
+          }
+        }
+      }
+    }
+  } catch(err) {
+    console.error('Cart refresh failed:', err);
   }
 }
 
@@ -436,6 +464,7 @@ document.addEventListener('click', async (e) => {
   
   if (btn) {
     e.preventDefault();
+    e.stopPropagation();
     const line = Number(btn.dataset.line);
     const delta = btn.dataset.qty === '+1' ? 1 : -1;
     const input = btn.parentElement.querySelector('.qty__input');
@@ -453,8 +482,8 @@ document.addEventListener('click', async (e) => {
         const cartData = await response.json();
         // Update progress bar immediately
         updateCartProgress(cartData);
-        // Reload page to refresh cart
-        window.location.reload();
+        // Refresh drawer content
+        await refreshCartDrawer();
       }
     } catch(err) {
       console.error('Cart update failed:', err);
@@ -463,11 +492,14 @@ document.addEventListener('click', async (e) => {
   
   if (removeBtn) {
     e.preventDefault();
+    e.stopPropagation();
     const url = removeBtn.getAttribute('href');
     try {
-      await fetch(url, { method: 'POST' });
-      // Reload page to refresh cart
-      window.location.reload();
+      const response = await fetch(url, { method: 'POST' });
+      if (response.ok) {
+        // Refresh drawer content
+        await refreshCartDrawer();
+      }
     } catch(err) {
       console.error('Remove failed:', err);
     }

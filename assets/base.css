@@ -87,25 +87,28 @@
   z-index: 2; /* above the image */
 }
 
-.section-collection-list .card__heading a::after {
-  content: '' !important;
-  position: absolute !important;
-  /* Position relative to the card outer edge */
-  bottom: calc(var(--border-width) * -1) !important;
-  left: calc(var(--border-width) * -1) !important;
-  right: calc(var(--border-width) * -1) !important;
-  top: calc(var(--border-width) * -1) !important;
-  z-index: 999 !important; /* very high z-index to ensure clickability */
-  pointer-events: auto !important;
-}
-
-/* Ensure the entire card establishes positioning context */
+/* Make entire card clickable by positioning link overlay at card level */
 .section-collection-list .card {
   position: relative !important;
 }
 
 .section-collection-list .card__inner {
   position: relative !important;
+}
+
+/* Make image link cover full card area */
+.section-collection-list .card__media-link {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 0 !important;
+  display: block;
+}
+
+.section-collection-list .card__heading a::after {
+  z-index: 1 !important; /* Keep text link overlay on top */
 }
 
 /* Dawn caps card width; remove that in this section only */
