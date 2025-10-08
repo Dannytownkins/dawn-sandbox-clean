@@ -398,56 +398,36 @@
 </style>
 
 <script>
-// Cart drawer refresh function
-window.CartDrawer = {
-  async refresh() {
-    try {
-      const response = await fetch('?section_id=cart-drawer');
-      if (response.ok) {
-        const text = await response.text();
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = text;
-        const newDrawer = tempDiv.querySelector('#cart-drawer');
-        const currentDrawer = document.querySelector('#cart-drawer');
-        if (newDrawer && currentDrawer) {
-          currentDrawer.replaceWith(newDrawer);
-        }
-      }
-    } catch(err) {
-      console.error('Cart refresh failed:', err);
-    }
-  },
+// Update progress bar and cart totals
+function updateCartProgress(cartData) {
+  const threshold = 5000; // $50.00 in cents
+  const subtotal = cartData.total_price;
+  const remaining = threshold - subtotal;
+  const pct = Math.min((subtotal * 100) / threshold, 100);
   
-  async updateProgressBar(cartData) {
-    const threshold = 5000; // $50.00 in cents
-    const subtotal = cartData.total_price;
-    const remaining = threshold - subtotal;
-    const pct = Math.min((subtotal * 100) / threshold, 100);
-    
-    const progressMsg = document.querySelector('.cart-progress__msg');
-    const progressBar = document.querySelector('.cart-progress__bar span');
-    
-    if (progressMsg) {
-      if (remaining > 0) {
-        progressMsg.textContent = `Only $${(remaining / 100).toFixed(2)} away from free shipping`;
-        progressMsg.classList.remove('cart-progress__msg--ok');
-      } else {
-        progressMsg.textContent = "You're eligible for free shipping!";
-        progressMsg.classList.add('cart-progress__msg--ok');
-      }
-    }
-    
-    if (progressBar) {
-      progressBar.style.width = `${pct}%`;
-    }
-    
-    // Update subtotal
-    const subtotalEl = document.querySelector('.cart-subtotal__amount');
-    if (subtotalEl) {
-      subtotalEl.textContent = `$${(subtotal / 100).toFixed(2)}`;
+  const progressMsg = document.querySelector('.cart-progress__msg');
+  const progressBar = document.querySelector('.cart-progress__bar span');
+  
+  if (progressMsg) {
+    if (remaining > 0) {
+      progressMsg.textContent = `Only $${(remaining / 100).toFixed(2)} away from free shipping`;
+      progressMsg.classList.remove('cart-progress__msg--ok');
+    } else {
+      progressMsg.textContent = "You're eligible for free shipping!";
+      progressMsg.classList.add('cart-progress__msg--ok');
     }
   }
-};
+  
+  if (progressBar) {
+    progressBar.style.width = `${pct}%`;
+  }
+  
+  // Update subtotal
+  const subtotalEl = document.querySelector('.cart-subtotal__amount');
+  if (subtotalEl) {
+    subtotalEl.textContent = `$${(subtotal / 100).toFixed(2)}`;
+  }
+}
 
 // Quantity and remove handling WITHOUT page reload
 document.addEventListener('click', async (e) => {
@@ -472,9 +452,9 @@ document.addEventListener('click', async (e) => {
       if (response.ok) {
         const cartData = await response.json();
         // Update progress bar immediately
-        await window.CartDrawer.updateProgressBar(cartData);
-        // Then refresh the full drawer
-        await window.CartDrawer.refresh();
+        updateCartProgress(cartData);
+        // Reload page to refresh cart
+        window.location.reload();
       }
     } catch(err) {
       console.error('Cart update failed:', err);
@@ -485,14 +465,9 @@ document.addEventListener('click', async (e) => {
     e.preventDefault();
     const url = removeBtn.getAttribute('href');
     try {
-      const response = await fetch(url, { method: 'POST' });
-      if (response.ok) {
-        const cartData = await response.json();
-        // Update progress bar immediately
-        await window.CartDrawer.updateProgressBar(cartData);
-        // Then refresh the full drawer
-        await window.CartDrawer.refresh();
-      }
+      await fetch(url, { method: 'POST' });
+      // Reload page to refresh cart
+      window.location.reload();
     } catch(err) {
       console.error('Remove failed:', err);
     }

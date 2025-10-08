@@ -85,16 +85,27 @@
 .section-collection-list .card__content {
   position: relative;
   z-index: 2; /* above the image */
-  pointer-events: none; /* allow clicks to pass through to the link overlay */
-}
-
-.section-collection-list .card__content * {
-  pointer-events: auto; /* re-enable for text/links inside */
 }
 
 .section-collection-list .card__heading a::after {
-  z-index: 1; /* clickable overlay above image but below content */
-  pointer-events: auto; /* ensure overlay is clickable */
+  content: '' !important;
+  position: absolute !important;
+  /* Position relative to the card outer edge */
+  bottom: calc(var(--border-width) * -1) !important;
+  left: calc(var(--border-width) * -1) !important;
+  right: calc(var(--border-width) * -1) !important;
+  top: calc(var(--border-width) * -1) !important;
+  z-index: 999 !important; /* very high z-index to ensure clickability */
+  pointer-events: auto !important;
+}
+
+/* Ensure the entire card establishes positioning context */
+.section-collection-list .card {
+  position: relative !important;
+}
+
+.section-collection-list .card__inner {
+  position: relative !important;
 }
 
 /* Dawn caps card width; remove that in this section only */
