@@ -16,9 +16,14 @@
   }
 
   /* Make collection images fill the full card area */
+  .section-{{ section.id }} .card-wrapper,
+  .section-{{ section.id }} .card {
+    --image-padding: 0rem;
+  }
+
   .section-{{ section.id }} .card__media {
-    margin: 0;
-    width: 100%;
+    margin: 0 !important;
+    width: 100% !important;
   }
 
   .section-{{ section.id }} .card__inner .card__media {
@@ -28,6 +33,10 @@
   .section-{{ section.id }} .card--card .card__inner .card__media {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
+  }
+
+  .section-{{ section.id }} .card--media .card__inner .card__content {
+    padding: calc(0rem + 1rem);
   }
 
   .section-{{ section.id }} .card__media .media,
