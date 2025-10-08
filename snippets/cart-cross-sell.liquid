@@ -20,10 +20,10 @@
   {% for p in pool.products %}
     {% unless in_cart_ids contains p.id %}
       <div class="card cart-rec">
-        {% if p.featured_image %}
-          <img src="{{ p.featured_image | image_url: width: 600 }}" alt="{{ p.title | escape }}" class="cart-rec__img" loading="lazy">
-        {% endif %}
         <a href="{{ p.url }}" style="text-decoration: none; color: inherit;">
+          {% if p.featured_image %}
+            <img src="{{ p.featured_image | image_url: width: 600 }}" alt="{{ p.title | escape }}" class="cart-rec__img" loading="lazy">
+          {% endif %}
           <div class="title cart-rec__title">{{ p.title }}</div>
           <div class="price cart-rec__price">{{ p.price | money }}</div>
         </a>
