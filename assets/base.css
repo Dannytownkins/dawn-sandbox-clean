@@ -36,23 +36,32 @@
   --text-alignment: var(--collection-card-text-alignment);
 }
 
-/* Collection list section overrides - remove card max-width and fill with images */
-.section-collection-list .card--standard,
-.section-collection-list .card--media {
-  max-width: none;
+/* ===== COLLECTION LIST: make collection thumbnails fill the card ===== */
+.section-collection-list .card__inner { 
+  padding: 0; /* remove inner gutter around the image */
 }
-
-.section-collection-list .card__inner {
-  padding: 0;
+.section-collection-list .card__media { 
+  height: 100%;
 }
-
-.section-collection-list .card__media .media > img {
+.section-collection-list .media.media--fill {
+  position: relative;
+  height: 100%;
+}
+.section-collection-list .media.media--fill > img,
+.section-collection-list .media.media--fill > picture > img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* crop to fill the square */
 }
-
-.section-collection-list .grid {
+/* Dawn caps card width; remove that in this section only */
+.section-collection-list .card--standard,
+.section-collection-list .card--media { 
+  max-width: none;
+}
+/* Optional: slightly tighter spacing between the two tiles */
+.section-collection-list .grid { 
   column-gap: 1.5rem;
   row-gap: 1.5rem;
 }
