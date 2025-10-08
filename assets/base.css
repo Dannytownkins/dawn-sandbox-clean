@@ -85,10 +85,16 @@
 .section-collection-list .card__content {
   position: relative;
   z-index: 2; /* above the image */
+  pointer-events: none; /* allow clicks to pass through to the link overlay */
+}
+
+.section-collection-list .card__content * {
+  pointer-events: auto; /* re-enable for text/links inside */
 }
 
 .section-collection-list .card__heading a::after {
   z-index: 1; /* clickable overlay above image but below content */
+  pointer-events: auto; /* ensure overlay is clickable */
 }
 
 /* Dawn caps card width; remove that in this section only */
