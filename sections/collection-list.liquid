@@ -15,23 +15,7 @@
     }
   }
 
-  {% if section.settings.full_width_images %}
-  /* Additional fine-tuning for full-width images - base styles in base.css */
-  .section-{{ section.id }} .card-wrapper,
-  .section-{{ section.id }} .card {
-    --image-padding: 0rem;
-    --collection-card-image-padding: 0rem;
-  }
-
-  .section-{{ section.id }} .card__media {
-    margin: 0;
-  }
-
-  .section-{{ section.id }} .card--media .card__inner .card__content {
-    padding: 1rem;
-    margin-top: 0;
-  }
-  {% endif %}
+  /* Base full-width image styles are in base.css under .section-collection-list */
 {%- endstyle -%}
 
 {%- liquid
@@ -218,13 +202,6 @@
       ],
       "default": "square",
       "label": "t:sections.collection-list.settings.image_ratio.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "full_width_images",
-      "default": true,
-      "label": "Fill card with image",
-      "info": "Remove padding around images to fill entire card area"
     },
     {
       "type": "range",
