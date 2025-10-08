@@ -46,6 +46,7 @@
 .section-collection-list .card__inner { 
   padding: 0 !important; /* remove inner gutter around the image */
   overflow: hidden;
+  position: relative; /* establish stacking context */
 }
 
 .section-collection-list .card__media { 
@@ -57,6 +58,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 0; /* behind the link overlay */
 }
 
 .section-collection-list .media.media--fill {
@@ -67,6 +69,7 @@
   right: 0 !important;
   height: 100% !important;
   width: 100% !important;
+  z-index: 0;
 }
 
 .section-collection-list .media.media--fill > img,
@@ -77,6 +80,15 @@
   height: 100% !important;
   object-fit: cover !important; /* crop to fill the square */
   object-position: center center !important;
+}
+
+.section-collection-list .card__content {
+  position: relative;
+  z-index: 2; /* above the image */
+}
+
+.section-collection-list .card__heading a::after {
+  z-index: 1; /* clickable overlay above image but below content */
 }
 
 /* Dawn caps card width; remove that in this section only */
