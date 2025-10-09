@@ -103,12 +103,20 @@
   left: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
-  z-index: 0 !important;
+  z-index: 999 !important; /* Higher than everything to be clickable */
   display: block;
 }
 
 .section-collection-list .card__heading a::after {
-  z-index: 1 !important; /* Keep text link overlay on top */
+  display: none !important; /* Remove heading overlay since image link covers everything */
+}
+
+.section-collection-list .card__heading a {
+  pointer-events: none !important; /* Disable heading link, use image link instead */
+}
+
+.section-collection-list .card__heading a * {
+  pointer-events: auto !important; /* Re-enable for text selection */
 }
 
 /* Dawn caps card width; remove that in this section only */
