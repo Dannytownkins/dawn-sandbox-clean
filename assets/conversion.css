@@ -93,3 +93,98 @@
   background: #151518;
   color: var(--color-accent);
 }
+
+/*
+ * Bold, attention‑grabbing visual treatments
+ * The rules below go beyond subtle enhancements and introduce
+ * vibrant gradients, neon borders and animations designed to
+ * draw the eye. Use sparingly on hero sections or promotional
+ * components where maximum impact is desired.
+ */
+
+/* Neon header gradient
+ * Apply a colourful gradient and soft shadow to the header wrapper.
+ * Works best when the header has a solid background; otherwise the
+ * gradient may conflict with underlying imagery.
+ */
+.header-wrapper {
+  background: linear-gradient(90deg, #ffe452 0%, #ff8a00 50%, #ff4060 100%);
+  box-shadow: 0 4px 12px rgba(255, 64, 96, 0.3);
+}
+
+/* Hero section gradient overlay
+ * Adds a translucent gradient overlay on hero banners without
+ * altering the underlying image. Make sure the hero section
+ * container has position: relative so the overlay positions
+ * correctly. The `.hero-banner` class is an example; adjust
+ * selectors to match your theme’s markup.
+ */
+.hero-banner {
+  position: relative;
+  overflow: hidden;
+}
+.hero-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 64, 96, 0.4), rgba(255, 228, 82, 0.4));
+  z-index: 1;
+}
+.hero-banner .hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Neon border on cards
+ * Creates a glowing multicolour border around product and
+ * collection cards using a pseudo‑element. The gradient is
+ * animated on hover for extra flair.
+ */
+.card {
+  position: relative;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #ff4060, #ff8a00, #ffe452);
+  z-index: -1;
+  border-radius: inherit;
+  transition: transform 0.5s ease;
+}
+.card:hover::before {
+  transform: scale(1.05);
+}
+
+/* Pulse animation for CTA buttons
+ * Adds a gentle pulsing scale and glow effect to high‑priority
+ * CTA buttons. The animation runs continuously but remains
+ * subtle enough not to be distracting. Adjust the timing to
+ * speed up or slow down the pulse.
+ */
+@keyframes ctaPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: none;
+  }
+  50% {
+    transform: scale(1.07);
+    box-shadow: 0 0 16px rgba(255, 64, 96, 0.6);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: none;
+  }
+}
+.btn--cta {
+  animation: ctaPulse 2.5s infinite;
+  border-radius: 10px;
+}
