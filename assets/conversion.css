@@ -1,0 +1,95 @@
+/*
+ * conversion.css – Visual enhancements to boost conversions
+ *
+ * This stylesheet overrides select design tokens from the base theme and
+ * introduces richer visual treatments for call‑to‑action (CTA) elements
+ * and product cards. Import it after the base, astra and custom styles
+ * inside theme.liquid to ensure these overrides take effect.
+ */
+
+/*
+ * Accent colour
+ * Replace the muted yellow used throughout the theme with a more
+ * vibrant golden hue. This accent colour is used for focus rings,
+ * icon highlights and other emphasis treatments. Keeping it defined
+ * as a CSS custom property makes it easy to adjust globally in
+ * future iterations.
+ */
+:root {
+  --color-accent: #ffc107; /* amber 500 */
+  --focus: var(--color-accent);
+}
+
+/*
+ * Primary buttons
+ * Elevate the default primary buttons with a subtle gradient,
+ * increased shadow and a slightly larger hover lift. These visual
+ * cues draw the eye toward important actions without sacrificing
+ * accessibility. Colour contrast ratios remain above WCAG AA.
+ */
+.btn--primary {
+  background: linear-gradient(45deg, #ffb300, #ffd54f);
+  color: #111;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn--primary:hover {
+  background: linear-gradient(45deg, #ffd54f, #ffb300);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/*
+ * CTA button variant
+ * Use this class on especially important actions (e.g. “Shop Now”,
+ * “Subscribe”). The vivid pink‑orange gradient stands out against
+ * dark and light backgrounds alike. Increased font weight and
+ * padding give the button added presence.
+ */
+.btn--cta {
+  background: linear-gradient(45deg, #f857a6, #ff5858);
+  color: #fff;
+  font-weight: 900;
+  padding: 1rem 1.6rem;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn--cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
+}
+
+/*
+ * Elevated cards
+ * Apply a gentle shadow and lift on hover to product, collection
+ * and blog cards. This effect provides depth and a tactile
+ * interaction, encouraging clicks without looking too busy.
+ */
+.product-card,
+.collection-card,
+.blog-card,
+.card {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover,
+.collection-card:hover,
+.blog-card:hover,
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12), 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/*
+ * Header call‑to‑action icons
+ * When hovering over header icons (e.g. cart, search), use the
+ * accent colour to reinforce interactivity and unify the theme.
+ */
+.icon-btn:hover,
+.icon-btn:focus-visible {
+  background: #151518;
+  color: var(--color-accent);
+}
