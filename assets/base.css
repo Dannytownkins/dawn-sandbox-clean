@@ -108,15 +108,13 @@
 }
 
 .section-collection-list .card__heading a::after {
-  display: none !important; /* Remove heading overlay since image link covers everything */
+  display: none !important; /* Remove heading overlay to prevent z-index conflicts */
 }
 
 .section-collection-list .card__heading a {
-  pointer-events: none !important; /* Disable heading link, use image link instead */
-}
-
-.section-collection-list .card__heading a * {
-  pointer-events: auto !important; /* Re-enable for text selection */
+  pointer-events: auto !important; /* Keep text links clickable */
+  position: relative;
+  z-index: 1000 !important; /* Above the image link */
 }
 
 /* Dawn caps card width; remove that in this section only */
