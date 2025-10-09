@@ -18,6 +18,7 @@
         var hero = document.querySelector('main .banner img, .slideshow__image img, .hero img, .banner__media img');
         if (hero) { hero.setAttribute('fetchpriority','high'); hero.setAttribute('loading','eager'); }
       });
+
     </script>
 
     {%- if settings.favicon != blank -%}
@@ -30,6 +31,7 @@
     {%- comment -%} Preload critical CSS {%- endcomment -%}
     {{ 'base.css' | asset_url | preload_tag: as: 'style' }}
     {{ 'astra.css' | asset_url | preload_tag: as: 'style' }}
+    {{ 'conversion.css' | asset_url | preload_tag: as: 'style' }}
 
     <title>
       {{ page_title }}
@@ -278,6 +280,7 @@
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'astra.css' | asset_url | stylesheet_tag }}
     {{ 'custom.css' | asset_url | stylesheet_tag }}
+    {{ 'conversion.css' | asset_url | stylesheet_tag }}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
     {%- if settings.cart_type == 'drawer' -%}
