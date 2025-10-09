@@ -48,7 +48,15 @@
       style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
     >
       {%- if card_collection.featured_image -%}
-        <a href="{{ card_collection.url }}" class="card__media-link" aria-label="{{ card_collection.title | escape }}">
+        {%- liquid
+          assign collection_product_url = card_collection.url
+          if card_collection.handle == 'light-humor'
+            assign collection_product_url = '/products/sunny-t-shirt'
+          elsif card_collection.handle == 'dark-humor'
+            assign collection_product_url = '/products/short-sleeve-skelly-t'
+          endif
+        -%}
+        <a href="{{ collection_product_url }}" class="card__media-link" aria-label="{{ card_collection.title | escape }}">
           <div class="card__media">
             <div class="media media--transparent media--hover-effect media--fill">
               <img
@@ -90,7 +98,7 @@
                 {% if card_collection == blank %}
                   role="link" aria-disabled="true"
                 {% else %}
-                  href="{{ card_collection.url }}"
+                  href="{{ collection_product_url }}"
                 {% endif %}
                 class="full-unstyled-link"
               >
@@ -126,7 +134,7 @@
               {% if card_collection == blank %}
                 role="link" aria-disabled="true"
               {% else %}
-                href="{{ card_collection.url }}"
+                href="{{ collection_product_url }}"
               {% endif %}
               class="full-unstyled-link"
             >
