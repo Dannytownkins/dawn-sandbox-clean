@@ -7,70 +7,25 @@
 
 {%- style -%}
   .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | default: 20 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | default: 20 }}px;
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
 
-  /* Cart item spacing control */
-  #main-cart-items .cart__items tbody tr {
-    margin-bottom: {{ section.settings.item_spacing | default: 16 }}px;
-  }
-
-  /* Clean layout - remove bottom spacing */
-  #main-cart-items {
-    padding-bottom: 0 !important;
-  }
-
-  cart-items > div {
-    padding-bottom: 24px !important;
-  }
-
-  /* Checkout button styling */
-  .cart__checkout-wrapper .cart__checkout-button {
-    background: var(--brand-yellow) !important;
-    color: #000 !important;
-    border: 2px solid #000 !important;
-    font-weight: 700 !important;
-    min-height: 52px !important;
-    font-size: 1.1rem !important;
-  }
-
-  /* Recommendations spacing control */
-  {% if section.settings.show_recommendations %}
-  #main-cart-items ~ section:not(.cart__footer-wrapper) {
-    margin-top: {{ section.settings.recommendations_spacing | default: 24 }}px !important;
-    padding-top: 24px !important;
-  }
-  {% else %}
-  /* Hide recommendations if disabled */
-  #main-cart-items ~ section:not(#main-cart-footer):not(.cart__footer-wrapper) {
-    display: none !important;
-  }
-  {% endif %}
-
-  /* Hide the separate cart footer section - checkout is now inline */
-  .cart__footer-wrapper {
-    display: none !important;
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
   }
 {%- endstyle -%}
 
-<style>
-  .section-{{ section.id }} {
-    text-align: center;
-  }
-  .cart-items, .cart-items__header, .cart-item {
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .cart-item__details {
-    text-align: left;
-  }
-  .cart__ctas {
-    justify-content: center;
-  }
-</style>
+{%- unless settings.cart_type == 'drawer' -%}
+  <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+{%- endunless -%}
 
-<div class="section section-{{ section.id }}">
+<script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
+
+<cart-items class="gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
   <div class="page-width">
     <div class="title-wrapper-with-link">
       <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
@@ -133,18 +88,18 @@
                   >
                     <td class="cart-item__media">
                       {% if item.image %}
-                        <a href="{{ item.url }}" class="cart-item__link">
-                          <div class="cart-item__image-container gradient {% if item.parent_relationship.parent == null %}global-media-settings{% endif %}">
-                            <img
-                              src="{{ item.image | image_url: width: 300 }}"
-                              class="cart-item__image {% if item.parent_relationship.parent != null %}global-media-settings{% endif %}"
-                              alt="{{ item.image.alt | escape }}"
-                              loading="lazy"
-                              width="150"
-                              height="{{ 150 | divided_by: item.image.aspect_ratio | ceil }}"
-                            >
-                          </div>
-                        </a>
+                        {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
+                        <a href="{{ item.url }}" class="cart-item__link" aria-hidden="true" tabindex="-1"> </a>
+                        <div class="cart-item__image-container gradient {% if item.parent_relationship.parent == null %}global-media-settings{% endif %}">
+                          <img
+                            src="{{ item.image | image_url: width: 300 }}"
+                            class="cart-item__image {% if item.parent_relationship.parent != null %}global-media-settings{% endif %}"
+                            alt="{{ item.image.alt | escape }}"
+                            loading="lazy"
+                            width="150"
+                            height="{{ 150 | divided_by: item.image.aspect_ratio | ceil }}"
+                          >
+                        </div>
                       {% endif %}
                     </td>
 
@@ -488,18 +443,6 @@
         </div>
       </div>
 
-      {% render 'cart-note' %}
-
-      <div class="cart__checkout-wrapper" style="margin: 24px 0; text-align: center;">
-        <button type="submit" name="checkout" class="button cart__checkout-button" form="cart" style="width: 100%; max-width: 400px; margin: 0 auto;">
-          Checkout Now
-        </button>
-      </div>
-
-      {% if cart.items.size > 0 and section.settings.show_recommendations %}
-        {% render 'cart-cross-sell' %}
-      {% endif %}
-
       <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status"></p>
       <p
         class="visually-hidden"
@@ -512,15 +455,21 @@
       </p>
     </form>
   </div>
-</div>
+</cart-items>
 
 {% schema %}
 {
-  "name": "Cart Items",
+  "name": "t:sections.main-cart-items.name",
   "settings": [
     {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
       "type": "header",
-      "content": "Layout Controls"
+      "content": "t:sections.all.padding.section_padding_heading"
     },
     {
       "type": "range",
@@ -529,8 +478,8 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Top spacing",
-      "default": 20
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
     },
     {
       "type": "range",
@@ -539,45 +488,8 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Bottom spacing",
-      "default": 20
-    },
-    {
-      "type": "range",
-      "id": "item_spacing",
-      "min": 0,
-      "max": 48,
-      "step": 4,
-      "unit": "px",
-      "label": "Space between cart items",
-      "default": 16,
-      "info": "Vertical gap between products in cart"
-    },
-    {
-      "type": "header",
-      "content": "Recommendations"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_recommendations",
-      "label": "Show product recommendations",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "recommendations_spacing",
-      "min": 0,
-      "max": 80,
-      "step": 4,
-      "unit": "px",
-      "label": "Space above recommendations",
-      "default": 32
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "Color scheme",
-      "default": "scheme-1"
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
     }
   ]
 }

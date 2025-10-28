@@ -58,16 +58,7 @@
         style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
       >
         {%- if card_product.featured_media -%}
-          <div
-            class="card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}"
-            style="position: relative;"
-          >
-            {% render 'product-badges', product: card_product %}
-            {% if card_product.available == false %}
-              <span class="pill pill--soldout">Sold out</span>
-            {% elsif card_product.total_inventory and card_product.total_inventory < 5 %}
-              <span class="pill pill--low">Only {{ card_product.total_inventory }} left</span>
-            {% endif %}
+          <div class="card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
             <div class="media media--transparent media--hover-effect">
               {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
               <img
@@ -84,7 +75,6 @@
                 sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
                 alt="{{ card_product.featured_media.alt | escape }}"
                 class="motion-reduce"
-                style="width:100%;height:100%;object-fit:contain;aspect-ratio:3/4;"
                 {% unless lazy_load == false %}
                   loading="lazy"
                 {% endunless %}
@@ -123,7 +113,6 @@
               {% if card_product.featured_media == null and settings.card_style == 'standard' %}
                 id="title-{{ section_id }}-{{ card_product.id }}"
               {% endif %}
-              data-hl
             >
               <a
                 href="{{ card_product.url }}"
@@ -216,7 +205,6 @@
             {%- endif -%}
 
             {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
-            {% render 'quick-add', product: card_product %}
             {%- if card_product.quantity_price_breaks_configured? -%}
               {% if card_product.variants_count == 1 and quick_add == 'bulk' %}
                 {% liquid
@@ -361,7 +349,6 @@
                     type="hidden"
                     name="id"
                     value="{{ card_product.selected_or_first_available_variant.id }}"
-                    data-variant-id
                     class="product-variant-id"
                     {% if card_product.selected_or_first_available_variant.available == false %}
                       disabled
@@ -580,17 +567,6 @@
         </div>
       </div>
     </div>
-    {%- assign first_available = product.variants | where: 'available', true | first -%}
-<div class="card__cta">
-  {%- if product.has_only_default_variant and first_available -%}
-    <form method="post" action="/cart/add" class="quick-add">
-      <input type="hidden" name="id" value="{{ first_available.id }}">
-      <button type="submit" class="button button--full">Add to cart</button>
-    </form>
-  {%- else -%}
-    <a href="{{ product.url }}" class="button button--full button--secondary">View options</a>
-  {%- endif -%}
-</div>
   </div>
 {%- else -%}
   {%- liquid
@@ -646,15 +622,3 @@
     </div>
   </div>
 {%- endif -%}
-
-{%- assign first_available = product.variants | where: 'available', true | first -%}
-<div class="card__cta"><!-- MCP_QUICK_ADD -->
-  {%- if product.has_only_default_variant and first_available -%}
-    <form method="post" action="/cart/add" class="quick-add">
-      <input type="hidden" name="id" value="{{ first_available.id }}">
-      <button type="submit" class="button button--full">Add to cart</button>
-    </form>
-  {%- else -%}
-    <a href="{{ product.url }}" class="button button--full button--secondary">View options</a>
-  {%- endif -%}
-</div>

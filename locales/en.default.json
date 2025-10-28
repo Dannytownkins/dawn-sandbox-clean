@@ -62,25 +62,6 @@
     "success": "Thanks for subscribing",
     "button_label": "Subscribe"
   },
-  "cart": {
-    "free_shipping_qualified": "You're eligible for free shipping!",
-    "free_shipping_remaining": "Only {{ amount }} away from free shipping",
-    "upsells": {
-      "heading": "You may also like",
-      "add": "Add"
-    },
-    "drawer": {
-      "view_details": "View full details",
-      "view_options": "View options"
-    },
-    "discount": {
-      "have_code": "Have a discount code?"
-    },
-    "view_cart": "View cart",
-    "checkout": "Checkout",
-    "subtotal": "Subtotal",
-    "empty": "Your cart is empty"
-  },
   "accessibility": {
     "skip_to_text": "Skip to content",
     "skip_to_product_info": "Skip to product information",
@@ -188,7 +169,6 @@
       "share": "Share this product",
       "sold_out": "Sold out",
       "unavailable": "Unavailable",
-      "urgency_message": "Only {{ count }} left in stock!",
       "vendor": "Vendor",
       "value_unavailable": "{{ option_value }} - Unavailable",
       "variant_sold_out_or_unavailable": "Variant sold out or unavailable",
@@ -199,21 +179,7 @@
       "taxes_included": "Taxes included.",
       "duties_included": "Duties included.",
       "duties_and_taxes_included": "Duties and taxes included.",
-      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
-      "shipping_returns": "Shipping & Returns",
-      "care_instructions": "Care Instructions",
-      "sizing": "Sizing",
-      "fabric": "Fabric",
-      "size_guide": "Size Guide",
-      "size": "Size",
-      "chest": "Chest",
-      "waist": "Waist",
-      "hips": "Hips",
-      "size_guide_note": "Measurements are approximate. If between sizes, we recommend sizing up.",
-      "reviews": "reviews",
-      "write_review": "Write a review",
-      "taxes_and_shipping_at_checkout": "Tax and shipping calculated at checkout",
-      "popular_products": "Popular Products"
+      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout."
     },
     "modal": {
       "label": "Media gallery"
@@ -251,11 +217,6 @@
     }
   },
   "templates": {
-    "404": {
-      "title": "Page not found",
-      "subtext": "The page you're looking for doesn't exist.",
-      "popular_products": "Popular Products"
-    },
     "search": {
       "no_results": "No results found for “{{ terms }}”. Check the spelling or use a different word or phrase.",
       "page": "Page",
@@ -299,6 +260,10 @@
         "post_success": "Thanks for contacting us. We'll get back to you as soon as possible.",
         "error_heading": "Please adjust the following:"
       }
+    },
+    "404": {
+      "title": "Page not found",
+      "subtext": "404"
     }
   },
   "sections": {
@@ -309,6 +274,7 @@
       "announcement": "Announcement",
       "announcement_bar": "Announcement bar"
     },
+
     "header": {
       "announcement": "Announcement",
       "menu": "Menu",
@@ -347,24 +313,6 @@
       "login": {
         "title": "Have an account?",
         "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in</a> to check out faster."
-      },
-      "free_shipping": {
-        "qualified": "🎉 You've qualified for free shipping!",
-        "message": "You're {{ amount }} away from free shipping"
-      },
-      "upsells": {
-        "heading": "You might also like",
-        "add": "Add"
-      },
-      "discount": {
-        "have_code": "Have a discount code?",
-        "placeholder": "Enter code",
-        "aria_label": "Discount code",
-        "apply": "Apply",
-        "saved": "✓ Code saved for checkout",
-        "success": "✓ Discount code saved!",
-        "error_empty": "Please enter a discount code",
-        "error": "Could not save discount code"
       }
     },
     "footer": {

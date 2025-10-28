@@ -1,139 +1,99 @@
-# Danliora Shopify Theme (Phase 2)
+# Dawn
 
-A high-conversion Shopify theme built on Dawn, featuring Light vs Dark product categories and modern UX enhancements.
+[![Build status](https://github.com/shopify/dawn/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Shopify/dawn/actions/workflows/ci.yml?query=branch%3Amain)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?color=informational)](/.github/CONTRIBUTING.md)
 
-## Setup
+[Getting started](#getting-started) |
+[Staying up to date with Dawn changes](#staying-up-to-date-with-dawn-changes) |
+[Developer tools](#developer-tools) |
+[Contributing](#contributing) |
+[Code of conduct](#code-of-conduct) |
+[Theme Store submission](#theme-store-submission) |
+[License](#license)
 
-### 1. Install Shopify CLI
-```bash
-npm install -g @shopify/cli @shopify/theme
+Dawn represents a HTML-first, JavaScript-only-as-needed approach to theme development. It's Shopify's first source available theme with performance, flexibility, and [Online Store 2.0 features](https://www.shopify.com/partners/blog/shopify-online-store) built-in and acts as a reference for building Shopify themes.
+
+* **Web-native in its purest form:** Themes run on the [evergreen web](https://www.w3.org/2001/tag/doc/evergreen-web/). We leverage the latest web browsers to their fullest, while maintaining support for the older ones through progressive enhancement—not polyfills.
+* **Lean, fast, and reliable:** Functionality and design defaults to “no” until it meets this requirement. Code ships on quality. Themes must be built with purpose. They shouldn’t support each and every feature in Shopify.
+* **Server-rendered:** HTML must be rendered by Shopify servers using Liquid. Business logic and platform primitives such as translations and money formatting don’t belong on the client. Async and on-demand rendering of parts of the page is OK, but we do it sparingly as a progressive enhancement.
+* **Functional, not pixel-perfect:** The Web doesn’t require each page to be rendered pixel-perfect by each browser engine. Using semantic markup, progressive enhancement, and clever design, we ensure that themes remain functional regardless of the browser.
+
+You can find a more detailed version of our theme code principles in the [contribution guide](https://github.com/Shopify/dawn/blob/main/.github/CONTRIBUTING.md#theme-code-principles).
+
+## Getting started
+We recommend using Dawn as a starting point for theme development. [Learn more on Shopify.dev](https://shopify.dev/themes/getting-started/create).
+
+> If you're building a theme for the Shopify Theme Store, then you can use Dawn as a starting point. However, the theme that you submit needs to be [substantively different from Dawn](https://shopify.dev/themes/store/requirements#uniqueness) so that it provides added value for merchants. Learn about the [ways that you can use Dawn](https://shopify.dev/themes/tools/dawn#ways-to-use-dawn).
+
+Please note that the main branch may include code for features not yet released. The "stable" version of Dawn is available in the theme store.
+
+## Staying up to date with Dawn changes
+
+Say you're building a new theme off Dawn but you still want to be able to pull in the latest changes, you can add a remote `upstream` pointing to this Dawn repository.
+
+1. Navigate to your local theme folder.
+2. Verify the list of remotes and validate that you have both an `origin` and `upstream`:
+```sh
+git remote -v
+```
+3. If you don't see an `upstream`, you can add one that points to Shopify's Dawn repository:
+```sh
+git remote add upstream https://github.com/Shopify/dawn.git
+```
+4. Pull in the latest Dawn changes into your repository:
+```sh
+git fetch upstream
+git pull upstream main
 ```
 
-### 2. Authenticate
-```bash
-shopify login --store=your-store-name
-```
+## Developer tools
 
-### 3. Create Collections & Products (Automated)
-```bash
-# Set up API credentials (one-time)
-$env:SHOPIFY_STORE="yourstore.myshopify.com"
-$env:SHOPIFY_ACCESS_TOKEN="shpat_xxxxx"  # Get from Admin → Apps → Create custom app
+There are a number of really useful tools that the Shopify Themes team uses during development. Dawn is already set up to work with these tools.
 
-# Run setup script
-node setup_collections.js
-```
+### Shopify CLI
 
-This will automatically create:
-- **Light Humor** collection (handle: `light-humor`)
-- **Dark Humor** collection (handle: `dark-humor`)
-- 4 sample products with proper tags and inventory settings
+[Shopify CLI](https://github.com/Shopify/shopify-cli) helps you build Shopify themes faster and is used to automate and enhance your local development workflow. It comes bundled with a suite of commands for developing Shopify themes—everything from working with themes on a Shopify store (e.g. creating, publishing, deleting themes) or launching a development server for local theme development.
 
-See [`SETUP_COLLECTIONS.md`](./SETUP_COLLECTIONS.md) for manual setup instructions.
+You can follow this [quick start guide for theme developers](https://shopify.dev/docs/themes/tools/cli) to get started.
 
-### 4. Start local dev server
-```bash
-shopify theme dev
-```
+### Theme Check
 
-### 5. Run Theme Check
+We recommend using [Theme Check](https://github.com/shopify/theme-check) as a way to validate and lint your Shopify themes.
+
+We've added Theme Check to Dawn's [list of VS Code extensions](/.vscode/extensions.json) so if you're using Visual Studio Code as your code editor of choice, you'll be prompted to install the [Theme Check VS Code](https://marketplace.visualstudio.com/items?itemName=Shopify.theme-check-vscode) extension upon opening VS Code after you've forked and cloned Dawn.
+
+You can also run it from a terminal with the following Shopify CLI command:
+
 ```bash
 shopify theme check
 ```
 
-## Features Added in Phase 2
+### Continuous Integration
 
-### Homepage & Layout
-- **Duo Hero Section** (`sections/duo-hero.liquid`) – Split Light vs Dark cards with asymmetric styling
-- **Design System** (`assets/astra.css`) – Fluid type scale, button variants, and accessibility utilities
-- **Sticky Header** with logo shrink-on-scroll effect
+Dawn uses [GitHub Actions](https://github.com/features/actions) to maintain the quality of the theme. [This is a starting point](https://github.com/Shopify/dawn/blob/main/.github/workflows/ci.yml) and what we suggest to use in order to ensure you're building better themes. Feel free to build off of it!
 
-### Product Discovery
-- **Product Badges** (`snippets/product-badges.liquid`) – Bestseller, New, and Sold Out tags
-- **Quick Add** (`snippets/quick-add.liquid`) – One-click ATC for single-variant products
-- **Predictive Search** (`snippets/predictive-search.liquid`) – Live product suggestions as you type
-- **Tag Filter Pills** – Collection page tag filtering with active states
+#### Shopify/lighthouse-ci-action
 
-### Cart & Checkout
-- **Free Shipping Progress Bar** (`snippets/cart-progress.liquid`) – Visual threshold tracker
-- **Cart Settings** – Configurable free shipping threshold in Theme Settings
+We love fast websites! Which is why we created [Shopify/lighthouse-ci-action](https://github.com/Shopify/lighthouse-ci-action). This runs a series of [Google Lighthouse](https://developers.google.com/web/tools/lighthouse) audits for the home, product and collections pages on a store to ensure code that gets added doesn't degrade storefront performance over time.
 
-### Navigation
-- **Mega Menu** (`snippets/mega-menu.liquid`) – Configurable multi-column navigation
-- **Improved Mobile Navigation** – Touch-optimized drawer
+#### Shopify/theme-check-action
 
-### Accessibility & Performance
-- Font preloading for critical typography
-- Comprehensive `focus-visible` states for keyboard navigation
-- `prefers-reduced-motion` support across animations
-- Optimized `.shopifyignore` to keep theme package under 50MB
+Dawn runs [Theme Check](#Theme-Check) on every commit via [Shopify/theme-check-action](https://github.com/Shopify/theme-check-action).
 
-## Dev Toggles (Theme Settings)
+## Contributing
 
-- **⚡ Dev: Force products appear in stock** – Override availability checks for preview
-- **⚡ Dev: Show all sections** – Surface all sections in theme editor
+Want to make commerce better for everyone by contributing to Dawn? We'd love your help! Please read our [contributing guide](https://github.com/Shopify/dawn/blob/main/.github/CONTRIBUTING.md) to learn about our development process, how to propose bug fixes and improvements, and how to build for Dawn.
 
-## Theme Settings
+## Code of conduct
 
-### Navigation
-- **Mega Menu Handle** – Menu to use for mega menu content (default: `mega-menu`)
-- **Mega Menu Trigger Text** – Top-level link that triggers mega menu (default: `Shop`)
+All developers who wish to contribute through code or issues, please first read our [Code of Conduct](https://github.com/Shopify/dawn/blob/main/.github/CODE_OF_CONDUCT.md).
 
-### Cart & Checkout
-- **Free Shipping Threshold** – Dollar amount required for free shipping (default: $50)
+## Theme Store submission
 
-## Using the Duo Hero
+The [Shopify Theme Store](https://themes.shopify.com/) is the place where Shopify merchants find the themes that they'll use to showcase and support their business. As a theme partner, you can create themes for the Shopify Theme Store and reach an international audience of an ever-growing number of entrepreneurs.
 
-1. Go to **Theme Customization** → Homepage
-2. Add the **Duo Hero** section
-3. Configure:
-   - **Light Card**: Heading, text, CTA, optional image
-   - **Dark Card**: Heading, text, CTA, optional image
-4. Set collection links for each CTA
+Ensure that you follow the list of [theme store requirements](https://shopify.dev/themes/store/requirements) if you're interested in becoming a [Shopify Theme Partner](https://themes.shopify.com/services/themes/guidelines) and building themes for the Shopify platform.
 
-## Heavy Media Best Practices
+## License
 
-- Large assets (videos, high-res images) should be uploaded to **Content → Files** in Shopify Admin
-- Reference them in Liquid using `{{ 'filename.ext' | file_url }}`
-- See `.shopifyignore` for excluded file patterns
-
-## File Structure
-
-```
-assets/
-  astra.css                    # Design system tokens
-sections/
-  duo-hero.liquid              # Light vs Dark hero
-  main-collection-product-grid.liquid  # Enhanced with tag pills
-  header.liquid                # Predictive search integration
-snippets/
-  product-badges.liquid        # Product tags
-  quick-add.liquid             # Fast ATC
-  cart-progress.liquid         # Free shipping bar
-  predictive-search.liquid     # Search dropdown
-  mega-menu.liquid             # Multi-column nav
-```
-
-## Commit History (Phase 2)
-
-1. `feat(home): add duo-hero section (Light vs Dark)`
-2. `chore(css): add type scale + button variants`
-3. `feat(pdp+plp): product badges (new/bestseller/oos)`
-4. `feat(plp): quick-add for single-variant products`
-5. `feat(cart): free-shipping progress bar + setting`
-6. `feat(search): lightweight predictive search dropdown`
-7. `feat(nav): mega-menu with configurable handle`
-8. `feat(collection): tag pills, per-page size, badges + quick-add`
-9. `a11y+perf: preloads, reduced-motion guard, focus states`
-10. `perf: migrate heavy assets to Shopify CDN + tighten .shopifyignore`
-
-## QA Checklist
-
-- [ ] Duo hero loads with balanced weight; CTAs link properly
-- [ ] Predictive search shows 6 items with thumbnails; closes on outside click/escape
-- [ ] Cart drawer shows progress bar and updates as qty changes
-- [ ] Collection pills filter visually; badges show on cards
-- [ ] Quick-add works for single-variant products
-- [ ] Lighthouse mobile ≥ 90; no console errors
-- [ ] Focus states visible for all interactive elements
-- [ ] Reduced motion respected in animations
+Copyright (c) 2021-present Shopify Inc. See [LICENSE](/LICENSE.md) for further details.

@@ -1330,16 +1330,3 @@ class CartPerformance {
     );
   }
 }
-
-// Quick-add to cart functionality
-document.addEventListener('click', async (e)=>{
-  const btn = e.target.closest('.quick-add button');
-  if(!btn) return;
-  e.preventDefault();
-  const form = btn.closest('form');
-  const data = new FormData(form);
-  await fetch('/cart/add.js', { method:'POST', body:data });
-  document.documentElement.dispatchEvent(new CustomEvent('cart:refresh')); // Dawn listens
-  btn.textContent = 'Added ✓';
-  setTimeout(()=>btn.textContent='Quick add', 1200);
-});

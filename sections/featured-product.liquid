@@ -10,7 +10,6 @@
   data-product-id="{{ product.id }}"
   data-update-url="false"
   data-url="{{ product.url }}"
-  data-available="{{ product.selected_or_first_available_variant.available }}"
   {% if section.settings.image_zoom == 'hover' %}
     data-zoom-on-hover
   {% endif %}
@@ -405,8 +404,7 @@
                     block: block,
                     product: product,
                     product_form_id: product_form_id,
-                    section_id: section.id,
-                    preview_force_available: settings.dev_force_in_stock
+                    section_id: section.id
                   -%}
                 {%- when 'custom_liquid' -%}
                   {{ block.settings.custom_liquid }}
@@ -484,6 +482,14 @@
     </script>
     <script src="{{ 'product-model.js' | asset_url }}" defer></script>
   {%- endif -%}
+
+  {%- liquid
+    if product.selected_or_first_available_variant.featured_media
+      assign seo_media = product.selected_or_first_available_variant.featured_media
+    else
+      assign seo_media = product.featured_media
+    endif
+  -%}
 
   <script type="application/ld+json">
     {{ product | structured_data }}

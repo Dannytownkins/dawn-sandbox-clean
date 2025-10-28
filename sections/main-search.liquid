@@ -63,30 +63,6 @@
   }
 {%- endstyle -%}
 
-<div class="section section-{{ section.id }}">
-<style>
-  .section-{{ section.id }} {
-    text-align: {{ section.settings.text_align | default: 'left' }};
-  }
-  .section-{{ section.id }} :where(.image, .media, .card__media, .product-card__media) img {
-    max-width: {{ section.settings.image_max | default: 1000 }}px;
-    height: auto;
-    margin-inline: auto;
-    display: block;
-  }
-  .section-{{ section.id }} :where(.buttons, .button-row, .card__actions, .cta-row) {
-    display: flex;
-    gap: .5rem;
-    flex-wrap: wrap;
-    justify-content: {% if section.settings.button_align == 'center' %}center{% elsif section.settings.button_align == 'right' %}flex-end{% else %}flex-start{% endif %};
-  }
-  {% if section.settings.hover_zoom %}
-  .section-{{ section.id }} :where(.product-card, .card, .article-card, .collection-card):hover {
-    transform: scale(1.03);
-    transition: transform .2s ease;
-  }
-  {% endif %}
-</style>
 {% paginate search.results by 24 %}
   <div class="template-search{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %} section-{{ section.id }}-padding">
     <div class="template-search__header page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
@@ -165,15 +141,7 @@
           {%- endif -%}
         {%- endunless -%}
         {%- if search.results_count == 0 and search.filters == empty -%}
-          <div class="section" style="max-width:1100px;margin:0 auto;">
-            <h2 class="h2" style="margin:0 0 8px;">No results for “{{ search.terms | escape }}”</h2>
-            <p style="opacity:.8;margin:0 0 16px;">Try a different keyword or browse our bestsellers:</p>
-            <div class="grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;">
-              {% for p in collections['all'].products limit: 2 %}
-                {% render 'card-product', card_product: p, show_quick_add: true, show_vendor: false, section_id: section.id %}
-              {% endfor %}
-            </div>
-          </div>
+          <p role="status">{{ 'templates.search.no_results' | t: terms: search.terms }}</p>
         {%- endif -%}
       {%- endif -%}
     </div>
@@ -304,7 +272,6 @@
                     {%- case item.object_type -%}
                       {%- when 'product' -%}
                         {%- capture product_settings -%}{%- if section.settings.product_show_vendor -%}vendor,{%- endif -%}title,price{%- endcapture -%}
-                        {%- assign _product_settings_used = product_settings -%}
                         {% render 'card-product',
                           card_product: item,
                           media_aspect_ratio: section.settings.image_ratio,
@@ -365,7 +332,6 @@
 {% if section.settings.image_shape == 'arch' %}
   {{ 'mask-arch.svg' | inline_asset_content }}
 {%- endif -%}
-</div>
 
 {% schema %}
 {
@@ -397,7 +363,7 @@
           "label": "t:sections.main-search.settings.columns_mobile.options__2.label"
         }
       ]
-    },
+    },    
     {
       "type": "header",
       "content": "t:sections.main-search.settings.header__1.content"
@@ -557,48 +523,6 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
-    },
-    {
-      "type": "header",
-      "content": "Design Controls"
-    },
-    {
-      "type": "select",
-      "id": "text_align",
-      "label": "Text alignment",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
-      ],
-      "default": "left"
-    },
-    {
-      "type": "range",
-      "id": "image_max",
-      "min": 240,
-      "max": 1600,
-      "step": 20,
-      "unit": "px",
-      "label": "Max image width",
-      "default": 1000
-    },
-    {
-      "type": "select",
-      "id": "button_align",
-      "label": "Button alignment",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
-      ],
-      "default": "left"
-    },
-    {
-      "type": "checkbox",
-      "id": "hover_zoom",
-      "label": "Hover zoom effect",
-      "default": false
     }
   ]
 }
