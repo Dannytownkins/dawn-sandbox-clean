@@ -1,0 +1,114 @@
+<div class="section section-{{ section.id }}">
+<style>
+  .section-{{ section.id }} {
+    padding-block: {{ section.settings.pad_y | default: 40 }}px;
+    text-align: {{ section.settings.text_align | default: 'left' }};
+  }
+  .section-{{ section.id }} :where(.image, .media, .card__media, .image-with-text__media) img {
+    max-width: {{ section.settings.image_max | default: 800 }}px;
+    height: auto;
+  }
+  .section-{{ section.id }} :where(.buttons, .button-row, .card__actions, .cta-row) {
+    display: flex;
+    justify-content: {% if section.settings.button_align == 'center' %}center{% elsif section.settings.button_align == 'right' %}flex-end{% else %}flex-start{% endif %};
+    gap: .5rem;
+    flex-wrap: wrap;
+  }
+</style>
+<section id="shopify-section-{{ section.id }}" class="section" style="max-width:1100px;margin:0 auto;">
+  {% if section.settings.heading != blank %}
+    <h1 class="h1" style="margin:0 0 8px;">{{ section.settings.heading }}</h1>
+  {% endif %}
+  {% if section.settings.subheading != blank %}
+    <p style="opacity:.8;margin:0 0 16px;">{{ section.settings.subheading }}</p>
+  {% endif %}
+  <div class="faq">
+    {% for b in section.blocks %}
+      <details class="faq-item" {% if forloop.first %}open{% endif %}>
+        <summary class="h4" style="cursor:pointer">{{ b.settings.q }}</summary>
+        <div class="answer" style="opacity:.9;margin:8px 0 12px">{{ b.settings.a }}</div>
+      </details>
+    {% endfor %}
+  </div>
+  {% if section.blocks.size > 0 %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {% for b in section.blocks %}
+      {
+        "@type": "Question",
+        "name": {{ b.settings.q | strip_html | strip_newlines | json }},
+        "acceptedAnswer": { "@type": "Answer", "text": {{ b.settings.a | json }} }
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+  }
+  </script>
+  {% endif %}
+</section>
+</div>
+{% schema %}
+{
+  "name": "FAQ accordion",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "FAQs" },
+    { "type": "text", "id": "subheading", "label": "Subheading" },
+    {
+      "type": "header",
+      "content": "Design Controls"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "pad_y",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "image_max",
+      "min": 240,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Max image width",
+      "default": 800
+    },
+    {
+      "type": "select",
+      "id": "button_align",
+      "label": "Button alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    }
+  ],
+  "blocks": [
+    { "type": "faq", "name": "FAQ", "settings": [
+      { "type": "text", "id": "q", "label": "Question" },
+      { "type": "richtext", "id": "a", "label": "Answer" }
+    ] }
+  ],
+  "max_blocks": 20,
+  "presets": [{ "name": "FAQ accordion" }]
+}
+{% endschema %}

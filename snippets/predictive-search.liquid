@@ -1,0 +1,132 @@
+{%- comment -%}
+  Predictive Search Dropdown
+  Shows product suggestions as user types
+  
+  Usage:
+    {% render 'predictive-search' %}
+    Place this near the search input in header
+{%- endcomment -%}
+
+<div class="predictive" hidden id="predictive">
+  <ul class="predictive__list" role="list"></ul>
+</div>
+
+<script>
+  (() => {
+    const input = document.querySelector('input[type="search"]');
+    if (!input) return;
+    
+    const box = document.getElementById('predictive');
+    const list = box.querySelector('.predictive__list');
+
+    async function go(q) {
+      if (!q || q.length < 2) {
+        box.hidden = true;
+        list.innerHTML = '';
+        return;
+      }
+      
+      try {
+        const res = await fetch(`/search/suggest.json?q=${encodeURIComponent(q)}&resources[type]=product&resources[limit]=6`);
+        const data = await res.json();
+        const products = data.resources?.results?.products || [];
+        
+        if (products.length === 0) {
+          list.innerHTML = '<li class="predictive__empty">No results found</li>';
+        } else {
+          const items = products.map(p => {
+            const imgSrc = p.image || '';
+            return `<li>
+              <a href="${p.url}">
+                ${imgSrc ? `<img src="${imgSrc}" alt="" width="40" height="40" loading="lazy">` : ''}
+                <span>${p.title}</span>
+              </a>
+            </li>`;
+          }).join('');
+          list.innerHTML = items;
+        }
+        
+        box.hidden = false;
+      } catch (e) {
+        console.error('Predictive search error:', e);
+      }
+    }
+
+    let timeout;
+    input.addEventListener('input', e => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => go(e.target.value.trim()), 300);
+    });
+
+    document.addEventListener('click', e => {
+      if (!box.contains(e.target) && e.target !== input) {
+        box.hidden = true;
+      }
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        box.hidden = true;
+      }
+    });
+  })();
+</script>
+
+<style>
+  .predictive {
+    position: absolute;
+    background: #0b0b0c;
+    color: #fff;
+    border: 1px solid #1b1b1d;
+    border-radius: 12px;
+    max-width: 520px;
+    width: 100%;
+    padding: 8px;
+    z-index: 50;
+    margin-top: 4px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .predictive__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 6px;
+  }
+
+  .predictive__list a {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 6px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s ease;
+  }
+
+  .predictive__list a:hover,
+  .predictive__list a:focus {
+    background: #121214;
+  }
+
+  .predictive__list img {
+    border-radius: 4px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .predictive__empty {
+    padding: 12px;
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .predictive__list a {
+      transition: none;
+    }
+  }
+</style>

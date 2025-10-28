@@ -1,0 +1,152 @@
+{% assign col = collections[section.settings.collection] %}
+<div class="section section-{{ section.id }}">
+<style>
+  .section-{{ section.id }} {
+    text-align: {{ section.settings.text_align | default: 'left' }};
+  }
+  .section-{{ section.id }} :where(.image, .media, .card__media, .product-card__media, .ps-media) img {
+    max-width: {{ section.settings.image_max | default: 1000 }}px;
+    height: auto;
+    margin-inline: auto;
+    display: block;
+  }
+  .section-{{ section.id }} :where(.buttons, .button-row, .card__actions, .cta-row, .ps-btn) {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    justify-content: {% if section.settings.button_align == 'center' %}center{% elsif section.settings.button_align == 'right' %}flex-end{% else %}flex-start{% endif %};
+  }
+  {% if section.settings.hover_zoom %}
+  .section-{{ section.id }} :where(.ps-card):hover {
+    transform: scale(1.03);
+    transition: transform .2s ease;
+  }
+  {% endif %}
+</style>
+<section id="shopify-section-{{ section.id }}" class="section section--tight">
+  <style>
+    /* Layout: 2-up desktop, 1-up mobile */
+    #shopify-section-{{ section.id }} .ps-grid{
+      display:grid; grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:24px; max-width:1100px; margin:0 auto;
+    }
+    @media (max-width:989px){ #shopify-section-{{ section.id }} .ps-grid{ grid-template-columns:1fr; gap:18px; } }
+    /* Card */
+    #shopify-section-{{ section.id }} .ps-card{ display:flex; flex-direction:column; gap:10px; }
+    #shopify-section-{{ section.id }} .ps-media img{ width:100%; height:auto; display:block; object-fit:contain; }
+    #shopify-section-{{ section.id }} .ps-title{ font-size:clamp(16px,1.4vw,20px); margin:0; }
+    #shopify-section-{{ section.id }} .ps-price{ font-weight:600; margin:.25rem 0 .5rem; }
+    #shopify-section-{{ section.id }} .ps-btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:100%; min-height:40px; padding:10px 14px; border-radius:12px;
+      background:#111; color:#fff; border:1px solid #111; font-size:15px;
+    }
+    #shopify-section-{{ section.id }} .ps-btn:hover{ filter:brightness(1.05); }
+    /* Hide vendor (belt & suspenders) */
+    #shopify-section-{{ section.id }} .caption-with-letter-spacing{ display:none; }
+    /* Trim section padding */
+    #shopify-section-{{ section.id }} .section{ padding-block:20px 28px; }
+  </style>
+
+  {% if section.settings.heading != blank %}
+    <h2 class="h2" style="max-width:1100px;margin:0 auto 8px;">{{ section.settings.heading }}</h2>
+  {% endif %}
+  {% if section.settings.subheading != blank %}
+    <p style="max-width:1100px;margin:0 auto 20px;opacity:.7;">{{ section.settings.subheading }}</p>
+  {% endif %}
+
+  <div class="ps-grid">
+    {% assign limit = section.settings.limit | default: 2 %}
+    {% assign source_products = nil %}
+    {% if col and col.products_count > 0 %}
+      {% assign source_products = col.products %}
+    {% elsif section.blocks.size > 0 %}
+      {% assign source_products = '' | split: ',' %}
+      {% for b in section.blocks %}
+        {% assign p = all_products[b.settings.product] %}
+        {% if p %}{% assign source_products = source_products | push: p %}{% endif %}
+      {% endfor %}
+    {% else %}
+      {% assign source_products = collections['all'].products %}
+    {% endif %}
+
+    {% for product in source_products limit: limit %}
+      <article class="ps-card">
+        <a href="{{ product.url }}" class="ps-media">
+          {% render 'smart-image', image: product.featured_image, alt: product.title, sizes: "(min-width: 990px) 540px, 100vw" %}
+        </a>
+        <div class="ps-info">
+          <h3 class="ps-title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+          <div class="ps-price">{{ product.price | money }}</div>
+          {% if product.has_only_default_variant or product.variants.size == 1 %}
+            <form method="post" action="/cart/add" class="ps-quick">
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              <button type="submit" class="ps-btn">Add to cart</button>
+            </form>
+          {% else %}
+            <a href="{{ product.url }}" class="ps-btn">Choose options</a>
+          {% endif %}
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+</div>
+
+{% schema %}
+{
+  "name": "Product showcase",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Featured Products" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Discover our handpicked selection of premium products" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "limit", "label": "Products to show", "min": 2, "max": 12, "step": 1, "default": 2 },
+    {
+      "type": "header",
+      "content": "Design Controls"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "image_max",
+      "min": 240,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Max image width",
+      "default": 1000
+    },
+    {
+      "type": "select",
+      "id": "button_align",
+      "label": "Button alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "hover_zoom",
+      "label": "Hover zoom effect",
+      "default": false
+    }
+  ],
+  "blocks": [
+    { "type": "product", "name": "Product", "settings": [ { "type": "product", "id": "product", "label": "Product" } ] }
+  ],
+  "presets": [ { "name": "Product showcase" } ]
+}
+{% endschema %}

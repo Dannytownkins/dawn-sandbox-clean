@@ -1,8 +1,12 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
 <product-info
   id="MainProduct-{{ section.id }}"
   class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
   data-section="{{ section.id }}"
   data-product-id="{{ product.id }}"
+  data-product-handle="{{ product.handle }}"
+  data-variant-id="{{ current_variant.id }}"
   data-update-url="true"
   data-url="{{ product.url }}"
   {% if section.settings.image_zoom == 'hover' %}
@@ -41,6 +45,7 @@
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'product-atc.js' | asset_url }}" defer="defer"></script>
   {%- if product.quantity_price_breaks_configured? -%}
     <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
@@ -73,8 +78,11 @@
   {%- endif -%}
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
+  <script type="application/json" data-product-json>
+    {{ product | json }}
+  </script>
   <div class="page-width">
-    <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
+    <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col grid--2-col-tablet">
       <div class="grid__item product__media-wrapper">
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>
@@ -89,6 +97,8 @@
             {%- case block.type -%}
               {%- when '@app' -%}
                 {% render block %}
+              {%- when 'badges' -%}
+                {% render 'product-badges', product: product, block: block %}
               {%- when 'text' -%}
                 <p
                   class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
@@ -98,6 +108,7 @@
                 </p>
               {%- when 'title' -%}
                 <div class="product__title" {{ block.shopify_attributes }}>
+                  {% render 'product-badges', product: product %}
                   <h1>{{ product.title | escape }}</h1>
                   <a href="{{ product.url }}" class="product__title">
                     <h2 class="h1">
@@ -113,6 +124,9 @@
                     show_badges: true,
                     price_class: 'price--large'
                   -%}
+                  {% render 'size-guide' %}
+                  {% render 'reviews-placeholder', product: product %}
+                  {% render 'accordion-details' %}
                 </div>
                 {%- if product.quantity_price_breaks_configured? -%}
                   <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
@@ -262,40 +276,6 @@
                     </span>
                   </label>
                   <div class="price-per-item__container">
-                    <quantity-input class="quantity" data-url="{{ product.url }}" data-section="{{ section.id }}">
-                      <button class="quantity__button" name="minus" type="button">
-                        <span class="visually-hidden">
-                          {{- 'products.product.quantity.decrease' | t: product: product.title | escape -}}
-                        </span>
-                        <span class="svg-wrapper">
-                          {{- 'icon-minus.svg' | inline_asset_content -}}
-                        </span>
-                      </button>
-                      <input
-                        class="quantity__input"
-                        type="number"
-                        name="quantity"
-                        id="Quantity-{{ section.id }}"
-                        data-cart-quantity="{{ cart_qty }}"
-                        data-min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
-                        min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
-                        {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
-                          data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
-                          max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
-                        {% endif %}
-                        step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
-                        value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
-                        form="{{ product_form_id }}"
-                      >
-                      <button class="quantity__button" name="plus" type="button">
-                        <span class="visually-hidden">
-                          {{- 'products.product.quantity.increase' | t: product: product.title | escape -}}
-                        </span>
-                        <span class="svg-wrapper">
-                          {{- 'icon-plus.svg' | inline_asset_content -}}
-                        </span>
-                      </button>
-                    </quantity-input>
                     {%- liquid
                       assign volume_pricing_array = product.selected_or_first_available_variant.quantity_price_breaks | sort: 'quantity' | reverse
                       assign current_qty_for_volume_pricing = cart_qty | plus: product.selected_or_first_available_variant.quantity_rule.min
@@ -476,15 +456,29 @@
                 %}
 
               {%- when 'variant_picker' -%}
-                {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+                {% if product.variants.size > 1 %}
+                  {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+                  {% render 'size-chart-drawer' %}
+                  {% render 'fit-notes' %}
+                  {% render 'low-stock-urgency' %}
+                {% endif %}
               {%- when 'buy_buttons' -%}
                 {%- render 'buy-buttons',
                   block: block,
                   product: product,
                   product_form_id: product_form_id,
                   section_id: section.id,
-                  show_pickup_availability: true
+                  show_pickup_availability: true,
+                  preview_force_available: settings.dev_force_in_stock
                 -%}
+                {% render 'urgency-inline', variant: product.selected_or_first_available_variant %}
+                {% render 'trust-badges' %}
+                {%- comment -%} removed duplicate reassurance-icons (keeping trust-badges with icons) {%- endcomment -%}
+                {% render 'back-in-stock' %}
+              {%- when 'trust_icons' -%}
+                {%- comment -%} removed duplicate trust icons (already shown in buy_buttons block) {%- endcomment -%}
+              {%- when 'faq' -%}
+                {% render 'faq-accordion', block: block %}
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
                   <div class="rating-wrapper">
@@ -679,11 +673,23 @@
             {{ 'products.product.view_full_details' | t }}
             {{- 'icon-arrow.svg' | inline_asset_content -}}
           </a>
+          {%- comment -%} === Astra Variant Map for ATC === {%- endcomment -%}
+          <script type="application/json" id="VariantMap-{{ section.id }}">
+            [
+              {%- for v in product.variants -%}
+                {
+                  "id": {{ v.id }},
+                  "key": "{{ v.options | join: '||' | downcase | strip | escape }}"
+                }{% unless forloop.last %},{% endunless %}
+              {%- endfor -%}
+            ]
+          </script>
         </section>
       </div>
     </div>
 
-    {% render 'product-media-modal', variant_images: variant_images %}
+    {% render 'product-media-modal', product: product, variant_images: variant_images %}
+    {% render 'upsell-carousel', product: product %}
 
     {% assign popups = section.blocks | where: 'type', 'popup' %}
     {%- for block in popups -%}
@@ -730,6 +736,7 @@
     </script>
   </div>
 </product-info>
+{%- comment -%} removed duplicate sticky ATC {%- endcomment -%}
 
 {% schema %}
 {
@@ -739,6 +746,40 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "badges",
+      "name": "t:sections.main-product.blocks.badges.name",
+      "settings": [
+        {
+          "type": "select",
+          "id": "badge_type",
+          "options": [
+            {
+              "value": "new",
+              "label": "t:sections.main-product.blocks.badges.settings.badge_type.options__1.label"
+            },
+            {
+              "value": "sale",
+              "label": "t:sections.main-product.blocks.badges.settings.badge_type.options__2.label"
+            },
+            {
+              "value": "best_seller",
+              "label": "t:sections.main-product.blocks.badges.settings.badge_type.options__3.label"
+            },
+            {
+              "value": "top_rated",
+              "label": "t:sections.main-product.blocks.badges.settings.badge_type.options__4.label"
+            },
+            {
+              "value": "exclusive",
+              "label": "t:sections.main-product.blocks.badges.settings.badge_type.options__5.label"
+            }
+          ],
+          "default": "new",
+          "label": "t:sections.main-product.blocks.badges.settings.badge_type.label"
+        }
+      ]
     },
     {
       "type": "text",
@@ -2152,18 +2193,18 @@
           "value": "columns",
           "label": "t:sections.main-product.settings.gallery_layout.options__2.label"
         },
-        {
-          "value": "thumbnail",
-          "label": "t:sections.main-product.settings.gallery_layout.options__3.label"
-        },
-        {
-          "value": "thumbnail_slider",
-          "label": "t:sections.main-product.settings.gallery_layout.options__4.label"
-        }
-      ],
-      "default": "stacked",
-      "label": "t:sections.main-product.settings.gallery_layout.label"
-    },
+      {
+        "value": "thumbnail",
+        "label": "t:sections.main-product.settings.gallery_layout.options__3.label"
+      },
+      {
+        "value": "thumbnail_slider",
+        "label": "t:sections.main-product.settings.gallery_layout.options__4.label"
+      }
+    ],
+    "default": "thumbnail",
+    "label": "t:sections.main-product.settings.gallery_layout.label"
+  },
     {
       "type": "select",
       "id": "mobile_thumbnails",
@@ -2259,3 +2300,12 @@
   ]
 }
 {% endschema %}
+
+<script type="application/json" id="ProductJson-{{ section.id }}">
+  {{ product | json }}
+</script>
+
+{%- comment -%} removed duplicate sticky ATC {%- endcomment -%}
+{% render 'jsonld-product', product: product %}
+
+{%- comment -%} removed duplicate recommendations - using related-products section instead {%- endcomment -%}

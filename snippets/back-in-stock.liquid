@@ -1,0 +1,45 @@
+{% if template.name == 'product' %}
+<style>
+.bis{margin:10px 0 12px; padding:10px; border:1px dashed #ddd; border-radius:12px; background:#fafafa}
+.bis[hidden]{display:none !important}
+.bis form{display:flex; gap:8px; align-items:center}
+.bis input[type="email"]{flex:1; min-height:40px; border:1px solid #ddd; border-radius:10px; padding:0 10px}
+.bis button{min-height:40px; border-radius:10px; background:#111; color:#fff; border:1px solid #111; padding:0 14px}
+.bis .msg{margin:0 0 6px; font-weight:600}
+</style>
+<div id="bis" class="bis" hidden>
+  <p class="msg">Sold out — get notified when this option is back</p>
+  {% form 'contact' %}
+    <input type="hidden" name="contact[tags]" value="back-in-stock, {{ product.handle }}">
+    <input type="hidden" id="bis-body" name="contact[body]" value="">
+    <input type="email" name="contact[email]" placeholder="Email address" required value="{{ customer.email }}">
+    <button type="submit">Notify me</button>
+  {% endform %}
+</div>
+<script>
+(function(){
+  var wrap = document.getElementById('bis'); if(!wrap) return;
+  function vid(){ var h=document.querySelector('input[name="id"].product-variant-id, form[action*="/cart/add"] input[name="id"]'); return h&&h.value; }
+  function opts(){
+    var sel=document.querySelector('variant-selects select'); if(sel){ return sel.options[sel.selectedIndex]?.text || ''; }
+    var active=[].map.call(document.querySelectorAll('variant-radios input[type="radio"]:checked + label'), function(l){ return l.textContent.trim(); }).join(' / ');
+    return active || '';
+  }
+  var INV={ {% for v in product.variants %}"{{ v.id }}": {av: {{ v.available | json }}}{% unless forloop.last %},{% endunless %}{% endfor %} };
+  function update(){
+    var id=vid(); if(!id) { wrap.hidden = true; return; }
+    var available = INV[id] ? INV[id].av : true;
+    wrap.hidden = !!available;
+    var url='{{ product.url }}?variant=' + id;
+    var text = 'BIS request for {{ product.title | escape }} — Variant ID: ' + id + (opts() ? ' — Options: '+opts() : '') + ' — URL: ' + url;
+    var body=document.getElementById('bis-body'); if(body){ body.value = text; }
+  }
+  document.addEventListener('change', function(e){
+    if(e.target.closest('variant-radios') || e.target.closest('variant-selects') || e.target.name==='id'){
+      setTimeout(update, 0);
+    }
+  }, true);
+  document.addEventListener('DOMContentLoaded', update);
+})();
+</script>
+{% endif %}

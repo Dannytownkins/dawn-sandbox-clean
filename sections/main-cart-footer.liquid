@@ -5,16 +5,22 @@
 
 {%- style -%}
   .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    padding-top: {{ section.settings.padding_top | default: 16 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 16 }}px;
   }
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
+  /* Button spacing control */
+  #main-cart-footer .cart__ctas {
+    gap: {{ section.settings.button_spacing | default: 12 }}px !important;
   }
+
+  /* Continue shopping button visibility */
+  {% unless section.settings.show_continue_shopping %}
+  #main-cart-footer .cart__ctas .button--secondary,
+  #main-cart-footer .cart__ctas a[href*="collection"] {
+    display: none !important;
+  }
+  {% endunless %}
 {%- endstyle -%}
 
 <div
@@ -135,19 +141,13 @@
 
 {% schema %}
 {
-  "name": "t:sections.main-cart-footer.name",
+  "name": "Cart Footer (Checkout)",
   "class": "cart__footer-wrapper",
   "settings": [
     {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
-    },
-    {
       "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
-    },    
+      "content": "Layout Controls"
+    },
     {
       "type": "range",
       "id": "padding_top",
@@ -155,8 +155,8 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 40
+      "label": "Top spacing",
+      "default": 16
     },
     {
       "type": "range",
@@ -165,8 +165,35 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 40
+      "label": "Bottom spacing",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_spacing",
+      "min": 0,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "label": "Space between buttons",
+      "default": 12,
+      "info": "Gap between Checkout and Continue Shopping buttons"
+    },
+    {
+      "type": "header",
+      "content": "Display Options"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_continue_shopping",
+      "label": "Show Continue Shopping button",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
     }
   ],
   "blocks": [

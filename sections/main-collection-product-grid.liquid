@@ -36,6 +36,30 @@
   }
 {%- endstyle -%}
 
+<div class="section section-{{ section.id }}">
+<style>
+  .section-{{ section.id }} {
+    text-align: {{ section.settings.text_align | default: 'left' }};
+  }
+  .section-{{ section.id }} :where(.image, .media, .card__media, .product-card__media) img {
+    max-width: {{ section.settings.image_max | default: 1000 }}px;
+    height: auto;
+    margin-inline: auto;
+    display: block;
+  }
+  .section-{{ section.id }} :where(.buttons, .button-row, .card__actions, .cta-row) {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    justify-content: {% if section.settings.button_align == 'center' %}center{% elsif section.settings.button_align == 'right' %}flex-end{% else %}flex-start{% endif %};
+  }
+  {% if section.settings.hover_zoom %}
+  .section-{{ section.id }} :where(.product-card, .card, .article-card, .collection-card):hover {
+    transform: scale(1.03);
+    transition: transform .2s ease;
+  }
+  {% endif %}
+</style>
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
   {%- paginate collection.products by section.settings.products_per_page -%}
     {% comment %} Sort is the first tabbable element when filter type is vertical {% endcomment %}
@@ -114,6 +138,7 @@
             filter_type: section.settings.filter_type,
             paginate: paginate
           %}
+          {% render 'collection-filter-chips' %}
         </aside>
       {%- endif -%}
 
@@ -124,6 +149,26 @@
           data-cascade
         {% endif %}
       >
+        {%- comment -%} Tag filter pills {%- endcomment -%}
+        {%- if collection.all_tags.size > 0 -%}
+          <div class="collection-tags page-width" style="margin-bottom: 1rem;">
+            <div class="collection-tags__pills">
+              {%- for tag in collection.all_tags -%}
+                {%- assign tag_active = false -%}
+                {%- if current_tags contains tag -%}
+                  {%- assign tag_active = true -%}
+                {%- endif -%}
+                <a
+                  href="{{ collection.url }}/{{ tag | handle }}"
+                  class="tag-pill{% if tag_active %} tag-pill--active{% endif %}"
+                >
+                  {{ tag }}
+                </a>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+
         {%- if collection.products.size == 0 -%}
           <div class="collection collection--empty page-width" id="product-grid" data-id="{{ section.id }}">
             <div class="loading-overlay gradient"></div>
@@ -174,6 +219,7 @@
                     show_rating: section.settings.show_rating,
                     lazy_load: lazy_load,
                     skip_styles: skip_card_product_styles,
+                    show_quick_add: true,
                     quick_add: section.settings.quick_add,
                     section_id: section.id
                   %}
@@ -193,6 +239,7 @@
   {% if section.settings.image_shape == 'arch' %}
     {{ 'mask-arch.svg' | inline_asset_content }}
   {%- endif -%}
+</div>
 </div>
 
 {% schema %}
@@ -233,7 +280,7 @@
           "label": "t:sections.main-collection-product-grid.settings.columns_mobile.options__2.label"
         }
       ]
-    },    
+    },
     {
       "type": "color_scheme",
       "id": "color_scheme",
@@ -327,7 +374,7 @@
     {
       "type": "select",
       "id": "quick_add",
-      "default": "none",
+      "default": "standard",
       "label": "t:sections.main-collection-product-grid.settings.quick_add.label",
       "options": [
         {
@@ -404,7 +451,92 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Design Controls"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "image_max",
+      "min": 240,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Max image width",
+      "default": 1000
+    },
+    {
+      "type": "select",
+      "id": "button_align",
+      "label": "Button alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "hover_zoom",
+      "label": "Hover zoom effect",
+      "default": false
     }
   ]
 }
 {% endschema %}
+
+<style>
+  .collection-tags__pills {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .tag-pill {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #f0f0f0;
+    color: #111;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+  }
+
+  .tag-pill:hover {
+    background: #e0e0e0;
+    transform: translateY(-1px);
+  }
+
+  .tag-pill--active {
+    background: #eded6b;
+    color: #111;
+    border-color: #111;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tag-pill {
+      transition: none;
+    }
+
+    .tag-pill:hover {
+      transform: none;
+    }
+  }
+</style>

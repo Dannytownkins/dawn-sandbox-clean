@@ -1,0 +1,28 @@
+{% if template.name == 'product' %}
+<style>
+.zoomable{cursor:zoom-in; overflow:hidden}
+.zoomable img{transition:transform .25s ease}
+.zoomable.is-zoomed img{transform:scale(1.6); cursor:zoom-out}
+</style>
+<script>
+(function(){
+  function attach(el){
+    el.classList.add('zoomable');
+    var img = el.querySelector('img'); if(!img) return;
+    var on = false;
+    el.addEventListener('click', function(){ on = !on; el.classList.toggle('is-zoomed', on); if(!on) img.style.transformOrigin=''; });
+    el.addEventListener('mousemove', function(e){
+      if(!on) return;
+      var r = el.getBoundingClientRect();
+      var x = (e.clientX - r.left)/r.width*100;
+      var y = (e.clientY - r.top)/r.height*100;
+      img.style.transformOrigin = x + '% ' + y + '%';
+    });
+    el.addEventListener('mouseleave', function(){ if(on){ on=false; el.classList.remove('is-zoomed'); img.style.transformOrigin=''; }});
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.product__media-item, .product__media').forEach(attach);
+  });
+})();
+</script>
+{% endif %}

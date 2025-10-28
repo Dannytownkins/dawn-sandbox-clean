@@ -1,0 +1,27 @@
+{% liquid
+  assign og_title = page_title
+  assign og_desc  = page_description | default: shop.description
+  assign og_image = null
+  if template.name == 'product' and product.featured_image
+    assign og_image = product.featured_image | image_url: width: 1200
+  elsif settings.share_image
+    assign og_image = settings.share_image | image_url: width: 1200
+  elsif settings.logo
+    assign og_image = settings.logo | image_url: width: 1200
+  endif
+%}
+<meta property="og:site_name" content="{{ shop.name }}">
+<meta property="og:type" content="{% if template.name == 'product' %}product{% else %}website{% endif %}">
+<meta property="og:title" content="{{ og_title | escape }}">
+<meta property="og:description" content="{{ og_desc | strip_html | escape }}">
+<meta property="og:url" content="{{ canonical_url }}">
+{% if og_image %}<meta property="og:image" content="{{ og_image }}">{% endif %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ og_title | escape }}">
+<meta name="twitter:description" content="{{ og_desc | strip_html | escape }}">
+{% if og_image %}<meta name="twitter:image" content="{{ og_image }}">{% endif %}
+<link rel="canonical" href="{{ canonical_url }}">
+{% if settings.favicon %}
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ settings.favicon | image_url: width: 32 }}">
+  <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180 }}">
+{% endif %}

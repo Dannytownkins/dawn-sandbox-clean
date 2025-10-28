@@ -1452,4 +1452,77 @@
       }
     ]
   }
+  ,
+  {
+    "name": "Developer",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "dev_force_in_stock",
+        "label": "⚡ Dev: Force products appear in stock (preview only)",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "SEO & Social",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "social_share_image",
+        "label": "Default Social Share Image",
+        "info": "Used when no specific image is available (1200x630px recommended)"
+      },
+      {
+        "type": "text",
+        "id": "default_meta_title_suffix",
+        "label": "Site Title Suffix",
+        "default": " | Danliora",
+        "info": "Appended to page titles for SEO"
+      },
+      {
+        "type": "textarea",
+        "id": "default_meta_description",
+        "label": "Default Meta Description",
+        "info": "Used when no specific description is available"
+      }
+    ]
+  },
+  {
+    "name": "Analytics & Tracking",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "analytics_enable_hooks",
+        "label": "Enable Analytics CustomEvents",
+        "default": true,
+        "info": "Dispatches custom events for Google Analytics, Meta Pixel, etc."
+      }
+    ]
+  },
+  {
+    "name": "Conversion Tools",
+    "settings": [
+      {
+        "type": "number",
+        "id": "free_ship_threshold",
+        "label": "Free Shipping Threshold",
+        "default": 50,
+        "info": "Order value required for free shipping (in your base currency)"
+      },
+      {
+        "type": "checkbox",
+        "id": "pdp_show_urgency",
+        "label": "Show 'Only X left' on PDP",
+        "default": true,
+        "info": "Displays when inventory is below 5 units"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_show_upsells",
+        "label": "Show product upsells in cart",
+        "default": true
+      }
+    ]
+  }
 ]

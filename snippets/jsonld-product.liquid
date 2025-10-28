@@ -1,0 +1,39 @@
+{% comment %}
+  Product JSON-LD for Google Rich Results
+  
+  Usage:
+  {% render 'jsonld-product', product: product %}
+{% endcomment %}
+
+{%- if product -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "image": {{ product.media | where: "media_type", "image" | map: "preview_image" | map: "src" | json }},
+  "description": {{ product.description | strip_html | truncate: 280 | json }},
+  "sku": {{ product.selected_or_first_available_variant.sku | default: product.id | json }},
+  "brand": {
+    "@type": "Brand",
+    "name": {{ shop.name | json }}
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": {{ product.url | within: collection | default: product.url | json }},
+    "priceCurrency": {{ cart.currency.iso_code | json }},
+    "price": {{ product.selected_or_first_available_variant.price | money_without_currency | replace: ",", "" | json }},
+    "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+    "priceValidUntil": "{{ 'now' | date: '%s' | plus: 31536000 | date: '%Y-%m-%d' }}"
+  }
+  {%- if product.metafields.reviews.rating -%}
+  ,
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": {{ product.metafields.reviews.rating | json }},
+    "reviewCount": {{ product.metafields.reviews.count | default: 1 | json }}
+  }
+  {%- endif -%}
+}
+</script>
+{%- endif -%}

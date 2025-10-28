@@ -1,0 +1,30 @@
+<div id="cookie-bar" class="cookie-bar" aria-hidden="true">
+  <div class="inner">
+    <p>We use cookies to personalize and improve your experience. See our <a href="/policies/privacy-policy">Privacy Policy</a>.</p>
+    <div class="actions">
+      <button type="button" class="btn accept">Accept</button>
+      <a class="link" href="/policies/privacy-policy">Learn more</a>
+    </div>
+  </div>
+</div>
+<style>
+.cookie-bar[aria-hidden="true"]{display:none}
+.cookie-bar{position:fixed;left:16px;right:16px;bottom:16px;z-index:90;background:#111;color:#fff;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.cookie-bar .inner{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 14px}
+.cookie-bar a{color:#F7E06A}
+.cookie-bar .btn{background:#F7E06A;color:#111;border:1px solid #F7E06A;border-radius:12px;min-height:40px;padding:0 12px;font-weight:700}
+.cookie-bar .actions{display:flex;gap:10px;align-items:center}
+@media (max-width:640px){ .cookie-bar .inner{flex-direction:column;align-items:flex-start} .cookie-bar{left:10px;right:10px} }
+</style>
+<script>
+(function(){
+  var KEY='cookie_ok_v1_until';
+  function seen(){ var v=localStorage.getItem(KEY); return v && Date.now()<parseInt(v,10); }
+  function set(days){ localStorage.setItem(KEY, String(Date.now()+days*24*3600*1000)); }
+  function show(){ bar.setAttribute('aria-hidden','false'); }
+  function hide(){ bar.setAttribute('aria-hidden','true'); }
+  var bar=document.getElementById('cookie-bar'); if(!bar) return;
+  if(!seen()) show();
+  bar.querySelector('.accept').addEventListener('click', function(){ set(180); hide(); });
+})();
+</script>
